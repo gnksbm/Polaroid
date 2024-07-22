@@ -47,6 +47,7 @@
 		BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB992C4E3E3F00C6718C /* MPDesign.swift */; };
 		BE2AFB9C2C4E437200C6718C /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB9B2C4E437200C6718C /* UIFont+.swift */; };
 		BE2AFB9F2C4E444500C6718C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB9E2C4E444500C6718C /* Observable.swift */; };
+		BE2AFBA22C4E481B00C6718C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BE2AFBA12C4E481B00C6718C /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +98,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE2AFB4C2C4E2C4B00C6718C /* Neat in Frameworks */,
+				BE2AFBA22C4E481B00C6718C /* SnapKit in Frameworks */,
 				BE2AFB462C4E2C0200C6718C /* RealmSwift in Frameworks */,
 				BE2AFB492C4E2C1800C6718C /* Alamofire in Frameworks */,
 			);
@@ -322,6 +324,7 @@
 				BE2AFB452C4E2C0200C6718C /* RealmSwift */,
 				BE2AFB482C4E2C1800C6718C /* Alamofire */,
 				BE2AFB4B2C4E2C4B00C6718C /* Neat */,
+				BE2AFBA12C4E481B00C6718C /* SnapKit */,
 			);
 			productName = Polaroid;
 			productReference = BE2AFB242C4E280400C6718C /* Polaroid.app */;
@@ -355,6 +358,7 @@
 				BE2AFB442C4E2C0200C6718C /* XCRemoteSwiftPackageReference "realm-swift" */,
 				BE2AFB472C4E2C1800C6718C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				BE2AFB4A2C4E2C4B00C6718C /* XCRemoteSwiftPackageReference "Neat" */,
+				BE2AFBA02C4E481B00C6718C /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = BE2AFB252C4E280400C6718C /* Products */;
 			projectDirPath = "";
@@ -665,6 +669,14 @@
 				kind = branch;
 			};
 		};
+		BE2AFBA02C4E481B00C6718C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -682,6 +694,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BE2AFB4A2C4E2C4B00C6718C /* XCRemoteSwiftPackageReference "Neat" */;
 			productName = Neat;
+		};
+		BE2AFBA12C4E481B00C6718C /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE2AFBA02C4E481B00C6718C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
