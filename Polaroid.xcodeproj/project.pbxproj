@@ -46,6 +46,7 @@
 		BE2AFB972C4E3C2500C6718C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB962C4E3C2500C6718C /* MainTabBarController.swift */; };
 		BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB992C4E3E3F00C6718C /* MPDesign.swift */; };
 		BE2AFB9C2C4E437200C6718C /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB9B2C4E437200C6718C /* UIFont+.swift */; };
+		BE2AFB9F2C4E444500C6718C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB9E2C4E444500C6718C /* Observable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		BE2AFB962C4E3C2500C6718C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BE2AFB992C4E3E3F00C6718C /* MPDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPDesign.swift; sourceTree = "<group>"; };
 		BE2AFB9B2C4E437200C6718C /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		BE2AFB9E2C4E444500C6718C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,8 +178,9 @@
 				BE2AFB732C4E340300C6718C /* BaseObject */,
 				BE2AFB872C4E36D600C6718C /* Debug */,
 				BE2AFB532C4E2E5700C6718C /* Extension */,
-				BE2AFB652C4E329700C6718C /* Weak */,
+				BE2AFB9D2C4E441D00C6718C /* Observable */,
 				BE2AFB8D2C4E387D00C6718C /* UserDefaults */,
+				BE2AFB652C4E329700C6718C /* Weak */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -291,6 +294,14 @@
 			path = Design;
 			sourceTree = "<group>";
 		};
+		BE2AFB9D2C4E441D00C6718C /* Observable */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB9E2C4E444500C6718C /* Observable.swift */,
+			);
+			path = Observable;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -395,6 +406,7 @@
 				BE2AFB822C4E34C900C6718C /* CompositionalCollectionViewType.swift in Sources */,
 				BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */,
 				BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */,
+				BE2AFB9F2C4E444500C6718C /* Observable.swift in Sources */,
 				BE2AFB6B2C4E334200C6718C /* DeinitHandler.swift in Sources */,
 				BE2AFB6E2C4E335F00C6718C /* ViewModelStorage.swift in Sources */,
 				BE2AFB632C4E2FCD00C6718C /* Publisher+.swift in Sources */,
