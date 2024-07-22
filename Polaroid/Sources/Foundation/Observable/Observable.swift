@@ -33,6 +33,16 @@ final class Observable<Base> {
     }
 }
 
+extension Observable: Hashable {
+    static func == (lhs: Observable<Base>, rhs: Observable<Base>) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
+}
+
 fileprivate final class ObservableHandler<Base> {
     private var handler: ((Base) -> Void)?
     

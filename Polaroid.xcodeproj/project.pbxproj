@@ -54,6 +54,7 @@
 		BE2AFBAA2C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBA92C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift */; };
 		BE2AFBAC2C4E510800C6718C /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBAB2C4E510800C6718C /* UIButton+.swift */; };
 		BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */; };
+		BE2AFBB02C4E579700C6718C /* ObservableBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBAF2C4E579700C6718C /* ObservableBag.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,7 @@
 		BE2AFBA92C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableCollectionViewDelegateProxy.swift; sourceTree = "<group>"; };
 		BE2AFBAB2C4E510800C6718C /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntegerLiteralType+.swift"; sourceTree = "<group>"; };
+		BE2AFBAF2C4E579700C6718C /* ObservableBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableBag.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFB9E2C4E444500C6718C /* Observable.swift */,
+				BE2AFBAF2C4E579700C6718C /* ObservableBag.swift */,
 				BE2AFBA72C4E4BF800C6718C /* ObservableControlEvent.swift */,
 				BE2AFBA92C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift */,
 				BE2AFBA52C4E4B9800C6718C /* Observable+UIKit.swift */,
@@ -435,6 +438,7 @@
 				BE2AFBAC2C4E510800C6718C /* UIButton+.swift in Sources */,
 				BE2AFB6B2C4E334200C6718C /* DeinitHandler.swift in Sources */,
 				BE2AFB6E2C4E335F00C6718C /* ViewModelStorage.swift in Sources */,
+				BE2AFBB02C4E579700C6718C /* ObservableBag.swift in Sources */,
 				BE2AFB632C4E2FCD00C6718C /* Publisher+.swift in Sources */,
 				BE2AFBAA2C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift in Sources */,
 				BE2AFB612C4E2FC600C6718C /* UIKit+Combine.swift in Sources */,
