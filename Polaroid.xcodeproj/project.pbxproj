@@ -17,6 +17,14 @@
 		BE2AFB462C4E2C0200C6718C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BE2AFB452C4E2C0200C6718C /* RealmSwift */; };
 		BE2AFB492C4E2C1800C6718C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BE2AFB482C4E2C1800C6718C /* Alamofire */; };
 		BE2AFB4C2C4E2C4B00C6718C /* Neat in Frameworks */ = {isa = PBXBuildFile; productRef = BE2AFB4B2C4E2C4B00C6718C /* Neat */; };
+		BE2AFB552C4E2EAC00C6718C /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB542C4E2EAC00C6718C /* CancelBag.swift */; };
+		BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB562C4E2F0700C6718C /* CombineControlCompatible.swift */; };
+		BE2AFB592C4E2FA400C6718C /* ControlEventPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB582C4E2FA400C6718C /* ControlEventPublisher.swift */; };
+		BE2AFB5B2C4E2FAB00C6718C /* ControlSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB5A2C4E2FAB00C6718C /* ControlSubscription.swift */; };
+		BE2AFB5D2C4E2FB100C6718C /* UITableViewDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB5C2C4E2FB100C6718C /* UITableViewDelegateProxy.swift */; };
+		BE2AFB5F2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB5E2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift */; };
+		BE2AFB612C4E2FC600C6718C /* UIKit+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB602C4E2FC600C6718C /* UIKit+Combine.swift */; };
+		BE2AFB632C4E2FCD00C6718C /* Publisher+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB622C4E2FCD00C6718C /* Publisher+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +37,14 @@
 		BE2AFB352C4E280700C6718C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE2AFB3B2C4E28AE00C6718C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BE2AFB3D2C4E28DA00C6718C /* .gitmessage.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitmessage.txt; sourceTree = "<group>"; };
+		BE2AFB542C4E2EAC00C6718C /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
+		BE2AFB562C4E2F0700C6718C /* CombineControlCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineControlCompatible.swift; sourceTree = "<group>"; };
+		BE2AFB582C4E2FA400C6718C /* ControlEventPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlEventPublisher.swift; sourceTree = "<group>"; };
+		BE2AFB5A2C4E2FAB00C6718C /* ControlSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlSubscription.swift; sourceTree = "<group>"; };
+		BE2AFB5C2C4E2FB100C6718C /* UITableViewDelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewDelegateProxy.swift; sourceTree = "<group>"; };
+		BE2AFB5E2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewDelegateProxy.swift; sourceTree = "<group>"; };
+		BE2AFB602C4E2FC600C6718C /* UIKit+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Combine.swift"; sourceTree = "<group>"; };
+		BE2AFB622C4E2FCD00C6718C /* Publisher+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFB412C4E2A9800C6718C /* App */,
+				BE2AFB4D2C4E2E2600C6718C /* Foundation */,
 				BE2AFB422C4E2A9C00C6718C /* Presentation */,
 			);
 			path = Sources;
@@ -106,6 +123,37 @@
 				BE2AFB2B2C4E280400C6718C /* ViewController.swift */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		BE2AFB4D2C4E2E2600C6718C /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB532C4E2E5700C6718C /* Extension */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		BE2AFB532C4E2E5700C6718C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB642C4E323200C6718C /* Combine */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		BE2AFB642C4E323200C6718C /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB542C4E2EAC00C6718C /* CancelBag.swift */,
+				BE2AFB562C4E2F0700C6718C /* CombineControlCompatible.swift */,
+				BE2AFB582C4E2FA400C6718C /* ControlEventPublisher.swift */,
+				BE2AFB5A2C4E2FAB00C6718C /* ControlSubscription.swift */,
+				BE2AFB5C2C4E2FB100C6718C /* UITableViewDelegateProxy.swift */,
+				BE2AFB5E2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift */,
+				BE2AFB602C4E2FC600C6718C /* UIKit+Combine.swift */,
+				BE2AFB622C4E2FCD00C6718C /* Publisher+.swift */,
+			);
+			path = Combine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,8 +238,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE2AFB592C4E2FA400C6718C /* ControlEventPublisher.swift in Sources */,
+				BE2AFB5B2C4E2FAB00C6718C /* ControlSubscription.swift in Sources */,
+				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
+				BE2AFB5F2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift in Sources */,
+				BE2AFB552C4E2EAC00C6718C /* CancelBag.swift in Sources */,
 				BE2AFB2C2C4E280400C6718C /* ViewController.swift in Sources */,
 				BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */,
+				BE2AFB632C4E2FCD00C6718C /* Publisher+.swift in Sources */,
+				BE2AFB612C4E2FC600C6718C /* UIKit+Combine.swift in Sources */,
+				BE2AFB5D2C4E2FB100C6718C /* UITableViewDelegateProxy.swift in Sources */,
 				BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
