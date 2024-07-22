@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
-		BE2AFB2C2C4E280400C6718C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* ViewController.swift */; };
+		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
 		BE2AFB312C4E280700C6718C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE2AFB302C4E280700C6718C /* Assets.xcassets */; };
 		BE2AFB342C4E280700C6718C /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BE2AFB332C4E280700C6718C /* Base */; };
 		BE2AFB3C2C4E28AE00C6718C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BE2AFB3B2C4E28AE00C6718C /* .gitignore */; };
@@ -40,13 +40,15 @@
 		BE2AFB842C4E34E800C6718C /* ModernCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB832C4E34E800C6718C /* ModernCollectionView.swift */; };
 		BE2AFB862C4E355A00C6718C /* RegistrableCollectionViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB852C4E355A00C6718C /* RegistrableCollectionViewCellType.swift */; };
 		BE2AFB892C4E36DD00C6718C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB882C4E36DD00C6718C /* Logger.swift */; };
+		BE2AFB8F2C4E388900C6718C /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB8E2C4E388900C6718C /* UserDefaultsWrapper.swift */; };
+		BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB902C4E38C200C6718C /* UserDefaultsKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BE2AFB2B2C4E280400C6718C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		BE2AFB302C4E280700C6718C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE2AFB332C4E280700C6718C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE2AFB352C4E280700C6718C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,6 +77,8 @@
 		BE2AFB832C4E34E800C6718C /* ModernCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernCollectionView.swift; sourceTree = "<group>"; };
 		BE2AFB852C4E355A00C6718C /* RegistrableCollectionViewCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrableCollectionViewCellType.swift; sourceTree = "<group>"; };
 		BE2AFB882C4E36DD00C6718C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		BE2AFB8E2C4E388900C6718C /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		BE2AFB902C4E38C200C6718C /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +154,7 @@
 		BE2AFB422C4E2A9C00C6718C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				BE2AFB2B2C4E280400C6718C /* ViewController.swift */,
+				BE2AFB922C4E39AC00C6718C /* Onboarding */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -158,8 +162,12 @@
 		BE2AFB4D2C4E2E2600C6718C /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				BE2AFB6C2C4E335900C6718C /* Architecture */,
+				BE2AFB732C4E340300C6718C /* BaseObject */,
 				BE2AFB872C4E36D600C6718C /* Debug */,
 				BE2AFB532C4E2E5700C6718C /* Extension */,
+				BE2AFB652C4E329700C6718C /* Weak */,
+				BE2AFB8D2C4E387D00C6718C /* UserDefaults */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -167,10 +175,7 @@
 		BE2AFB532C4E2E5700C6718C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				BE2AFB6C2C4E335900C6718C /* Architecture */,
-				BE2AFB732C4E340300C6718C /* BaseObject */,
 				BE2AFB642C4E323200C6718C /* Combine */,
-				BE2AFB652C4E329700C6718C /* Weak */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -239,6 +244,23 @@
 				BE2AFB882C4E36DD00C6718C /* Logger.swift */,
 			);
 			path = Debug;
+			sourceTree = "<group>";
+		};
+		BE2AFB8D2C4E387D00C6718C /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB8E2C4E388900C6718C /* UserDefaultsWrapper.swift */,
+				BE2AFB902C4E38C200C6718C /* UserDefaultsKey.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		BE2AFB922C4E39AC00C6718C /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE2AFB592C4E2FA400C6718C /* ControlEventPublisher.swift in Sources */,
+				BE2AFB8F2C4E388900C6718C /* UserDefaultsWrapper.swift in Sources */,
 				BE2AFB5B2C4E2FAB00C6718C /* ControlSubscription.swift in Sources */,
 				BE2AFB7E2C4E349E00C6718C /* DiffableCollectionViewType.swift in Sources */,
 				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
@@ -337,7 +360,7 @@
 				BE2AFB702C4E336D00C6718C /* ViewModel.swift in Sources */,
 				BE2AFB672C4E329D00C6718C /* Weak.swift in Sources */,
 				BE2AFB772C4E342200C6718C /* BaseCollectionViewCell.swift in Sources */,
-				BE2AFB2C2C4E280400C6718C /* ViewController.swift in Sources */,
+				BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */,
 				BE2AFB802C4E34BD00C6718C /* SectionData.swift in Sources */,
 				BE2AFB822C4E34C900C6718C /* CompositionalCollectionViewType.swift in Sources */,
 				BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */,
@@ -346,6 +369,7 @@
 				BE2AFB632C4E2FCD00C6718C /* Publisher+.swift in Sources */,
 				BE2AFB612C4E2FC600C6718C /* UIKit+Combine.swift in Sources */,
 				BE2AFB7B2C4E342C00C6718C /* BaseView.swift in Sources */,
+				BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */,
 				BE2AFB862C4E355A00C6718C /* RegistrableCollectionViewCellType.swift in Sources */,
 				BE2AFB5D2C4E2FB100C6718C /* UITableViewDelegateProxy.swift in Sources */,
 				BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */,
