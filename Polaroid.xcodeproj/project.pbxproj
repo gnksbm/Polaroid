@@ -56,6 +56,18 @@
 		BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */; };
 		BE2AFBB02C4E579700C6718C /* ObservableBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBAF2C4E579700C6718C /* ObservableBag.swift */; };
 		BE2AFBB22C4E612D00C6718C /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBB12C4E612D00C6718C /* OnboardingViewModel.swift */; };
+		BE2AFBB62C4E61DE00C6718C /* MBTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBB52C4E61DE00C6718C /* MBTI.swift */; };
+		BE2AFBB92C4E655B00C6718C /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBB82C4E655B00C6718C /* ProfileSettingViewController.swift */; };
+		BE2AFBBB2C4E7D8000C6718C /* BaseStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBBA2C4E7D8000C6718C /* BaseStackView.swift */; };
+		BE2AFBBE2C4E822C00C6718C /* UIViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBBD2C4E822C00C6718C /* UIViewBuilder.swift */; };
+		BE2AFBC02C4E823900C6718C /* DeclarativeStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBBF2C4E823900C6718C /* DeclarativeStackView.swift */; };
+		BE2AFBC22C4E882E00C6718C /* MBTISelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBC12C4E882E00C6718C /* MBTISelectionView.swift */; };
+		BE2AFBC42C4E884D00C6718C /* MBTIElementSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBC32C4E884D00C6718C /* MBTIElementSelectionView.swift */; };
+		BE2AFBC62C4E8A9400C6718C /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBC52C4E8A9400C6718C /* ProfileSettingViewModel.swift */; };
+		BE2AFBCB2C4E9EA900C6718C /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBCA2C4E9EA900C6718C /* CircleButton.swift */; };
+		BE2AFBCD2C4EA04300C6718C /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBCC2C4EA04300C6718C /* ToggleView.swift */; };
+		BE2AFBCF2C4EA05300C6718C /* MBTIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBCE2C4EA05300C6718C /* MBTIButton.swift */; };
+		BE2AFBD12C4EA29A00C6718C /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBD02C4EA29A00C6718C /* BaseButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +118,18 @@
 		BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntegerLiteralType+.swift"; sourceTree = "<group>"; };
 		BE2AFBAF2C4E579700C6718C /* ObservableBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableBag.swift; sourceTree = "<group>"; };
 		BE2AFBB12C4E612D00C6718C /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		BE2AFBB52C4E61DE00C6718C /* MBTI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTI.swift; sourceTree = "<group>"; };
+		BE2AFBB82C4E655B00C6718C /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
+		BE2AFBBA2C4E7D8000C6718C /* BaseStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStackView.swift; sourceTree = "<group>"; };
+		BE2AFBBD2C4E822C00C6718C /* UIViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewBuilder.swift; sourceTree = "<group>"; };
+		BE2AFBBF2C4E823900C6718C /* DeclarativeStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarativeStackView.swift; sourceTree = "<group>"; };
+		BE2AFBC12C4E882E00C6718C /* MBTISelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTISelectionView.swift; sourceTree = "<group>"; };
+		BE2AFBC32C4E884D00C6718C /* MBTIElementSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTIElementSelectionView.swift; sourceTree = "<group>"; };
+		BE2AFBC52C4E8A9400C6718C /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
+		BE2AFBCA2C4E9EA900C6718C /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		BE2AFBCC2C4EA04300C6718C /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
+		BE2AFBCE2C4EA05300C6718C /* MBTIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTIButton.swift; sourceTree = "<group>"; };
+		BE2AFBD02C4EA29A00C6718C /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +189,7 @@
 			children = (
 				BE2AFB412C4E2A9800C6718C /* App */,
 				BE2AFB982C4E3E2D00C6718C /* Design */,
+				BE2AFBB32C4E61D100C6718C /* Domain */,
 				BE2AFB4D2C4E2E2600C6718C /* Foundation */,
 				BE2AFB422C4E2A9C00C6718C /* Presentation */,
 			);
@@ -183,8 +208,10 @@
 		BE2AFB422C4E2A9C00C6718C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BE2AFBC92C4E9EA400C6718C /* Common */,
 				BE2AFB952C4E3C1F00C6718C /* MainTab */,
 				BE2AFB922C4E39AC00C6718C /* Onboarding */,
+				BE2AFBB72C4E652A00C6718C /* ProfileSetting */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -207,10 +234,10 @@
 		BE2AFB532C4E2E5700C6718C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */,
 				BE2AFB9B2C4E437200C6718C /* UIFont+.swift */,
 				BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */,
 				BE2AFBAB2C4E510800C6718C /* UIButton+.swift */,
-				BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */,
 				BE2AFB642C4E323200C6718C /* Combine */,
 			);
 			path = Extension;
@@ -255,8 +282,11 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFB762C4E342200C6718C /* BaseCollectionViewCell.swift */,
+				BE2AFBD02C4EA29A00C6718C /* BaseButton.swift */,
+				BE2AFBBA2C4E7D8000C6718C /* BaseStackView.swift */,
 				BE2AFB7A2C4E342C00C6718C /* BaseView.swift */,
 				BE2AFB742C4E340E00C6718C /* BaseViewController.swift */,
+				BE2AFBBC2C4E821B00C6718C /* UIViewBuilder */,
 				BE2AFB7C2C4E348200C6718C /* ModernCollectionView */,
 			);
 			path = BaseObject;
@@ -326,6 +356,52 @@
 				BE2AFBA52C4E4B9800C6718C /* Observable+UIKit.swift */,
 			);
 			path = Observable;
+			sourceTree = "<group>";
+		};
+		BE2AFBB32C4E61D100C6718C /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFBB42C4E61D700C6718C /* Model */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		BE2AFBB42C4E61D700C6718C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFBB52C4E61DE00C6718C /* MBTI.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BE2AFBB72C4E652A00C6718C /* ProfileSetting */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFBB82C4E655B00C6718C /* ProfileSettingViewController.swift */,
+				BE2AFBC52C4E8A9400C6718C /* ProfileSettingViewModel.swift */,
+				BE2AFBC12C4E882E00C6718C /* MBTISelectionView.swift */,
+				BE2AFBC32C4E884D00C6718C /* MBTIElementSelectionView.swift */,
+				BE2AFBCE2C4EA05300C6718C /* MBTIButton.swift */,
+			);
+			path = ProfileSetting;
+			sourceTree = "<group>";
+		};
+		BE2AFBBC2C4E821B00C6718C /* UIViewBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFBBD2C4E822C00C6718C /* UIViewBuilder.swift */,
+				BE2AFBBF2C4E823900C6718C /* DeclarativeStackView.swift */,
+			);
+			path = UIViewBuilder;
+			sourceTree = "<group>";
+		};
+		BE2AFBC92C4E9EA400C6718C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFBCA2C4E9EA900C6718C /* CircleButton.swift */,
+				BE2AFBCC2C4EA04300C6718C /* ToggleView.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -417,6 +493,7 @@
 				BE2AFB972C4E3C2500C6718C /* MainTabBarController.swift in Sources */,
 				BE2AFBA82C4E4BF800C6718C /* ObservableControlEvent.swift in Sources */,
 				BE2AFB5B2C4E2FAB00C6718C /* ControlSubscription.swift in Sources */,
+				BE2AFBBE2C4E822C00C6718C /* UIViewBuilder.swift in Sources */,
 				BE2AFB7E2C4E349E00C6718C /* DiffableCollectionViewType.swift in Sources */,
 				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
 				BE2AFB692C4E333500C6718C /* WeakStorage.swift in Sources */,
@@ -425,11 +502,21 @@
 				BE2AFB752C4E340E00C6718C /* BaseViewController.swift in Sources */,
 				BE2AFB5F2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift in Sources */,
 				BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */,
+				BE2AFBB62C4E61DE00C6718C /* MBTI.swift in Sources */,
+				BE2AFBCB2C4E9EA900C6718C /* CircleButton.swift in Sources */,
+				BE2AFBBB2C4E7D8000C6718C /* BaseStackView.swift in Sources */,
+				BE2AFBC42C4E884D00C6718C /* MBTIElementSelectionView.swift in Sources */,
+				BE2AFBB92C4E655B00C6718C /* ProfileSettingViewController.swift in Sources */,
 				BE2AFB552C4E2EAC00C6718C /* CancelBag.swift in Sources */,
+				BE2AFBD12C4EA29A00C6718C /* BaseButton.swift in Sources */,
 				BE2AFB892C4E36DD00C6718C /* Logger.swift in Sources */,
 				BE2AFB842C4E34E800C6718C /* ModernCollectionView.swift in Sources */,
+				BE2AFBCD2C4EA04300C6718C /* ToggleView.swift in Sources */,
+				BE2AFBC62C4E8A9400C6718C /* ProfileSettingViewModel.swift in Sources */,
 				BE2AFB702C4E336D00C6718C /* ViewModel.swift in Sources */,
 				BE2AFB672C4E329D00C6718C /* Weak.swift in Sources */,
+				BE2AFBC02C4E823900C6718C /* DeclarativeStackView.swift in Sources */,
+				BE2AFBC22C4E882E00C6718C /* MBTISelectionView.swift in Sources */,
 				BE2AFB772C4E342200C6718C /* BaseCollectionViewCell.swift in Sources */,
 				BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */,
 				BE2AFB802C4E34BD00C6718C /* SectionData.swift in Sources */,
@@ -453,6 +540,7 @@
 				BE2AFB862C4E355A00C6718C /* RegistrableCollectionViewCellType.swift in Sources */,
 				BE2AFB5D2C4E2FB100C6718C /* UITableViewDelegateProxy.swift in Sources */,
 				BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */,
+				BE2AFBCF2C4EA05300C6718C /* MBTIButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

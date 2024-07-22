@@ -44,4 +44,20 @@ extension UIButton {
                 })
         }
     }
+    
+    static func circleButton(title: String) -> UIButton {
+        UIButton().nt.configure { 
+            $0.configuration(.bordered())
+                .configuration.cornerStyle(.capsule)
+                .configuration.attributedTitle(
+                    AttributedString(
+                        title,
+                        attributes: AttributeContainer([
+                            .foregroundColor: MPDesign.Color.red,
+                            .font: MPDesign.Font.label1
+                        ])
+                    )
+                )
+        }
+    }
 }

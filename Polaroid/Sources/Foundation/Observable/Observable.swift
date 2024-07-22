@@ -31,6 +31,13 @@ final class Observable<Base> {
         return self
     }
     
+    func bind(to stream: Observable<Base>) -> Self {
+        _ = bind { base in
+            stream.onNext(base)
+        }
+        return self
+    }
+    
     func value() -> Base {
         base
     }

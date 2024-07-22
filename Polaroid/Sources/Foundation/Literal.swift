@@ -11,4 +11,8 @@ enum Literal {
     enum Onboarding {
         static let name = "김건섭"
     }
+    
+    enum MBTI {
+        static let title = "MBTI"
+    }
 }

@@ -7,8 +7,12 @@
 
 import UIKit
 
-extension UIButton {
-    var tapEvent: ObservableControlEvent<UIButton> {
+protocol ObservableControlEventType { }
+
+extension UIControl: ObservableControlEventType { }
+
+extension ObservableControlEventType where Self: UIButton {
+    var tapEvent: ObservableControlEvent<Self> {
         ObservableControlEvent(
             control: self,
             event: .touchUpInside
@@ -16,7 +20,7 @@ extension UIButton {
     }
 }
 
-extension UITextField {
+extension ObservableControlEventType where Self: UITextField {
     var textChangeEvent: ObservableControlEvent<UITextField> {
         ObservableControlEvent(
             control: self,

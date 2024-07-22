@@ -47,7 +47,7 @@ final class OnboardingViewController: BaseViewController, View {
         output.startProfileFlow
             .bind { [weak self] _ in
                 self?.navigationController?.pushViewController(
-                    UIViewController(),
+                    ProfileSettingViewController(),
                     animated: true
                 )
             }
