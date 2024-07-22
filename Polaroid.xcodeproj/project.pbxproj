@@ -44,6 +44,8 @@
 		BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB902C4E38C200C6718C /* UserDefaultsKey.swift */; };
 		BE2AFB942C4E3A8A00C6718C /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */; };
 		BE2AFB972C4E3C2500C6718C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB962C4E3C2500C6718C /* MainTabBarController.swift */; };
+		BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB992C4E3E3F00C6718C /* MPDesign.swift */; };
+		BE2AFB9C2C4E437200C6718C /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB9B2C4E437200C6718C /* UIFont+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +85,8 @@
 		BE2AFB902C4E38C200C6718C /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		BE2AFB962C4E3C2500C6718C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		BE2AFB992C4E3E3F00C6718C /* MPDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPDesign.swift; sourceTree = "<group>"; };
+		BE2AFB9B2C4E437200C6718C /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFB412C4E2A9800C6718C /* App */,
+				BE2AFB982C4E3E2D00C6718C /* Design */,
 				BE2AFB4D2C4E2E2600C6718C /* Foundation */,
 				BE2AFB422C4E2A9C00C6718C /* Presentation */,
 			);
@@ -180,6 +185,7 @@
 		BE2AFB532C4E2E5700C6718C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				BE2AFB9B2C4E437200C6718C /* UIFont+.swift */,
 				BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */,
 				BE2AFB642C4E323200C6718C /* Combine */,
 			);
@@ -277,6 +283,14 @@
 			path = MainTab;
 			sourceTree = "<group>";
 		};
+		BE2AFB982C4E3E2D00C6718C /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB992C4E3E3F00C6718C /* MPDesign.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -367,6 +381,7 @@
 				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
 				BE2AFB692C4E333500C6718C /* WeakStorage.swift in Sources */,
 				BE2AFB722C4E337200C6718C /* View.swift in Sources */,
+				BE2AFB9C2C4E437200C6718C /* UIFont+.swift in Sources */,
 				BE2AFB752C4E340E00C6718C /* BaseViewController.swift in Sources */,
 				BE2AFB5F2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift in Sources */,
 				BE2AFB552C4E2EAC00C6718C /* CancelBag.swift in Sources */,
@@ -378,6 +393,7 @@
 				BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */,
 				BE2AFB802C4E34BD00C6718C /* SectionData.swift in Sources */,
 				BE2AFB822C4E34C900C6718C /* CompositionalCollectionViewType.swift in Sources */,
+				BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */,
 				BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */,
 				BE2AFB6B2C4E334200C6718C /* DeinitHandler.swift in Sources */,
 				BE2AFB6E2C4E335F00C6718C /* ViewModelStorage.swift in Sources */,
@@ -544,7 +560,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geonseobkim.Polaroid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -576,7 +592,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geonseobkim.Polaroid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
