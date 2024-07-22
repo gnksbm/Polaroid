@@ -48,6 +48,12 @@
 		BE2AFB9C2C4E437200C6718C /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB9B2C4E437200C6718C /* UIFont+.swift */; };
 		BE2AFB9F2C4E444500C6718C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB9E2C4E444500C6718C /* Observable.swift */; };
 		BE2AFBA22C4E481B00C6718C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BE2AFBA12C4E481B00C6718C /* SnapKit */; };
+		BE2AFBA42C4E487800C6718C /* Literal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBA32C4E487800C6718C /* Literal.swift */; };
+		BE2AFBA62C4E4B9800C6718C /* Observable+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBA52C4E4B9800C6718C /* Observable+UIKit.swift */; };
+		BE2AFBA82C4E4BF800C6718C /* ObservableControlEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBA72C4E4BF800C6718C /* ObservableControlEvent.swift */; };
+		BE2AFBAA2C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBA92C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift */; };
+		BE2AFBAC2C4E510800C6718C /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBAB2C4E510800C6718C /* UIButton+.swift */; };
+		BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +96,12 @@
 		BE2AFB992C4E3E3F00C6718C /* MPDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPDesign.swift; sourceTree = "<group>"; };
 		BE2AFB9B2C4E437200C6718C /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		BE2AFB9E2C4E444500C6718C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		BE2AFBA32C4E487800C6718C /* Literal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Literal.swift; sourceTree = "<group>"; };
+		BE2AFBA52C4E4B9800C6718C /* Observable+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+UIKit.swift"; sourceTree = "<group>"; };
+		BE2AFBA72C4E4BF800C6718C /* ObservableControlEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableControlEvent.swift; sourceTree = "<group>"; };
+		BE2AFBA92C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableCollectionViewDelegateProxy.swift; sourceTree = "<group>"; };
+		BE2AFBAB2C4E510800C6718C /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntegerLiteralType+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +188,7 @@
 		BE2AFB4D2C4E2E2600C6718C /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				BE2AFBA32C4E487800C6718C /* Literal.swift */,
 				BE2AFB6C2C4E335900C6718C /* Architecture */,
 				BE2AFB732C4E340300C6718C /* BaseObject */,
 				BE2AFB872C4E36D600C6718C /* Debug */,
@@ -192,6 +205,8 @@
 			children = (
 				BE2AFB9B2C4E437200C6718C /* UIFont+.swift */,
 				BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */,
+				BE2AFBAB2C4E510800C6718C /* UIButton+.swift */,
+				BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */,
 				BE2AFB642C4E323200C6718C /* Combine */,
 			);
 			path = Extension;
@@ -300,6 +315,9 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFB9E2C4E444500C6718C /* Observable.swift */,
+				BE2AFBA72C4E4BF800C6718C /* ObservableControlEvent.swift */,
+				BE2AFBA92C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift */,
+				BE2AFBA52C4E4B9800C6718C /* Observable+UIKit.swift */,
 			);
 			path = Observable;
 			sourceTree = "<group>";
@@ -391,6 +409,7 @@
 				BE2AFB592C4E2FA400C6718C /* ControlEventPublisher.swift in Sources */,
 				BE2AFB8F2C4E388900C6718C /* UserDefaultsWrapper.swift in Sources */,
 				BE2AFB972C4E3C2500C6718C /* MainTabBarController.swift in Sources */,
+				BE2AFBA82C4E4BF800C6718C /* ObservableControlEvent.swift in Sources */,
 				BE2AFB5B2C4E2FAB00C6718C /* ControlSubscription.swift in Sources */,
 				BE2AFB7E2C4E349E00C6718C /* DiffableCollectionViewType.swift in Sources */,
 				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
@@ -399,6 +418,7 @@
 				BE2AFB9C2C4E437200C6718C /* UIFont+.swift in Sources */,
 				BE2AFB752C4E340E00C6718C /* BaseViewController.swift in Sources */,
 				BE2AFB5F2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift in Sources */,
+				BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */,
 				BE2AFB552C4E2EAC00C6718C /* CancelBag.swift in Sources */,
 				BE2AFB892C4E36DD00C6718C /* Logger.swift in Sources */,
 				BE2AFB842C4E34E800C6718C /* ModernCollectionView.swift in Sources */,
@@ -407,14 +427,18 @@
 				BE2AFB772C4E342200C6718C /* BaseCollectionViewCell.swift in Sources */,
 				BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */,
 				BE2AFB802C4E34BD00C6718C /* SectionData.swift in Sources */,
+				BE2AFBA62C4E4B9800C6718C /* Observable+UIKit.swift in Sources */,
 				BE2AFB822C4E34C900C6718C /* CompositionalCollectionViewType.swift in Sources */,
 				BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */,
 				BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */,
 				BE2AFB9F2C4E444500C6718C /* Observable.swift in Sources */,
+				BE2AFBAC2C4E510800C6718C /* UIButton+.swift in Sources */,
 				BE2AFB6B2C4E334200C6718C /* DeinitHandler.swift in Sources */,
 				BE2AFB6E2C4E335F00C6718C /* ViewModelStorage.swift in Sources */,
 				BE2AFB632C4E2FCD00C6718C /* Publisher+.swift in Sources */,
+				BE2AFBAA2C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift in Sources */,
 				BE2AFB612C4E2FC600C6718C /* UIKit+Combine.swift in Sources */,
+				BE2AFBA42C4E487800C6718C /* Literal.swift in Sources */,
 				BE2AFB7B2C4E342C00C6718C /* BaseView.swift in Sources */,
 				BE2AFB942C4E3A8A00C6718C /* UIViewController+.swift in Sources */,
 				BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */,
