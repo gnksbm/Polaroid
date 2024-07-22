@@ -55,6 +55,7 @@
 		BE2AFBAC2C4E510800C6718C /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBAB2C4E510800C6718C /* UIButton+.swift */; };
 		BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */; };
 		BE2AFBB02C4E579700C6718C /* ObservableBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBAF2C4E579700C6718C /* ObservableBag.swift */; };
+		BE2AFBB22C4E612D00C6718C /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBB12C4E612D00C6718C /* OnboardingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,7 @@
 		BE2AFBAB2C4E510800C6718C /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntegerLiteralType+.swift"; sourceTree = "<group>"; };
 		BE2AFBAF2C4E579700C6718C /* ObservableBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableBag.swift; sourceTree = "<group>"; };
+		BE2AFBB12C4E612D00C6718C /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */,
+				BE2AFBB12C4E612D00C6718C /* OnboardingViewModel.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				BE2AFBA62C4E4B9800C6718C /* Observable+UIKit.swift in Sources */,
 				BE2AFB822C4E34C900C6718C /* CompositionalCollectionViewType.swift in Sources */,
 				BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */,
+				BE2AFBB22C4E612D00C6718C /* OnboardingViewModel.swift in Sources */,
 				BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */,
 				BE2AFB9F2C4E444500C6718C /* Observable.swift in Sources */,
 				BE2AFBAC2C4E510800C6718C /* UIButton+.swift in Sources */,

@@ -31,15 +31,31 @@ class ObservableControlEvent<Control: UIControl> {
         }
     }
     
-    func bind(_ block: @escaping (Control) -> Void) {
+    func bind(_ block: @escaping (Control) -> Void) -> Self {
         handler = block
+        return self
     }
     
     func asObservable() -> Observable<Control> {
         let observable = Observable(control)
-        handler = { control in
+        bind { control in
             observable.onNext(control)
         }
+        .store(in: &observable.eventBag)
         return observable
+    }
+    
+    func store(in bag: inout ObservableBag) {
+        bag.insert(self)
+    }
+}
+
+extension ObservableControlEvent: Hashable {
+    static func == (lhs: ObservableControlEvent, rhs: ObservableControlEvent) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
     }
 }

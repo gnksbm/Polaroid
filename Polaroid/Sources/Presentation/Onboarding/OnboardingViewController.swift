@@ -10,7 +10,9 @@ import UIKit
 import Neat
 import SnapKit
 
-final class OnboardingViewController: BaseViewController {
+final class OnboardingViewController: BaseViewController, View {
+    private var observableBag = ObservableBag()
+    
     private let messageImageView = UIImageView().nt.configure {
         $0.image(UIImage.launchMessage)
             .contentMode(.scaleAspectFit)
@@ -28,6 +30,29 @@ final class OnboardingViewController: BaseViewController {
     }
     
     private let startButton = UIButton.largeBorderedButton(title: "시작하기")
+    
+    override init() {
+        super.init()
+        viewModel = OnboardingViewModel()
+    }
+    
+    func bind(viewModel: OnboardingViewModel) {
+        let output = viewModel.transform(
+            input: OnboardingViewModel.Input(
+                startButtonTapEvent: startButton.tapEvent.asObservable()
+                    .map { _ in }
+            )
+        )
+        
+        output.startProfileFlow
+            .bind { [weak self] _ in
+                self?.navigationController?.pushViewController(
+                    UIViewController(),
+                    animated: true
+                )
+            }
+            .store(in: &observableBag)
+    }
     
     override func configureLayout() {
         [messageImageView, photoImageView, nameLabel, startButton].forEach {

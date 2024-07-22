@@ -8,6 +8,8 @@
 import Foundation
 
 final class Observable<Base> {
+    var eventBag = ObservableBag()
+    
     private var handlers = [ObservableHandler<Base>]()
     
     private var base: Base {
@@ -24,12 +26,26 @@ final class Observable<Base> {
         base = value
     }
     
-    func bind(onNext: @escaping (Base) -> Void) {
+    func bind(onNext: @escaping (Base) -> Void) -> Self {
         handlers.append(ObservableHandler<Base>(onNext))
+        return self
     }
     
     func value() -> Base {
         base
+    }
+    
+    func map<T>(_ block: @escaping (Base) -> T) -> Observable<T> {
+        let newBase = block(base)
+        let newObservable = Observable<T>(newBase)
+        _ = bind { base in
+            newObservable.onNext(block(base))
+        }
+        return newObservable
+    }
+    
+    func store(in bag: inout ObservableBag) {
+        bag.insert(self)
     }
 }
 

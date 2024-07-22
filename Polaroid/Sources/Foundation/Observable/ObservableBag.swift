@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias ObservableBag = Set<Observable<Any>>
+typealias ObservableBag = Set<AnyHashable>
 
 extension ObservableBag {
     mutating func cancel() {
