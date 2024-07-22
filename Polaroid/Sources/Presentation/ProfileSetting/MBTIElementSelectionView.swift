@@ -7,7 +7,8 @@
 
 import UIKit
 
-final class MBTIElementSelectionView<MBTIElement: MBTIElementType>: BaseStackView {
+final class MBTIElementSelectionView
+<MBTIElement: MBTIElementType>: BaseStackView {
     let elementSelectEvent = Observable<MBTIElement?>(nil)
     private var observableBag = ObservableBag()
     
