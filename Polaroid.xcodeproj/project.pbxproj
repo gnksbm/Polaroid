@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E768E362C4EC5A10062431F /* RegexValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E352C4EC5A10062431F /* RegexValidator.swift */; };
+		8E768E382C4EC5CA0062431F /* NicknameValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E372C4EC5CA0062431F /* NicknameValidator.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
@@ -71,6 +73,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E768E352C4EC5A10062431F /* RegexValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexValidator.swift; sourceTree = "<group>"; };
+		8E768E372C4EC5CA0062431F /* NicknameValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameValidator.swift; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +151,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E768E342C4EC5940062431F /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				8E768E372C4EC5CA0062431F /* NicknameValidator.swift */,
+				8E768E352C4EC5A10062431F /* RegexValidator.swift */,
+			);
+			path = Validation;
+			sourceTree = "<group>";
+		};
 		BE2AFB1B2C4E280400C6718C = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +239,7 @@
 				BE2AFB532C4E2E5700C6718C /* Extension */,
 				BE2AFB9D2C4E441D00C6718C /* Observable */,
 				BE2AFB8D2C4E387D00C6718C /* UserDefaults */,
+				8E768E342C4EC5940062431F /* Validation */,
 				BE2AFB652C4E329700C6718C /* Weak */,
 			);
 			path = Foundation;
@@ -500,6 +514,7 @@
 				BE2AFB722C4E337200C6718C /* View.swift in Sources */,
 				BE2AFB9C2C4E437200C6718C /* UIFont+.swift in Sources */,
 				BE2AFB752C4E340E00C6718C /* BaseViewController.swift in Sources */,
+				8E768E362C4EC5A10062431F /* RegexValidator.swift in Sources */,
 				BE2AFB5F2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift in Sources */,
 				BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */,
 				BE2AFBB62C4E61DE00C6718C /* MBTI.swift in Sources */,
@@ -537,6 +552,7 @@
 				BE2AFB7B2C4E342C00C6718C /* BaseView.swift in Sources */,
 				BE2AFB942C4E3A8A00C6718C /* UIViewController+.swift in Sources */,
 				BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */,
+				8E768E382C4EC5CA0062431F /* NicknameValidator.swift in Sources */,
 				BE2AFB862C4E355A00C6718C /* RegistrableCollectionViewCellType.swift in Sources */,
 				BE2AFB5D2C4E2FB100C6718C /* UITableViewDelegateProxy.swift in Sources */,
 				BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */,
