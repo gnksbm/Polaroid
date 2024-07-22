@@ -14,6 +14,9 @@
 		BE2AFB342C4E280700C6718C /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BE2AFB332C4E280700C6718C /* Base */; };
 		BE2AFB3C2C4E28AE00C6718C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BE2AFB3B2C4E28AE00C6718C /* .gitignore */; };
 		BE2AFB3E2C4E28DA00C6718C /* .gitmessage.txt in Resources */ = {isa = PBXBuildFile; fileRef = BE2AFB3D2C4E28DA00C6718C /* .gitmessage.txt */; };
+		BE2AFB462C4E2C0200C6718C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BE2AFB452C4E2C0200C6718C /* RealmSwift */; };
+		BE2AFB492C4E2C1800C6718C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BE2AFB482C4E2C1800C6718C /* Alamofire */; };
+		BE2AFB4C2C4E2C4B00C6718C /* Neat in Frameworks */ = {isa = PBXBuildFile; productRef = BE2AFB4B2C4E2C4B00C6718C /* Neat */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE2AFB4C2C4E2C4B00C6718C /* Neat in Frameworks */,
+				BE2AFB462C4E2C0200C6718C /* RealmSwift in Frameworks */,
+				BE2AFB492C4E2C1800C6718C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +124,11 @@
 			dependencies = (
 			);
 			name = Polaroid;
+			packageProductDependencies = (
+				BE2AFB452C4E2C0200C6718C /* RealmSwift */,
+				BE2AFB482C4E2C1800C6718C /* Alamofire */,
+				BE2AFB4B2C4E2C4B00C6718C /* Neat */,
+			);
 			productName = Polaroid;
 			productReference = BE2AFB242C4E280400C6718C /* Polaroid.app */;
 			productType = "com.apple.product-type.application";
@@ -146,6 +157,11 @@
 				Base,
 			);
 			mainGroup = BE2AFB1B2C4E280400C6718C;
+			packageReferences = (
+				BE2AFB442C4E2C0200C6718C /* XCRemoteSwiftPackageReference "realm-swift" */,
+				BE2AFB472C4E2C1800C6718C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				BE2AFB4A2C4E2C4B00C6718C /* XCRemoteSwiftPackageReference "Neat" */,
+			);
 			productRefGroup = BE2AFB252C4E280400C6718C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -399,6 +415,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BE2AFB442C4E2C0200C6718C /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		BE2AFB472C4E2C1800C6718C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		BE2AFB4A2C4E2C4B00C6718C /* XCRemoteSwiftPackageReference "Neat" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gnksbm/Neat.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BE2AFB452C4E2C0200C6718C /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE2AFB442C4E2C0200C6718C /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		BE2AFB482C4E2C1800C6718C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE2AFB472C4E2C1800C6718C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		BE2AFB4B2C4E2C4B00C6718C /* Neat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE2AFB4A2C4E2C4B00C6718C /* XCRemoteSwiftPackageReference "Neat" */;
+			productName = Neat;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BE2AFB1C2C4E280400C6718C /* Project object */;
 }
