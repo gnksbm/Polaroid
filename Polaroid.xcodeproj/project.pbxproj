@@ -10,7 +10,6 @@
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* ViewController.swift */; };
-		BE2AFB2F2C4E280400C6718C /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BE2AFB2E2C4E280400C6718C /* Base */; };
 		BE2AFB312C4E280700C6718C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE2AFB302C4E280700C6718C /* Assets.xcassets */; };
 		BE2AFB342C4E280700C6718C /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BE2AFB332C4E280700C6718C /* Base */; };
 		BE2AFB3C2C4E28AE00C6718C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BE2AFB3B2C4E28AE00C6718C /* .gitignore */; };
@@ -22,7 +21,6 @@
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB2B2C4E280400C6718C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BE2AFB2E2C4E280400C6718C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE2AFB302C4E280700C6718C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE2AFB332C4E280700C6718C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE2AFB352C4E280700C6718C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,15 +60,46 @@
 		BE2AFB262C4E280400C6718C /* Polaroid */ = {
 			isa = PBXGroup;
 			children = (
-				BE2AFB272C4E280400C6718C /* AppDelegate.swift */,
-				BE2AFB292C4E280400C6718C /* SceneDelegate.swift */,
-				BE2AFB2B2C4E280400C6718C /* ViewController.swift */,
-				BE2AFB2D2C4E280400C6718C /* Main.storyboard */,
+				BE2AFB402C4E2A9000C6718C /* Sources */,
+				BE2AFB3F2C4E2A8B00C6718C /* Resources */,
+			);
+			path = Polaroid;
+			sourceTree = "<group>";
+		};
+		BE2AFB3F2C4E2A8B00C6718C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				BE2AFB302C4E280700C6718C /* Assets.xcassets */,
 				BE2AFB322C4E280700C6718C /* LaunchScreen.storyboard */,
 				BE2AFB352C4E280700C6718C /* Info.plist */,
 			);
-			path = Polaroid;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BE2AFB402C4E2A9000C6718C /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB412C4E2A9800C6718C /* App */,
+				BE2AFB422C4E2A9C00C6718C /* Presentation */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		BE2AFB412C4E2A9800C6718C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB272C4E280400C6718C /* AppDelegate.swift */,
+				BE2AFB292C4E280400C6718C /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		BE2AFB422C4E2A9C00C6718C /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB2B2C4E280400C6718C /* ViewController.swift */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,7 +164,6 @@
 				BE2AFB312C4E280700C6718C /* Assets.xcassets in Resources */,
 				BE2AFB342C4E280700C6718C /* Base in Resources */,
 				BE2AFB3E2C4E28DA00C6718C /* .gitmessage.txt in Resources */,
-				BE2AFB2F2C4E280400C6718C /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,14 +183,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		BE2AFB2D2C4E280400C6718C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BE2AFB2E2C4E280400C6718C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BE2AFB322C4E280700C6718C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -302,12 +322,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ASU4PNB5MG;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Polaroid/Info.plist;
+				INFOPLIST_FILE = Polaroid/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,9 +335,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geonseobkim.Polaroid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -330,12 +354,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ASU4PNB5MG;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Polaroid/Info.plist;
+				INFOPLIST_FILE = Polaroid/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -343,9 +367,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geonseobkim.Polaroid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
