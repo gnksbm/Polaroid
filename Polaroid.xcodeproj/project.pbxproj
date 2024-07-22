@@ -42,6 +42,8 @@
 		BE2AFB892C4E36DD00C6718C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB882C4E36DD00C6718C /* Logger.swift */; };
 		BE2AFB8F2C4E388900C6718C /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB8E2C4E388900C6718C /* UserDefaultsWrapper.swift */; };
 		BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB902C4E38C200C6718C /* UserDefaultsKey.swift */; };
+		BE2AFB942C4E3A8A00C6718C /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */; };
+		BE2AFB972C4E3C2500C6718C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB962C4E3C2500C6718C /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +81,8 @@
 		BE2AFB882C4E36DD00C6718C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		BE2AFB8E2C4E388900C6718C /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		BE2AFB902C4E38C200C6718C /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
+		BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		BE2AFB962C4E3C2500C6718C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +158,7 @@
 		BE2AFB422C4E2A9C00C6718C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BE2AFB952C4E3C1F00C6718C /* MainTab */,
 				BE2AFB922C4E39AC00C6718C /* Onboarding */,
 			);
 			path = Presentation;
@@ -175,6 +180,7 @@
 		BE2AFB532C4E2E5700C6718C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */,
 				BE2AFB642C4E323200C6718C /* Combine */,
 			);
 			path = Extension;
@@ -263,6 +269,14 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		BE2AFB952C4E3C1F00C6718C /* MainTab */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB962C4E3C2500C6718C /* MainTabBarController.swift */,
+			);
+			path = MainTab;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -347,6 +361,7 @@
 			files = (
 				BE2AFB592C4E2FA400C6718C /* ControlEventPublisher.swift in Sources */,
 				BE2AFB8F2C4E388900C6718C /* UserDefaultsWrapper.swift in Sources */,
+				BE2AFB972C4E3C2500C6718C /* MainTabBarController.swift in Sources */,
 				BE2AFB5B2C4E2FAB00C6718C /* ControlSubscription.swift in Sources */,
 				BE2AFB7E2C4E349E00C6718C /* DiffableCollectionViewType.swift in Sources */,
 				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
@@ -369,6 +384,7 @@
 				BE2AFB632C4E2FCD00C6718C /* Publisher+.swift in Sources */,
 				BE2AFB612C4E2FC600C6718C /* UIKit+Combine.swift in Sources */,
 				BE2AFB7B2C4E342C00C6718C /* BaseView.swift in Sources */,
+				BE2AFB942C4E3A8A00C6718C /* UIViewController+.swift in Sources */,
 				BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */,
 				BE2AFB862C4E355A00C6718C /* RegistrableCollectionViewCellType.swift in Sources */,
 				BE2AFB5D2C4E2FB100C6718C /* UITableViewDelegateProxy.swift in Sources */,
