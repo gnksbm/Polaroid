@@ -39,6 +39,7 @@
 		BE2AFB822C4E34C900C6718C /* CompositionalCollectionViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB812C4E34C900C6718C /* CompositionalCollectionViewType.swift */; };
 		BE2AFB842C4E34E800C6718C /* ModernCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB832C4E34E800C6718C /* ModernCollectionView.swift */; };
 		BE2AFB862C4E355A00C6718C /* RegistrableCollectionViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB852C4E355A00C6718C /* RegistrableCollectionViewCellType.swift */; };
+		BE2AFB892C4E36DD00C6718C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB882C4E36DD00C6718C /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		BE2AFB812C4E34C900C6718C /* CompositionalCollectionViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalCollectionViewType.swift; sourceTree = "<group>"; };
 		BE2AFB832C4E34E800C6718C /* ModernCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernCollectionView.swift; sourceTree = "<group>"; };
 		BE2AFB852C4E355A00C6718C /* RegistrableCollectionViewCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrableCollectionViewCellType.swift; sourceTree = "<group>"; };
+		BE2AFB882C4E36DD00C6718C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 		BE2AFB4D2C4E2E2600C6718C /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				BE2AFB872C4E36D600C6718C /* Debug */,
 				BE2AFB532C4E2E5700C6718C /* Extension */,
 			);
 			path = Foundation;
@@ -228,6 +231,14 @@
 				BE2AFB7F2C4E34BD00C6718C /* SectionData.swift */,
 			);
 			path = ModernCollectionView;
+			sourceTree = "<group>";
+		};
+		BE2AFB872C4E36D600C6718C /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB882C4E36DD00C6718C /* Logger.swift */,
+			);
+			path = Debug;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,6 +332,7 @@
 				BE2AFB752C4E340E00C6718C /* BaseViewController.swift in Sources */,
 				BE2AFB5F2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift in Sources */,
 				BE2AFB552C4E2EAC00C6718C /* CancelBag.swift in Sources */,
+				BE2AFB892C4E36DD00C6718C /* Logger.swift in Sources */,
 				BE2AFB842C4E34E800C6718C /* ModernCollectionView.swift in Sources */,
 				BE2AFB702C4E336D00C6718C /* ViewModel.swift in Sources */,
 				BE2AFB672C4E329D00C6718C /* Weak.swift in Sources */,
