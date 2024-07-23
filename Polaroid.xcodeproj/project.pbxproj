@@ -70,6 +70,7 @@
 		BE2AFBCD2C4EA04300C6718C /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBCC2C4EA04300C6718C /* ToggleView.swift */; };
 		BE2AFBCF2C4EA05300C6718C /* MBTIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBCE2C4EA05300C6718C /* MBTIButton.swift */; };
 		BE2AFBD12C4EA29A00C6718C /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBD02C4EA29A00C6718C /* BaseButton.swift */; };
+		BE5F22302C4F933500CC7DD6 /* RealmStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F222F2C4F933500CC7DD6 /* RealmStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,6 +135,7 @@
 		BE2AFBCC2C4EA04300C6718C /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		BE2AFBCE2C4EA05300C6718C /* MBTIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTIButton.swift; sourceTree = "<group>"; };
 		BE2AFBD02C4EA29A00C6718C /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		BE5F222F2C4F933500CC7DD6 /* RealmStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFB412C4E2A9800C6718C /* App */,
+				BE5F222D2C4F931300CC7DD6 /* Data */,
 				BE2AFB982C4E3E2D00C6718C /* Design */,
 				BE2AFBB32C4E61D100C6718C /* Domain */,
 				BE2AFB4D2C4E2E2600C6718C /* Foundation */,
@@ -418,6 +421,22 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		BE5F222D2C4F931300CC7DD6 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F222E2C4F931A00CC7DD6 /* DataBase */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		BE5F222E2C4F931A00CC7DD6 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F222F2C4F933500CC7DD6 /* RealmStorage.swift */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -553,6 +572,7 @@
 				BE2AFB942C4E3A8A00C6718C /* UIViewController+.swift in Sources */,
 				BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */,
 				8E768E382C4EC5CA0062431F /* NicknameValidator.swift in Sources */,
+				BE5F22302C4F933500CC7DD6 /* RealmStorage.swift in Sources */,
 				BE2AFB862C4E355A00C6718C /* RegistrableCellType.swift in Sources */,
 				BE2AFB5D2C4E2FB100C6718C /* UITableViewDelegateProxy.swift in Sources */,
 				BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */,
