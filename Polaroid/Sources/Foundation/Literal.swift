@@ -27,4 +27,8 @@ enum Literal {
         static let prefixWhiteSpace = "닉네임은 공백으로 시작할 수 없어요"
         static let suffixWhiteSpace = "닉네임은 공백으로 끝날 수 없어요"
     }
+    
+    enum NavigationTitle {
+        static let profileStrring = "PROFILE SETTING"
+    }
 }

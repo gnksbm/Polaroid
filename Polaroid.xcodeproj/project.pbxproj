@@ -398,9 +398,7 @@
 			children = (
 				BE2AFBB82C4E655B00C6718C /* ProfileSettingViewController.swift */,
 				BE2AFBC52C4E8A9400C6718C /* ProfileSettingViewModel.swift */,
-				BE2AFBC12C4E882E00C6718C /* MBTISelectionView.swift */,
-				BE2AFBC32C4E884D00C6718C /* MBTIElementSelectionView.swift */,
-				BE2AFBCE2C4EA05300C6718C /* MBTIButton.swift */,
+				BE5F22352C4F94E400CC7DD6 /* MBTI */,
 			);
 			path = ProfileSetting;
 			sourceTree = "<group>";
@@ -438,6 +436,16 @@
 				BE5F22332C4F944D00CC7DD6 /* RealmStorage+Migration.swift */,
 			);
 			path = DataBase;
+			sourceTree = "<group>";
+		};
+		BE5F22352C4F94E400CC7DD6 /* MBTI */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFBC12C4E882E00C6718C /* MBTISelectionView.swift */,
+				BE2AFBC32C4E884D00C6718C /* MBTIElementSelectionView.swift */,
+				BE2AFBCE2C4EA05300C6718C /* MBTIButton.swift */,
+			);
+			path = MBTI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

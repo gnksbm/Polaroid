@@ -34,3 +34,10 @@ extension MPDesign {
         static let clear = UIColor.clear
     }
 }
+
+extension MPDesign {
+    enum BorderSize {
+        static let small = 1.f
+        static let large = 3.f
+    }
+}
