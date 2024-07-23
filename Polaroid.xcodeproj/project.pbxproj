@@ -77,7 +77,20 @@
 		BE5F22452C4FAA4200CC7DD6 /* TopicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22442C4FAA4200CC7DD6 /* TopicCollectionView.swift */; };
 		BE5F22472C4FAAF200CC7DD6 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22462C4FAAF200CC7DD6 /* TopicViewController.swift */; };
 		BE5F22492C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22482C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift */; };
+		BE5F224D2C4FB23500CC7DD6 /* TopicDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F224C2C4FB23500CC7DD6 /* TopicDTO.swift */; };
+		BE5F225A2C4FB53400CC7DD6 /* DTOParseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22592C4FB53400CC7DD6 /* DTOParseTests.swift */; };
+		BE5F22602C4FB7EB00CC7DD6 /* Topic.json in Resources */ = {isa = PBXBuildFile; fileRef = BE5F22512C4FB49500CC7DD6 /* Topic.json */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BE5F225B2C4FB53400CC7DD6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE2AFB1C2C4E280400C6718C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE2AFB232C4E280400C6718C;
+			remoteInfo = Polaroid;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8E768E352C4EC5A10062431F /* RegexValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexValidator.swift; sourceTree = "<group>"; };
@@ -148,6 +161,11 @@
 		BE5F22442C4FAA4200CC7DD6 /* TopicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionView.swift; sourceTree = "<group>"; };
 		BE5F22462C4FAAF200CC7DD6 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 		BE5F22482C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDirectionalEdgeInsets+.swift"; sourceTree = "<group>"; };
+		BE5F224A2C4FAF7100CC7DD6 /* Secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secret.xcconfig; sourceTree = "<group>"; };
+		BE5F224C2C4FB23500CC7DD6 /* TopicDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDTO.swift; sourceTree = "<group>"; };
+		BE5F22512C4FB49500CC7DD6 /* Topic.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Topic.json; sourceTree = "<group>"; };
+		BE5F22572C4FB53400CC7DD6 /* PolaroidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaroidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE5F22592C4FB53400CC7DD6 /* DTOParseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOParseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +177,13 @@
 				BE2AFBA22C4E481B00C6718C /* SnapKit in Frameworks */,
 				BE2AFB462C4E2C0200C6718C /* RealmSwift in Frameworks */,
 				BE2AFB492C4E2C1800C6718C /* Alamofire in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE5F22542C4FB53400CC7DD6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +205,7 @@
 				BE2AFB3D2C4E28DA00C6718C /* .gitmessage.txt */,
 				BE2AFB3B2C4E28AE00C6718C /* .gitignore */,
 				BE2AFB262C4E280400C6718C /* Polaroid */,
+				BE5F22582C4FB53400CC7DD6 /* PolaroidTests */,
 				BE2AFB252C4E280400C6718C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -188,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFB242C4E280400C6718C /* Polaroid.app */,
+				BE5F22572C4FB53400CC7DD6 /* PolaroidTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +234,7 @@
 				BE2AFB302C4E280700C6718C /* Assets.xcassets */,
 				BE2AFB322C4E280700C6718C /* LaunchScreen.storyboard */,
 				BE2AFB352C4E280700C6718C /* Info.plist */,
+				BE5F224A2C4FAF7100CC7DD6 /* Secret.xcconfig */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -438,6 +466,7 @@
 			isa = PBXGroup;
 			children = (
 				BE5F222E2C4F931A00CC7DD6 /* DataBase */,
+				BE5F224B2C4FB22E00CC7DD6 /* DTO */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -471,6 +500,31 @@
 			path = Topic;
 			sourceTree = "<group>";
 		};
+		BE5F224B2C4FB22E00CC7DD6 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F224C2C4FB23500CC7DD6 /* TopicDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		BE5F224E2C4FB47E00CC7DD6 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F22512C4FB49500CC7DD6 /* Topic.json */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		BE5F22582C4FB53400CC7DD6 /* PolaroidTests */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F224E2C4FB47E00CC7DD6 /* Mock */,
+				BE5F22592C4FB53400CC7DD6 /* DTOParseTests.swift */,
+			);
+			path = PolaroidTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -497,6 +551,24 @@
 			productReference = BE2AFB242C4E280400C6718C /* Polaroid.app */;
 			productType = "com.apple.product-type.application";
 		};
+		BE5F22562C4FB53400CC7DD6 /* PolaroidTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE5F225D2C4FB53400CC7DD6 /* Build configuration list for PBXNativeTarget "PolaroidTests" */;
+			buildPhases = (
+				BE5F22532C4FB53400CC7DD6 /* Sources */,
+				BE5F22542C4FB53400CC7DD6 /* Frameworks */,
+				BE5F22552C4FB53400CC7DD6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BE5F225C2C4FB53400CC7DD6 /* PBXTargetDependency */,
+			);
+			name = PolaroidTests;
+			productName = PolaroidTests;
+			productReference = BE5F22572C4FB53400CC7DD6 /* PolaroidTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -509,6 +581,10 @@
 				TargetAttributes = {
 					BE2AFB232C4E280400C6718C = {
 						CreatedOnToolsVersion = 15.4;
+					};
+					BE5F22562C4FB53400CC7DD6 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = BE2AFB232C4E280400C6718C;
 					};
 				};
 			};
@@ -532,6 +608,7 @@
 			projectRoot = "";
 			targets = (
 				BE2AFB232C4E280400C6718C /* Polaroid */,
+				BE5F22562C4FB53400CC7DD6 /* PolaroidTests */,
 			);
 		};
 /* End PBXProject section */
@@ -545,6 +622,14 @@
 				BE2AFB312C4E280700C6718C /* Assets.xcassets in Resources */,
 				BE2AFB342C4E280700C6718C /* Base in Resources */,
 				BE2AFB3E2C4E28DA00C6718C /* .gitmessage.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE5F22552C4FB53400CC7DD6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE5F22602C4FB7EB00CC7DD6 /* Topic.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,6 +672,7 @@
 				BE2AFB702C4E336D00C6718C /* ViewModel.swift in Sources */,
 				BE2AFB672C4E329D00C6718C /* Weak.swift in Sources */,
 				BE2AFBC02C4E823900C6718C /* DeclarativeStackView.swift in Sources */,
+				BE5F224D2C4FB23500CC7DD6 /* TopicDTO.swift in Sources */,
 				BE2AFBC22C4E882E00C6718C /* MBTISelectionView.swift in Sources */,
 				BE2AFB772C4E342200C6718C /* BaseCollectionViewCell.swift in Sources */,
 				BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */,
@@ -620,7 +706,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BE5F22532C4FB53400CC7DD6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE5F225A2C4FB53400CC7DD6 /* DTOParseTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BE5F225C2C4FB53400CC7DD6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE2AFB232C4E280400C6718C /* Polaroid */;
+			targetProxy = BE5F225B2C4FB53400CC7DD6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BE2AFB322C4E280700C6718C /* LaunchScreen.storyboard */ = {
@@ -686,7 +788,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -743,7 +845,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -755,6 +857,7 @@
 		};
 		BE2AFB392C4E280700C6718C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE5F224A2C4FAF7100CC7DD6 /* Secret.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -817,6 +920,52 @@
 			};
 			name = Release;
 		};
+		BE5F225E2C4FB53400CC7DD6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ASU4PNB5MG;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geonseobkim.PolaroidTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Polaroid.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Polaroid";
+			};
+			name = Debug;
+		};
+		BE5F225F2C4FB53400CC7DD6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ASU4PNB5MG;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geonseobkim.PolaroidTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Polaroid.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Polaroid";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -834,6 +983,15 @@
 			buildConfigurations = (
 				BE2AFB392C4E280700C6718C /* Debug */,
 				BE2AFB3A2C4E280700C6718C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE5F225D2C4FB53400CC7DD6 /* Build configuration list for PBXNativeTarget "PolaroidTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE5F225E2C4FB53400CC7DD6 /* Debug */,
+				BE5F225F2C4FB53400CC7DD6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
