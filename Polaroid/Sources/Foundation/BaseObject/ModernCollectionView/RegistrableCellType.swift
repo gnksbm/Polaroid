@@ -13,5 +13,5 @@ protocol RegistrableCellType: UICollectionViewCell {
     typealias Registration<Item> =
     UICollectionView.CellRegistration<Self, Item>
     
-    static var registration: Registration<Item> { get }
+    static func makeRegistration() -> Registration<Item>
 }

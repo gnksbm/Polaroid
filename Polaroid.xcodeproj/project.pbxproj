@@ -73,6 +73,10 @@
 		BE5F22302C4F933500CC7DD6 /* RealmStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F222F2C4F933500CC7DD6 /* RealmStorage.swift */; };
 		BE5F22342C4F944D00CC7DD6 /* RealmStorage+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22332C4F944D00CC7DD6 /* RealmStorage+Migration.swift */; };
 		BE5F22372C4F965C00CC7DD6 /* ProfileImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */; };
+		BE5F22432C4FAA0B00CC7DD6 /* TopicCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22422C4FAA0B00CC7DD6 /* TopicCVCell.swift */; };
+		BE5F22452C4FAA4200CC7DD6 /* TopicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22442C4FAA4200CC7DD6 /* TopicCollectionView.swift */; };
+		BE5F22472C4FAAF200CC7DD6 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22462C4FAAF200CC7DD6 /* TopicViewController.swift */; };
+		BE5F22492C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22482C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,6 +144,10 @@
 		BE5F222F2C4F933500CC7DD6 /* RealmStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStorage.swift; sourceTree = "<group>"; };
 		BE5F22332C4F944D00CC7DD6 /* RealmStorage+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmStorage+Migration.swift"; sourceTree = "<group>"; };
 		BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageButton.swift; sourceTree = "<group>"; };
+		BE5F22422C4FAA0B00CC7DD6 /* TopicCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCVCell.swift; sourceTree = "<group>"; };
+		BE5F22442C4FAA4200CC7DD6 /* TopicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionView.swift; sourceTree = "<group>"; };
+		BE5F22462C4FAAF200CC7DD6 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
+		BE5F22482C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDirectionalEdgeInsets+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +240,7 @@
 				BE2AFB952C4E3C1F00C6718C /* MainTab */,
 				BE2AFB922C4E39AC00C6718C /* Onboarding */,
 				BE2AFBB72C4E652A00C6718C /* ProfileSetting */,
+				BE5F22412C4FA9FE00CC7DD6 /* Topic */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -259,6 +268,7 @@
 				BE2AFB9B2C4E437200C6718C /* UIFont+.swift */,
 				BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */,
 				BE2AFBAB2C4E510800C6718C /* UIButton+.swift */,
+				BE5F22482C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift */,
 				BE2AFB642C4E323200C6718C /* Combine */,
 			);
 			path = Extension;
@@ -400,7 +410,6 @@
 			children = (
 				BE2AFBB82C4E655B00C6718C /* ProfileSettingViewController.swift */,
 				BE2AFBC52C4E8A9400C6718C /* ProfileSettingViewModel.swift */,
-				BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */,
 				BE5F22352C4F94E400CC7DD6 /* MBTI */,
 			);
 			path = ProfileSetting;
@@ -419,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFBCA2C4E9EA900C6718C /* CircleButton.swift */,
+				BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */,
 				BE2AFBCC2C4EA04300C6718C /* ToggleView.swift */,
 			);
 			path = Common;
@@ -449,6 +459,16 @@
 				BE2AFBCE2C4EA05300C6718C /* MBTIButton.swift */,
 			);
 			path = MBTI;
+			sourceTree = "<group>";
+		};
+		BE5F22412C4FA9FE00CC7DD6 /* Topic */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F22462C4FAAF200CC7DD6 /* TopicViewController.swift */,
+				BE5F22442C4FAA4200CC7DD6 /* TopicCollectionView.swift */,
+				BE5F22422C4FAA0B00CC7DD6 /* TopicCVCell.swift */,
+			);
+			path = Topic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -553,7 +573,9 @@
 				BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */,
 				BE2AFBB62C4E61DE00C6718C /* MBTI.swift in Sources */,
 				BE2AFBCB2C4E9EA900C6718C /* CircleButton.swift in Sources */,
+				BE5F22432C4FAA0B00CC7DD6 /* TopicCVCell.swift in Sources */,
 				BE2AFBBB2C4E7D8000C6718C /* BaseStackView.swift in Sources */,
+				BE5F22472C4FAAF200CC7DD6 /* TopicViewController.swift in Sources */,
 				BE2AFBC42C4E884D00C6718C /* MBTIElementSelectionView.swift in Sources */,
 				BE2AFBB92C4E655B00C6718C /* ProfileSettingViewController.swift in Sources */,
 				BE2AFB552C4E2EAC00C6718C /* CancelBag.swift in Sources */,
@@ -583,7 +605,9 @@
 				BE2AFBAA2C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift in Sources */,
 				BE5F22342C4F944D00CC7DD6 /* RealmStorage+Migration.swift in Sources */,
 				BE2AFB612C4E2FC600C6718C /* UIKit+Combine.swift in Sources */,
+				BE5F22492C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift in Sources */,
 				BE2AFBA42C4E487800C6718C /* Literal.swift in Sources */,
+				BE5F22452C4FAA4200CC7DD6 /* TopicCollectionView.swift in Sources */,
 				BE2AFB7B2C4E342C00C6718C /* BaseView.swift in Sources */,
 				BE2AFB942C4E3A8A00C6718C /* UIViewController+.swift in Sources */,
 				BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */,

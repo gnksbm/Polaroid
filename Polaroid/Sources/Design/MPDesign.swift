@@ -41,3 +41,9 @@ extension MPDesign {
         static let large = 3.f
     }
 }
+
+extension MPDesign {
+    enum CornerRadius {
+        static let medium = 15.f
+    }
+}

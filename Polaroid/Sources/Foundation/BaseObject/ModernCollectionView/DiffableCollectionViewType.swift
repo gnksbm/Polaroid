@@ -61,7 +61,7 @@ extension DiffableCollectionViewType where Self: UICollectionView {
     }
     
     func configureDataSource() {
-        let registration = Cell.registration
+        let registration = Cell.makeRegistration()
         diffableDataSource = DiffableDataSource(
             collectionView: self
         ) { collectionView, indexPath, item in

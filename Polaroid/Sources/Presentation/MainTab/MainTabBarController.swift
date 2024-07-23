@@ -10,7 +10,10 @@ import UIKit
 import Neat
 
 final class MainTabBarController: UITabBarController {
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewControllers = TabKind.makeViewControllers()
+    }
 }
 
 extension MainTabBarController {
@@ -33,7 +36,7 @@ extension MainTabBarController.TabKind {
     private var viewController: UIViewController {
         switch self {
         case .topic:
-            UIViewController()
+            TopicViewController()
         case .random:
             UIViewController()
         case .search:
