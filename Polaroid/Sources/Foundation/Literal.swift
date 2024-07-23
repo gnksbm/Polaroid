@@ -5,7 +5,7 @@
 //  Created by gnksbm on 7/22/24.
 //
 
-import Foundation
+import UIKit
 
 enum Literal {
     enum Onboarding {
@@ -17,6 +17,7 @@ enum Literal {
     }
     
     enum Nickname {
+        static let placeholder = "닉네임을 입력해주세요"
         static let validationSuccess = "사용할 수 있는 닉네임이에요"
         static let outOfRange = "2글자 이상 10글자 미만으로 설정해주세요"
         static let containNumber = "닉네임에 숫자는 포함할 수 없어요"
@@ -30,5 +31,22 @@ enum Literal {
     
     enum NavigationTitle {
         static let profileStrring = "PROFILE SETTING"
+    }
+    
+    enum Image {
+        static let defaultProfileList = [
+            UIImage.profile0,
+            UIImage.profile1,
+            UIImage.profile2,
+            UIImage.profile3,
+            UIImage.profile4,
+            UIImage.profile5,
+            UIImage.profile6,
+            UIImage.profile7,
+            UIImage.profile8,
+            UIImage.profile9,
+            UIImage.profile10,
+            UIImage.profile11,
+        ]
     }
 }

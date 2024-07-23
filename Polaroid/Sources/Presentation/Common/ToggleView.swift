@@ -35,16 +35,7 @@ extension ToggleView where Self: UIButton {
         
         selectedState
             .bind { [weak self] isSelected in
-                guard let self else { return }
-                if isSelected {
-                    foregroundColor = selectedForegroundColor
-                    backgroundColor = selectedBackgroundColor
-                    layer.borderColor = selectedBorderColor?.cgColor
-                } else {
-                    foregroundColor = normalForegroundColor
-                    backgroundColor = normalBackgroundColor
-                    layer.borderColor = normalBorderColor?.cgColor
-                }
+                self?.updateView(isSelected: isSelected)
             }
             .store(in: &observableBag)
  
@@ -52,5 +43,17 @@ extension ToggleView where Self: UIButton {
         backgroundColor = normalBackgroundColor
         layer.borderColor = normalBorderColor?.cgColor
         layer.borderWidth = 1
+    }
+    
+    func updateView(isSelected: Bool) {
+        if isSelected {
+            foregroundColor = selectedForegroundColor
+            backgroundColor = selectedBackgroundColor
+            layer.borderColor = selectedBorderColor?.cgColor
+        } else {
+            foregroundColor = normalForegroundColor
+            backgroundColor = normalBackgroundColor
+            layer.borderColor = normalBorderColor?.cgColor
+        }
     }
 }

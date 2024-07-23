@@ -72,6 +72,7 @@
 		BE2AFBD12C4EA29A00C6718C /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBD02C4EA29A00C6718C /* BaseButton.swift */; };
 		BE5F22302C4F933500CC7DD6 /* RealmStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F222F2C4F933500CC7DD6 /* RealmStorage.swift */; };
 		BE5F22342C4F944D00CC7DD6 /* RealmStorage+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22332C4F944D00CC7DD6 /* RealmStorage+Migration.swift */; };
+		BE5F22372C4F965C00CC7DD6 /* ProfileImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +139,7 @@
 		BE2AFBD02C4EA29A00C6718C /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		BE5F222F2C4F933500CC7DD6 /* RealmStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStorage.swift; sourceTree = "<group>"; };
 		BE5F22332C4F944D00CC7DD6 /* RealmStorage+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmStorage+Migration.swift"; sourceTree = "<group>"; };
+		BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -398,6 +400,7 @@
 			children = (
 				BE2AFBB82C4E655B00C6718C /* ProfileSettingViewController.swift */,
 				BE2AFBC52C4E8A9400C6718C /* ProfileSettingViewModel.swift */,
+				BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */,
 				BE5F22352C4F94E400CC7DD6 /* MBTI */,
 			);
 			path = ProfileSetting;
@@ -537,6 +540,7 @@
 				BE2AFB972C4E3C2500C6718C /* MainTabBarController.swift in Sources */,
 				BE2AFBA82C4E4BF800C6718C /* ObservableControlEvent.swift in Sources */,
 				BE2AFB5B2C4E2FAB00C6718C /* ControlSubscription.swift in Sources */,
+				BE5F22372C4F965C00CC7DD6 /* ProfileImageButton.swift in Sources */,
 				BE2AFBBE2C4E822C00C6718C /* UIViewBuilder.swift in Sources */,
 				BE2AFB7E2C4E349E00C6718C /* DiffableCollectionViewType.swift in Sources */,
 				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
