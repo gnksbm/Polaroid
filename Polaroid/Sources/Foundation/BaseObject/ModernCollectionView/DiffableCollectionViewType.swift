@@ -10,7 +10,7 @@ import UIKit
 protocol DiffableCollectionViewType: AnyObject where Item == Cell.Item {
     associatedtype Section: Hashable
     associatedtype Item: Hashable
-    associatedtype Cell: RegistrableCollectionViewCellType
+    associatedtype Cell: RegistrableCellType
     
     typealias DiffableDataSource<Section: Hashable, Item: Hashable> =
     UICollectionViewDiffableDataSource<Section, Item>
@@ -62,7 +62,9 @@ extension DiffableCollectionViewType where Self: UICollectionView {
     
     func configureDataSource() {
         let registration = Cell.registration
-        diffableDataSource = DiffableDataSource(collectionView: self) { collectionView, indexPath, item in
+        diffableDataSource = DiffableDataSource(
+            collectionView: self
+        ) { collectionView, indexPath, item in
             collectionView.dequeueConfiguredReusableCell(
                 using: registration,
                 for: indexPath,

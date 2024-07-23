@@ -11,7 +11,7 @@ protocol ModernCollectionViewType:
     DiffableCollectionViewType, CompositionalCollectionViewType, AnyObject { }
 
 class ModernCollectionView
-<Section: Hashable, Item: Hashable, Cell: RegistrableCollectionViewCellType>:
+<Section: Hashable, Item: Hashable, Cell: RegistrableCellType>:
     UICollectionView, ModernCollectionViewType where Item == Cell.Item {
     class func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout.list(

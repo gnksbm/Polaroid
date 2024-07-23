@@ -1,5 +1,5 @@
 //
-//  RegistrableCollectionViewCellType.swift
+//  RegistrableCellType.swift
 //  Polaroid
 //
 //  Created by gnksbm on 7/22/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol RegistrableCollectionViewCellType: UICollectionViewCell {
+protocol RegistrableCellType: UICollectionViewCell {
     associatedtype Item: Hashable
     
     typealias Registration<Item> =
