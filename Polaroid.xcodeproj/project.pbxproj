@@ -71,6 +71,7 @@
 		BE2AFBCF2C4EA05300C6718C /* MBTIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBCE2C4EA05300C6718C /* MBTIButton.swift */; };
 		BE2AFBD12C4EA29A00C6718C /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFBD02C4EA29A00C6718C /* BaseButton.swift */; };
 		BE5F22302C4F933500CC7DD6 /* RealmStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F222F2C4F933500CC7DD6 /* RealmStorage.swift */; };
+		BE5F22342C4F944D00CC7DD6 /* RealmStorage+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22332C4F944D00CC7DD6 /* RealmStorage+Migration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +137,7 @@
 		BE2AFBCE2C4EA05300C6718C /* MBTIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTIButton.swift; sourceTree = "<group>"; };
 		BE2AFBD02C4EA29A00C6718C /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		BE5F222F2C4F933500CC7DD6 /* RealmStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStorage.swift; sourceTree = "<group>"; };
+		BE5F22332C4F944D00CC7DD6 /* RealmStorage+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmStorage+Migration.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -433,6 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				BE5F222F2C4F933500CC7DD6 /* RealmStorage.swift */,
+				BE5F22332C4F944D00CC7DD6 /* RealmStorage+Migration.swift */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 				BE2AFBB02C4E579700C6718C /* ObservableBag.swift in Sources */,
 				BE2AFB632C4E2FCD00C6718C /* Publisher+.swift in Sources */,
 				BE2AFBAA2C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift in Sources */,
+				BE5F22342C4F944D00CC7DD6 /* RealmStorage+Migration.swift in Sources */,
 				BE2AFB612C4E2FC600C6718C /* UIKit+Combine.swift in Sources */,
 				BE2AFBA42C4E487800C6718C /* Literal.swift in Sources */,
 				BE2AFB7B2C4E342C00C6718C /* BaseView.swift in Sources */,
