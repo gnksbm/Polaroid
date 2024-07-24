@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		8E768E362C4EC5A10062431F /* RegexValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E352C4EC5A10062431F /* RegexValidator.swift */; };
 		8E768E382C4EC5CA0062431F /* NicknameValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E372C4EC5CA0062431F /* NicknameValidator.swift */; };
+		8E768E3F2C5017950062431F /* EndpointRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E3E2C5017950062431F /* EndpointRepresentable.swift */; };
+		8E768E412C50179A0062431F /* Scheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E402C50179A0062431F /* Scheme.swift */; };
+		8E768E432C5017B00062431F /* EndpointError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E422C5017B00062431F /* EndpointError.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
@@ -102,6 +105,9 @@
 /* Begin PBXFileReference section */
 		8E768E352C4EC5A10062431F /* RegexValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexValidator.swift; sourceTree = "<group>"; };
 		8E768E372C4EC5CA0062431F /* NicknameValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameValidator.swift; sourceTree = "<group>"; };
+		8E768E3E2C5017950062431F /* EndpointRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointRepresentable.swift; sourceTree = "<group>"; };
+		8E768E402C50179A0062431F /* Scheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheme.swift; sourceTree = "<group>"; };
+		8E768E422C5017B00062431F /* EndpointError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointError.swift; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -213,6 +219,16 @@
 			path = Validation;
 			sourceTree = "<group>";
 		};
+		8E768E3D2C5017860062431F /* Endpoint */ = {
+			isa = PBXGroup;
+			children = (
+				8E768E422C5017B00062431F /* EndpointError.swift */,
+				8E768E3E2C5017950062431F /* EndpointRepresentable.swift */,
+				8E768E402C50179A0062431F /* Scheme.swift */,
+			);
+			path = Endpoint;
+			sourceTree = "<group>";
+		};
 		BE2AFB1B2C4E280400C6718C = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +310,7 @@
 				BE2AFB6C2C4E335900C6718C /* Architecture */,
 				BE2AFB732C4E340300C6718C /* BaseObject */,
 				BE2AFB872C4E36D600C6718C /* Debug */,
+				8E768E3D2C5017860062431F /* Endpoint */,
 				BE2AFB532C4E2E5700C6718C /* Extension */,
 				BE2AFB9D2C4E441D00C6718C /* Observable */,
 				BE2AFB8D2C4E387D00C6718C /* UserDefaults */,
@@ -693,6 +710,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E768E432C5017B00062431F /* EndpointError.swift in Sources */,
 				BE2AFB592C4E2FA400C6718C /* ControlEventPublisher.swift in Sources */,
 				BE2AFB8F2C4E388900C6718C /* UserDefaultsWrapper.swift in Sources */,
 				BE2AFB972C4E3C2500C6718C /* MainTabBarController.swift in Sources */,
@@ -710,6 +728,7 @@
 				8E768E362C4EC5A10062431F /* RegexValidator.swift in Sources */,
 				BE2AFB5F2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift in Sources */,
 				BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */,
+				8E768E3F2C5017950062431F /* EndpointRepresentable.swift in Sources */,
 				BE2AFBB62C4E61DE00C6718C /* MBTI.swift in Sources */,
 				BE2AFBCB2C4E9EA900C6718C /* CircleButton.swift in Sources */,
 				BE5F226F2C50FC5700CC7DD6 /* ProfileImageSection.swift in Sources */,
@@ -732,6 +751,7 @@
 				BE5F224D2C4FB23500CC7DD6 /* TopicDTO.swift in Sources */,
 				BE2AFBC22C4E882E00C6718C /* MBTISelectionView.swift in Sources */,
 				BE2AFB772C4E342200C6718C /* BaseCollectionViewCell.swift in Sources */,
+				8E768E412C50179A0062431F /* Scheme.swift in Sources */,
 				BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */,
 				BE2AFB802C4E34BD00C6718C /* SectionData.swift in Sources */,
 				BE2AFBA62C4E4B9800C6718C /* Observable+UIKit.swift in Sources */,
