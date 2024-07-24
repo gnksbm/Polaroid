@@ -10,7 +10,7 @@ import XCTest
 
 final class DTOParseTests: XCTestCase {
     func testExample() throws {
-        guard let url = Bundle.main.url(
+        guard let url = Bundle(for: type(of: self)).url(
             forResource: "Topic",
             withExtension: "json"
         ) else {
