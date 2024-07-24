@@ -33,4 +33,11 @@ class ModernCollectionView
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func getItem(
+        for indexPath: IndexPath
+    ) -> Item where Section: CaseIterable, Section.AllCases.Index == Int {
+        let section = Section.allCases[indexPath.section]
+        return diffableDataSource.snapshot(for: section).items[indexPath.row]
+    }
 }

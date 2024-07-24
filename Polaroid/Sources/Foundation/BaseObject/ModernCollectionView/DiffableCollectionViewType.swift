@@ -23,7 +23,7 @@ protocol DiffableCollectionViewType: AnyObject where Item == Cell.Item {
 
 extension DiffableCollectionViewType where Self: UICollectionView {
     func applySnapshot(
-        with datas: [SectionData<Section, Item>],
+        _ datas: [SectionData<Section, Item>],
         withAnimating: Bool = true
     ) {
         var snapshot = Snapshot()

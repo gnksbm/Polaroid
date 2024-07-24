@@ -1,19 +1,19 @@
 //
-//  TopicCollectionView.swift
+//  ProfileImageCollectionView.swift
 //  Polaroid
 //
-//  Created by gnksbm on 7/23/24.
+//  Created by gnksbm on 7/24/24.
 //
 
 import UIKit
 
-final class TopicCollectionView: 
-    ModernCollectionView<TopicSection, String, TopicCVCell> {
+final class ProfileImageCollectionView: ModernCollectionView
+<ProfileImageSection, ProfileImageItem, ProfileImageCVCell> {
     override class func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { _, _ in
             let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(1/2),
+                    widthDimension: .fractionalWidth(1/4),
                     heightDimension: .fractionalHeight(1)
                 )
             )
@@ -21,23 +21,13 @@ final class TopicCollectionView:
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .fractionalWidth(2/3)
+                    heightDimension: .fractionalWidth(1/4)
                 ),
                 subitems: [item]
             )
             let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = .same(size: 10)
-            section.orthogonalScrollingBehavior = .continuous
+            section.contentInsets = .same(size: 15)
             return section
         }
-    }
-    
-    override init() {
-        super.init()
-        applySnapshot(
-            TopicSection.allCases.map {
-                SectionData(section: $0, items: [])
-            }
-        )
     }
 }

@@ -20,19 +20,13 @@ protocol ToggleView: AnyObject {
     var selectedForegroundColor: UIColor? { get }
     var selectedBackgroundColor: UIColor? { get }
     var selectedBorderColor: UIColor? { get }
+    
+    func bindColor()
+    func updateView(isSelected: Bool)
 }
 
-extension ToggleView where Self: UIButton {
+extension ToggleView where Self: UIView {
     func bindColor() {
-        tapEvent
-            .asObservable()
-            .map { [weak self] button in
-                guard let self else { return false }
-                return !selectedState.value()
-            }
-            .bind(to: selectedState)
-            .store(in: &observableBag)
-        
         selectedState
             .bind { [weak self] isSelected in
                 self?.updateView(isSelected: isSelected)

@@ -79,8 +79,14 @@ final class ProfileSettingViewController: BaseViewController, View {
         
         output.startEditProfileFlow
             .bind { [weak self] _ in
+                let profileVC = ProfileImageViewController()
+                let profileVM = ProfileImageViewModel(
+                    selectedImage: self?.profileImageButton.imageView?.image
+                )
+                profileVM.delegate = viewModel
+                profileVC.viewModel = profileVM
                 self?.navigationController?.pushViewController(
-                    UIViewController(),
+                    profileVC,
                     animated: true
                 )
             }

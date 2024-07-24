@@ -31,5 +31,14 @@ final class MBTIButton: CircleButton, ToggleView {
     override init(dimension: CircleButton.Dimension) {
         super.init(dimension: dimension)
         bindColor()
+        
+        tapEvent
+            .asObservable()
+            .map { [weak self] button in
+                guard let self else { return false }
+                return !selectedState.value()
+            }
+            .bind(to: selectedState)
+            .store(in: &observableBag)
     }
 }

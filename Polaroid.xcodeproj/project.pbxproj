@@ -80,6 +80,13 @@
 		BE5F224D2C4FB23500CC7DD6 /* TopicDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F224C2C4FB23500CC7DD6 /* TopicDTO.swift */; };
 		BE5F225A2C4FB53400CC7DD6 /* DTOParseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22592C4FB53400CC7DD6 /* DTOParseTests.swift */; };
 		BE5F22602C4FB7EB00CC7DD6 /* Topic.json in Resources */ = {isa = PBXBuildFile; fileRef = BE5F22512C4FB49500CC7DD6 /* Topic.json */; };
+		BE5F22622C50D2B600CC7DD6 /* ProfileImageEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22612C50D2B600CC7DD6 /* ProfileImageEditViewController.swift */; };
+		BE5F22672C50F6D900CC7DD6 /* ProfileImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22662C50F6D900CC7DD6 /* ProfileImageViewModel.swift */; };
+		BE5F22692C50F6E000CC7DD6 /* ProfileImageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22682C50F6E000CC7DD6 /* ProfileImageCVCell.swift */; };
+		BE5F226B2C50F6FA00CC7DD6 /* ProfileImageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F226A2C50F6FA00CC7DD6 /* ProfileImageCollectionView.swift */; };
+		BE5F226D2C50FC5100CC7DD6 /* ProfileImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F226C2C50FC5100CC7DD6 /* ProfileImageItem.swift */; };
+		BE5F226F2C50FC5700CC7DD6 /* ProfileImageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F226E2C50FC5700CC7DD6 /* ProfileImageSection.swift */; };
+		BE5F22712C50FCA100CC7DD6 /* TopicSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22702C50FCA100CC7DD6 /* TopicSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +173,13 @@
 		BE5F22512C4FB49500CC7DD6 /* Topic.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Topic.json; sourceTree = "<group>"; };
 		BE5F22572C4FB53400CC7DD6 /* PolaroidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaroidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE5F22592C4FB53400CC7DD6 /* DTOParseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOParseTests.swift; sourceTree = "<group>"; };
+		BE5F22612C50D2B600CC7DD6 /* ProfileImageEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageEditViewController.swift; sourceTree = "<group>"; };
+		BE5F22662C50F6D900CC7DD6 /* ProfileImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewModel.swift; sourceTree = "<group>"; };
+		BE5F22682C50F6E000CC7DD6 /* ProfileImageCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCVCell.swift; sourceTree = "<group>"; };
+		BE5F226A2C50F6FA00CC7DD6 /* ProfileImageCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCollectionView.swift; sourceTree = "<group>"; };
+		BE5F226C2C50FC5100CC7DD6 /* ProfileImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageItem.swift; sourceTree = "<group>"; };
+		BE5F226E2C50FC5700CC7DD6 /* ProfileImageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSection.swift; sourceTree = "<group>"; };
+		BE5F22702C50FCA100CC7DD6 /* TopicSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,7 +281,7 @@
 				BE2AFBC92C4E9EA400C6718C /* Common */,
 				BE2AFB952C4E3C1F00C6718C /* MainTab */,
 				BE2AFB922C4E39AC00C6718C /* Onboarding */,
-				BE2AFBB72C4E652A00C6718C /* ProfileSetting */,
+				BE2AFBB72C4E652A00C6718C /* Profile */,
 				BE5F22412C4FA9FE00CC7DD6 /* Topic */,
 			);
 			path = Presentation;
@@ -429,18 +443,20 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFBB52C4E61DE00C6718C /* MBTI.swift */,
+				BE5F226C2C50FC5100CC7DD6 /* ProfileImageItem.swift */,
+				BE5F226E2C50FC5700CC7DD6 /* ProfileImageSection.swift */,
+				BE5F22702C50FCA100CC7DD6 /* TopicSection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		BE2AFBB72C4E652A00C6718C /* ProfileSetting */ = {
+		BE2AFBB72C4E652A00C6718C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				BE2AFBB82C4E655B00C6718C /* ProfileSettingViewController.swift */,
-				BE2AFBC52C4E8A9400C6718C /* ProfileSettingViewModel.swift */,
-				BE5F22352C4F94E400CC7DD6 /* MBTI */,
+				BE5F22652C50F69700CC7DD6 /* ProfileImage */,
+				BE5F22642C50F69400CC7DD6 /* ProfileSetting */,
 			);
-			path = ProfileSetting;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		BE2AFBBC2C4E821B00C6718C /* UIViewBuilder */ = {
@@ -480,14 +496,14 @@
 			path = DataBase;
 			sourceTree = "<group>";
 		};
-		BE5F22352C4F94E400CC7DD6 /* MBTI */ = {
+		BE5F22352C4F94E400CC7DD6 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				BE2AFBC12C4E882E00C6718C /* MBTISelectionView.swift */,
 				BE2AFBC32C4E884D00C6718C /* MBTIElementSelectionView.swift */,
 				BE2AFBCE2C4EA05300C6718C /* MBTIButton.swift */,
 			);
-			path = MBTI;
+			path = View;
 			sourceTree = "<group>";
 		};
 		BE5F22412C4FA9FE00CC7DD6 /* Topic */ = {
@@ -495,7 +511,7 @@
 			children = (
 				BE5F22462C4FAAF200CC7DD6 /* TopicViewController.swift */,
 				BE5F22442C4FAA4200CC7DD6 /* TopicCollectionView.swift */,
-				BE5F22422C4FAA0B00CC7DD6 /* TopicCVCell.swift */,
+				BE5F22732C50FCD300CC7DD6 /* View */,
 			);
 			path = Topic;
 			sourceTree = "<group>";
@@ -523,6 +539,43 @@
 				BE5F22592C4FB53400CC7DD6 /* DTOParseTests.swift */,
 			);
 			path = PolaroidTests;
+			sourceTree = "<group>";
+		};
+		BE5F22642C50F69400CC7DD6 /* ProfileSetting */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFBB82C4E655B00C6718C /* ProfileSettingViewController.swift */,
+				BE2AFBC52C4E8A9400C6718C /* ProfileSettingViewModel.swift */,
+				BE5F22352C4F94E400CC7DD6 /* View */,
+			);
+			path = ProfileSetting;
+			sourceTree = "<group>";
+		};
+		BE5F22652C50F69700CC7DD6 /* ProfileImage */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F22612C50D2B600CC7DD6 /* ProfileImageEditViewController.swift */,
+				BE5F22662C50F6D900CC7DD6 /* ProfileImageViewModel.swift */,
+				BE5F22722C50FCCB00CC7DD6 /* View */,
+			);
+			path = ProfileImage;
+			sourceTree = "<group>";
+		};
+		BE5F22722C50FCCB00CC7DD6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F226A2C50F6FA00CC7DD6 /* ProfileImageCollectionView.swift */,
+				BE5F22682C50F6E000CC7DD6 /* ProfileImageCVCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BE5F22732C50FCD300CC7DD6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F22422C4FAA0B00CC7DD6 /* TopicCVCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -647,6 +700,7 @@
 				BE2AFB5B2C4E2FAB00C6718C /* ControlSubscription.swift in Sources */,
 				BE5F22372C4F965C00CC7DD6 /* ProfileImageButton.swift in Sources */,
 				BE2AFBBE2C4E822C00C6718C /* UIViewBuilder.swift in Sources */,
+				BE5F22672C50F6D900CC7DD6 /* ProfileImageViewModel.swift in Sources */,
 				BE2AFB7E2C4E349E00C6718C /* DiffableCollectionViewType.swift in Sources */,
 				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
 				BE2AFB692C4E333500C6718C /* WeakStorage.swift in Sources */,
@@ -658,7 +712,9 @@
 				BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */,
 				BE2AFBB62C4E61DE00C6718C /* MBTI.swift in Sources */,
 				BE2AFBCB2C4E9EA900C6718C /* CircleButton.swift in Sources */,
+				BE5F226F2C50FC5700CC7DD6 /* ProfileImageSection.swift in Sources */,
 				BE5F22432C4FAA0B00CC7DD6 /* TopicCVCell.swift in Sources */,
+				BE5F22692C50F6E000CC7DD6 /* ProfileImageCVCell.swift in Sources */,
 				BE2AFBBB2C4E7D8000C6718C /* BaseStackView.swift in Sources */,
 				BE5F22472C4FAAF200CC7DD6 /* TopicViewController.swift in Sources */,
 				BE2AFBC42C4E884D00C6718C /* MBTIElementSelectionView.swift in Sources */,
@@ -670,6 +726,7 @@
 				BE2AFBCD2C4EA04300C6718C /* ToggleView.swift in Sources */,
 				BE2AFBC62C4E8A9400C6718C /* ProfileSettingViewModel.swift in Sources */,
 				BE2AFB702C4E336D00C6718C /* ViewModel.swift in Sources */,
+				BE5F226D2C50FC5100CC7DD6 /* ProfileImageItem.swift in Sources */,
 				BE2AFB672C4E329D00C6718C /* Weak.swift in Sources */,
 				BE2AFBC02C4E823900C6718C /* DeclarativeStackView.swift in Sources */,
 				BE5F224D2C4FB23500CC7DD6 /* TopicDTO.swift in Sources */,
@@ -681,11 +738,13 @@
 				BE2AFB822C4E34C900C6718C /* CompositionalCollectionViewType.swift in Sources */,
 				BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */,
 				BE2AFBB22C4E612D00C6718C /* OnboardingViewModel.swift in Sources */,
+				BE5F226B2C50F6FA00CC7DD6 /* ProfileImageCollectionView.swift in Sources */,
 				BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */,
 				BE2AFB9F2C4E444500C6718C /* Observable.swift in Sources */,
 				BE2AFBAC2C4E510800C6718C /* UIButton+.swift in Sources */,
 				BE2AFB6B2C4E334200C6718C /* DeinitHandler.swift in Sources */,
 				BE2AFB6E2C4E335F00C6718C /* ViewModelStorage.swift in Sources */,
+				BE5F22712C50FCA100CC7DD6 /* TopicSection.swift in Sources */,
 				BE2AFBB02C4E579700C6718C /* ObservableBag.swift in Sources */,
 				BE2AFB632C4E2FCD00C6718C /* Publisher+.swift in Sources */,
 				BE2AFBAA2C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift in Sources */,
@@ -696,6 +755,7 @@
 				BE5F22452C4FAA4200CC7DD6 /* TopicCollectionView.swift in Sources */,
 				BE2AFB7B2C4E342C00C6718C /* BaseView.swift in Sources */,
 				BE2AFB942C4E3A8A00C6718C /* UIViewController+.swift in Sources */,
+				BE5F22622C50D2B600CC7DD6 /* ProfileImageEditViewController.swift in Sources */,
 				BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */,
 				8E768E382C4EC5CA0062431F /* NicknameValidator.swift in Sources */,
 				BE5F22302C4F933500CC7DD6 /* RealmStorage.swift in Sources */,

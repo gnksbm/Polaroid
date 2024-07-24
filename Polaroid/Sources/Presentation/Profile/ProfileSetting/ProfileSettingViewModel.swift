@@ -8,6 +8,7 @@
 import UIKit
 
 final class ProfileSettingViewModel: ViewModel {
+    private let selectedImage = Observable<UIImage?>(nil)
     private var observableBag = ObservableBag()
     
     func transform(input: Input) -> Output {
@@ -19,9 +20,15 @@ final class ProfileSettingViewModel: ViewModel {
             startMainTabFolw: Observable<Void>(())
         )
         
+        selectedImage
+            .bind(to: output.selectedImage)
+            .store(in: &observableBag)
+        
         input.viewDidLoadEvent
-            .bind { _ in
-                output.selectedImage.onNext(Literal.Image.defaultProfileList.randomElement())
+            .bind { [weak self] _ in
+                self?.selectedImage.onNext(
+                    Literal.Image.defaultProfileList.randomElement()
+                )
             }
             .store(in: &observableBag)
         
@@ -116,5 +123,11 @@ extension ProfileSettingViewModel {
     
     enum ValidationResult {
         case success(String), failure(String)
+    }
+}
+
+extension ProfileSettingViewModel: ProfileImageViewModelDelegate {
+    func finishedFlow(with: UIImage?) {
+        selectedImage.onNext(with)
     }
 }

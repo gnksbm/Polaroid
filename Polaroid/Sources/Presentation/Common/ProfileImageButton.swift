@@ -14,7 +14,7 @@ final class ProfileImageButton: CircleButton, ToggleView {
     var foregroundColor: UIColor?
     var normalForegroundColor: UIColor?
     var normalBackgroundColor: UIColor?
-    var normalBorderColor: UIColor? { MPDesign.Color.lightGray }
+    var normalBorderColor: UIColor? { MPDesign.Color.gray }
     
     var selectedForegroundColor: UIColor?
     var selectedBackgroundColor: UIColor?

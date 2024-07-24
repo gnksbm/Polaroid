@@ -13,18 +13,26 @@ final class ObservableCollectionViewDelegateProxy: NSObject {
     
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView
+        super.init()
+        collectionView.delegate = self
     }
     
-    func bind(_ block: @escaping (IndexPath) -> Void) {
+    func bind(_ block: @escaping (IndexPath) -> Void) -> Self {
         handler = block
+        return self
     }
     
     func asObservable() -> Observable<IndexPath?> {
         let observable = Observable<IndexPath?>(nil)
-        handler = { indexPath in
+        bind { indexPath in
             observable.onNext(indexPath)
         }
+        .store(in: &observable.eventBag)
         return observable
+    }
+    
+    func store(in bag: inout ObservableBag) {
+        bag.insert(self)
     }
 }
 
