@@ -17,6 +17,10 @@ final class TopicViewController: BaseViewController, View {
         type: .static,
         dimension: .width
     )
+    private let titleLabel = UILabel().nt.configure {
+        $0.text(Literal.NavigationTitle.ourTopic)
+            .font(MPDesign.Font.largeNavigationTitle.with(weight: .bold))
+    }
     private let collectionView = TopicCollectionView()
     
     override init() {
@@ -27,6 +31,7 @@ final class TopicViewController: BaseViewController, View {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewDidLoadEvent.onNext(())
+        showProgressView()
     }
     
     func bind(viewModel: TopicViewModel) {
@@ -38,22 +43,37 @@ final class TopicViewController: BaseViewController, View {
         
         output.sectionDatas
             .bind { [weak self] sectionDatas in
-                self?.collectionView.applySnapshot(sectionDatas)
+                guard let self else { return }
+                collectionView.applySnapshot(sectionDatas)
+                hideProgressView()
             }
             .store(in: &observableBag)
         
         output.onError
             .bind { [weak self] _ in
-                self?.showToast(message: "오류가 발생했습니다")
+                guard let self else { return }
+                showToast(message: "오류가 발생했습니다")
+                hideProgressView()
             }
             .store(in: &observableBag)
     }
     
     override func configureLayout() {
-        view.addSubview(collectionView)
+        [titleLabel, collectionView].forEach {
+            view.addSubview($0)
+        }
+        
+        let safeArea = view.safeAreaLayoutGuide
+        let padding = 20.f
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(safeArea)
+            make.leading.equalTo(safeArea).inset(padding * 0.75)
+        }
         
         collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(titleLabel.snp.bottom).offset(padding)
+            make.horizontalEdges.bottom.equalTo(safeArea)
         }
     }
     

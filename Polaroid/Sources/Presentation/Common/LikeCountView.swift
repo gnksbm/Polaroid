@@ -39,7 +39,7 @@ final class LikeCountView: BaseView {
     override func configureLayout() {
         [starImageView, countLabel].forEach { addSubview($0) }
         
-        let padding = 15.f
+        let padding = 12.f
         
         starImageView.snp.makeConstraints { make in
             make.verticalEdges.equalTo(self).inset(padding / 2)

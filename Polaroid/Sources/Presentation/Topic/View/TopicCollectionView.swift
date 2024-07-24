@@ -26,7 +26,23 @@ final class TopicCollectionView:
                 subitems: [item]
             )
             let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = .same(size: 10)
+            let sectionInset = 10.f
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: 0,
+                leading: sectionInset,
+                bottom: sectionInset,
+                trailing: sectionInset
+            )
+            section.boundarySupplementaryItems = [
+                NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(10)
+                    ),
+                    elementKind: UICollectionView.elementKindSectionHeader,
+                    alignment: .top
+                )
+            ]
             section.orthogonalScrollingBehavior = .continuous
             return section
         }
@@ -34,10 +50,39 @@ final class TopicCollectionView:
     
     override init() {
         super.init()
+        configureHeader()
         applySnapshot(
             TopicSection.allCases.map {
                 SectionData(section: $0, items: [])
             }
         )
+    }
+    
+    private func configureHeader() {
+        let headerRegistration = makeHeaderRegistration()
+        diffableDataSource.supplementaryViewProvider =
+        { collectionView, string, indexPath in
+            collectionView.dequeueConfiguredReusableSupplementary(
+                using: headerRegistration,
+                for: indexPath
+            )
+        }
+    }
+    
+    private func makeHeaderRegistration(
+    ) -> UICollectionView.SupplementaryRegistration<UICollectionViewCell> {
+        UICollectionView.SupplementaryRegistration<UICollectionViewCell>(
+            elementKind: UICollectionView.elementKindSectionHeader
+        ) { header, _, indexPath in
+            var config = UIListContentConfiguration.plainHeader()
+            config.attributedText = NSAttributedString(
+                string: TopicSection.allCases[indexPath.section].title,
+                attributes: [
+                    .font: MPDesign.Font.heading.with(weight: .bold),
+                    .foregroundColor: MPDesign.Color.black
+                ]
+            )
+            header.contentConfiguration = config
+        }
     }
 }

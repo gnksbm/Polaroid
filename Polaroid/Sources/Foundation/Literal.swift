@@ -31,6 +31,7 @@ enum Literal {
     
     enum NavigationTitle {
         static let profileStrring = "PROFILE SETTING"
+        static let ourTopic = "OUT TOPIC"
     }
     
     enum Image {
