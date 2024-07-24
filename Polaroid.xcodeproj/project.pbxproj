@@ -12,6 +12,14 @@
 		8E768E3F2C5017950062431F /* EndpointRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E3E2C5017950062431F /* EndpointRepresentable.swift */; };
 		8E768E412C50179A0062431F /* Scheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E402C50179A0062431F /* Scheme.swift */; };
 		8E768E432C5017B00062431F /* EndpointError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E422C5017B00062431F /* EndpointError.swift */; };
+		8E768E462C50192A0062431F /* UnsplashEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E452C50192A0062431F /* UnsplashEndpoint.swift */; };
+		8E768E4A2C5019E80062431F /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E492C5019E80062431F /* Secret.swift */; };
+		8E768E4C2C501AD10062431F /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E4B2C501AD10062431F /* HTTPMethod.swift */; };
+		8E768E4F2C501DF40062431F /* TopicRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E4E2C501DF40062431F /* TopicRequest.swift */; };
+		8E768E512C501E080062431F /* TopicEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E502C501E080062431F /* TopicEndpoint.swift */; };
+		8E768E542C501E800062431F /* TopicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E532C501E800062431F /* TopicRepository.swift */; };
+		8E768E592C508F3F0062431F /* MinimumUnsplashImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E582C508F3F0062431F /* MinimumUnsplashImage.swift */; };
+		8E768E8B2C513EE40062431F /* LikeCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E8A2C513EE40062431F /* LikeCountView.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
@@ -108,6 +116,14 @@
 		8E768E3E2C5017950062431F /* EndpointRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointRepresentable.swift; sourceTree = "<group>"; };
 		8E768E402C50179A0062431F /* Scheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheme.swift; sourceTree = "<group>"; };
 		8E768E422C5017B00062431F /* EndpointError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointError.swift; sourceTree = "<group>"; };
+		8E768E452C50192A0062431F /* UnsplashEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashEndpoint.swift; sourceTree = "<group>"; };
+		8E768E492C5019E80062431F /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
+		8E768E4B2C501AD10062431F /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		8E768E4E2C501DF40062431F /* TopicRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicRequest.swift; sourceTree = "<group>"; };
+		8E768E502C501E080062431F /* TopicEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicEndpoint.swift; sourceTree = "<group>"; };
+		8E768E532C501E800062431F /* TopicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicRepository.swift; sourceTree = "<group>"; };
+		8E768E582C508F3F0062431F /* MinimumUnsplashImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimumUnsplashImage.swift; sourceTree = "<group>"; };
+		8E768E8A2C513EE40062431F /* LikeCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCountView.swift; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -224,9 +240,36 @@
 			children = (
 				8E768E422C5017B00062431F /* EndpointError.swift */,
 				8E768E3E2C5017950062431F /* EndpointRepresentable.swift */,
+				8E768E4B2C501AD10062431F /* HTTPMethod.swift */,
 				8E768E402C50179A0062431F /* Scheme.swift */,
 			);
 			path = Endpoint;
+			sourceTree = "<group>";
+		};
+		8E768E442C5018FC0062431F /* Endpoint */ = {
+			isa = PBXGroup;
+			children = (
+				8E768E502C501E080062431F /* TopicEndpoint.swift */,
+				8E768E452C50192A0062431F /* UnsplashEndpoint.swift */,
+			);
+			path = Endpoint;
+			sourceTree = "<group>";
+		};
+		8E768E4D2C501DEB0062431F /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				BE2AFB982C4E3E2D00C6718C /* Design */,
+				8E768E4E2C501DF40062431F /* TopicRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		8E768E522C501E410062431F /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				8E768E532C501E800062431F /* TopicRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		BE2AFB1B2C4E280400C6718C = {
@@ -274,7 +317,6 @@
 			children = (
 				BE2AFB412C4E2A9800C6718C /* App */,
 				BE5F222D2C4F931300CC7DD6 /* Data */,
-				BE2AFB982C4E3E2D00C6718C /* Design */,
 				BE2AFBB32C4E61D100C6718C /* Domain */,
 				BE2AFB4D2C4E2E2600C6718C /* Foundation */,
 				BE2AFB422C4E2A9C00C6718C /* Presentation */,
@@ -307,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFBA32C4E487800C6718C /* Literal.swift */,
+				8E768E492C5019E80062431F /* Secret.swift */,
 				BE2AFB6C2C4E335900C6718C /* Architecture */,
 				BE2AFB732C4E340300C6718C /* BaseObject */,
 				BE2AFB872C4E36D600C6718C /* Debug */,
@@ -324,10 +367,10 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */,
+				BE5F22482C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift */,
 				BE2AFB9B2C4E437200C6718C /* UIFont+.swift */,
 				BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */,
 				BE2AFBAB2C4E510800C6718C /* UIButton+.swift */,
-				BE5F22482C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift */,
 				BE2AFB642C4E323200C6718C /* Combine */,
 			);
 			path = Extension;
@@ -463,6 +506,7 @@
 				BE5F226C2C50FC5100CC7DD6 /* ProfileImageItem.swift */,
 				BE5F226E2C50FC5700CC7DD6 /* ProfileImageSection.swift */,
 				BE5F22702C50FCA100CC7DD6 /* TopicSection.swift */,
+				8E768E582C508F3F0062431F /* MinimumUnsplashImage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -491,6 +535,7 @@
 				BE2AFBCA2C4E9EA900C6718C /* CircleButton.swift */,
 				BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */,
 				BE2AFBCC2C4EA04300C6718C /* ToggleView.swift */,
+				8E768E8A2C513EE40062431F /* LikeCountView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -498,8 +543,11 @@
 		BE5F222D2C4F931300CC7DD6 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				8E768E442C5018FC0062431F /* Endpoint */,
 				BE5F222E2C4F931A00CC7DD6 /* DataBase */,
 				BE5F224B2C4FB22E00CC7DD6 /* DTO */,
+				8E768E522C501E410062431F /* Repository */,
+				8E768E4D2C501DEB0062431F /* Request */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -730,8 +778,10 @@
 				BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */,
 				8E768E3F2C5017950062431F /* EndpointRepresentable.swift in Sources */,
 				BE2AFBB62C4E61DE00C6718C /* MBTI.swift in Sources */,
+				8E768E512C501E080062431F /* TopicEndpoint.swift in Sources */,
 				BE2AFBCB2C4E9EA900C6718C /* CircleButton.swift in Sources */,
 				BE5F226F2C50FC5700CC7DD6 /* ProfileImageSection.swift in Sources */,
+				8E768E4C2C501AD10062431F /* HTTPMethod.swift in Sources */,
 				BE5F22432C4FAA0B00CC7DD6 /* TopicCVCell.swift in Sources */,
 				BE5F22692C50F6E000CC7DD6 /* ProfileImageCVCell.swift in Sources */,
 				BE2AFBBB2C4E7D8000C6718C /* BaseStackView.swift in Sources */,
@@ -756,6 +806,7 @@
 				BE2AFB802C4E34BD00C6718C /* SectionData.swift in Sources */,
 				BE2AFBA62C4E4B9800C6718C /* Observable+UIKit.swift in Sources */,
 				BE2AFB822C4E34C900C6718C /* CompositionalCollectionViewType.swift in Sources */,
+				8E768E8B2C513EE40062431F /* LikeCountView.swift in Sources */,
 				BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */,
 				BE2AFBB22C4E612D00C6718C /* OnboardingViewModel.swift in Sources */,
 				BE5F226B2C50F6FA00CC7DD6 /* ProfileImageCollectionView.swift in Sources */,
@@ -772,17 +823,22 @@
 				BE2AFB612C4E2FC600C6718C /* UIKit+Combine.swift in Sources */,
 				BE5F22492C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift in Sources */,
 				BE2AFBA42C4E487800C6718C /* Literal.swift in Sources */,
+				8E768E4F2C501DF40062431F /* TopicRequest.swift in Sources */,
+				8E768E462C50192A0062431F /* UnsplashEndpoint.swift in Sources */,
 				BE5F22452C4FAA4200CC7DD6 /* TopicCollectionView.swift in Sources */,
 				BE2AFB7B2C4E342C00C6718C /* BaseView.swift in Sources */,
+				8E768E592C508F3F0062431F /* MinimumUnsplashImage.swift in Sources */,
 				BE2AFB942C4E3A8A00C6718C /* UIViewController+.swift in Sources */,
 				BE5F22622C50D2B600CC7DD6 /* ProfileImageEditViewController.swift in Sources */,
 				BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */,
+				8E768E4A2C5019E80062431F /* Secret.swift in Sources */,
 				8E768E382C4EC5CA0062431F /* NicknameValidator.swift in Sources */,
 				BE5F22302C4F933500CC7DD6 /* RealmStorage.swift in Sources */,
 				BE2AFB862C4E355A00C6718C /* RegistrableCellType.swift in Sources */,
 				BE2AFB5D2C4E2FB100C6718C /* UITableViewDelegateProxy.swift in Sources */,
 				BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */,
 				BE2AFBCF2C4EA05300C6718C /* MBTIButton.swift in Sources */,
+				8E768E542C501E800062431F /* TopicRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

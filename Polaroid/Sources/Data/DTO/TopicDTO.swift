@@ -10,8 +10,9 @@ import Foundation
 struct TopicDTO: Decodable {
     let id, slug: String
     let alternativeSlugs: AlternativeSlugs
-    let createdAt, updatedAt: Date
-    let promotedAt: Date?
+    let createdAt: String
+    let updatedAt: String
+    let promotedAt: String?
     let width, height: Int
     let color, blurHash: String
     let description: String?
@@ -49,6 +50,16 @@ struct TopicDTO: Decodable {
 }
 
 extension TopicDTO {
+    var toMinImage: MinimumUnsplashImage {
+        MinimumUnsplashImage(
+            id: id,
+            imageURL: URL(string: urls.raw),
+            likeCount: likes
+        )
+    }
+}
+
+extension TopicDTO {
     struct AlternativeSlugs: Codable {
         let en, es, ja, fr: String
         let it, ko, de, pt: String
@@ -69,10 +80,11 @@ extension TopicDTO {
     }
     
     struct TopicSubmissions: Codable {
-        let architectureInterior: ArchitectureInterior
+        let architectureInterior: ArchitectureInterior?
         let spirituality, travel: BusinessWork?
         let goldenHour: ArchitectureInterior?
-        let wallpapers, businessWork, experimental, texturesPatterns: BusinessWork?
+        let wallpapers, businessWork, experimental: BusinessWork?
+        let texturesPatterns: BusinessWork?
         let film: ArchitectureInterior?
         
         enum CodingKeys: String, CodingKey {
@@ -88,17 +100,13 @@ extension TopicDTO {
     }
     
     struct ArchitectureInterior: Codable {
-        let status: Status
-        let approvedOn: Date
+        let status: String
+        let approvedOn: String?
         
         enum CodingKeys: String, CodingKey {
             case status
             case approvedOn = "approved_on"
         }
-    }
-    
-    enum Status: String, Codable {
-        case approved = "approved"
     }
     
     struct BusinessWork: Codable {
@@ -117,7 +125,7 @@ extension TopicDTO {
     
     struct User: Codable {
         let id: String
-        let updatedAt: Date
+        let updatedAt: String
         let username, name, firstName: String
         let lastName, twitterUsername: String?
         let portfolioURL: String?
@@ -180,4 +188,8 @@ extension TopicDTO {
             case paypalEmail = "paypal_email"
         }
     }
+}
+
+struct UnsplashDate {
+    let value: String
 }

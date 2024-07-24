@@ -7,10 +7,65 @@
 
 import UIKit
 
+import Neat
+import SnapKit
+
 final class TopicCVCell: BaseCollectionViewCell, RegistrableCellType {
-    static func makeRegistration() -> Registration<String> {
-        Registration { cell, indexPath, itemIdentifier in
-            
+    private var imageTask: URLSessionTask?
+    
+    private let imageView = UIImageView().nt.configure {
+        $0.contentMode(.scaleAspectFill)
+            .backgroundColor(MPDesign.Color.lightGray)
+    }
+    private let likeCountView = LikeCountView()
+    
+    static func makeRegistration() -> Registration<MinimumUnsplashImage> {
+        Registration { cell, indexPath, item in
+            if let url = item.imageURL {
+                DispatchQueue.global().async { [weak cell] in
+                    let imageSourceOptions =
+                    [kCGImageSourceShouldCache: false] as CFDictionary
+                    let imageSource = CGImageSourceCreateWithURL(
+                        url as CFURL, 
+                        imageSourceOptions
+                    )
+                    if let imageSource {
+                        let cgImage = CGImageSourceCreateThumbnailAtIndex(
+                            imageSource,
+                            0,
+                            imageSourceOptions
+                        )
+                        if let cgImage {
+                            DispatchQueue.main.async {
+                                cell?.imageView.image = 
+                                UIImage(cgImage: cgImage)
+                            }
+                        }
+                    }
+                }
+            }
+            cell.likeCountView.updateView(count: item.likeCount)
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageTask?.cancel()
+        imageTask = nil
+        imageView.image = nil
+    }
+    
+    override func configureLayout() {
+        [imageView, likeCountView].forEach { contentView.addSubview($0) }
+        
+        let padding = 20.f
+        
+        imageView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView)
+        }
+        
+        likeCountView.snp.makeConstraints { make in
+            make.leading.bottom.equalTo(contentView).inset(padding)
         }
     }
     

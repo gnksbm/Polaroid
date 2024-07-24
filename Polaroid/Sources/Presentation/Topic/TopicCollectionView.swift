@@ -8,7 +8,7 @@
 import UIKit
 
 final class TopicCollectionView: 
-    ModernCollectionView<TopicSection, String, TopicCVCell> {
+    ModernCollectionView<TopicSection, MinimumUnsplashImage, TopicCVCell> {
     override class func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { _, _ in
             let item = NSCollectionLayoutItem(
