@@ -11,9 +11,9 @@ import Alamofire
 
 final class TopicRepository {
     func fetchTopic(
-        request: TopicRequest
-    ) -> Observable<Result<[MinimumUnsplashImage], Error>?> {
-        let observable = Observable<Result<[MinimumUnsplashImage], Error>?>(nil)
+        request: TopicRequest,
+        _ completion: @escaping (Result<[MinimumUnsplashImage], Error>) -> Void
+    ) {
         AF.request(TopicEndpoint(request: request))
             .response { response in
                 let result = response.result
@@ -35,8 +35,7 @@ final class TopicRepository {
                             return []
                         }
                 }
-                observable.onNext(result)
+                completion(result)
             }
-        return observable
     }
 }

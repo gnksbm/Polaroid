@@ -9,41 +9,51 @@ import UIKit
 
 import SnapKit
 
-final class TopicViewController: BaseViewController {
+final class TopicViewController: BaseViewController, View {
+    private let viewDidLoadEvent = Observable<Void>(())
     private var observableBag = ObservableBag()
+    
     private let profileButton = ProfileImageButton(
         type: .static,
         dimension: .width
     )
     private let collectionView = TopicCollectionView()
     
+    override init() {
+        super.init()
+        viewModel = TopicViewModel()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewDidLoadEvent.onNext(())
+    }
+    
+    func bind(viewModel: TopicViewModel) {
+        let output = viewModel.transform(
+            input: TopicViewModel.Input(
+                viewDidLoadEvent: viewDidLoadEvent
+            )
+        )
+        
+        output.sectionDatas
+            .bind { [weak self] sectionDatas in
+                self?.collectionView.applySnapshot(sectionDatas)
+            }
+            .store(in: &observableBag)
+        
+        output.onError
+            .bind { [weak self] _ in
+                self?.showToast(message: "오류가 발생했습니다")
+            }
+            .store(in: &observableBag)
+    }
+    
     override func configureLayout() {
         view.addSubview(collectionView)
         
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        TopicSection.allCases.forEach { section in
-            TopicRepository()
-                .fetchTopic(
-                    request: TopicRequest(topicID: section.requestQuery)
-                )
-                .bind { result in
-                    switch result {
-                    case .success(let minImage):
-                        self.collectionView.appendSnapshot(
-                            with: [
-                                SectionData(section: section, items: minImage)
-                            ]
-                        )
-                    case .failure(let error):
-                        dump(error)
-                    case .none:
-                        print("nil")
-                    }
-                }
-                .store(in: &observableBag)
         }
     }
     

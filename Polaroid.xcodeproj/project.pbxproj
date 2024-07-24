@@ -20,6 +20,8 @@
 		8E768E542C501E800062431F /* TopicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E532C501E800062431F /* TopicRepository.swift */; };
 		8E768E592C508F3F0062431F /* MinimumUnsplashImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E582C508F3F0062431F /* MinimumUnsplashImage.swift */; };
 		8E768E8B2C513EE40062431F /* LikeCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E8A2C513EE40062431F /* LikeCountView.swift */; };
+		8E768E8D2C5147E90062431F /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E8C2C5147E90062431F /* ToastView.swift */; };
+		8E768E8F2C51482D0062431F /* TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E8E2C51482D0062431F /* TopicViewModel.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
@@ -124,6 +126,8 @@
 		8E768E532C501E800062431F /* TopicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicRepository.swift; sourceTree = "<group>"; };
 		8E768E582C508F3F0062431F /* MinimumUnsplashImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimumUnsplashImage.swift; sourceTree = "<group>"; };
 		8E768E8A2C513EE40062431F /* LikeCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCountView.swift; sourceTree = "<group>"; };
+		8E768E8C2C5147E90062431F /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		8E768E8E2C51482D0062431F /* TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewModel.swift; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -533,9 +537,10 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFBCA2C4E9EA900C6718C /* CircleButton.swift */,
-				BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */,
-				BE2AFBCC2C4EA04300C6718C /* ToggleView.swift */,
 				8E768E8A2C513EE40062431F /* LikeCountView.swift */,
+				BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */,
+				8E768E8C2C5147E90062431F /* ToastView.swift */,
+				BE2AFBCC2C4EA04300C6718C /* ToggleView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -575,7 +580,7 @@
 			isa = PBXGroup;
 			children = (
 				BE5F22462C4FAAF200CC7DD6 /* TopicViewController.swift */,
-				BE5F22442C4FAA4200CC7DD6 /* TopicCollectionView.swift */,
+				8E768E8E2C51482D0062431F /* TopicViewModel.swift */,
 				BE5F22732C50FCD300CC7DD6 /* View */,
 			);
 			path = Topic;
@@ -638,6 +643,7 @@
 		BE5F22732C50FCD300CC7DD6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BE5F22442C4FAA4200CC7DD6 /* TopicCollectionView.swift */,
 				BE5F22422C4FAA0B00CC7DD6 /* TopicCVCell.swift */,
 			);
 			path = View;
@@ -767,6 +773,7 @@
 				BE5F22372C4F965C00CC7DD6 /* ProfileImageButton.swift in Sources */,
 				BE2AFBBE2C4E822C00C6718C /* UIViewBuilder.swift in Sources */,
 				BE5F22672C50F6D900CC7DD6 /* ProfileImageViewModel.swift in Sources */,
+				8E768E8F2C51482D0062431F /* TopicViewModel.swift in Sources */,
 				BE2AFB7E2C4E349E00C6718C /* DiffableCollectionViewType.swift in Sources */,
 				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
 				BE2AFB692C4E333500C6718C /* WeakStorage.swift in Sources */,
@@ -782,6 +789,7 @@
 				BE2AFBCB2C4E9EA900C6718C /* CircleButton.swift in Sources */,
 				BE5F226F2C50FC5700CC7DD6 /* ProfileImageSection.swift in Sources */,
 				8E768E4C2C501AD10062431F /* HTTPMethod.swift in Sources */,
+				8E768E8D2C5147E90062431F /* ToastView.swift in Sources */,
 				BE5F22432C4FAA0B00CC7DD6 /* TopicCVCell.swift in Sources */,
 				BE5F22692C50F6E000CC7DD6 /* ProfileImageCVCell.swift in Sources */,
 				BE2AFBBB2C4E7D8000C6718C /* BaseStackView.swift in Sources */,
