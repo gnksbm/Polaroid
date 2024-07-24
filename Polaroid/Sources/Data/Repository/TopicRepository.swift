@@ -15,26 +15,14 @@ final class TopicRepository {
         _ completion: @escaping (Result<[MinimumUnsplashImage], Error>) -> Void
     ) {
         AF.request(TopicEndpoint(request: request))
-            .response { response in
+            .responseDecodable(of: [TopicDTO].self) { response in
                 let result = response.result
+                    .map { dtos in
+                        dtos.map { $0.toMinImage }
+                    }
                     .mapError { error in
                         error as Error
                     }
-                    .map { data in
-                        guard let data else {
-                            return [MinimumUnsplashImage]()
-                        }
-                        do {
-                            let dto = try JSONDecoder().decode(
-                                [TopicDTO].self,
-                                from: data
-                            )
-                            return dto.map { $0.toMinImage }
-                        } catch {
-                            Logger.error(error)
-                            return []
-                        }
-                }
                 completion(result)
             }
     }

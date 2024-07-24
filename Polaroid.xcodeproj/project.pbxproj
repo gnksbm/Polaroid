@@ -19,7 +19,7 @@
 		8E768E512C501E080062431F /* TopicEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E502C501E080062431F /* TopicEndpoint.swift */; };
 		8E768E542C501E800062431F /* TopicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E532C501E800062431F /* TopicRepository.swift */; };
 		8E768E592C508F3F0062431F /* MinimumUnsplashImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E582C508F3F0062431F /* MinimumUnsplashImage.swift */; };
-		8E768E8B2C513EE40062431F /* LikeCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E8A2C513EE40062431F /* LikeCountView.swift */; };
+		8E768E8B2C513EE40062431F /* CapsuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E8A2C513EE40062431F /* CapsuleView.swift */; };
 		8E768E8D2C5147E90062431F /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E8C2C5147E90062431F /* ToastView.swift */; };
 		8E768E8F2C51482D0062431F /* TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E768E8E2C51482D0062431F /* TopicViewModel.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
@@ -100,6 +100,9 @@
 		BE5F226D2C50FC5100CC7DD6 /* ProfileImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F226C2C50FC5100CC7DD6 /* ProfileImageItem.swift */; };
 		BE5F226F2C50FC5700CC7DD6 /* ProfileImageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F226E2C50FC5700CC7DD6 /* ProfileImageSection.swift */; };
 		BE5F22712C50FCA100CC7DD6 /* TopicSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22702C50FCA100CC7DD6 /* TopicSection.swift */; };
+		BE5F22762C51043C00CC7DD6 /* RamdomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22752C51043C00CC7DD6 /* RamdomViewController.swift */; };
+		BE5F22792C51704D00CC7DD6 /* RandomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22782C51704D00CC7DD6 /* RandomCollectionView.swift */; };
+		BE5F227B2C51705200CC7DD6 /* RandomCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F227A2C51705200CC7DD6 /* RandomCVCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,7 +128,7 @@
 		8E768E502C501E080062431F /* TopicEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicEndpoint.swift; sourceTree = "<group>"; };
 		8E768E532C501E800062431F /* TopicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicRepository.swift; sourceTree = "<group>"; };
 		8E768E582C508F3F0062431F /* MinimumUnsplashImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimumUnsplashImage.swift; sourceTree = "<group>"; };
-		8E768E8A2C513EE40062431F /* LikeCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCountView.swift; sourceTree = "<group>"; };
+		8E768E8A2C513EE40062431F /* CapsuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleView.swift; sourceTree = "<group>"; };
 		8E768E8C2C5147E90062431F /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		8E768E8E2C51482D0062431F /* TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewModel.swift; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +209,9 @@
 		BE5F226C2C50FC5100CC7DD6 /* ProfileImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageItem.swift; sourceTree = "<group>"; };
 		BE5F226E2C50FC5700CC7DD6 /* ProfileImageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSection.swift; sourceTree = "<group>"; };
 		BE5F22702C50FCA100CC7DD6 /* TopicSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicSection.swift; sourceTree = "<group>"; };
+		BE5F22752C51043C00CC7DD6 /* RamdomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RamdomViewController.swift; sourceTree = "<group>"; };
+		BE5F22782C51704D00CC7DD6 /* RandomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCollectionView.swift; sourceTree = "<group>"; };
+		BE5F227A2C51705200CC7DD6 /* RandomCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCVCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +351,7 @@
 				BE2AFB922C4E39AC00C6718C /* Onboarding */,
 				BE2AFBB72C4E652A00C6718C /* Profile */,
 				BE5F22412C4FA9FE00CC7DD6 /* Topic */,
+				BE5F22742C51042500CC7DD6 /* Random */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -537,7 +544,7 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFBCA2C4E9EA900C6718C /* CircleButton.swift */,
-				8E768E8A2C513EE40062431F /* LikeCountView.swift */,
+				8E768E8A2C513EE40062431F /* CapsuleView.swift */,
 				BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */,
 				8E768E8C2C5147E90062431F /* ToastView.swift */,
 				BE2AFBCC2C4EA04300C6718C /* ToggleView.swift */,
@@ -645,6 +652,24 @@
 			children = (
 				BE5F22442C4FAA4200CC7DD6 /* TopicCollectionView.swift */,
 				BE5F22422C4FAA0B00CC7DD6 /* TopicCVCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BE5F22742C51042500CC7DD6 /* Random */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F22752C51043C00CC7DD6 /* RamdomViewController.swift */,
+				BE5F22772C51704700CC7DD6 /* View */,
+			);
+			path = Random;
+			sourceTree = "<group>";
+		};
+		BE5F22772C51704700CC7DD6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F22782C51704D00CC7DD6 /* RandomCollectionView.swift */,
+				BE5F227A2C51705200CC7DD6 /* RandomCVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -771,6 +796,7 @@
 				BE2AFBA82C4E4BF800C6718C /* ObservableControlEvent.swift in Sources */,
 				BE2AFB5B2C4E2FAB00C6718C /* ControlSubscription.swift in Sources */,
 				BE5F22372C4F965C00CC7DD6 /* ProfileImageButton.swift in Sources */,
+				BE5F227B2C51705200CC7DD6 /* RandomCVCell.swift in Sources */,
 				BE2AFBBE2C4E822C00C6718C /* UIViewBuilder.swift in Sources */,
 				BE5F22672C50F6D900CC7DD6 /* ProfileImageViewModel.swift in Sources */,
 				8E768E8F2C51482D0062431F /* TopicViewModel.swift in Sources */,
@@ -801,10 +827,12 @@
 				BE2AFB892C4E36DD00C6718C /* Logger.swift in Sources */,
 				BE2AFB842C4E34E800C6718C /* ModernCollectionView.swift in Sources */,
 				BE2AFBCD2C4EA04300C6718C /* ToggleView.swift in Sources */,
+				BE5F22792C51704D00CC7DD6 /* RandomCollectionView.swift in Sources */,
 				BE2AFBC62C4E8A9400C6718C /* ProfileSettingViewModel.swift in Sources */,
 				BE2AFB702C4E336D00C6718C /* ViewModel.swift in Sources */,
 				BE5F226D2C50FC5100CC7DD6 /* ProfileImageItem.swift in Sources */,
 				BE2AFB672C4E329D00C6718C /* Weak.swift in Sources */,
+				BE5F22762C51043C00CC7DD6 /* RamdomViewController.swift in Sources */,
 				BE2AFBC02C4E823900C6718C /* DeclarativeStackView.swift in Sources */,
 				BE5F224D2C4FB23500CC7DD6 /* TopicDTO.swift in Sources */,
 				BE2AFBC22C4E882E00C6718C /* MBTISelectionView.swift in Sources */,
@@ -814,7 +842,7 @@
 				BE2AFB802C4E34BD00C6718C /* SectionData.swift in Sources */,
 				BE2AFBA62C4E4B9800C6718C /* Observable+UIKit.swift in Sources */,
 				BE2AFB822C4E34C900C6718C /* CompositionalCollectionViewType.swift in Sources */,
-				8E768E8B2C513EE40062431F /* LikeCountView.swift in Sources */,
+				8E768E8B2C513EE40062431F /* CapsuleView.swift in Sources */,
 				BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */,
 				BE2AFBB22C4E612D00C6718C /* OnboardingViewModel.swift in Sources */,
 				BE5F226B2C50F6FA00CC7DD6 /* ProfileImageCollectionView.swift in Sources */,

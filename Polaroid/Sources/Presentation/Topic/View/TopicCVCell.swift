@@ -17,7 +17,12 @@ final class TopicCVCell: BaseCollectionViewCell, RegistrableCellType {
         $0.contentMode(.scaleAspectFill)
             .backgroundColor(MPDesign.Color.lightGray)
     }
-    private let likeCountView = LikeCountView()
+    
+    private let likeCountView = CapsuleView().nt.configure {
+        $0.perform {
+            $0.setImage(UIImage(systemName: "star.fill"), tintColor: .yellow)
+        }
+    }
     
     static func makeRegistration() -> Registration<MinimumUnsplashImage> {
         Registration { cell, indexPath, item in
@@ -44,7 +49,7 @@ final class TopicCVCell: BaseCollectionViewCell, RegistrableCellType {
                     }
                 }
             }
-            cell.likeCountView.updateView(count: item.likeCount)
+            cell.likeCountView.updateLabel(text: item.likeCount.formatted())
         }
     }
     
@@ -58,7 +63,7 @@ final class TopicCVCell: BaseCollectionViewCell, RegistrableCellType {
     override func configureLayout() {
         [imageView, likeCountView].forEach { contentView.addSubview($0) }
         
-        let padding = 20.f
+        let padding = 10.f
         
         imageView.snp.makeConstraints { make in
             make.edges.equalTo(contentView)
