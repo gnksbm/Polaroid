@@ -123,6 +123,10 @@
 		BE5F22F12C52644600CC7DD6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BE5F22F02C52644600CC7DD6 /* Kingfisher */; };
 		BE5F22F32C52667000CC7DD6 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22F22C52667000CC7DD6 /* DateFormat.swift */; };
 		BE5F22F52C526D6400CC7DD6 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22F42C526D6400CC7DD6 /* Appearance.swift */; };
+		BE5F22F82C5272B600CC7DD6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22F72C5272B600CC7DD6 /* SearchViewController.swift */; };
+		BE5F22FA2C52731A00CC7DD6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22F92C52731A00CC7DD6 /* SearchViewModel.swift */; };
+		BE5F22FD2C52732A00CC7DD6 /* SearchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22FC2C52732A00CC7DD6 /* SearchCollectionView.swift */; };
+		BE5F22FF2C52745C00CC7DD6 /* SearchCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22FE2C52745C00CC7DD6 /* SearchCVCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -251,6 +255,10 @@
 		BE5F22EA2C524B5A00CC7DD6 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		BE5F22F22C52667000CC7DD6 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		BE5F22F42C526D6400CC7DD6 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		BE5F22F72C5272B600CC7DD6 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		BE5F22F92C52731A00CC7DD6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		BE5F22FC2C52732A00CC7DD6 /* SearchCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionView.swift; sourceTree = "<group>"; };
+		BE5F22FE2C52745C00CC7DD6 /* SearchCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCVCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,6 +403,7 @@
 				BE2AFB952C4E3C1F00C6718C /* MainTab */,
 				BE2AFB922C4E39AC00C6718C /* Onboarding */,
 				BE2AFBB72C4E652A00C6718C /* Profile */,
+				BE5F22F62C5272A300CC7DD6 /* Search */,
 				BE5F22412C4FA9FE00CC7DD6 /* Topic */,
 				BE5F22742C51042500CC7DD6 /* Random */,
 			);
@@ -741,6 +750,25 @@
 			path = Cache;
 			sourceTree = "<group>";
 		};
+		BE5F22F62C5272A300CC7DD6 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F22F72C5272B600CC7DD6 /* SearchViewController.swift */,
+				BE5F22F92C52731A00CC7DD6 /* SearchViewModel.swift */,
+				BE5F22FB2C52731C00CC7DD6 /* View */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		BE5F22FB2C52731C00CC7DD6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BE5F22FC2C52732A00CC7DD6 /* SearchCollectionView.swift */,
+				BE5F22FE2C52745C00CC7DD6 /* SearchCVCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -874,6 +902,7 @@
 				BE5F22672C50F6D900CC7DD6 /* ProfileImageViewModel.swift in Sources */,
 				8E768E8F2C51482D0062431F /* TopicViewModel.swift in Sources */,
 				BE2AFB7E2C4E349E00C6718C /* DiffableCollectionViewType.swift in Sources */,
+				BE5F22F82C5272B600CC7DD6 /* SearchViewController.swift in Sources */,
 				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
 				BE2AFB692C4E333500C6718C /* WeakStorage.swift in Sources */,
 				BE2AFB722C4E337200C6718C /* View.swift in Sources */,
@@ -884,6 +913,7 @@
 				8E768E362C4EC5A10062431F /* RegexValidator.swift in Sources */,
 				BE2AFB5F2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift in Sources */,
 				BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */,
+				BE5F22FD2C52732A00CC7DD6 /* SearchCollectionView.swift in Sources */,
 				BE5F22E52C524ACF00CC7DD6 /* CacheStorage.swift in Sources */,
 				BE5F22D62C523FD100CC7DD6 /* Date+.swift in Sources */,
 				8E768E3F2C5017950062431F /* EndpointRepresentable.swift in Sources */,
@@ -928,6 +958,7 @@
 				BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */,
 				BE2AFBB22C4E612D00C6718C /* OnboardingViewModel.swift in Sources */,
 				BE5F226B2C50F6FA00CC7DD6 /* ProfileImageCollectionView.swift in Sources */,
+				BE5F22FA2C52731A00CC7DD6 /* SearchViewModel.swift in Sources */,
 				BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */,
 				BE2AFB9F2C4E444500C6718C /* Observable.swift in Sources */,
 				BE2AFBAC2C4E510800C6718C /* UIButton+.swift in Sources */,
@@ -956,6 +987,7 @@
 				BE5F22AE2C520F9700CC7DD6 /* RandomRepository.swift in Sources */,
 				BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */,
 				8E768E4A2C5019E80062431F /* Secret.swift in Sources */,
+				BE5F22FF2C52745C00CC7DD6 /* SearchCVCell.swift in Sources */,
 				8E768E382C4EC5CA0062431F /* NicknameValidator.swift in Sources */,
 				BE5F22302C4F933500CC7DD6 /* RealmStorage.swift in Sources */,
 				BE2AFB862C4E355A00C6718C /* RegistrableCellType.swift in Sources */,

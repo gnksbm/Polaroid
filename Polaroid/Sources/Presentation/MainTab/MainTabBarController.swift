@@ -40,7 +40,7 @@ extension MainTabBarController.TabKind {
         case .random:
             RandomViewController()
         case .search:
-            UIViewController()
+            SearchViewController()
         case .liked:
             UIViewController()
         }

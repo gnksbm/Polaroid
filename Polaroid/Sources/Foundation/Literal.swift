@@ -29,9 +29,16 @@ enum Literal {
         static let suffixWhiteSpace = "닉네임은 공백으로 끝날 수 없어요"
     }
     
+    enum Search {
+        static let searchBarPlaceholder = "키워드 검색"
+        static let beforeSearchBackground = "사진을 검색해보세요."
+        static let emptyResultBackground = "검색 결과가 없어요."
+    }
+    
     enum NavigationTitle {
         static let profileStrring = "PROFILE SETTING"
         static let ourTopic = "OUT TOPIC"
+        static let search = "SEARCH PHOTO"
     }
     
     enum Image {
