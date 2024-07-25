@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Kingfisher
 import Neat
 import SnapKit
 
@@ -26,29 +27,7 @@ final class TopicCVCell: BaseCollectionViewCell, RegistrableCellType {
     
     static func makeRegistration() -> Registration<MinimumUnsplashImage> {
         Registration { cell, indexPath, item in
-            if let url = item.imageURL {
-                DispatchQueue.global().async { [weak cell] in
-                    let imageSourceOptions =
-                    [kCGImageSourceShouldCache: false] as CFDictionary
-                    let imageSource = CGImageSourceCreateWithURL(
-                        url as CFURL, 
-                        imageSourceOptions
-                    )
-                    if let imageSource {
-                        let cgImage = CGImageSourceCreateThumbnailAtIndex(
-                            imageSource,
-                            0,
-                            imageSourceOptions
-                        )
-                        if let cgImage {
-                            DispatchQueue.main.async {
-                                cell?.imageView.image = 
-                                UIImage(cgImage: cgImage)
-                            }
-                        }
-                    }
-                }
-            }
+            cell.imageView.kf.setImage(with: item.imageURL)
             cell.likeCountView.updateLabel(text: item.likeCount.formatted())
         }
     }

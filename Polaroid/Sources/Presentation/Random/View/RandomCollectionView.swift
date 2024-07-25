@@ -57,7 +57,7 @@ final class RandomCollectionView:
                 let itemCount =
                 diffableDataSource.snapshot(for: .main).items.count
                 capsuleView.updateLabel(
-                    text: "\(cellIndex + 1) / \(itemCount)"
+                    text: "\(min(cellIndex + 1, itemCount)) / \(itemCount)"
                 )
             }
             .store(in: &observableBag)

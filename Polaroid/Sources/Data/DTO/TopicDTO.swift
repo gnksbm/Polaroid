@@ -14,7 +14,8 @@ struct TopicDTO: Decodable {
     let updatedAt: String
     let promotedAt: String?
     let width, height: Int
-    let color, blurHash: String
+    let color: String
+    let blurHash: String?
     let description: String?
     let altDescription: String
 //    let breadcrumbs: [Any]
@@ -53,7 +54,7 @@ extension TopicDTO {
     var toMinImage: MinimumUnsplashImage {
         MinimumUnsplashImage(
             id: id,
-            imageURL: URL(string: urls.raw),
+            imageURL: URL(string: urls.small),
             likeCount: likes
         )
     }

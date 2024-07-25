@@ -12,7 +12,8 @@ struct RandomDTO: Decodable {
     let alternativeSlugs: AlternativeSlugs
     let createdAt, updatedAt, promotedAt: String
     let width, height: Int
-    let color, blurHash: String
+    let color: String
+    let blurHash: String?
     let description: String?
     let altDescription: String?
     let breadcrumbs: [Breadcrumb]
@@ -53,7 +54,7 @@ extension RandomDTO {
     func toRandomImage() -> RandomImage {
         RandomImage(
             id: id,
-            imageURL: URL(string: urls.raw),
+            imageURL: URL(string: urls.regular),
             creatorProfileImageURL: URL(string: user.profileImage.small),
             creatorName: user.name,
             creatorAt: Date(isoDateString: createdAt)
