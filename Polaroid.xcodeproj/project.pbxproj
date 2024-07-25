@@ -122,6 +122,7 @@
 		BE5F22EB2C524B5A00CC7DD6 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22EA2C524B5A00CC7DD6 /* UIImageView+.swift */; };
 		BE5F22F12C52644600CC7DD6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BE5F22F02C52644600CC7DD6 /* Kingfisher */; };
 		BE5F22F32C52667000CC7DD6 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22F22C52667000CC7DD6 /* DateFormat.swift */; };
+		BE5F22F52C526D6400CC7DD6 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22F42C526D6400CC7DD6 /* Appearance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -249,6 +250,7 @@
 		BE5F22E82C524B2400CC7DD6 /* DataSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSize.swift; sourceTree = "<group>"; };
 		BE5F22EA2C524B5A00CC7DD6 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		BE5F22F22C52667000CC7DD6 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		BE5F22F42C526D6400CC7DD6 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,6 +390,7 @@
 		BE2AFB422C4E2A9C00C6718C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BE5F22F42C526D6400CC7DD6 /* Appearance.swift */,
 				BE2AFBC92C4E9EA400C6718C /* Common */,
 				BE2AFB952C4E3C1F00C6718C /* MainTab */,
 				BE2AFB922C4E39AC00C6718C /* Onboarding */,
@@ -899,6 +902,7 @@
 				BE2AFBB92C4E655B00C6718C /* ProfileSettingViewController.swift in Sources */,
 				BE2AFB552C4E2EAC00C6718C /* CancelBag.swift in Sources */,
 				BE2AFBD12C4EA29A00C6718C /* BaseButton.swift in Sources */,
+				BE5F22F52C526D6400CC7DD6 /* Appearance.swift in Sources */,
 				BE5F22DA2C52449000CC7DD6 /* RandomViewModel.swift in Sources */,
 				BE2AFB892C4E36DD00C6718C /* Logger.swift in Sources */,
 				BE2AFB842C4E34E800C6718C /* ModernCollectionView.swift in Sources */,
