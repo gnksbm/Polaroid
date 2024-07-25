@@ -11,24 +11,50 @@ import Neat
 import SnapKit
 
 final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
-    static func makeRegistration() -> Registration<String> {
+    static func makeRegistration() -> Registration<RandomImage> {
         Registration { cell, indexPath, item in
-            cell.capsuleView.updateLabel(text: item)
+            if let url = item.imageURL {
+                DispatchQueue.global().async { [weak cell] in
+                    let imageSourceOptions =
+                    [kCGImageSourceShouldCache: false] as CFDictionary
+                    let imageSource = CGImageSourceCreateWithURL(
+                        url as CFURL,
+                        imageSourceOptions
+                    )
+                    if let imageSource {
+                        let cgImage = CGImageSourceCreateThumbnailAtIndex(
+                            imageSource,
+                            0,
+                            imageSourceOptions
+                        )
+                        if let cgImage {
+                            DispatchQueue.main.async {
+                                cell?.imageView.image =
+                                UIImage(cgImage: cgImage)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     
-    private let capsuleView = CapsuleView()
+    private let imageView = UIImageView().nt.configure {
+        $0.contentMode(.scaleAspectFill)
+    }
     
+//
+//    private let capsuleView = CapsuleView()
+//    
     override func configureLayout() {
-        [capsuleView].forEach {
+        [imageView].forEach {
             contentView.addSubview($0)
         }
         
         let padding = 20.f
         
-        capsuleView.snp.makeConstraints { make in
-            make.top.trailing.equalTo(contentView.safeAreaLayoutGuide)
-                .inset(padding)
+        imageView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView)
         }
     }
 }

@@ -40,4 +40,18 @@ class ModernCollectionView
         let section = Section.allCases[indexPath.section]
         return diffableDataSource.snapshot(for: section).items[indexPath.row]
     }
+    
+    func applyItem(
+        _ sectionHandler: (Section) -> [Item]
+    ) where Section: CaseIterable {
+        Section.allCases.forEach { section in
+            var snapshot = Snapshot()
+            snapshot.appendSections([section])
+            snapshot.appendItems(
+                sectionHandler(section),
+                toSection: section
+            )
+            diffableDataSource.apply(snapshot)
+        }
+    }
 }

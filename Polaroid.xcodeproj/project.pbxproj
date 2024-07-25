@@ -100,11 +100,18 @@
 		BE5F226D2C50FC5100CC7DD6 /* ProfileImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F226C2C50FC5100CC7DD6 /* ProfileImageItem.swift */; };
 		BE5F226F2C50FC5700CC7DD6 /* ProfileImageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F226E2C50FC5700CC7DD6 /* ProfileImageSection.swift */; };
 		BE5F22712C50FCA100CC7DD6 /* TopicSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22702C50FCA100CC7DD6 /* TopicSection.swift */; };
-		BE5F22762C51043C00CC7DD6 /* RamdomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22752C51043C00CC7DD6 /* RamdomViewController.swift */; };
+		BE5F22762C51043C00CC7DD6 /* RandomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22752C51043C00CC7DD6 /* RandomViewController.swift */; };
 		BE5F22792C51704D00CC7DD6 /* RandomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22782C51704D00CC7DD6 /* RandomCollectionView.swift */; };
 		BE5F227B2C51705200CC7DD6 /* RandomCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F227A2C51705200CC7DD6 /* RandomCVCell.swift */; };
 		BE5F22A62C520E6100CC7DD6 /* SearchEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22A52C520E6100CC7DD6 /* SearchEndpoint.swift */; };
 		BE5F22A82C520E7900CC7DD6 /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22A72C520E7900CC7DD6 /* SearchRequest.swift */; };
+		BE5F22AC2C520F5500CC7DD6 /* RandomEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22AB2C520F5500CC7DD6 /* RandomEndpoint.swift */; };
+		BE5F22AE2C520F9700CC7DD6 /* RandomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22AD2C520F9700CC7DD6 /* RandomRepository.swift */; };
+		BE5F22B02C520FF200CC7DD6 /* Random.json in Resources */ = {isa = PBXBuildFile; fileRef = BE5F22AF2C520FF200CC7DD6 /* Random.json */; };
+		BE5F22B22C52107800CC7DD6 /* RandomDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22B12C52107800CC7DD6 /* RandomDTO.swift */; };
+		BE5F22D62C523FD100CC7DD6 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22D52C523FD100CC7DD6 /* Date+.swift */; };
+		BE5F22D82C5243E800CC7DD6 /* RandomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22D72C5243E800CC7DD6 /* RandomImage.swift */; };
+		BE5F22DA2C52449000CC7DD6 /* RandomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22D92C52449000CC7DD6 /* RandomViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,11 +218,18 @@
 		BE5F226C2C50FC5100CC7DD6 /* ProfileImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageItem.swift; sourceTree = "<group>"; };
 		BE5F226E2C50FC5700CC7DD6 /* ProfileImageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSection.swift; sourceTree = "<group>"; };
 		BE5F22702C50FCA100CC7DD6 /* TopicSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicSection.swift; sourceTree = "<group>"; };
-		BE5F22752C51043C00CC7DD6 /* RamdomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RamdomViewController.swift; sourceTree = "<group>"; };
+		BE5F22752C51043C00CC7DD6 /* RandomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomViewController.swift; sourceTree = "<group>"; };
 		BE5F22782C51704D00CC7DD6 /* RandomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCollectionView.swift; sourceTree = "<group>"; };
 		BE5F227A2C51705200CC7DD6 /* RandomCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCVCell.swift; sourceTree = "<group>"; };
 		BE5F22A52C520E6100CC7DD6 /* SearchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEndpoint.swift; sourceTree = "<group>"; };
 		BE5F22A72C520E7900CC7DD6 /* SearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequest.swift; sourceTree = "<group>"; };
+		BE5F22AB2C520F5500CC7DD6 /* RandomEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomEndpoint.swift; sourceTree = "<group>"; };
+		BE5F22AD2C520F9700CC7DD6 /* RandomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRepository.swift; sourceTree = "<group>"; };
+		BE5F22AF2C520FF200CC7DD6 /* Random.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Random.json; sourceTree = "<group>"; };
+		BE5F22B12C52107800CC7DD6 /* RandomDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDTO.swift; sourceTree = "<group>"; };
+		BE5F22D52C523FD100CC7DD6 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		BE5F22D72C5243E800CC7DD6 /* RandomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomImage.swift; sourceTree = "<group>"; };
+		BE5F22D92C52449000CC7DD6 /* RandomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +280,7 @@
 				BE5F22A52C520E6100CC7DD6 /* SearchEndpoint.swift */,
 				8E768E502C501E080062431F /* TopicEndpoint.swift */,
 				8E768E452C50192A0062431F /* UnsplashEndpoint.swift */,
+				BE5F22AB2C520F5500CC7DD6 /* RandomEndpoint.swift */,
 			);
 			path = Endpoint;
 			sourceTree = "<group>";
@@ -283,6 +298,7 @@
 		8E768E522C501E410062431F /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				BE5F22AD2C520F9700CC7DD6 /* RandomRepository.swift */,
 				8E768E532C501E800062431F /* TopicRepository.swift */,
 			);
 			path = Repository;
@@ -383,6 +399,7 @@
 		BE2AFB532C4E2E5700C6718C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				BE5F22D52C523FD100CC7DD6 /* Date+.swift */,
 				BE2AFBAD2C4E53B800C6718C /* IntegerLiteralType+.swift */,
 				BE5F22482C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift */,
 				BE2AFB9B2C4E437200C6718C /* UIFont+.swift */,
@@ -520,10 +537,11 @@
 			isa = PBXGroup;
 			children = (
 				BE2AFBB52C4E61DE00C6718C /* MBTI.swift */,
+				8E768E582C508F3F0062431F /* MinimumUnsplashImage.swift */,
+				BE5F22D72C5243E800CC7DD6 /* RandomImage.swift */,
 				BE5F226C2C50FC5100CC7DD6 /* ProfileImageItem.swift */,
 				BE5F226E2C50FC5700CC7DD6 /* ProfileImageSection.swift */,
 				BE5F22702C50FCA100CC7DD6 /* TopicSection.swift */,
-				8E768E582C508F3F0062431F /* MinimumUnsplashImage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -602,6 +620,7 @@
 		BE5F224B2C4FB22E00CC7DD6 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				BE5F22B12C52107800CC7DD6 /* RandomDTO.swift */,
 				BE5F224C2C4FB23500CC7DD6 /* TopicDTO.swift */,
 			);
 			path = DTO;
@@ -611,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				BE5F22512C4FB49500CC7DD6 /* Topic.json */,
+				BE5F22AF2C520FF200CC7DD6 /* Random.json */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -665,7 +685,8 @@
 		BE5F22742C51042500CC7DD6 /* Random */ = {
 			isa = PBXGroup;
 			children = (
-				BE5F22752C51043C00CC7DD6 /* RamdomViewController.swift */,
+				BE5F22752C51043C00CC7DD6 /* RandomViewController.swift */,
+				BE5F22D92C52449000CC7DD6 /* RandomViewModel.swift */,
 				BE5F22772C51704700CC7DD6 /* View */,
 			);
 			path = Random;
@@ -784,6 +805,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE5F22B02C520FF200CC7DD6 /* Random.json in Resources */,
 				BE5F22602C4FB7EB00CC7DD6 /* Topic.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -812,11 +834,13 @@
 				BE2AFB692C4E333500C6718C /* WeakStorage.swift in Sources */,
 				BE2AFB722C4E337200C6718C /* View.swift in Sources */,
 				BE5F22A82C520E7900CC7DD6 /* SearchRequest.swift in Sources */,
+				BE5F22B22C52107800CC7DD6 /* RandomDTO.swift in Sources */,
 				BE2AFB9C2C4E437200C6718C /* UIFont+.swift in Sources */,
 				BE2AFB752C4E340E00C6718C /* BaseViewController.swift in Sources */,
 				8E768E362C4EC5A10062431F /* RegexValidator.swift in Sources */,
 				BE2AFB5F2C4E2FB800C6718C /* UICollectionViewDelegateProxy.swift in Sources */,
 				BE2AFBAE2C4E53B800C6718C /* IntegerLiteralType+.swift in Sources */,
+				BE5F22D62C523FD100CC7DD6 /* Date+.swift in Sources */,
 				8E768E3F2C5017950062431F /* EndpointRepresentable.swift in Sources */,
 				BE2AFBB62C4E61DE00C6718C /* MBTI.swift in Sources */,
 				8E768E512C501E080062431F /* TopicEndpoint.swift in Sources */,
@@ -832,6 +856,7 @@
 				BE2AFBB92C4E655B00C6718C /* ProfileSettingViewController.swift in Sources */,
 				BE2AFB552C4E2EAC00C6718C /* CancelBag.swift in Sources */,
 				BE2AFBD12C4EA29A00C6718C /* BaseButton.swift in Sources */,
+				BE5F22DA2C52449000CC7DD6 /* RandomViewModel.swift in Sources */,
 				BE2AFB892C4E36DD00C6718C /* Logger.swift in Sources */,
 				BE2AFB842C4E34E800C6718C /* ModernCollectionView.swift in Sources */,
 				BE2AFBCD2C4EA04300C6718C /* ToggleView.swift in Sources */,
@@ -840,7 +865,7 @@
 				BE2AFB702C4E336D00C6718C /* ViewModel.swift in Sources */,
 				BE5F226D2C50FC5100CC7DD6 /* ProfileImageItem.swift in Sources */,
 				BE2AFB672C4E329D00C6718C /* Weak.swift in Sources */,
-				BE5F22762C51043C00CC7DD6 /* RamdomViewController.swift in Sources */,
+				BE5F22762C51043C00CC7DD6 /* RandomViewController.swift in Sources */,
 				BE2AFBC02C4E823900C6718C /* DeclarativeStackView.swift in Sources */,
 				BE5F224D2C4FB23500CC7DD6 /* TopicDTO.swift in Sources */,
 				BE2AFBC22C4E882E00C6718C /* MBTISelectionView.swift in Sources */,
@@ -858,10 +883,12 @@
 				BE2AFB9F2C4E444500C6718C /* Observable.swift in Sources */,
 				BE2AFBAC2C4E510800C6718C /* UIButton+.swift in Sources */,
 				BE2AFB6B2C4E334200C6718C /* DeinitHandler.swift in Sources */,
+				BE5F22AC2C520F5500CC7DD6 /* RandomEndpoint.swift in Sources */,
 				BE2AFB6E2C4E335F00C6718C /* ViewModelStorage.swift in Sources */,
 				BE5F22712C50FCA100CC7DD6 /* TopicSection.swift in Sources */,
 				BE2AFBB02C4E579700C6718C /* ObservableBag.swift in Sources */,
 				BE2AFB632C4E2FCD00C6718C /* Publisher+.swift in Sources */,
+				BE5F22D82C5243E800CC7DD6 /* RandomImage.swift in Sources */,
 				BE2AFBAA2C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift in Sources */,
 				BE5F22342C4F944D00CC7DD6 /* RealmStorage+Migration.swift in Sources */,
 				BE2AFB612C4E2FC600C6718C /* UIKit+Combine.swift in Sources */,
@@ -874,6 +901,7 @@
 				8E768E592C508F3F0062431F /* MinimumUnsplashImage.swift in Sources */,
 				BE2AFB942C4E3A8A00C6718C /* UIViewController+.swift in Sources */,
 				BE5F22622C50D2B600CC7DD6 /* ProfileImageEditViewController.swift in Sources */,
+				BE5F22AE2C520F9700CC7DD6 /* RandomRepository.swift in Sources */,
 				BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */,
 				8E768E4A2C5019E80062431F /* Secret.swift in Sources */,
 				8E768E382C4EC5CA0062431F /* NicknameValidator.swift in Sources */,

@@ -38,7 +38,7 @@ extension MainTabBarController.TabKind {
         case .topic:
             TopicViewController()
         case .random:
-            RamdomViewController()
+            RandomViewController()
         case .search:
             UIViewController()
         case .liked:

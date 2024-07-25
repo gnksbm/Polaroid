@@ -51,11 +51,9 @@ final class TopicCollectionView:
     override init() {
         super.init()
         configureHeader()
-        applySnapshot(
-            TopicSection.allCases.map {
-                SectionData(section: $0, items: [])
-            }
-        )
+        applyItem { section in
+            []
+        }
     }
     
     private func configureHeader() {
