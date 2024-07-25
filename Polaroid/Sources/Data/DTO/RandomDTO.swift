@@ -57,7 +57,7 @@ extension RandomDTO {
             imageURL: URL(string: urls.regular),
             creatorProfileImageURL: URL(string: user.profileImage.small),
             creatorName: user.name,
-            creatorAt: Date(isoDateString: createdAt)
+            creatorAt: createdAt.iso8601Formatted()
         )
     }
 }

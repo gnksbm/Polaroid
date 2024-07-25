@@ -13,8 +13,8 @@ extension MPDesign {
     enum Font {
         static let largeNavigationTitle = UIFont.systemFont(ofSize: 40)
         static let heading = UIFont.systemFont(ofSize: 20)
-        static let subtitle1 = UIFont.systemFont(ofSize: 19)
-        static let subtitle2 = UIFont.systemFont(ofSize: 18)
+        static let title = UIFont.systemFont(ofSize: 19)
+        static let subtitle = UIFont.systemFont(ofSize: 18)
         static let body1 = UIFont.systemFont(ofSize: 17)
         static let body2 = UIFont.systemFont(ofSize: 16)
         static let label1 = UIFont.systemFont(ofSize: 15)

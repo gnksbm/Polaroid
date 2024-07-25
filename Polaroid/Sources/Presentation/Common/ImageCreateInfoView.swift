@@ -8,16 +8,42 @@
 import UIKit
 
 import Kingfisher
+import Neat
 import SnapKit
 
 final class ImageCreateInfoView: BaseView {
-    private let creatorImageView = UIImageView()
-    private let creatorNameLabel = UILabel()
-    private let creatorAtLabel = UILabel()
-    private let likeButton = UIButton()
+    private let creatorImageView = UIImageView().nt.configure {
+        $0.clipsToBounds(true)
+    }
+    
+    private let creatorNameLabel = UILabel().nt.configure {
+        $0.textColor(MPDesign.Color.white)
+            .font(MPDesign.Font.body1)
+    }
+    
+    private let creatorAtLabel = UILabel().nt.configure {
+        $0.textColor(MPDesign.Color.white)
+            .font(MPDesign.Font.caption.with(weight: .semibold))
+    }
+    
+    private let likeButton = UIButton().nt.configure {
+        $0.configuration(.plain())
+            .configuration.image(UIImage(systemName: "heart"))
+            .configuration.baseForegroundColor(MPDesign.Color.white)
+            .configuration.preferredSymbolConfigurationForImage(
+                UIImage.SymbolConfiguration(font: MPDesign.Font.title)
+            )
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        creatorImageView.layer.cornerRadius = creatorImageView.bounds.height / 2
+    }
     
     func updateView(item: RandomImage) {
         creatorImageView.kf.setImage(with: item.creatorProfileImageURL)
+        creatorNameLabel.text = item.creatorName
+        creatorAtLabel.text = item.creatorAt?.formatted(dateFormat: .createdAt)
     }
     
     override func configureLayout() {
@@ -28,12 +54,13 @@ final class ImageCreateInfoView: BaseView {
             likeButton
         ].forEach { addSubview($0) }
         
-        let padding = 20.f
+        let padding = 10.f
         
         creatorImageView.snp.makeConstraints { make in
-            make.size.equalTo(snp.height)
-            make.leading.equalTo(self).offset(padding)
+            make.size.equalTo(snp.height).multipliedBy(0.5)
+            make.leading.equalTo(self).offset(padding * 2)
             make.centerY.equalTo(self)
+            make.width.equalTo(self).multipliedBy(0.1)
         }
         
         creatorNameLabel.snp.makeConstraints { make in
@@ -43,13 +70,14 @@ final class ImageCreateInfoView: BaseView {
         
         creatorAtLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(creatorNameLabel)
-            make.top.equalTo(creatorNameLabel).offset(padding / 2)
+            make.top.equalTo(creatorNameLabel.snp.bottom).offset(padding / 2)
         }
         
         likeButton.snp.makeConstraints { make in
             make.leading.greaterThanOrEqualTo(creatorNameLabel.snp.trailing)
+                .offset(padding)
             make.centerY.equalTo(self)
-            make.trailing.equalTo(self).inset(padding)
+            make.trailing.equalTo(self).inset(padding * 2)
         }
     }
 }

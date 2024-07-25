@@ -14,7 +14,8 @@ import Kingfisher
 final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
     static func makeRegistration() -> Registration<RandomImage> {
         Registration { cell, indexPath, item in
-            cell.imageTask = cell.imageView.kf.setImage(with: item.imageURL, options: [.downloadPriority(1)])
+            cell.imageTask = cell.imageView.kf.setImage(with: item.imageURL)
+            cell.createInfoView.updateView(item: item)
         }
     }
     
@@ -24,6 +25,8 @@ final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
         $0.contentMode(.scaleAspectFill)
     }
     
+    private let createInfoView = ImageCreateInfoView()
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
@@ -32,12 +35,16 @@ final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
     }
     
     override func configureLayout() {
-        [imageView].forEach {
+        [imageView, createInfoView].forEach {
             contentView.addSubview($0)
         }
         
         imageView.snp.makeConstraints { make in
             make.edges.equalTo(contentView)
+        }
+        
+        createInfoView.snp.makeConstraints { make in
+            make.horizontalEdges.bottom.equalTo(contentView)
         }
     }
 }

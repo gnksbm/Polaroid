@@ -121,6 +121,7 @@
 		BE5F22E92C524B2400CC7DD6 /* DataSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22E82C524B2400CC7DD6 /* DataSize.swift */; };
 		BE5F22EB2C524B5A00CC7DD6 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22EA2C524B5A00CC7DD6 /* UIImageView+.swift */; };
 		BE5F22F12C52644600CC7DD6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BE5F22F02C52644600CC7DD6 /* Kingfisher */; };
+		BE5F22F32C52667000CC7DD6 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22F22C52667000CC7DD6 /* DateFormat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -247,6 +248,7 @@
 		BE5F22E62C524B1800CC7DD6 /* CacheWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheWrapper.swift; sourceTree = "<group>"; };
 		BE5F22E82C524B2400CC7DD6 /* DataSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSize.swift; sourceTree = "<group>"; };
 		BE5F22EA2C524B5A00CC7DD6 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		BE5F22F22C52667000CC7DD6 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,6 +401,7 @@
 		BE2AFB4D2C4E2E2600C6718C /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				BE5F22F22C52667000CC7DD6 /* DateFormat.swift */,
 				BE2AFBA32C4E487800C6718C /* Literal.swift */,
 				8E768E492C5019E80062431F /* Secret.swift */,
 				BE2AFB6C2C4E335900C6718C /* Architecture */,
@@ -911,6 +914,7 @@
 				BE5F224D2C4FB23500CC7DD6 /* TopicDTO.swift in Sources */,
 				BE2AFBC22C4E882E00C6718C /* MBTISelectionView.swift in Sources */,
 				BE2AFB772C4E342200C6718C /* BaseCollectionViewCell.swift in Sources */,
+				BE5F22F32C52667000CC7DD6 /* DateFormat.swift in Sources */,
 				8E768E412C50179A0062431F /* Scheme.swift in Sources */,
 				BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */,
 				BE2AFB802C4E34BD00C6718C /* SectionData.swift in Sources */,
