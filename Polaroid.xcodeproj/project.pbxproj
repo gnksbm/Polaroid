@@ -103,6 +103,8 @@
 		BE5F22762C51043C00CC7DD6 /* RamdomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22752C51043C00CC7DD6 /* RamdomViewController.swift */; };
 		BE5F22792C51704D00CC7DD6 /* RandomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22782C51704D00CC7DD6 /* RandomCollectionView.swift */; };
 		BE5F227B2C51705200CC7DD6 /* RandomCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F227A2C51705200CC7DD6 /* RandomCVCell.swift */; };
+		BE5F22A62C520E6100CC7DD6 /* SearchEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22A52C520E6100CC7DD6 /* SearchEndpoint.swift */; };
+		BE5F22A82C520E7900CC7DD6 /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22A72C520E7900CC7DD6 /* SearchRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -212,6 +214,8 @@
 		BE5F22752C51043C00CC7DD6 /* RamdomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RamdomViewController.swift; sourceTree = "<group>"; };
 		BE5F22782C51704D00CC7DD6 /* RandomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCollectionView.swift; sourceTree = "<group>"; };
 		BE5F227A2C51705200CC7DD6 /* RandomCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCVCell.swift; sourceTree = "<group>"; };
+		BE5F22A52C520E6100CC7DD6 /* SearchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEndpoint.swift; sourceTree = "<group>"; };
+		BE5F22A72C520E7900CC7DD6 /* SearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +263,7 @@
 		8E768E442C5018FC0062431F /* Endpoint */ = {
 			isa = PBXGroup;
 			children = (
+				BE5F22A52C520E6100CC7DD6 /* SearchEndpoint.swift */,
 				8E768E502C501E080062431F /* TopicEndpoint.swift */,
 				8E768E452C50192A0062431F /* UnsplashEndpoint.swift */,
 			);
@@ -268,8 +273,9 @@
 		8E768E4D2C501DEB0062431F /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				BE2AFB982C4E3E2D00C6718C /* Design */,
+				BE5F22A72C520E7900CC7DD6 /* SearchRequest.swift */,
 				8E768E4E2C501DF40062431F /* TopicRequest.swift */,
+				BE2AFB982C4E3E2D00C6718C /* Design */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -795,6 +801,7 @@
 				BE2AFB972C4E3C2500C6718C /* MainTabBarController.swift in Sources */,
 				BE2AFBA82C4E4BF800C6718C /* ObservableControlEvent.swift in Sources */,
 				BE2AFB5B2C4E2FAB00C6718C /* ControlSubscription.swift in Sources */,
+				BE5F22A62C520E6100CC7DD6 /* SearchEndpoint.swift in Sources */,
 				BE5F22372C4F965C00CC7DD6 /* ProfileImageButton.swift in Sources */,
 				BE5F227B2C51705200CC7DD6 /* RandomCVCell.swift in Sources */,
 				BE2AFBBE2C4E822C00C6718C /* UIViewBuilder.swift in Sources */,
@@ -804,6 +811,7 @@
 				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
 				BE2AFB692C4E333500C6718C /* WeakStorage.swift in Sources */,
 				BE2AFB722C4E337200C6718C /* View.swift in Sources */,
+				BE5F22A82C520E7900CC7DD6 /* SearchRequest.swift in Sources */,
 				BE2AFB9C2C4E437200C6718C /* UIFont+.swift in Sources */,
 				BE2AFB752C4E340E00C6718C /* BaseViewController.swift in Sources */,
 				8E768E362C4EC5A10062431F /* RegexValidator.swift in Sources */,
