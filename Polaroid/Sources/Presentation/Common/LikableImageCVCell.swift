@@ -1,5 +1,5 @@
 //
-//  SearchImageCVCell.swift
+//  LikableImageCVCell.swift
 //  Polaroid
 //
 //  Created by gnksbm on 7/25/24.
@@ -11,15 +11,19 @@ import Kingfisher
 import Neat
 import SnapKit
 
-final class SearchImageCVCell: BaseCollectionViewCell, RegistrableCellType {
-    static func makeRegistration() -> Registration<SearchedImage> {
+final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
+    static func makeRegistration() -> Registration<LikableImage> {
         Registration { cell, indexPath, item in
             cell.imageView.kf.setImage(with: item.imageURL)
-            cell.likeCountView.updateLabel(text: item.likeCount.formatted())
             cell.heartButton.setImage(
                 UIImage(systemName: item.isLiked ? "heart.fill" : "heart"),
                 for: .normal
             )
+            if let likeCount = item.likeCount {
+                cell.likeCountView.updateLabel(text: likeCount.formatted())
+            } else {
+                cell.likeCountView.isHidden = true
+            }
         }
     }
     

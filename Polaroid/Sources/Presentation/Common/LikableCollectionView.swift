@@ -1,5 +1,5 @@
 //
-//  SearchImageCollectionView.swift
+//  LikableCollectionView.swift
 //  Polaroid
 //
 //  Created by gnksbm on 7/25/24.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class SearchImageCollectionView: 
-    ModernCollectionView<SingleSection, SearchedImage, SearchImageCVCell> {
+final class LikableCollectionView: 
+    ModernCollectionView<SingleSection, LikableImage, LikableImageCVCell> {
     override class func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { _, _ in
             let item = NSCollectionLayoutItem(

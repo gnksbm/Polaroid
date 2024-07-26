@@ -1,5 +1,5 @@
 //
-//  SearchColorButton.swift
+//  ColorButton.swift
 //  Polaroid
 //
 //  Created by gnksbm on 7/26/24.
@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class SearchColorButton: BaseButton, ToggleView {
+final class ColorButton: BaseButton, ToggleView {
     var selectedState = Observable<Bool>(false)
     var observableBag = ObservableBag()
     
@@ -30,7 +30,7 @@ final class SearchColorButton: BaseButton, ToggleView {
         applyCornerRadius(demension: .height)
     }
     
-    func updateView(option: SearchColorOption) {
+    func updateView(option: ColorOption) {
         colorView.backgroundColor = option.color
         nameLabel.text = option.title
     }
@@ -61,7 +61,7 @@ final class SearchColorButton: BaseButton, ToggleView {
 }
 
 
-extension SearchColorOption {
+extension ColorOption {
     var title: String {
         switch self {
         case .black:

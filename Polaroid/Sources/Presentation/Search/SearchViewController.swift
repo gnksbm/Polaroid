@@ -18,9 +18,9 @@ final class SearchViewController: BaseViewController, View {
         $0.searchBar.placeholder(Literal.Search.searchBarPlaceholder)
     }
     
-    private lazy var sortButton = SearchSortOptionButton()
-    private lazy var colorButtonView = SearchColorButtonView()
-    private lazy var collectionView = SearchImageCollectionView(
+    private lazy var sortButton = SortOptionButton()
+    private lazy var colorButtonView = ColorButtonView()
+    private lazy var collectionView = LikableCollectionView(
     ).nt.configure {
         $0.delegate(self)
     }

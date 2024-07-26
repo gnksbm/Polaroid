@@ -1,5 +1,5 @@
 //
-//  SearchColorButtonView.swift
+//  ColorButtonView.swift
 //  Polaroid
 //
 //  Created by gnksbm on 7/26/24.
@@ -10,16 +10,16 @@ import UIKit
 import Neat
 import SnapKit
 
-final class SearchColorButtonView: UIScrollView {
-    var colorSelectEvent = Observable<SearchColorOption?>(nil)
+final class ColorButtonView: UIScrollView {
+    var colorSelectEvent = Observable<ColorOption?>(nil)
     private var observableBag = ObservableBag()
     
     private lazy var buttonStackView = DeclarativeStackView(
         axis: .horizontal,
         spacing: 10
     ) {
-        SearchColorOption.allCases.map { option in
-            SearchColorButton().nt.configure {
+        ColorOption.allCases.map { option in
+            ColorButton().nt.configure {
                 $0.perform { [weak self] in
                     $0.updateView(option: option)
                     self?.bindColorButton($0, option: option)
@@ -69,8 +69,8 @@ final class SearchColorButtonView: UIScrollView {
     }
     
     private func bindColorButton(
-        _ sender: SearchColorButton,
-        option: SearchColorOption
+        _ sender: ColorButton,
+        option: ColorOption
     ) {
         sender.tapEvent
             .bind { [weak self] colorButton in

@@ -1,5 +1,5 @@
 //
-//  SearchedImage.swift
+//  LikableImage.swift
 //  Polaroid
 //
 //  Created by gnksbm on 7/26/24.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct SearchedImage: Hashable {
+struct LikableImage: Hashable {
     let id: String
     let imageURL: URL?
-    let likeCount: Int
+    let likeCount: Int?
     var isLiked: Bool
 }

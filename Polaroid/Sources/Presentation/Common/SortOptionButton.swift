@@ -1,5 +1,5 @@
 //
-//  SearchSortOptionButton.swift
+//  SortOptionButton.swift
 //  Polaroid
 //
 //  Created by gnksbm on 7/26/24.
@@ -9,8 +9,8 @@ import UIKit
 
 import SnapKit
 
-final class SearchSortOptionButton: BaseButton {
-    var sortSelectEvent = Observable<SearchSortOption>(.latest)
+final class SortOptionButton: BaseButton {
+    var sortSelectEvent = Observable<SortOption>(.latest)
     private var observableBag = ObservableBag()
     
     override init() {
@@ -53,7 +53,7 @@ final class SearchSortOptionButton: BaseButton {
         tapEvent
             .bind { [weak self] _ in
                 guard let self else { return }
-                let options = SearchSortOption.allCases
+                let options = SortOption.allCases
                 if let index = options.firstIndex(of: sortSelectEvent.value()) {
                     let newIndex = options.index(after: index) % options.count
                     let newOption = options[newIndex]

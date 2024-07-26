@@ -1,5 +1,5 @@
 //
-//  SearchSortOption.swift
+//  SortOption.swift
 //  Polaroid
 //
 //  Created by gnksbm on 7/26/24.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum SearchSortOption: String, CaseIterable {
+enum SortOption: String, CaseIterable {
     case latest, relevant
 }
 
-extension SearchSortOption {
+extension SortOption {
     var title: String {
         switch self {
         case .latest:

@@ -13,7 +13,7 @@ final class SearchRepository {
     func search(
         request: SearchRequest,
         _ completion:
-        @escaping (Result<(images: [SearchedImage], page: Int), Error>) -> Void
+        @escaping (Result<(images: [LikableImage], page: Int), Error>) -> Void
     ) {
         networkService.callRequest(
             endpoint: SearchEndpoint(request: request)

@@ -63,7 +63,7 @@ final class SearchViewModel: ViewModel {
     private func search(
         input: Input,
         output: Output,
-        _ completion: @escaping ([SearchedImage]) -> Void
+        _ completion: @escaping ([LikableImage]) -> Void
     ) {
         searchRepository.search(
             request: SearchRequest(
@@ -92,8 +92,8 @@ extension SearchViewModel {
         let searchTextChangeEvent: Observable<String>
         let queryEnterEvent: Observable<String>
         let scrollReachedBottomEvent: Observable<Void>
-        let sortOptionSelectEvent: Observable<SearchSortOption>
-        let colorOptionSelectEvent: Observable<SearchColorOption?>
+        let sortOptionSelectEvent: Observable<SortOption>
+        let colorOptionSelectEvent: Observable<ColorOption?>
     }
     
     struct Output {
@@ -103,7 +103,7 @@ extension SearchViewModel {
     
     enum SearchState: Equatable {
         case emptyQuery, searching
-        case result([SearchedImage]), nextPage([SearchedImage]), finalPage
+        case result([LikableImage]), nextPage([LikableImage]), finalPage
         case none
         
         var isSearchAllowed: Bool {
