@@ -42,7 +42,7 @@ extension MainTabBarController.TabKind {
         case .search:
             SearchViewController()
         case .liked:
-            UIViewController()
+            FavoriteViewController()
         }
     }
     

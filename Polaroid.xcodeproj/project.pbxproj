@@ -36,6 +36,8 @@
 		8EB3FE912C5378B60012D1A3 /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE902C5378B60012D1A3 /* ColorButton.swift */; };
 		8EB3FE932C537ACB0012D1A3 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE922C537ACB0012D1A3 /* UIView+.swift */; };
 		8EB3FE972C5396D70012D1A3 /* SortOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE962C5396D70012D1A3 /* SortOptionButton.swift */; };
+		8EB3FE9A2C539BD90012D1A3 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE992C539BD90012D1A3 /* FavoriteViewController.swift */; };
+		8EB3FE9C2C539CB70012D1A3 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE9B2C539CB70012D1A3 /* FavoriteViewModel.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
@@ -181,6 +183,8 @@
 		8EB3FE902C5378B60012D1A3 /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		8EB3FE922C537ACB0012D1A3 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		8EB3FE962C5396D70012D1A3 /* SortOptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptionButton.swift; sourceTree = "<group>"; };
+		8EB3FE992C539BD90012D1A3 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		8EB3FE9B2C539CB70012D1A3 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -375,6 +379,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		8EB3FE982C539BC70012D1A3 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				8EB3FE992C539BD90012D1A3 /* FavoriteViewController.swift */,
+				8EB3FE9B2C539CB70012D1A3 /* FavoriteViewModel.swift */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
 		BE2AFB1B2C4E280400C6718C = {
 			isa = PBXGroup;
 			children = (
@@ -442,6 +455,7 @@
 			children = (
 				BE5F22F42C526D6400CC7DD6 /* Appearance.swift */,
 				BE2AFBC92C4E9EA400C6718C /* Common */,
+				8EB3FE982C539BC70012D1A3 /* Favorite */,
 				BE2AFB952C4E3C1F00C6718C /* MainTab */,
 				BE2AFB922C4E39AC00C6718C /* Onboarding */,
 				BE2AFBB72C4E652A00C6718C /* Profile */,
@@ -953,6 +967,7 @@
 				8EB3FE852C5342270012D1A3 /* LikableImage.swift in Sources */,
 				BE2AFB572C4E2F0700C6718C /* CombineControlCompatible.swift in Sources */,
 				BE2AFB692C4E333500C6718C /* WeakStorage.swift in Sources */,
+				8EB3FE9C2C539CB70012D1A3 /* FavoriteViewModel.swift in Sources */,
 				BE2AFB722C4E337200C6718C /* View.swift in Sources */,
 				BE5F22A82C520E7900CC7DD6 /* SearchRequest.swift in Sources */,
 				BE5F22B22C52107800CC7DD6 /* RandomDTO.swift in Sources */,
@@ -1026,6 +1041,7 @@
 				BE2AFB612C4E2FC600C6718C /* UIKit+Combine.swift in Sources */,
 				BE5F22492C4FAD5700CC7DD6 /* NSDirectionalEdgeInsets+.swift in Sources */,
 				BE2AFBA42C4E487800C6718C /* Literal.swift in Sources */,
+				8EB3FE9A2C539BD90012D1A3 /* FavoriteViewController.swift in Sources */,
 				8EB3FE7A2C53384C0012D1A3 /* NetworkError.swift in Sources */,
 				8E768E4F2C501DF40062431F /* TopicRequest.swift in Sources */,
 				BE5F22DF2C524A9D00CC7DD6 /* CacheableObject.swift in Sources */,

@@ -35,10 +35,15 @@ enum Literal {
         static let emptyResultBackground = "검색 결과가 없어요."
     }
     
+    enum Favorite {
+        static let emptyResultBackground = "저장된 사진이 없어요."
+    }
+    
     enum NavigationTitle {
         static let profileStrring = "PROFILE SETTING"
         static let ourTopic = "OUT TOPIC"
         static let search = "SEARCH PHOTO"
+        static let favorite = "MY POLAROID"
     }
     
     enum Image {
