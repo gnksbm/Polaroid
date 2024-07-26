@@ -74,6 +74,8 @@ extension SearchViewModel {
     }
     
     enum SearchState {
-        case emptyQuery, searching, result([SearchedImage]), none
+        case emptyQuery, searching
+        case result([SearchedImage]), nextPage([SearchedImage])
+        case none
     }
 }

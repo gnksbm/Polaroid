@@ -96,7 +96,9 @@ extension SearchDTO {
     
     struct Source: Codable {
         let ancestry: Ancestry
-        let title, subtitle, description, metaTitle: String
+        let title, subtitle: String
+        let description: String?
+        let metaTitle: String
         let metaDescription: String
         let coverPhoto: CoverPhoto
         

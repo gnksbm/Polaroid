@@ -42,7 +42,8 @@ class ModernCollectionView
     }
     
     func applyItem(
-        _ sectionHandler: (Section) -> [Item]
+        _ sectionHandler: (Section) -> [Item],
+        withAnimating: Bool = true
     ) where Section: CaseIterable {
         Section.allCases.forEach { section in
             var snapshot = Snapshot()
@@ -51,7 +52,30 @@ class ModernCollectionView
                 sectionHandler(section),
                 toSection: section
             )
-            diffableDataSource.apply(snapshot)
+            diffableDataSource.apply(
+                snapshot,
+                animatingDifferences: withAnimating
+            )
+        }
+    }
+    
+    func appendItem(
+        _ sectionHandler: (Section) -> [Item],
+        withAnimating: Bool = true
+    ) where Section: CaseIterable {
+        Section.allCases.forEach { section in
+            var snapshot = diffableDataSource.snapshot()
+            if !snapshot.sectionIdentifiers.contains(section) {
+                snapshot.appendSections([section])
+            }
+            snapshot.appendItems(
+                sectionHandler(section),
+                toSection: section
+            )
+            diffableDataSource.apply(
+                snapshot,
+                animatingDifferences: withAnimating
+            )
         }
     }
 }

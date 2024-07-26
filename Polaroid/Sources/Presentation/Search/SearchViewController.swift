@@ -60,8 +60,26 @@ final class SearchViewController: BaseViewController, View {
                 case .searching:
                     showProgressView()
                 case .result(let items):
-                    collectionView.applyItem { _ in
-                        items
+                    collectionView.applyItem { section in
+                        switch section {
+                        case .main:
+                            items
+                        }
+                    }
+                    hideProgressView()
+                    if items.isEmpty {
+                        collectionViewBGView.text =
+                        Literal.Search.emptyResultBackground
+                        collectionView.backgroundView = collectionViewBGView
+                    } else {
+                        collectionView.backgroundView = nil
+                    }
+                case .nextPage(let items):
+                    collectionView.appendItem { section in
+                        switch section {
+                        case .main:
+                            items
+                        }
                     }
                     hideProgressView()
                     if items.isEmpty {

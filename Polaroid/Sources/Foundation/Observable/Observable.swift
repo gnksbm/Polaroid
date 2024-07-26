@@ -11,10 +11,17 @@ final class Observable<Base> {
     var eventBag = ObservableBag()
     
     private var handlers = [ObservableHandler<Base>]()
-    
+    private var throttle: Throttle?
     private var base: Base {
         didSet {
-            handlers.forEach { $0.receive(base) }
+            if let throttle {
+                throttle.run { [weak self] in
+                    guard let self else { return }
+                    handlers.forEach { $0.receive(self.base) }
+                }
+            } else {
+                handlers.forEach { $0.receive(base) }
+            }
         }
     }
     
@@ -42,6 +49,12 @@ final class Observable<Base> {
         base
     }
     
+    func store(in bag: inout ObservableBag) {
+        bag.insert(self)
+    }
+}
+
+extension Observable {
     func map<T>(_ block: @escaping (Base) -> T) -> Observable<T> {
         let newBase = block(base)
         let newObservable = Observable<T>(newBase)
@@ -51,8 +64,9 @@ final class Observable<Base> {
         return newObservable
     }
     
-    func store(in bag: inout ObservableBag) {
-        bag.insert(self)
+    func throttle(period: TimeInterval) -> Self {
+        throttle = Throttle(period: period)
+        return self
     }
 }
 

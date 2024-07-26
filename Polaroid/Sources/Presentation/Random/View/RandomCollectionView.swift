@@ -41,7 +41,8 @@ final class RandomCollectionView:
     }
     
     override func applyItem(
-        _ sectionHandler: (RandomSection) -> [RandomImage]
+        _ sectionHandler: (RandomSection) -> [RandomImage],
+        withAnimating: Bool = true
     ) {
         super.applyItem(sectionHandler)
         observableBag.cancel()
