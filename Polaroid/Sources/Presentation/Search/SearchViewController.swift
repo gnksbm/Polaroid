@@ -18,8 +18,9 @@ final class SearchViewController: BaseViewController, View {
         $0.searchBar.placeholder(Literal.Search.searchBarPlaceholder)
     }
     
-    private lazy var searchColorButtonView = SearchColorButtonView()
-    private lazy var imageCollectionView = SearchImageCollectionView(
+    private lazy var sortButton = SearchSortOptionButton()
+    private lazy var colorButtonView = SearchColorButtonView()
+    private lazy var collectionView = SearchImageCollectionView(
     ).nt.configure {
         $0.delegate(self)
     }
@@ -27,6 +28,11 @@ final class SearchViewController: BaseViewController, View {
     override init() {
         super.init()
         viewModel = SearchViewModel()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        colorButtonView.addSpacing(length: sortButton.bounds.width)
     }
     
     func bind(viewModel: SearchViewModel) {
@@ -40,8 +46,8 @@ final class SearchViewController: BaseViewController, View {
                     .map { $0.text ?? "" },
                 scrollReachedBottomEvent: scrollReachedBottomEvent
                     .throttle(period: 3),
-                sortOptionSelectEvent: Observable<SearchSortOption>(.latest),
-                colorOptionSelectEvent: searchColorButtonView.colorSelectEvent
+                sortOptionSelectEvent: sortButton.sortSelectEvent,
+                colorOptionSelectEvent: colorButtonView.colorSelectEvent
             )
         )
         
@@ -50,39 +56,39 @@ final class SearchViewController: BaseViewController, View {
                 .font(MPDesign.Font.subtitle.with(weight: .bold))
                 .textAlignment(.center)
         }
-        imageCollectionView.backgroundView = collectionViewBGView
+        collectionView.backgroundView = collectionViewBGView
         
         output.searchState
             .bind { [weak self] state in
                 guard let self else { return }
                 switch state {
                 case .emptyQuery:
-                    imageCollectionView.applyItem(items: [])
+                    collectionView.applyItem(items: [])
                     collectionViewBGView.text =
                     Literal.Search.beforeSearchBackground
-                    imageCollectionView.backgroundView = collectionViewBGView
+                    collectionView.backgroundView = collectionViewBGView
                     hideProgressView()
                 case .searching:
                     showProgressView()
                 case .result(let items):
-                    imageCollectionView.applyItem(items: items)
+                    collectionView.applyItem(items: items)
                     hideProgressView()
                     if items.isEmpty {
                         collectionViewBGView.text =
                         Literal.Search.emptyResultBackground
-                        imageCollectionView.backgroundView = collectionViewBGView
+                        collectionView.backgroundView = collectionViewBGView
                     } else {
-                        imageCollectionView.backgroundView = nil
+                        collectionView.backgroundView = nil
                     }
                 case .nextPage(let items):
-                    imageCollectionView.appendItem(items: items)
+                    collectionView.appendItem(items: items)
                     hideProgressView()
                     if items.isEmpty {
                         collectionViewBGView.text =
                         Literal.Search.emptyResultBackground
-                        imageCollectionView.backgroundView = collectionViewBGView
+                        collectionView.backgroundView = collectionViewBGView
                     } else {
-                        imageCollectionView.backgroundView = nil
+                        collectionView.backgroundView = nil
                     }
                 case .finalPage, .none:
                     break
@@ -92,17 +98,22 @@ final class SearchViewController: BaseViewController, View {
     }
     
     override func configureLayout() {
-        [searchColorButtonView, imageCollectionView].forEach {
+        [colorButtonView, sortButton, collectionView].forEach {
             view.addSubview($0)
         }
         
-        searchColorButtonView.snp.makeConstraints { make in
+        colorButtonView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(safeArea)
-            make.height.equalTo(searchColorButtonView.contentLayoutGuide)
+            make.height.equalTo(colorButtonView.contentLayoutGuide)
         }
         
-        imageCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchColorButtonView.snp.bottom)
+        sortButton.snp.makeConstraints { make in
+            make.centerY.equalTo(colorButtonView)
+            make.trailing.equalTo(colorButtonView).offset(12)
+        }
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(colorButtonView.snp.bottom)
             make.horizontalEdges.bottom.equalTo(safeArea)
         }
     }

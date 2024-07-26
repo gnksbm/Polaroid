@@ -39,6 +39,23 @@ final class SearchColorButtonView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func addSpacing(length: CGFloat) {
+        let viewLength = length - buttonStackView.spacing * 2
+        let spacerView = UIView()
+        buttonStackView.addArrangedSubview(spacerView)
+        
+        spacerView.snp.makeConstraints { make in
+            switch buttonStackView.axis {
+            case .horizontal:
+                make.width.equalTo(viewLength)
+            case .vertical:
+                make.height.equalTo(viewLength)
+            @unknown default:
+                break
+            }
+        }
+    }
+    
     private func configureView() {
         showsHorizontalScrollIndicator = false
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SearchSortOption: String {
+enum SearchSortOption: String, CaseIterable {
     case latest, relevant
 }
 
