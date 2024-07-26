@@ -7,23 +7,20 @@
 
 import Foundation
 
-import Alamofire
-
 final class TopicRepository {
+    private let networkService = NetworkService.shared
+    
     func fetchTopic(
         request: TopicRequest,
-        _ completion: @escaping (Result<[MinimumUnsplashImage], Error>) -> Void
+        _ completion: @escaping (Result<[TopicImage], Error>) -> Void
     ) {
-        AF.request(TopicEndpoint(request: request))
-            .responseDecodable(of: [TopicDTO].self) { response in
-                let result = response.result
-                    .map { dtos in
-                        dtos.map { $0.toMinImage }
-                    }
-                    .mapError { error in
-                        error as Error
-                    }
-                completion(result)
-            }
+        networkService.callRequest(
+            endpoint: TopicEndpoint(request: request)
+        ) { result in
+            completion(
+                result.decode(type: [TopicDTO].self)
+                    .map { $0.map { $0.toTopicImage() } }
+            )
+        }
     }
 }

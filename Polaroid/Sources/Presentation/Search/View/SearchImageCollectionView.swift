@@ -1,5 +1,5 @@
 //
-//  SearchCollectionView.swift
+//  SearchImageCollectionView.swift
 //  Polaroid
 //
 //  Created by gnksbm on 7/25/24.
@@ -7,12 +7,8 @@
 
 import UIKit
 
-enum SearchCVItem: Hashable {
-    case color, image
-}
-
-final class SearchCollectionView: ModernCollectionView
-<SearchCollectionView.SearchCVSection, SearchCVItem, SearchCVCell> {
+final class SearchImageCollectionView: ModernCollectionView
+<SearchImageCollectionView.SearchCVSection, SearchCVItem, SearchImageCVCell> {
     override class func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { section, _ in
             switch Section.allCases[section] {
@@ -57,7 +53,7 @@ final class SearchCollectionView: ModernCollectionView
     }
 }
 
-extension SearchCollectionView {
+extension SearchImageCollectionView {
     enum SearchCVSection: CaseIterable {
         case color, image
     }

@@ -7,19 +7,17 @@
 
 import Foundation
 
-import Alamofire
-
 final class RandomRepository {
+    private let networkService = NetworkService.shared
+    
     func fetchRandom(
         _ completion: @escaping (Result<[RandomImage], Error>) -> Void
     ) {
-        AF.request(RandomEndpoint())
-            .responseDecodable(of: [RandomDTO].self) { response in
-                completion(
-                    response.result
-                        .mapError { error in error as Error }
-                        .flatMap { .success($0.map { $0.toRandomImage() }) }
-                )
-            }
+        networkService.callRequest(endpoint: RandomEndpoint()) { result in
+            completion(
+                result.decode(type: [RandomDTO].self)
+                    .map { $0.map { $0.toRandomImage() } }
+            )
+        }
     }
 }

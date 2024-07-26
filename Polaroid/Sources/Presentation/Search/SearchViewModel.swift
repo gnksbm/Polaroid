@@ -18,6 +18,17 @@ final class SearchViewModel: ViewModel {
         
         input.searchTextChangeEvent
             .bind { searchQuery in
+                if searchQuery.isEmpty {
+                    output.searchState.onNext(.emptyQuery)
+                }
+            }
+            .store(in: &observableBag)
+        
+        input.queryEnterEvent
+            .bind { searchQuery in
+                guard !searchQuery.isEmpty else {
+                    return
+                }
                 output.searchState.onNext(.searching)
             }
             .store(in: &observableBag)
@@ -29,6 +40,7 @@ final class SearchViewModel: ViewModel {
 extension SearchViewModel {
     struct Input { 
         let searchTextChangeEvent: Observable<String>
+        let queryEnterEvent: Observable<String>
     }
     
     struct Output { 

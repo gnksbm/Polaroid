@@ -21,7 +21,7 @@ final class TopicViewModel: ViewModel {
             .bind { [weak self] _ in
                 guard let self else { return }
                 var sectionDatas =
-                [SectionData<TopicSection, MinimumUnsplashImage>]()
+                [SectionData<TopicSection, TopicImage>]()
                 let group = DispatchGroup()
                 TopicSection.allCases.forEach { section in
                     group.enter()
@@ -57,7 +57,7 @@ extension TopicViewModel {
     
     struct Output {
         let sectionDatas: Observable
-        <[SectionData<TopicSection, MinimumUnsplashImage>]>
+        <[SectionData<TopicSection, TopicImage>]>
         let onError: Observable<Void>
     }
 }

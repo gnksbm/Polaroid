@@ -12,7 +12,7 @@ struct SearchRequest {
     let page: Int
     let countForPage: Int
     let sortOption: SortOption
-    let color: Color
+    let color: Color?
     
     init(
         keyword: String,

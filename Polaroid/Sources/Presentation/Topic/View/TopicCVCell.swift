@@ -25,7 +25,7 @@ final class TopicCVCell: BaseCollectionViewCell, RegistrableCellType {
         }
     }
     
-    static func makeRegistration() -> Registration<MinimumUnsplashImage> {
+    static func makeRegistration() -> Registration<TopicImage> {
         Registration { cell, indexPath, item in
             cell.imageView.kf.setImage(with: item.imageURL)
             cell.likeCountView.updateLabel(text: item.likeCount.formatted())

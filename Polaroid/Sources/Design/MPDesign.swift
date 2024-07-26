@@ -33,6 +33,10 @@ extension MPDesign {
         static let darkGray = UIColor.mpDarkGray
         static let red = UIColor.mpRed
         static let clear = UIColor.clear
+        static let yellow = UIColor.yellow
+        static let purple = UIColor.purple
+        static let green = UIColor.green
+        static let blue = UIColor.blue
     }
 }
 

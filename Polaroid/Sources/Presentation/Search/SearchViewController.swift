@@ -17,7 +17,7 @@ final class SearchViewController: BaseViewController, View {
         $0.searchBar.placeholder(Literal.Search.searchBarPlaceholder)
     }
     
-    private let collectionView = SearchCollectionView()
+    private let collectionView = SearchImageCollectionView()
     
     override init() {
         super.init()
@@ -29,6 +29,9 @@ final class SearchViewController: BaseViewController, View {
             input: SearchViewModel.Input(
                 searchTextChangeEvent: searchController.searchBar
                     .searchTextField.textChangeEvent.asObservable()
+                    .map { $0.text ?? "" },
+                queryEnterEvent: searchController.searchBar.searchTextField
+                    .enterEvent.asObservable()
                     .map { $0.text ?? "" }
             )
         )

@@ -27,6 +27,13 @@ extension ObservableControlEventType where Self: UITextField {
             event: .editingChanged
         )
     }
+    
+    var enterEvent: ObservableControlEvent<UITextField> {
+        ObservableControlEvent(
+            control: self,
+            event: .editingDidEndOnExit
+        )
+    }
 }
 
 extension UICollectionView {

@@ -51,8 +51,8 @@ struct TopicDTO: Decodable {
 }
 
 extension TopicDTO {
-    var toMinImage: MinimumUnsplashImage {
-        MinimumUnsplashImage(
+    func toTopicImage() -> TopicImage {
+        TopicImage(
             id: id,
             imageURL: URL(string: urls.small),
             likeCount: likes
