@@ -18,13 +18,8 @@ final class ProfileImageCVCell: BaseCollectionViewCell, RegistrableCellType {
     var selectedState = Observable<Bool>(false)
     var observableBag = ObservableBag()
     
-    var foregroundColor: UIColor?
-    var normalForegroundColor: UIColor?
-    var normalBackgroundColor: UIColor?
     var normalBorderColor: UIColor? { MPDesign.Color.gray }
     
-    var selectedForegroundColor: UIColor?
-    var selectedBackgroundColor: UIColor?
     var selectedBorderColor: UIColor? { MPDesign.Color.tint }
     
     private let imageView = UIImageView().nt.configure {

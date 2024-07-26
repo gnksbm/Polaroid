@@ -11,9 +11,9 @@ extension UIView {
     func applyCornerRadius(demension: Dimension) {
         layer.cornerRadius = switch demension {
         case .width:
-            bounds.width
+            bounds.width / 2
         case .height:
-            bounds.height
+            bounds.height / 2
         case .size(let value):
             value
         }

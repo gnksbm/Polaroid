@@ -18,7 +18,9 @@ final class SearchViewController: BaseViewController, View {
         $0.searchBar.placeholder(Literal.Search.searchBarPlaceholder)
     }
     
-    private lazy var collectionView = SearchImageCollectionView().nt.configure {
+    private lazy var searchColorButtonView = SearchColorButtonView()
+    private lazy var imageCollectionView = SearchImageCollectionView(
+    ).nt.configure {
         $0.delegate(self)
     }
     
@@ -48,39 +50,39 @@ final class SearchViewController: BaseViewController, View {
                 .font(MPDesign.Font.subtitle.with(weight: .bold))
                 .textAlignment(.center)
         }
-        collectionView.backgroundView = collectionViewBGView
+        imageCollectionView.backgroundView = collectionViewBGView
         
         output.searchState
             .bind { [weak self] state in
                 guard let self else { return }
                 switch state {
                 case .emptyQuery:
-                    collectionView.applyItem(items: [])
+                    imageCollectionView.applyItem(items: [])
                     collectionViewBGView.text =
                     Literal.Search.beforeSearchBackground
-                    collectionView.backgroundView = collectionViewBGView
+                    imageCollectionView.backgroundView = collectionViewBGView
                     hideProgressView()
                 case .searching:
                     showProgressView()
                 case .result(let items):
-                    collectionView.applyItem(items: items)
+                    imageCollectionView.applyItem(items: items)
                     hideProgressView()
                     if items.isEmpty {
                         collectionViewBGView.text =
                         Literal.Search.emptyResultBackground
-                        collectionView.backgroundView = collectionViewBGView
+                        imageCollectionView.backgroundView = collectionViewBGView
                     } else {
-                        collectionView.backgroundView = nil
+                        imageCollectionView.backgroundView = nil
                     }
                 case .nextPage(let items):
-                    collectionView.appendItem(items: items)
+                    imageCollectionView.appendItem(items: items)
                     hideProgressView()
                     if items.isEmpty {
                         collectionViewBGView.text =
                         Literal.Search.emptyResultBackground
-                        collectionView.backgroundView = collectionViewBGView
+                        imageCollectionView.backgroundView = collectionViewBGView
                     } else {
-                        collectionView.backgroundView = nil
+                        imageCollectionView.backgroundView = nil
                     }
                 case .finalPage, .none:
                     break
@@ -90,12 +92,18 @@ final class SearchViewController: BaseViewController, View {
     }
     
     override func configureLayout() {
-        [collectionView].forEach {
+        [searchColorButtonView, imageCollectionView].forEach {
             view.addSubview($0)
         }
         
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(safeArea)
+        searchColorButtonView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(safeArea)
+            make.height.equalTo(searchColorButtonView.contentLayoutGuide)
+        }
+        
+        imageCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(searchColorButtonView.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(safeArea)
         }
     }
     

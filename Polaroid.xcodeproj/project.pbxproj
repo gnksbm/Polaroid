@@ -32,8 +32,8 @@
 		8EB3FE872C5346C40012D1A3 /* SearchSortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE862C5346C40012D1A3 /* SearchSortOption.swift */; };
 		8EB3FE892C5346CD0012D1A3 /* SearchColorOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE882C5346CD0012D1A3 /* SearchColorOption.swift */; };
 		8EB3FE8B2C5356450012D1A3 /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE8A2C5356450012D1A3 /* Throttle.swift */; };
-		8EB3FE8F2C5378A40012D1A3 /* SearchColorCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE8E2C5378A40012D1A3 /* SearchColorCollectionView.swift */; };
-		8EB3FE912C5378B60012D1A3 /* SearchColorCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE902C5378B60012D1A3 /* SearchColorCVCell.swift */; };
+		8EB3FE8F2C5378A40012D1A3 /* SearchColorButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE8E2C5378A40012D1A3 /* SearchColorButtonView.swift */; };
+		8EB3FE912C5378B60012D1A3 /* SearchColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE902C5378B60012D1A3 /* SearchColorButton.swift */; };
 		8EB3FE932C537ACB0012D1A3 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE922C537ACB0012D1A3 /* UIView+.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
@@ -176,8 +176,8 @@
 		8EB3FE862C5346C40012D1A3 /* SearchSortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSortOption.swift; sourceTree = "<group>"; };
 		8EB3FE882C5346CD0012D1A3 /* SearchColorOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchColorOption.swift; sourceTree = "<group>"; };
 		8EB3FE8A2C5356450012D1A3 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
-		8EB3FE8E2C5378A40012D1A3 /* SearchColorCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchColorCollectionView.swift; sourceTree = "<group>"; };
-		8EB3FE902C5378B60012D1A3 /* SearchColorCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchColorCVCell.swift; sourceTree = "<group>"; };
+		8EB3FE8E2C5378A40012D1A3 /* SearchColorButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchColorButtonView.swift; sourceTree = "<group>"; };
+		8EB3FE902C5378B60012D1A3 /* SearchColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchColorButton.swift; sourceTree = "<group>"; };
 		8EB3FE922C537ACB0012D1A3 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -385,8 +385,8 @@
 		8EB3FE8D2C5378990012D1A3 /* Color */ = {
 			isa = PBXGroup;
 			children = (
-				8EB3FE8E2C5378A40012D1A3 /* SearchColorCollectionView.swift */,
-				8EB3FE902C5378B60012D1A3 /* SearchColorCVCell.swift */,
+				8EB3FE8E2C5378A40012D1A3 /* SearchColorButtonView.swift */,
+				8EB3FE902C5378B60012D1A3 /* SearchColorButton.swift */,
 			);
 			path = Color;
 			sourceTree = "<group>";
@@ -1050,11 +1050,11 @@
 				8E768E4F2C501DF40062431F /* TopicRequest.swift in Sources */,
 				BE5F22DF2C524A9D00CC7DD6 /* CacheableObject.swift in Sources */,
 				8E768E462C50192A0062431F /* UnsplashEndpoint.swift in Sources */,
-				8EB3FE8F2C5378A40012D1A3 /* SearchColorCollectionView.swift in Sources */,
+				8EB3FE8F2C5378A40012D1A3 /* SearchColorButtonView.swift in Sources */,
 				BE5F22E32C524AC100CC7DD6 /* CacheService.swift in Sources */,
 				BE5F22452C4FAA4200CC7DD6 /* TopicCollectionView.swift in Sources */,
 				BE2AFB7B2C4E342C00C6718C /* BaseView.swift in Sources */,
-				8EB3FE912C5378B60012D1A3 /* SearchColorCVCell.swift in Sources */,
+				8EB3FE912C5378B60012D1A3 /* SearchColorButton.swift in Sources */,
 				8E768E592C508F3F0062431F /* TopicImage.swift in Sources */,
 				BE2AFB942C4E3A8A00C6718C /* UIViewController+.swift in Sources */,
 				BE5F22622C50D2B600CC7DD6 /* ProfileImageEditViewController.swift in Sources */,

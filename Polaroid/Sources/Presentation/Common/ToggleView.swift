@@ -26,6 +26,19 @@ protocol ToggleView: AnyObject {
 }
 
 extension ToggleView where Self: UIView {
+    var foregroundColor: UIColor? {
+        get { nil }
+        set { }
+    }
+    
+    var normalForegroundColor: UIColor? { nil }
+    var normalBackgroundColor: UIColor? { nil }
+    var normalBorderColor: UIColor? { nil }
+    
+    var selectedForegroundColor: UIColor? { nil }
+    var selectedBackgroundColor: UIColor? { nil }
+    var selectedBorderColor: UIColor? { nil }
+    
     func bindColor() {
         selectedState
             .bind { [weak self] isSelected in
@@ -35,8 +48,10 @@ extension ToggleView where Self: UIView {
  
         foregroundColor = normalForegroundColor
         backgroundColor = normalBackgroundColor
-        layer.borderColor = normalBorderColor?.cgColor
-        layer.borderWidth = 1
+        if let normalBorderColor {
+            layer.borderColor = normalBorderColor.cgColor
+            layer.borderWidth = 1
+        }
     }
     
     func updateView(isSelected: Bool) {
