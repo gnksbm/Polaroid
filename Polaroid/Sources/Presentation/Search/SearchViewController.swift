@@ -11,13 +11,16 @@ import Neat
 import SnapKit
 
 final class SearchViewController: BaseViewController, View {
+    private var scrollReachedBottomEvent = Observable<Void>(())
     private var observableBag = ObservableBag()
     
     private let searchController = UISearchController().nt.configure {
         $0.searchBar.placeholder(Literal.Search.searchBarPlaceholder)
     }
     
-    private let collectionView = SearchImageCollectionView()
+    private lazy var collectionView = SearchImageCollectionView().nt.configure {
+        $0.delegate(self)
+    }
     
     override init() {
         super.init()
@@ -33,6 +36,8 @@ final class SearchViewController: BaseViewController, View {
                 queryEnterEvent: searchController.searchBar.searchTextField
                     .enterEvent.asObservable()
                     .map { $0.text ?? "" },
+                scrollReachedBottomEvent: scrollReachedBottomEvent
+                    .throttle(period: 3),
                 sortOptionSelectEvent: Observable<SearchSortOption>(.latest),
                 colorOptionSelectEvent: Observable<SearchColorOption?>(nil)
             )
@@ -89,7 +94,7 @@ final class SearchViewController: BaseViewController, View {
                     } else {
                         collectionView.backgroundView = nil
                     }
-                case .none:
+                case .finalPage, .none:
                     break
                 }
             }
@@ -115,5 +120,15 @@ final class SearchViewController: BaseViewController, View {
     
     override func configureNavigationTitle() {
         navigationItem.title = Literal.NavigationTitle.search
+    }
+}
+
+extension SearchViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y >=
+            scrollView.contentSize.height - scrollView.bounds.size.height,
+           scrollView.contentSize.height > scrollView.bounds.size.height {
+            scrollReachedBottomEvent.onNext(())
+        }
     }
 }

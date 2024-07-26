@@ -30,27 +30,28 @@ final class SearchViewModel: ViewModel {
         input.queryEnterEvent
             .bind { [weak self] searchQuery in
                 guard let self,
-                      !searchQuery.isEmpty else {
+                      !searchQuery.isEmpty,
+                      output.searchState.value().isSearchAllowed else {
                     return
                 }
                 page = 1
-                searchRepository.search(
-                    request: SearchRequest(
-                        keyword: searchQuery,
-                        page: page,
-                        sortOption: input.sortOptionSelectEvent.value(),
-                        color: input.colorOptionSelectEvent.value()
-                    )
-                ) { result in
-                    switch result {
-                    case .success(let images):
-                        output.searchState.onNext(.result(images))
-                    case .failure(let error):
-                        Logger.error(error)
-                        output.searchState.onNext(.result([]))
-                        output.onError.onNext(())
-                    }
-                    
+                search(input: input, output: output) { images in
+                    output.searchState.onNext(.result(images))
+                }
+                output.searchState.onNext(.searching)
+            }
+            .store(in: &observableBag)
+        
+        input.scrollReachedBottomEvent
+            .bind { [weak self] _ in
+                guard let self,
+                      !input.searchTextChangeEvent.value().isEmpty,
+                      output.searchState.value().isSearchAllowed else {
+                    return
+                }
+                page += 1
+                search(input: input, output: output) { images in
+                    output.searchState.onNext(.nextPage(images))
                 }
                 output.searchState.onNext(.searching)
             }
@@ -58,12 +59,39 @@ final class SearchViewModel: ViewModel {
         
         return output
     }
+    
+    private func search(
+        input: Input,
+        output: Output,
+        _ completion: @escaping ([SearchedImage]) -> Void
+    ) {
+        searchRepository.search(
+            request: SearchRequest(
+                keyword: input.searchTextChangeEvent.value(),
+                page: page,
+                sortOption: input.sortOptionSelectEvent.value(),
+                color: input.colorOptionSelectEvent.value()
+            )
+        ) { [weak self] result in
+            switch result {
+            case .success(let success):
+                if success.page == self?.page {
+                    output.searchState.onNext(.finalPage)
+                }
+                completion(success.images)
+            case .failure(let error):
+                Logger.error(error)
+                output.onError.onNext(())
+            }
+        }
+    }
 }
 
 extension SearchViewModel {
     struct Input { 
         let searchTextChangeEvent: Observable<String>
         let queryEnterEvent: Observable<String>
+        let scrollReachedBottomEvent: Observable<Void>
         let sortOptionSelectEvent: Observable<SearchSortOption>
         let colorOptionSelectEvent: Observable<SearchColorOption?>
     }
@@ -73,9 +101,18 @@ extension SearchViewModel {
         let onError: Observable<Void>
     }
     
-    enum SearchState {
+    enum SearchState: Equatable {
         case emptyQuery, searching
-        case result([SearchedImage]), nextPage([SearchedImage])
+        case result([SearchedImage]), nextPage([SearchedImage]), finalPage
         case none
+        
+        var isSearchAllowed: Bool {
+            switch self {
+            case .emptyQuery, .none, .result, .nextPage:
+                true
+            case .searching, .finalPage:
+                false
+            }
+        }
     }
 }

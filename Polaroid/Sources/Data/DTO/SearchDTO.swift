@@ -19,8 +19,8 @@ struct SearchDTO: Codable {
 }
 
 extension SearchDTO {
-    func toSearchedImage() -> [SearchedImage] {
-        results.map { result in
+    func toSearchedImage() -> ([SearchedImage], page: Int) {
+        let images = results.map { result in
             SearchedImage(
                 id: result.id,
                 imageURL: URL(string: result.urls.small),
@@ -28,6 +28,7 @@ extension SearchDTO {
                 isLiked: false
             )
         }
+        return (images, totalPages)
     }
 }
 
@@ -40,7 +41,7 @@ extension SearchDTO {
         let width, height: Int
         let color, blurHash: String
         let description: String?
-        let altDescription: String
+        let altDescription: String?
         let breadcrumbs: [Breadcrumb]
         let urls: Urls
         let links: ResultLinks
@@ -132,7 +133,7 @@ extension SearchDTO {
         let width, height: Int
         let color, blurHash: String
         let description: String?
-        let altDescription: String
+        let altDescription: String?
         let breadcrumbs: [Breadcrumb]
         let urls: Urls
         let links: ResultLinks

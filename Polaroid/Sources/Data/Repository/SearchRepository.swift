@@ -12,7 +12,8 @@ final class SearchRepository {
     
     func search(
         request: SearchRequest,
-        _ completion: @escaping (Result<[SearchedImage], Error>) -> Void
+        _ completion:
+        @escaping (Result<(images: [SearchedImage], page: Int), Error>) -> Void
     ) {
         networkService.callRequest(
             endpoint: SearchEndpoint(request: request)
