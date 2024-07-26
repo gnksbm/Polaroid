@@ -8,6 +8,10 @@
 import UIKit
 
 extension UIViewController {
+    var safeArea: UILayoutGuide {
+        view.safeAreaLayoutGuide
+    }
+    
     static func getCurrentRootVC() -> UIViewController {
         @UserDefaultsWrapper(key: .isJoinedUser, defaultValue: false)
         var isJoinedUser
@@ -35,7 +39,6 @@ extension UIViewController {
         
         view.addSubview(toastView)
         toastView.translatesAutoresizingMaskIntoConstraints = false
-        let safeArea = view.safeAreaLayoutGuide
         
         let toastTopConstraint =
         toastView.bottomAnchor.constraint(equalTo: safeArea.topAnchor)
@@ -84,8 +87,6 @@ extension UIViewController {
         OverlayHelper.activityView = activityView
         view.addSubview(activityView)
         
-        let safeArea = view.safeAreaLayoutGuide
-        
         NSLayoutConstraint.activate([
             activityView.centerXAnchor.constraint(
                 equalTo: safeArea.centerXAnchor
@@ -111,8 +112,6 @@ extension UIViewController {
         OverlayHelper.progressView = progressView
         view.addSubview(progressView)
         progressView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
             progressView.topAnchor.constraint(equalTo: safeArea.topAnchor),

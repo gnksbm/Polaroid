@@ -59,7 +59,6 @@ final class OnboardingViewController: BaseViewController, View {
             view.addSubview($0)
         }
         
-        let safeArea = view.safeAreaLayoutGuide
         let padding = 20.f
         
         messageImageView.snp.makeConstraints { make in

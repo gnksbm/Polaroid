@@ -106,8 +106,6 @@ final class SearchViewController: BaseViewController, View {
             view.addSubview($0)
         }
         
-        let safeArea = view.safeAreaLayoutGuide
-        
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(safeArea)
         }

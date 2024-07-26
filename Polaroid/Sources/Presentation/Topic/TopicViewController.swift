@@ -63,7 +63,6 @@ final class TopicViewController: BaseViewController, View {
             view.addSubview($0)
         }
         
-        let safeArea = view.safeAreaLayoutGuide
         let padding = 20.f
         
         titleLabel.snp.makeConstraints { make in

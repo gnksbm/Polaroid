@@ -132,7 +132,6 @@ final class ProfileSettingViewController: BaseViewController, View {
             doneButton
         ].forEach { view.addSubview($0) }
         
-        let safeArea = view.safeAreaLayoutGuide
         let padding = 20.f
         
         profileImageButton.snp.makeConstraints { make in
