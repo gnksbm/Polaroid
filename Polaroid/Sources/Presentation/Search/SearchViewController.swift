@@ -32,7 +32,9 @@ final class SearchViewController: BaseViewController, View {
                     .map { $0.text ?? "" },
                 queryEnterEvent: searchController.searchBar.searchTextField
                     .enterEvent.asObservable()
-                    .map { $0.text ?? "" }
+                    .map { $0.text ?? "" },
+                sortOptionSelectEvent: Observable<SearchSortOption>(.latest),
+                colorOptionSelectEvent: Observable<SearchColorOption?>(nil)
             )
         )
         
@@ -43,17 +45,6 @@ final class SearchViewController: BaseViewController, View {
         }
         collectionView.backgroundView = collectionViewBGView
         
-        output.emptyQuery
-            .bind { [weak self] _ in
-                self?.collectionView.applyItem { _ in
-                    []
-                }
-                collectionViewBGView.text =
-                Literal.Search.beforeSearchBackground
-                self?.collectionView.backgroundView = collectionViewBGView
-            }
-            .store(in: &observableBag)
-        
         output.searchState
             .bind { [weak self] state in
                 guard let self else { return }
@@ -63,7 +54,7 @@ final class SearchViewController: BaseViewController, View {
                         []
                     }
                     collectionViewBGView.text =
-                    Literal.Search.emptyResultBackground
+                    Literal.Search.beforeSearchBackground
                     collectionView.backgroundView = collectionViewBGView
                     hideProgressView()
                 case .searching:

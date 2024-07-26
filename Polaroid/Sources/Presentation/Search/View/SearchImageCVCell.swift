@@ -7,61 +7,66 @@
 
 import UIKit
 
-typealias SearchColorOption = SearchRequest.Color
+import Kingfisher
+import Neat
+import SnapKit
 
-extension SearchColorOption {
-    var title: String {
-        switch self {
-        case .black:
-            "블랙"
-        case .white:
-            "화이트"
-        case .yellow:
-            "옐로우"
-        case .red:
-            "레드"
-        case .purple:
-            "퍼플"
-        case .green:
-            "그린"
-        case .blue:
-            "블루"
+final class SearchImageCVCell: BaseCollectionViewCell, RegistrableCellType {
+    static func makeRegistration() -> Registration<SearchedImage> {
+        Registration { cell, indexPath, item in
+            cell.imageView.kf.setImage(with: item.imageURL)
+            cell.likeCountView.updateLabel(text: item.likeCount.formatted())
+            cell.heartButton.setImage(
+                UIImage(systemName: item.isLiked ? "heart.fill" : "heart"),
+                for: .normal
+            )
         }
     }
     
-    var color: UIColor {
-        switch self {
-        case .black:
-            MPDesign.Color.black
-        case .white:
-            MPDesign.Color.white
-        case .yellow:
-            MPDesign.Color.yellow
-        case .red:
-            MPDesign.Color.red
-        case .purple:
-            MPDesign.Color.purple
-        case .green:
-            MPDesign.Color.green
-        case .blue:
-            MPDesign.Color.blue
+    private var imageTask: URLSessionTask?
+    
+    private let imageView = UIImageView().nt.configure {
+        $0.contentMode(.scaleAspectFill)
+            .backgroundColor(MPDesign.Color.lightGray)
+            .clipsToBounds(true)
+    }
+    
+    private let likeCountView = CapsuleView().nt.configure {
+        $0.perform {
+            $0.setImage(UIImage(systemName: "star.fill"), tintColor: .yellow)
         }
     }
-}
-
-enum SearchCVItem: Hashable {
-    case color(selectedColor: SearchColorOption), image
-}
-
-final class SearchImageCVCell: UICollectionViewCell, RegistrableCellType {
-    static func makeRegistration() -> Registration<SearchCVItem> {
-        Registration { cell, indexPath, item in
-            switch item {
-            case .color(let selectedColor):
-                break
-            case .image:
-                break
-            }
+    
+    private let heartButton = CircleButton(dimension: .width).nt.configure {
+        $0.backgroundColor(MPDesign.Color.white.withAlphaComponent(0.5))
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageTask?.cancel()
+        imageTask = nil
+        imageView.image = nil
+    }
+    
+    override func configureLayout() {
+        [
+            imageView,
+            likeCountView,
+            heartButton
+        ].forEach { contentView.addSubview($0) }
+        
+        let padding = 10.f
+        
+        imageView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView)
+        }
+        
+        likeCountView.snp.makeConstraints { make in
+            make.leading.bottom.equalTo(contentView).inset(padding)
+        }
+        
+        heartButton.snp.makeConstraints { make in
+            make.trailing.bottom.equalTo(contentView).inset(padding)
         }
     }
 }

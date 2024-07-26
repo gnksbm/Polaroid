@@ -188,17 +188,13 @@ extension SearchDTO {
     }
     
     struct HealthClass: Codable {
-        let status: Status
-        let approvedOn: String
+        let status: String
+        let approvedOn: String?
         
         enum CodingKeys: String, CodingKey {
             case status
             case approvedOn = "approved_on"
         }
-    }
-    
-    enum Status: String, Codable {
-        case approved = "approved"
     }
     
     struct Urls: Codable {

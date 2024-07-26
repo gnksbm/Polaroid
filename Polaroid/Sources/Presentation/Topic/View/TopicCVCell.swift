@@ -12,6 +12,13 @@ import Neat
 import SnapKit
 
 final class TopicCVCell: BaseCollectionViewCell, RegistrableCellType {
+    static func makeRegistration() -> Registration<TopicImage> {
+        Registration { cell, indexPath, item in
+            cell.imageView.kf.setImage(with: item.imageURL)
+            cell.likeCountView.updateLabel(text: item.likeCount.formatted())
+        }
+    }
+    
     private var imageTask: URLSessionTask?
     
     private let imageView = UIImageView().nt.configure {
@@ -22,13 +29,6 @@ final class TopicCVCell: BaseCollectionViewCell, RegistrableCellType {
     private let likeCountView = CapsuleView().nt.configure {
         $0.perform {
             $0.setImage(UIImage(systemName: "star.fill"), tintColor: .yellow)
-        }
-    }
-    
-    static func makeRegistration() -> Registration<TopicImage> {
-        Registration { cell, indexPath, item in
-            cell.imageView.kf.setImage(with: item.imageURL)
-            cell.likeCountView.updateLabel(text: item.likeCount.formatted())
         }
     }
     
