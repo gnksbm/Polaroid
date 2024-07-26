@@ -22,44 +22,6 @@ protocol DiffableCollectionViewType: AnyObject where Item == Cell.Item {
 }
 
 extension DiffableCollectionViewType where Self: UICollectionView {
-    func applySnapshot(
-        _ datas: [SectionData<Section, Item>],
-        withAnimating: Bool = true
-    ) {
-        var snapshot = Snapshot()
-        datas.forEach { data in
-            snapshot.appendSections([data.section])
-            snapshot.appendItems(
-                data.items,
-                toSection: data.section
-            )
-        }
-        diffableDataSource.apply(
-            snapshot,
-            animatingDifferences: withAnimating
-        )
-    }
-    
-    func appendSnapshot(
-        with datas: [SectionData<Section, Item>],
-        withAnimating: Bool = true
-    ) {
-        var snapshot = diffableDataSource.snapshot()
-        datas.forEach { data in
-            if !snapshot.sectionIdentifiers.contains(data.section) {
-                snapshot.appendSections([data.section])
-            }
-            snapshot.appendItems(
-                data.items,
-                toSection: data.section
-            )
-        }
-        diffableDataSource.apply(
-            snapshot,
-            animatingDifferences: withAnimating
-        )
-    }
-    
     func configureDataSource() {
         let registration = Cell.makeRegistration()
         diffableDataSource = DiffableDataSource(

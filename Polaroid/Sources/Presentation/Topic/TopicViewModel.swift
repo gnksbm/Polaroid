@@ -13,15 +13,14 @@ final class TopicViewModel: ViewModel {
     
     func transform(input: Input) -> Output {
         let output = Output(
-            sectionDatas: Observable([]),
+            imageDic: Observable([:]),
             onError: Observable<Void>(())
         )
         
         input.viewDidLoadEvent
             .bind { [weak self] _ in
                 guard let self else { return }
-                var sectionDatas =
-                [SectionData<TopicSection, TopicImage>]()
+                var itemDic = [TopicSection: [TopicImage]]()
                 let group = DispatchGroup()
                 TopicSection.allCases.forEach { section in
                     group.enter()
@@ -29,10 +28,8 @@ final class TopicViewModel: ViewModel {
                         request: TopicRequest(topicID: section.requestQuery)
                     ) { result in
                         switch result {
-                        case .success(let minImage):
-                            sectionDatas.append(
-                                SectionData(section: section, items: minImage)
-                            )
+                        case .success(let images):
+                            itemDic[section] = images
                         case .failure(let error):
                             Logger.error(error)
                             output.onError.onNext(())
@@ -41,7 +38,7 @@ final class TopicViewModel: ViewModel {
                     }
                 }
                 group.notify(queue: .main) {
-                    output.sectionDatas.onNext(sectionDatas)
+                    output.imageDic.onNext(itemDic)
                 }
             }
             .store(in: &observableBag)
@@ -56,8 +53,7 @@ extension TopicViewModel {
     }
     
     struct Output {
-        let sectionDatas: Observable
-        <[SectionData<TopicSection, TopicImage>]>
+        let imageDic: Observable<[TopicSection: [TopicImage]]>
         let onError: Observable<Void>
     }
 }

@@ -21,7 +21,7 @@ final class ProfileImageViewModel: ViewModel {
     func transform(input: Input) -> Output {
         let output = Output(
             selectedImage: Observable<UIImage?>(nil),
-            sectionData: Observable([])
+            profileImages: Observable([])
         )
         
         input.viewDidLoadEvent
@@ -59,20 +59,12 @@ final class ProfileImageViewModel: ViewModel {
         output: Output,
         selectedImage: UIImage?
     ) {
-        let sectionData = ProfileImageSection.allCases.map { section in
-            switch section {
-            case .main:
-                SectionData(
-                    section: section,
-                    items: .init(
-                        images: Literal.Image.defaultProfileList,
-                        selectedImage: selectedImage
-                    )
-                )
-            }
-        }
+        let profileImages = [ProfileImageItem](
+            images: Literal.Image.defaultProfileList,
+            selectedImage: selectedImage
+        )
         output.selectedImage.onNext(selectedImage)
-        output.sectionData.onNext(sectionData)
+        output.profileImages.onNext(profileImages)
     }
 }
 
@@ -85,8 +77,7 @@ extension ProfileImageViewModel {
     
     struct Output {
         let selectedImage: Observable<UIImage?>
-        let sectionData: Observable
-        <[SectionData<ProfileImageSection, ProfileImageItem>]>
+        let profileImages: Observable<[ProfileImageItem]>
     }
 }
 

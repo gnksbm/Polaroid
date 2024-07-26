@@ -60,7 +60,6 @@
 		BE2AFB772C4E342200C6718C /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB762C4E342200C6718C /* BaseCollectionViewCell.swift */; };
 		BE2AFB7B2C4E342C00C6718C /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB7A2C4E342C00C6718C /* BaseView.swift */; };
 		BE2AFB7E2C4E349E00C6718C /* DiffableCollectionViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB7D2C4E349E00C6718C /* DiffableCollectionViewType.swift */; };
-		BE2AFB802C4E34BD00C6718C /* SectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB7F2C4E34BD00C6718C /* SectionData.swift */; };
 		BE2AFB822C4E34C900C6718C /* CompositionalCollectionViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB812C4E34C900C6718C /* CompositionalCollectionViewType.swift */; };
 		BE2AFB842C4E34E800C6718C /* ModernCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB832C4E34E800C6718C /* ModernCollectionView.swift */; };
 		BE2AFB862C4E355A00C6718C /* RegistrableCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB852C4E355A00C6718C /* RegistrableCellType.swift */; };
@@ -202,7 +201,6 @@
 		BE2AFB762C4E342200C6718C /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		BE2AFB7A2C4E342C00C6718C /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		BE2AFB7D2C4E349E00C6718C /* DiffableCollectionViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableCollectionViewType.swift; sourceTree = "<group>"; };
-		BE2AFB7F2C4E34BD00C6718C /* SectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionData.swift; sourceTree = "<group>"; };
 		BE2AFB812C4E34C900C6718C /* CompositionalCollectionViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalCollectionViewType.swift; sourceTree = "<group>"; };
 		BE2AFB832C4E34E800C6718C /* ModernCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernCollectionView.swift; sourceTree = "<group>"; };
 		BE2AFB852C4E355A00C6718C /* RegistrableCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrableCellType.swift; sourceTree = "<group>"; };
@@ -541,7 +539,6 @@
 				BE2AFB7D2C4E349E00C6718C /* DiffableCollectionViewType.swift */,
 				BE2AFB832C4E34E800C6718C /* ModernCollectionView.swift */,
 				BE2AFB852C4E355A00C6718C /* RegistrableCellType.swift */,
-				BE2AFB7F2C4E34BD00C6718C /* SectionData.swift */,
 			);
 			path = ModernCollectionView;
 			sourceTree = "<group>";
@@ -1002,7 +999,6 @@
 				BE5F22F32C52667000CC7DD6 /* DateFormat.swift in Sources */,
 				8E768E412C50179A0062431F /* Scheme.swift in Sources */,
 				BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */,
-				BE2AFB802C4E34BD00C6718C /* SectionData.swift in Sources */,
 				BE2AFBA62C4E4B9800C6718C /* Observable+UIKit.swift in Sources */,
 				BE2AFB822C4E34C900C6718C /* CompositionalCollectionViewType.swift in Sources */,
 				8E768E8B2C513EE40062431F /* CapsuleView.swift in Sources */,

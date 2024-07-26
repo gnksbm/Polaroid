@@ -52,9 +52,14 @@ final class ProfileImageViewController: BaseViewController, View {
             }
             .store(in: &observableBag)
         
-        output.sectionData
-            .bind { [weak self] sectionData in
-                self?.collectionView.applySnapshot(sectionData)
+        output.profileImages
+            .bind { [weak self] items in
+                self?.collectionView.applyItem { section in
+                    switch section {
+                    case .main:
+                        items
+                    }
+                }
             }
             .store(in: &observableBag)
     }

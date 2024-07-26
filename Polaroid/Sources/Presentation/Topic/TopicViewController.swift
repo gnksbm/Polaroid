@@ -41,10 +41,12 @@ final class TopicViewController: BaseViewController, View {
             )
         )
         
-        output.sectionDatas
-            .bind { [weak self] sectionDatas in
+        output.imageDic
+            .bind { [weak self] itemDic in
                 guard let self else { return }
-                collectionView.applySnapshot(sectionDatas)
+                collectionView.applyItem { section in
+                    itemDic[section, default: []]
+                }
                 hideProgressView()
             }
             .store(in: &observableBag)
