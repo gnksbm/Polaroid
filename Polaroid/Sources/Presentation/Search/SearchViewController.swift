@@ -55,9 +55,7 @@ final class SearchViewController: BaseViewController, View {
                 guard let self else { return }
                 switch state {
                 case .emptyQuery:
-                    collectionView.applyItem { _ in
-                        []
-                    }
+                    collectionView.applyItem(items: [])
                     collectionViewBGView.text =
                     Literal.Search.beforeSearchBackground
                     collectionView.backgroundView = collectionViewBGView
@@ -65,12 +63,7 @@ final class SearchViewController: BaseViewController, View {
                 case .searching:
                     showProgressView()
                 case .result(let items):
-                    collectionView.applyItem { section in
-                        switch section {
-                        case .main:
-                            items
-                        }
-                    }
+                    collectionView.applyItem(items: items)
                     hideProgressView()
                     if items.isEmpty {
                         collectionViewBGView.text =
@@ -80,12 +73,7 @@ final class SearchViewController: BaseViewController, View {
                         collectionView.backgroundView = nil
                     }
                 case .nextPage(let items):
-                    collectionView.appendItem { section in
-                        switch section {
-                        case .main:
-                            items
-                        }
-                    }
+                    collectionView.appendItem(items: items)
                     hideProgressView()
                     if items.isEmpty {
                         collectionViewBGView.text =

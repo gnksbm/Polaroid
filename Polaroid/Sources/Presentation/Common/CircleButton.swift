@@ -8,10 +8,10 @@
 import UIKit
 
 class CircleButton: BaseButton {
-    private let dimension: Dimension
+    private let dimension: UIView.Dimension
     
     init(
-        dimension: Dimension
+        dimension: UIView.Dimension
     ) {
         self.dimension = dimension
         super.init()
@@ -20,29 +20,6 @@ class CircleButton: BaseButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let size: CGFloat
-        switch dimension {
-        case .width:
-            size = bounds.width
-        case .height:
-            size = bounds.height
-        case .size(let value):
-            size = value
-        }
-        let origin = bounds.origin
-        bounds = .init(
-            origin: origin,
-            size: .init(
-                width: size,
-                height: size
-            )
-        )
-        layer.cornerRadius = size / 2
-    }
-}
-
-extension CircleButton {
-    public enum Dimension {
-        case width, height, size(CGFloat)
+        applyCornerRadius(demension: dimension)
     }
 }

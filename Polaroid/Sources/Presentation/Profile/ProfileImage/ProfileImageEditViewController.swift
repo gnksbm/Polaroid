@@ -54,12 +54,7 @@ final class ProfileImageViewController: BaseViewController, View {
         
         output.profileImages
             .bind { [weak self] items in
-                self?.collectionView.applyItem { section in
-                    switch section {
-                    case .main:
-                        items
-                    }
-                }
+                self?.collectionView.applyItem(items: items)
             }
             .store(in: &observableBag)
     }

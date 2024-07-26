@@ -34,7 +34,7 @@ final class CapsuleView: BaseView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        layer.cornerRadius = rect.height / 2
+        applyCornerRadius(demension: .height)
     }
     
     func setImage(_ image: UIImage?, tintColor: UIColor? = nil) {

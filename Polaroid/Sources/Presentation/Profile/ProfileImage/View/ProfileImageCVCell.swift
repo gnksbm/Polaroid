@@ -33,7 +33,7 @@ final class ProfileImageCVCell: BaseCollectionViewCell, RegistrableCellType {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        layer.cornerRadius = rect.width / 2
+        applyCornerRadius(demension: .width)
     }
     
     override func prepareForReuse() {

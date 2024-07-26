@@ -41,12 +41,7 @@ final class RandomViewController: BaseViewController, View {
         output.randomImages
             .bind { [weak self] items in
                 guard let self else { return }
-                collectionView.applyItem { section in
-                    switch section {
-                    case .main:
-                        items
-                    }
-                }
+                collectionView.applyItem(items: items)
                 hideProgressView()
             }
             .store(in: &observableBag)
@@ -68,11 +63,6 @@ final class RandomViewController: BaseViewController, View {
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        collectionView.applyItem { section in
-            switch section {
-            case .main:
-                []
-            }
-        }
+        collectionView.applyItem(items: [])
     }
 }

@@ -41,6 +41,19 @@ class ModernCollectionView
         return diffableDataSource.snapshot(for: section).items[indexPath.row]
     }
     
+    func configureDataSource() {
+        let registration = Cell.makeRegistration()
+        diffableDataSource = DiffableDataSource(
+            collectionView: self
+        ) { collectionView, indexPath, item in
+            collectionView.dequeueConfiguredReusableCell(
+                using: registration,
+                for: indexPath,
+                item: item
+            )
+        }
+    }
+    
     func applyItem(
         _ sectionHandler: (Section) -> [Item],
         withAnimating: Bool = true
@@ -79,4 +92,44 @@ class ModernCollectionView
             animatingDifferences: withAnimating
         )
     }
+    
+    // SingleSection
+    func getItem(
+        for indexPath: IndexPath
+    ) -> Item where Section == SingleSection {
+        return diffableDataSource.snapshot(for: .main).items[indexPath.row]
+    }
+    
+    func applyItem(
+        items: [Item],
+        withAnimating: Bool = true
+    ) where Section == SingleSection {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(items)
+        diffableDataSource.apply(
+            snapshot,
+            animatingDifferences: withAnimating
+        )
+    }
+    
+    func appendItem(
+        items: [Item],
+        withAnimating: Bool = true
+    ) where Section == SingleSection {
+        var snapshot = diffableDataSource.snapshot()
+        if !snapshot.sectionIdentifiers.contains(.main) {
+            snapshot.appendSections([.main])
+        }
+        snapshot.appendItems(items)
+        diffableDataSource.apply(
+            snapshot,
+            animatingDifferences: withAnimating
+        )
+    }
+
+}
+
+enum SingleSection {
+    case main
 }

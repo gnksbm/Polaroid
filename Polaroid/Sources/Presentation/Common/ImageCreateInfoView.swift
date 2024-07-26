@@ -37,7 +37,7 @@ final class ImageCreateInfoView: BaseView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        creatorImageView.layer.cornerRadius = creatorImageView.bounds.height / 2
+        creatorImageView.applyCornerRadius(demension: .height)
     }
     
     func updateView(item: RandomImage) {

@@ -7,10 +7,8 @@
 
 import UIKit
 
-enum RandomSection: CaseIterable { case main }
-
 final class RandomCollectionView: 
-    ModernCollectionView<RandomSection, RandomImage, RandomCVCell> {
+    ModernCollectionView<SingleSection, RandomImage, RandomCVCell> {
     override class func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { _, _ in
             let item = NSCollectionLayoutItem(
@@ -40,18 +38,12 @@ final class RandomCollectionView:
         configureLayout()
     }
     
-    override func applyItem(
-        _ sectionHandler: (RandomSection) -> [RandomImage],
-        withAnimating: Bool = true
-    ) {
-        super.applyItem(sectionHandler)
+    override func applyItem(items: [RandomImage], withAnimating: Bool = true) {
+        super.applyItem(items: items, withAnimating: withAnimating)
         observableBag.cancel()
-        Section.allCases.forEach { section in
-            let itemCount = sectionHandler(section).count
-            capsuleView.updateLabel(
-                text: "\(min(1, itemCount)) / \(itemCount)"
-            )
-        }
+        capsuleView.updateLabel(
+            text: "\(min(1, items.count)) / \(items.count)"
+        )
         cellPagingEvent
             .bind { [weak self] cellIndex in
                 guard let self else { return }

@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class SearchImageCollectionView: ModernCollectionView
-<SearchImageCollectionView.SearchCVSection, SearchedImage, SearchImageCVCell> {
+final class SearchImageCollectionView: 
+    ModernCollectionView<SingleSection, SearchedImage, SearchImageCVCell> {
     override class func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { _, _ in
             let item = NSCollectionLayoutItem(
@@ -29,11 +29,5 @@ final class SearchImageCollectionView: ModernCollectionView
             section.interGroupSpacing = 5
             return section
         }
-    }
-}
-
-extension SearchImageCollectionView {
-    enum SearchCVSection: CaseIterable {
-        case main
     }
 }

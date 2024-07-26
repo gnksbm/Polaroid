@@ -19,7 +19,7 @@ final class ToastView: BaseView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = bounds.height / 2
+        applyCornerRadius(demension: .height)
     }
     
     func updateMessage(_ message: String) {

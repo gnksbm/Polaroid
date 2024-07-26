@@ -54,7 +54,7 @@ final class TopicCVCell: BaseCollectionViewCell, RegistrableCellType {
     }
     
     override func configureUI() {
-        layer.cornerRadius = MPDesign.CornerRadius.medium
+        applyCornerRadius(demension: .size(MPDesign.CornerRadius.medium))
         clipsToBounds = true
     }
 }
