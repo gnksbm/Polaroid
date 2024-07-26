@@ -38,6 +38,9 @@
 		8EB3FE972C5396D70012D1A3 /* SortOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE962C5396D70012D1A3 /* SortOptionButton.swift */; };
 		8EB3FE9A2C539BD90012D1A3 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE992C539BD90012D1A3 /* FavoriteViewController.swift */; };
 		8EB3FE9C2C539CB70012D1A3 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE9B2C539CB70012D1A3 /* FavoriteViewModel.swift */; };
+		8EB3FE9F2C539DB60012D1A3 /* FavoriteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FE9E2C539DB60012D1A3 /* FavoriteRepository.swift */; };
+		8EB3FEA12C539DC80012D1A3 /* FavoriteDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEA02C539DC80012D1A3 /* FavoriteDTO.swift */; };
+		8EB3FEA32C539FA30012D1A3 /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEA22C539FA30012D1A3 /* ImageStorage.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
@@ -185,6 +188,9 @@
 		8EB3FE962C5396D70012D1A3 /* SortOptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptionButton.swift; sourceTree = "<group>"; };
 		8EB3FE992C539BD90012D1A3 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		8EB3FE9B2C539CB70012D1A3 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		8EB3FE9E2C539DB60012D1A3 /* FavoriteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepository.swift; sourceTree = "<group>"; };
+		8EB3FEA02C539DC80012D1A3 /* FavoriteDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteDTO.swift; sourceTree = "<group>"; };
+		8EB3FEA22C539FA30012D1A3 /* ImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -355,6 +361,7 @@
 		8E768E522C501E410062431F /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				8EB3FE9E2C539DB60012D1A3 /* FavoriteRepository.swift */,
 				BE5F22AD2C520F9700CC7DD6 /* RandomRepository.swift */,
 				8EB3FE742C5336F90012D1A3 /* SearchRepository.swift */,
 				8E768E532C501E800062431F /* TopicRepository.swift */,
@@ -695,6 +702,7 @@
 			children = (
 				BE5F222F2C4F933500CC7DD6 /* RealmStorage.swift */,
 				BE5F22332C4F944D00CC7DD6 /* RealmStorage+Migration.swift */,
+				8EB3FEA22C539FA30012D1A3 /* ImageStorage.swift */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -722,6 +730,7 @@
 		BE5F224B2C4FB22E00CC7DD6 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				8EB3FEA02C539DC80012D1A3 /* FavoriteDTO.swift */,
 				BE5F22B12C52107800CC7DD6 /* RandomDTO.swift */,
 				8EB3FE812C533CD60012D1A3 /* SearchDTO.swift */,
 				BE5F224C2C4FB23500CC7DD6 /* TopicDTO.swift */,
@@ -951,6 +960,7 @@
 				8EB3FE7C2C5339830012D1A3 /* Result+.swift in Sources */,
 				BE2AFB592C4E2FA400C6718C /* ControlEventPublisher.swift in Sources */,
 				BE2AFB8F2C4E388900C6718C /* UserDefaultsWrapper.swift in Sources */,
+				8EB3FEA32C539FA30012D1A3 /* ImageStorage.swift in Sources */,
 				BE2AFB972C4E3C2500C6718C /* MainTabBarController.swift in Sources */,
 				BE2AFBA82C4E4BF800C6718C /* ObservableControlEvent.swift in Sources */,
 				BE2AFB5B2C4E2FAB00C6718C /* ControlSubscription.swift in Sources */,
@@ -979,6 +989,7 @@
 				BE5F22FD2C52732A00CC7DD6 /* LikableCollectionView.swift in Sources */,
 				BE5F22E52C524ACF00CC7DD6 /* CacheStorage.swift in Sources */,
 				BE5F22D62C523FD100CC7DD6 /* Date+.swift in Sources */,
+				8EB3FEA12C539DC80012D1A3 /* FavoriteDTO.swift in Sources */,
 				8E768E3F2C5017950062431F /* EndpointRepresentable.swift in Sources */,
 				BE5F22E72C524B1800CC7DD6 /* CacheWrapper.swift in Sources */,
 				BE2AFBB62C4E61DE00C6718C /* MBTI.swift in Sources */,
@@ -1033,6 +1044,7 @@
 				BE2AFBB02C4E579700C6718C /* ObservableBag.swift in Sources */,
 				BE2AFB632C4E2FCD00C6718C /* Publisher+.swift in Sources */,
 				BE5F22E12C524AB100CC7DD6 /* CacheConfiguration.swift in Sources */,
+				8EB3FE9F2C539DB60012D1A3 /* FavoriteRepository.swift in Sources */,
 				BE5F22D82C5243E800CC7DD6 /* RandomImage.swift in Sources */,
 				8EB3FE752C5336F90012D1A3 /* SearchRepository.swift in Sources */,
 				BE2AFBAA2C4E4C4600C6718C /* ObservableCollectionViewDelegateProxy.swift in Sources */,

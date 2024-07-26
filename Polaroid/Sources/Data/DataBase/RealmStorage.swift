@@ -12,8 +12,6 @@ import RealmSwift
 final class RealmStorage {
     private let realm = try! Realm()
     
-    private init() { }
-    
     func create(_ object: Object) throws {
         try realm.write {
             realm.add(object)
