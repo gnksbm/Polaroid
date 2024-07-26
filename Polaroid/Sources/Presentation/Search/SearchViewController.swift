@@ -41,7 +41,7 @@ final class SearchViewController: BaseViewController, View {
                 scrollReachedBottomEvent: scrollReachedBottomEvent
                     .throttle(period: 3),
                 sortOptionSelectEvent: Observable<SearchSortOption>(.latest),
-                colorOptionSelectEvent: Observable<SearchColorOption?>(nil)
+                colorOptionSelectEvent: searchColorButtonView.colorSelectEvent
             )
         )
         
