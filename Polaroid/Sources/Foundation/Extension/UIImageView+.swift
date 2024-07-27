@@ -8,15 +8,11 @@
 import UIKit
 
 extension UIImageView {
-    func load(url: URL) {
+    func load(urlStr: String) {
         DispatchQueue.global().async {
-            do {
-                let data = try Data(contentsOf: url)
-                DispatchQueue.main.async {
-                    self.image = UIImage(data: data)
-                }
-            } catch {
-                Logger.error(error)
+            let image = UIImage(contentsOfFile: urlStr)
+            DispatchQueue.main.async {
+                self.image = image
             }
         }
     }

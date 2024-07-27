@@ -18,6 +18,7 @@ final class SearchViewModel: ViewModel {
     func transform(input: Input) -> Output {
         let output = Output(
             searchState: Observable<SearchState>(.none),
+            changedImage: Observable<LikableImage?>(nil),
             onError: Observable<Void>(())
         )
         
@@ -63,11 +64,24 @@ final class SearchViewModel: ViewModel {
             .bind { [weak self] imageData in
                 guard let self,
                       let imageData else { return }
-                do {
-                    try favoriteRepository.saveImage(imageData)
-                } catch {
-                    Logger.error(error)
-                    output.onError.onNext(())
+                if imageData.item.isLiked {
+                    do {
+                        let newImage =
+                        try favoriteRepository.removeImage(imageData.item)
+                        output.changedImage.onNext(newImage)
+                    } catch {
+                        Logger.error(error)
+                        output.onError.onNext(())
+                    }
+                } else {
+                    do {
+                        let newImage = 
+                        try favoriteRepository.saveImage(imageData)
+                        output.changedImage.onNext(newImage)
+                    } catch {
+                        Logger.error(error)
+                        output.onError.onNext(())
+                    }
                 }
             }
             .store(in: &observableBag)
@@ -114,6 +128,7 @@ extension SearchViewModel {
     
     struct Output {
         let searchState: Observable<SearchState>
+        let changedImage: Observable<LikableImage?>
         let onError: Observable<Void>
     }
     

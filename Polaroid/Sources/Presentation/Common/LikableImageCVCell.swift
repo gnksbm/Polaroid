@@ -20,7 +20,7 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
     static func makeRegistration() -> Registration<LikableImage> {
         Registration { cell, indexPath, item in
             if let localURL = item.localURL {
-                cell.imageView.load(url: localURL)
+                cell.imageView.load(urlStr: localURL)
             } else {
                 cell.imageView.kf.setImage(with: item.imageURL)
             }

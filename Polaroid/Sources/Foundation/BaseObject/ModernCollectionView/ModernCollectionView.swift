@@ -93,6 +93,34 @@ class ModernCollectionView
         )
     }
     
+    func updateItems(
+        _ items: [Item],
+        withAnimating: Bool = true
+    ) where Item: Identifiable {
+        var snapshot = diffableDataSource.snapshot()
+        items.forEach { newItem in
+            if let oldItem = snapshot.itemIdentifiers.first(
+                where: { oldItem in
+                    oldItem.id == newItem.id
+                }
+            ),
+               let section = snapshot.sectionIdentifier(
+                containingItem: oldItem
+            ) {
+                var items = snapshot.itemIdentifiers(inSection: section)
+                snapshot.deleteItems(items)
+                guard let index = items.firstIndex(of: oldItem) else { return }
+                items.remove(at: index)
+                items.insert(newItem, at: index)
+                snapshot.appendItems(items, toSection: section)
+            }
+        }
+        diffableDataSource.apply(
+            snapshot,
+            animatingDifferences: withAnimating
+        )
+    }
+    
     // SingleSection
     func getItem(
         for indexPath: IndexPath
@@ -127,7 +155,6 @@ class ModernCollectionView
             animatingDifferences: withAnimating
         )
     }
-
 }
 
 enum SingleSection {

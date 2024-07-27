@@ -7,11 +7,15 @@
 
 import Foundation
 
-struct LikableImage: Hashable {
+struct LikableImage: Hashable, Identifiable {
     let id: String
     let imageURL: URL?
     let likeCount: Int?
     var isLiked: Bool
-    var localURL: URL?
+    var localURL: String?
     var color: String
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id.hashValue)
+    }
 }

@@ -22,7 +22,7 @@ extension SearchDTO {
     func toSearchedImage() -> ([LikableImage], page: Int) {
         let images = results.map { result in
             LikableImage(
-                id: result.id,
+                id: result.urls.small,
                 imageURL: URL(string: result.urls.small),
                 likeCount: result.likes,
                 isLiked: false,

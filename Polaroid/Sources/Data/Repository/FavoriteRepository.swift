@@ -7,34 +7,43 @@
 
 import Foundation
 
+import RealmSwift
+
 final class FavoriteRepository {
     private let realmStorage = RealmStorage()
     private let imageStorage = ImageStorage()
     
-    func saveImage(_ imageData: LikableImageData) throws {
+    func saveImage(_ imageData: LikableImageData) throws -> LikableImage {
         guard let data = imageData.data else {
             throw FavoriteRepositoryError.noData
         }
-        guard let path = imageData.item.imageURL?.absoluteString else {
+        guard let imageURLStr = imageData.item.imageURL?.absoluteString
+        else {
             throw FavoriteRepositoryError.noURL
         }
-        try imageStorage.addImage(data, additionalPath: path)
-        let imageObject = FavoriteDTO(likableImage: imageData.item)
+        let localURL = try imageStorage.addImage(
+            data,
+            additionalPath: imageURLStr
+        )
+        var newImage = imageData.item
+        newImage.localURL = localURL
+        let imageObject = FavoriteDTO(likableImage: newImage)
         do {
             try realmStorage.create(imageObject)
         } catch {
-            try imageStorage.removeImage(additionalPath: path)
+            try imageStorage.removeImage(additionalPath: imageURLStr)
             throw error
         }
+        return imageObject.toDomain()
     }
     
     func fetchImage() -> [LikableImage] {
-        realmStorage.read(FavoriteDTO.self).map { $0.toDomain() }
+        fetchObject().map { $0.toDomain() }
     }
     
     func fetchImage(with option: FavoriteSortOption) -> [LikableImage] {
-        realmStorage.read(FavoriteDTO.self)
-            .sorted { 
+        fetchObject()
+            .sorted {
                 switch option {
                 case .latest:
                     $0.date > $1.date
@@ -46,15 +55,28 @@ final class FavoriteRepository {
     }
     
     func fetchImage(with color: ColorOption) -> [LikableImage] {
-        realmStorage.read(FavoriteDTO.self)
+        fetchObject()
             .where { $0.color.equals(color.rawValue) }
             .map { $0.toDomain() }
     }
     
-    func removeImage(_ likableImage: LikableImage) throws {
-        try realmStorage.delete(FavoriteDTO(likableImage: likableImage))
+    func removeImage(_ likableImage: LikableImage) throws -> LikableImage {
+        guard let object = fetchObject().where(
+            { $0.id.equals(likableImage.id) }
+        ).first
+        else { return likableImage }
+        try realmStorage.delete(object)
+        var newImage = likableImage
+        newImage.isLiked.toggle()
+        return newImage
     }
     
+    private func fetchObject() -> Results<FavoriteDTO> {
+        realmStorage.read(FavoriteDTO.self)
+    }
+}
+
+extension FavoriteRepository {
     enum FavoriteRepositoryError: Error {
         case noData, noURL
     }

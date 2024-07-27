@@ -19,7 +19,9 @@ final class SearchViewController: BaseViewController, View {
     }
     
     private lazy var sortButton = SortOptionButton<SearchSortOption>()
+    
     private lazy var colorButtonView = ColorButtonView()
+    
     private lazy var collectionView = LikableCollectionView(
     ).nt.configure {
         $0.delegate(self)
@@ -94,6 +96,13 @@ final class SearchViewController: BaseViewController, View {
                 case .finalPage, .none:
                     break
                 }
+            }
+            .store(in: &observableBag)
+        
+        output.changedImage
+            .bind { [weak self] item in
+                guard let item else { return }
+                self?.collectionView.updateItems([item])
             }
             .store(in: &observableBag)
     }

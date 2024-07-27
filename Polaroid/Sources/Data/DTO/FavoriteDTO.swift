@@ -10,8 +10,9 @@ import Foundation
 import RealmSwift
 
 final class FavoriteDTO: Object {
-    @Persisted(primaryKey: true) var id: String
+    @Persisted var id: String
     @Persisted var imageURL: String?
+    @Persisted var localURL: String?
     @Persisted var likeCount: Int?
     @Persisted var isLiked: Bool = true
     @Persisted var color: String
@@ -19,8 +20,9 @@ final class FavoriteDTO: Object {
     
     convenience init(likableImage: LikableImage) {
         self.init()
-        self.id = id
+        self.id = likableImage.id
         self.imageURL = likableImage.imageURL?.absoluteString
+        self.localURL = likableImage.localURL
         self.likeCount = likableImage.likeCount
         self.date = .now
     }
@@ -28,16 +30,16 @@ final class FavoriteDTO: Object {
 
 extension FavoriteDTO {
     func toDomain() -> LikableImage {
-        var url: URL?
+        var imagePath: URL?
         if let imageURL {
-            url = URL(string: imageURL)
+            imagePath = URL(string: imageURL)
         }
         return LikableImage(
             id: id,
-            imageURL: url,
+            imageURL: imagePath,
             likeCount: likeCount,
             isLiked: isLiked,
-            localURL: url, 
+            localURL: localURL,
             color: color
         )
     }

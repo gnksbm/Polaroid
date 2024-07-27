@@ -18,12 +18,22 @@ final class ImageStorage {
         return url
     }
     
-    func addImage(_ data: Data?, additionalPath: String) throws {
+    func addImage(_ data: Data?, additionalPath: String) throws -> String? {
+        guard let encodedPath = additionalPath.addingPercentEncoding(
+            withAllowedCharacters: .urlUserAllowed
+        ) else { throw ImageStorageError.invalidPath }
         let fileURL = documentURL.appendingPathComponent(
-            additionalPath,
+            encodedPath,
             conformingTo: .jpeg
         )
-        try data?.write(to: fileURL)
+        if !fileManager.fileExists(atPath: fileURL.absoluteString) {
+            try data?.write(to: fileURL)
+        }
+        if #available(iOS 16.0, *) {
+            return fileURL.path().removingPercentEncoding
+        } else {
+            return fileURL.path.removingPercentEncoding
+        }
     }
     
     func removeImage(additionalPath: String) throws {
@@ -34,5 +44,11 @@ final class ImageStorage {
         if fileManager.fileExists(atPath: fileURL.path) {
             try fileManager.removeItem(at: fileURL)
         }
+    }
+}
+
+extension ImageStorage {
+    enum ImageStorageError: Error {
+        case invalidPath
     }
 }
