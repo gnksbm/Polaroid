@@ -14,6 +14,10 @@ final class FavoriteRepository {
     private let imageStorage = ImageStorage()
     
     func saveImage(_ imageData: LikableImageData) throws -> LikableImage {
+        guard !fetchObject().contains(where: { $0.id == imageData.item.id })
+        else {
+            throw FavoriteRepositoryError.duplicatedImage
+        }
         guard let data = imageData.data else {
             throw FavoriteRepositoryError.noData
         }
@@ -78,8 +82,6 @@ final class FavoriteRepository {
 
 extension FavoriteRepository {
     enum FavoriteRepositoryError: Error {
-        case noData, noURL
+        case noData, noURL, duplicatedImage
     }
 }
-
-

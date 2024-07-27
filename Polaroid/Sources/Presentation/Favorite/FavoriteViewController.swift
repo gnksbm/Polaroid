@@ -8,7 +8,7 @@
 import Foundation
 
 final class FavoriteViewController: BaseViewController, View {
-    private let viewDidLoadEvent = Observable<Void>(())
+    private let viewWillAppearEvent = Observable<Void>(())
     private var observableBag = ObservableBag()
     
     private lazy var sortButton = SortOptionButton<FavoriteSortOption>()
@@ -21,9 +21,9 @@ final class FavoriteViewController: BaseViewController, View {
         viewModel = FavoriteViewModel()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        viewDidLoadEvent.onNext(())
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewWillAppearEvent.onNext(())
     }
     
     override func viewDidLayoutSubviews() {
@@ -34,7 +34,7 @@ final class FavoriteViewController: BaseViewController, View {
     func bind(viewModel: FavoriteViewModel) {
         let output = viewModel.transform(
             input: FavoriteViewModel.Input(
-                viewDidLoadEvent: viewDidLoadEvent,
+                viewWillAppearEvent: viewWillAppearEvent,
                 sortOptionSelectEvent: sortButton.sortSelectEvent,
                 colorOptionSelectEvent: colorButtonView.colorSelectEvent,
                 likeButtonTapEvent: collectionView.likeButtonTapEvent

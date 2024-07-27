@@ -18,7 +18,7 @@ final class FavoriteViewModel: ViewModel {
             onError: Observable<Void>(())
         )
         
-        input.viewDidLoadEvent
+        input.viewWillAppearEvent
             .bind { [weak self] _ in
                 guard let self else { return }
                 output.images.onNext(favoriteRepository.fetchImage())
@@ -50,7 +50,7 @@ final class FavoriteViewModel: ViewModel {
 
 extension FavoriteViewModel {
     struct Input {
-        let viewDidLoadEvent: Observable<Void>
+        let viewWillAppearEvent: Observable<Void>
         let sortOptionSelectEvent: Observable<FavoriteSortOption>
         let colorOptionSelectEvent: Observable<ColorOption?>
         let likeButtonTapEvent: Observable<LikableImageData?>
