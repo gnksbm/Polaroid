@@ -25,7 +25,8 @@ extension SearchDTO {
                 id: result.id,
                 imageURL: URL(string: result.urls.small),
                 likeCount: result.likes,
-                isLiked: false
+                isLiked: false,
+                color: result.color
             )
         }
         return (images, totalPages)
@@ -113,12 +114,13 @@ extension SearchDTO {
     }
     
     struct Ancestry: Codable {
-        let type, category: Category
+        let type, category: Category?
         let subcategory: Category?
     }
     
     struct Category: Codable {
         let slug, prettySlug: String
+        
         
         enum CodingKeys: String, CodingKey {
             case slug

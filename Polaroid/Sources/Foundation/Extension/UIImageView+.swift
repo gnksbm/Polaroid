@@ -8,6 +8,19 @@
 import UIKit
 
 extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async {
+            do {
+                let data = try Data(contentsOf: url)
+                DispatchQueue.main.async {
+                    self.image = UIImage(data: data)
+                }
+            } catch {
+                Logger.error(error)
+            }
+        }
+    }
+    
     @discardableResult
     func setImageWithCahe(
         with url: URL,

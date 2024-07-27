@@ -9,8 +9,8 @@ import UIKit
 
 import SnapKit
 
-final class SortOptionButton: BaseButton {
-    var sortSelectEvent = Observable<SortOption>(.latest)
+final class SortOptionButton<Option: SortOption>: BaseButton {
+    var sortSelectEvent = Observable<Option>(Option.firstCase)
     private var observableBag = ObservableBag()
     
     override init() {
@@ -53,7 +53,7 @@ final class SortOptionButton: BaseButton {
         tapEvent
             .bind { [weak self] _ in
                 guard let self else { return }
-                let options = SortOption.allCases
+                let options = Option.allCases
                 if let index = options.firstIndex(of: sortSelectEvent.value()) {
                     let newIndex = options.index(after: index) % options.count
                     let newOption = options[newIndex]

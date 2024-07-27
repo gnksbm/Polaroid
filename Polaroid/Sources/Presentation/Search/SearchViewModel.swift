@@ -9,7 +9,9 @@ import Foundation
 
 final class SearchViewModel: ViewModel {
     private let searchRepository = SearchRepository()
+    private let favoriteRepository = FavoriteRepository()
     
+    private var currentImage = ObservableBag()
     private var observableBag = ObservableBag()
     private var page = 1
     
@@ -57,6 +59,19 @@ final class SearchViewModel: ViewModel {
             }
             .store(in: &observableBag)
         
+        input.likeButtonTapEvent
+            .bind { [weak self] imageData in
+                guard let self,
+                      let imageData else { return }
+                do {
+                    try favoriteRepository.saveImage(imageData)
+                } catch {
+                    Logger.error(error)
+                    output.onError.onNext(())
+                }
+            }
+            .store(in: &observableBag)
+        
         return output
     }
     
@@ -92,8 +107,9 @@ extension SearchViewModel {
         let searchTextChangeEvent: Observable<String>
         let queryEnterEvent: Observable<String>
         let scrollReachedBottomEvent: Observable<Void>
-        let sortOptionSelectEvent: Observable<SortOption>
+        let sortOptionSelectEvent: Observable<SearchSortOption>
         let colorOptionSelectEvent: Observable<ColorOption?>
+        let likeButtonTapEvent: Observable<LikableImageData?>
     }
     
     struct Output {

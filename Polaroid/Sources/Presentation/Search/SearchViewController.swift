@@ -18,7 +18,7 @@ final class SearchViewController: BaseViewController, View {
         $0.searchBar.placeholder(Literal.Search.searchBarPlaceholder)
     }
     
-    private lazy var sortButton = SortOptionButton()
+    private lazy var sortButton = SortOptionButton<SearchSortOption>()
     private lazy var colorButtonView = ColorButtonView()
     private lazy var collectionView = LikableCollectionView(
     ).nt.configure {
@@ -47,7 +47,8 @@ final class SearchViewController: BaseViewController, View {
                 scrollReachedBottomEvent: scrollReachedBottomEvent
                     .throttle(period: 3),
                 sortOptionSelectEvent: sortButton.sortSelectEvent,
-                colorOptionSelectEvent: colorButtonView.colorSelectEvent
+                colorOptionSelectEvent: colorButtonView.colorSelectEvent,
+                likeButtonTapEvent: collectionView.likeButtonTapEvent
             )
         )
         

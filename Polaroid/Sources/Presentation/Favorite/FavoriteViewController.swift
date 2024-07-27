@@ -8,10 +8,10 @@
 import Foundation
 
 final class FavoriteViewController: BaseViewController, View {
-    private var scrollReachedBottomEvent = Observable<Void>(())
+    private let viewDidLoadEvent = Observable<Void>(())
     private var observableBag = ObservableBag()
     
-    private lazy var sortButton = SortOptionButton()
+    private lazy var sortButton = SortOptionButton<FavoriteSortOption>()
     private lazy var colorButtonView = ColorButtonView()
     private lazy var collectionView = LikableCollectionView()
     
@@ -21,13 +21,38 @@ final class FavoriteViewController: BaseViewController, View {
         viewModel = FavoriteViewModel()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewDidLoadEvent.onNext(())
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         colorButtonView.addSpacing(length: sortButton.bounds.width)
     }
     
     func bind(viewModel: FavoriteViewModel) {
+        let output = viewModel.transform(
+            input: FavoriteViewModel.Input(
+                viewDidLoadEvent: viewDidLoadEvent,
+                sortOptionSelectEvent: sortButton.sortSelectEvent,
+                colorOptionSelectEvent: colorButtonView.colorSelectEvent,
+                likeButtonTapEvent: collectionView.likeButtonTapEvent
+            )
+        )
         
+        output.images
+            .bind { [weak self] images in
+                self?.collectionView.applyItem(items: images)
+            }
+            .store(in: &observableBag)
+        
+        output.onError
+            .bind { [weak self] _ in
+                guard let self else { return }
+                showToast(message: "오류가 발생했습니다")
+            }
+            .store(in: &observableBag)
     }
     
     override func configureLayout() {

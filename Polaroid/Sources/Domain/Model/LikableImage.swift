@@ -13,4 +13,5 @@ struct LikableImage: Hashable {
     let likeCount: Int?
     var isLiked: Bool
     var localURL: URL?
+    var color: String
 }

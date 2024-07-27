@@ -11,21 +11,42 @@ import Kingfisher
 import Neat
 import SnapKit
 
+struct LikableImageData {
+    let item: LikableImage
+    let data: Data?
+}
+
 final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
     static func makeRegistration() -> Registration<LikableImage> {
         Registration { cell, indexPath, item in
-            cell.imageView.kf.setImage(with: item.imageURL)
-            cell.heartButton.setImage(
+            if let localURL = item.localURL {
+                cell.imageView.load(url: localURL)
+            } else {
+                cell.imageView.kf.setImage(with: item.imageURL)
+            }
+            cell.likeButton.setImage(
                 UIImage(systemName: item.isLiked ? "heart.fill" : "heart"),
                 for: .normal
             )
             if let likeCount = item.likeCount {
+                cell.likeCountView.isHidden = false
                 cell.likeCountView.updateLabel(text: likeCount.formatted())
-            } else {
-                cell.likeCountView.isHidden = true
             }
+            cell.likeButton.tapEvent.asObservable()
+                .map { _ in
+                    LikableImageData(
+                        item: item,
+                        data: cell.imageView.image?
+                            .jpegData(compressionQuality: 1)
+                    )
+                }
+                .bind(to: cell.likeButtonTapEvent)
+                .store(in: &cell.observableBag)
         }
     }
+    
+    let likeButtonTapEvent = Observable<LikableImageData?>(nil)
+    var observableBag = ObservableBag()
     
     private var imageTask: URLSessionTask?
     
@@ -36,17 +57,22 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
     }
     
     private let likeCountView = CapsuleView().nt.configure {
-        $0.perform {
-            $0.setImage(UIImage(systemName: "star.fill"), tintColor: .yellow)
-        }
+        $0.isHidden(true)
+            .perform {
+                $0.setImage(
+                    UIImage(systemName: "star.fill"),
+                    tintColor: .yellow
+                )
+            }
     }
     
-    private let heartButton = CircleButton(dimension: .width).nt.configure {
+    private let likeButton = CircleButton(dimension: .width).nt.configure {
         $0.backgroundColor(MPDesign.Color.white.withAlphaComponent(0.5))
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        observableBag.cancel()
         imageTask?.cancel()
         imageTask = nil
         imageView.image = nil
@@ -56,7 +82,7 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
         [
             imageView,
             likeCountView,
-            heartButton
+            likeButton
         ].forEach { contentView.addSubview($0) }
         
         let padding = 10.f
@@ -69,7 +95,7 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
             make.leading.bottom.equalTo(contentView).inset(padding)
         }
         
-        heartButton.snp.makeConstraints { make in
+        likeButton.snp.makeConstraints { make in
             make.trailing.bottom.equalTo(contentView).inset(padding)
         }
     }

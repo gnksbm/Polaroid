@@ -14,12 +14,15 @@ final class FavoriteDTO: Object {
     @Persisted var imageURL: String?
     @Persisted var likeCount: Int?
     @Persisted var isLiked: Bool = true
+    @Persisted var color: String
+    @Persisted var date: Date
     
     convenience init(likableImage: LikableImage) {
         self.init()
         self.id = id
         self.imageURL = likableImage.imageURL?.absoluteString
         self.likeCount = likableImage.likeCount
+        self.date = .now
     }
 }
 
@@ -34,7 +37,8 @@ extension FavoriteDTO {
             imageURL: url,
             likeCount: likeCount,
             isLiked: isLiked,
-            localURL: url
+            localURL: url, 
+            color: color
         )
     }
 }

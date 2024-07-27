@@ -11,14 +11,14 @@ struct SearchRequest {
     let keyword: String
     let page: Int
     let countForPage: Int
-    let sortOption: SortOption
+    let sortOption: SearchSortOption
     let color: ColorOption?
     
     init(
         keyword: String,
         page: Int,
         countForPage: Int = 20,
-        sortOption: SortOption,
+        sortOption: SearchSortOption,
         color: ColorOption?
     ) {
         self.keyword = keyword

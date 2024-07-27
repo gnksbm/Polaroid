@@ -30,4 +30,24 @@ final class LikableCollectionView:
             return section
         }
     }
+    
+    let likeButtonTapEvent = Observable<LikableImageData?>(nil)
+    
+    override func configureDataSource() {
+        let registration = Cell.makeRegistration()
+        diffableDataSource = DiffableDataSource(
+            collectionView: self
+        ) { [weak self] collectionView, indexPath, item in
+            guard let self else { return Cell() }
+            let cell = collectionView.dequeueConfiguredReusableCell(
+                using: registration,
+                for: indexPath,
+                item: item
+            )
+            cell.likeButtonTapEvent
+                .bind(to: likeButtonTapEvent)
+                .store(in: &cell.observableBag)
+            return cell
+        }
+    }
 }
