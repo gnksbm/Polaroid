@@ -32,16 +32,19 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
                 cell.likeCountView.isHidden = false
                 cell.likeCountView.updateLabel(text: likeCount.formatted())
             }
-            cell.likeButton.tapEvent.asObservable()
-                .map { _ in
-                    LikableImageData(
-                        item: item,
-                        data: cell.imageView.image?
-                            .jpegData(compressionQuality: 1)
+            let tapObservable = cell.likeButton.tapEvent.asObservable()
+            tapObservable
+                .bind { _ in
+                    cell.likeButtonTapEvent.onNext(
+                        LikableImageData(
+                            item: item,
+                            data: cell.imageView.image?
+                                .jpegData(compressionQuality: 1)
+                        )
                     )
+                    tapObservable.eventBag.cancel()
                 }
-                .bind(to: cell.likeButtonTapEvent)
-                .store(in: &cell.observableBag)
+                .store(in: &tapObservable.eventBag)
         }
     }
     
