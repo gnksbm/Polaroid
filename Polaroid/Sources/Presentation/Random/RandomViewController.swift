@@ -40,12 +40,8 @@ final class RandomViewController: BaseViewController, View {
         let output = viewModel.transform(
             input: RandomViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent,
-                itemSelectEvent: collectionView.obDidSelectItemEvent
-                    .map { [weak self] indexPath in
-                        guard let self,
-                              let indexPath else { return nil }
-                        return collectionView.getItem(for: indexPath)
-                    }
+                itemSelectEvent: collectionView.cellTapEvent,
+                likeButtonTapEvent: collectionView.likeButtonTapEvent
             )
         )
         
@@ -73,6 +69,13 @@ final class RandomViewController: BaseViewController, View {
                     DetailViewController(data: image),
                     animated: true
                 )
+            }
+            .store(in: &observableBag)
+        
+        output.changedImage
+            .bind { [weak self] randomImage in
+                guard let randomImage else { return }
+                self?.collectionView.updateItems([randomImage])
             }
             .store(in: &observableBag)
     }

@@ -7,16 +7,23 @@
 
 import Foundation
 
-struct RandomImage: Hashable {
+struct RandomImage {
     let id: String
     let imageURL: URL?
+    var localURL: String?
     let creatorProfileImageURL: URL?
-    let creatorProfileImageLocalPath: String?
+    var creatorProfileImageLocalPath: String?
     let creatorName: String
     let createdAt: Date?
     let imageWidth: Int
     let imageHeight: Int
     var isLiked: Bool
+}
+
+extension RandomImage: Hashable, Identifiable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id.hashValue)
+    }
 }
 
 extension RandomImage: MinimumImageData { }

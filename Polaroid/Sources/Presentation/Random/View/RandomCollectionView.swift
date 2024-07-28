@@ -28,6 +28,9 @@ final class RandomCollectionView:
         }
     }
     
+    let likeButtonTapEvent = Observable<RandomImageData?>(nil)
+    let cellTapEvent = Observable<RandomImage?>(nil)
+    
     private let cellPagingEvent = Observable<Int>(0)
     private var observableBag = ObservableBag()
     private let capsuleView = CapsuleView()
@@ -36,6 +39,24 @@ final class RandomCollectionView:
         super.init()
         configureView()
         configureLayout()
+    }
+    
+    override func configureDataSource() {
+        let registration = Cell.makeRegistration()
+        diffableDataSource = DiffableDataSource(
+            collectionView: self
+        ) { [weak self] collectionView, indexPath, item in
+            guard let self else { return Cell() }
+            let cell = collectionView.dequeueConfiguredReusableCell(
+                using: registration,
+                for: indexPath,
+                item: item
+            )
+            cell.likeButtonTapEvent
+                .bind(to: likeButtonTapEvent)
+                .store(in: &cell.observableBag)
+            return cell
+        }
     }
     
     override func applyItem(items: [RandomImage], withAnimating: Bool = true) {
@@ -76,6 +97,14 @@ final class RandomCollectionView:
 }
 
 extension RandomCollectionView: UICollectionViewDelegate {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        let selectedItem = (collectionView as? Self)?.getItem(for: indexPath)
+        cellTapEvent.onNext(selectedItem)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentCellIndex =
         Int(scrollView.contentOffset.y / scrollView.bounds.height)

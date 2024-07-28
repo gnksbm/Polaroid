@@ -17,7 +17,8 @@ final class RandomViewModel: ViewModel {
         let output = Output(
             randomImages: Observable<[RandomImage]>([]),
             onError: Observable<Void>(()),
-            startDetailFlow: Observable<RandomImage?>(nil)
+            startDetailFlow: Observable<RandomImage?>(nil),
+            changedImage: Observable<RandomImage?>(nil)
         )
         
         input.viewDidLoadEvent
@@ -42,6 +43,27 @@ final class RandomViewModel: ViewModel {
             .bind(to: output.startDetailFlow)
             .store(in: &observableBag)
         
+        input.likeButtonTapEvent
+            .bind { [weak self] randomImage in
+                guard let self,
+                      let randomImage else { return }
+                do {
+                    if randomImage.item.isLiked {
+                        let newImage =
+                        try favoriteRepository.removeImage(randomImage.item)
+                        output.changedImage.onNext(newImage)
+                    } else {
+                        let newImage =
+                        try favoriteRepository.saveImage(randomImage)
+                        output.changedImage.onNext(newImage)
+                    }
+                } catch {
+                    Logger.error(error)
+                    output.onError.onNext(())
+                }
+            }
+            .store(in: &observableBag)
+        
         return output
     }
 }
@@ -50,11 +72,13 @@ extension RandomViewModel {
     struct Input {
         let viewDidLoadEvent: Observable<Void>
         let itemSelectEvent: Observable<RandomImage?>
+        let likeButtonTapEvent: Observable<RandomImageData?>
     }
     
     struct Output {
         let randomImages: Observable<[RandomImage]>
         let onError: Observable<Void>
         let startDetailFlow: Observable<RandomImage?>
+        let changedImage: Observable<RandomImage?>
     }
 }

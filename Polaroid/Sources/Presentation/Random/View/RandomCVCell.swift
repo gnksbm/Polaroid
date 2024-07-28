@@ -11,6 +11,12 @@ import Neat
 import SnapKit
 import Kingfisher
 
+struct RandomImageData {
+    var item: RandomImage
+    let imageData: Data?
+    let profileImageData: Data?
+}
+
 final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
     static func makeRegistration() -> Registration<RandomImage> {
         Registration { cell, indexPath, item in
@@ -22,8 +28,24 @@ final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
                 date: item.createdAt, 
                 isLiked: item.isLiked
             )
+            cell.createInfoView.likeButtonTapEvent
+                .bind { _ in
+                    cell.likeButtonTapEvent.onNext(
+                        RandomImageData(
+                            item: item,
+                            imageData: cell.imageView.image?
+                                .jpegData(compressionQuality: 1),
+                            profileImageData: cell.createInfoView
+                                .likeButtonTapEvent.value()
+                        )
+                    )
+                }
+                .store(in: &cell.observableBag)
         }
     }
+    
+    let likeButtonTapEvent = Observable<RandomImageData?>(nil)
+    var observableBag = ObservableBag()
     
     private var imageTask: DownloadTask?
     
@@ -35,6 +57,7 @@ final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        observableBag.cancel()
         imageView.image = nil
         imageTask?.cancel()
         imageTask = nil

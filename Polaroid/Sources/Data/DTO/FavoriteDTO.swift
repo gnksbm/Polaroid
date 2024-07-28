@@ -41,6 +41,22 @@ final class FavoriteDTO: Object {
         self.imageHeight = likableImage.imageHeight
     }
     
+    convenience init(randomImage: RandomImage) {
+        self.init()
+        self.id = randomImage.id
+        self.imageURL = randomImage.imageURL?.absoluteString
+        self.localURL = randomImage.localURL
+        self.date = .now
+        self.creatorProfileImageURL = 
+        randomImage.creatorProfileImageURL?.absoluteString
+        self.creatorProfileImageLocalPath =
+        randomImage.creatorProfileImageLocalPath
+        self.creatorName = randomImage.creatorName
+        self.createdAt = randomImage.createdAt
+        self.imageWidth = randomImage.imageWidth
+        self.imageHeight = randomImage.imageHeight
+    }
+    
     convenience init(detailImage: DetailImage) {
         self.init()
         self.id = detailImage.id
@@ -82,6 +98,29 @@ extension FavoriteDTO {
             createdAt: createdAt,
             imageWidth: imageWidth,
             imageHeight: imageHeight
+        )
+    }
+    
+    func toRandomImage() -> RandomImage {
+        var imagePath: URL?
+        var profilePath: URL?
+        if let imageURL {
+            imagePath = URL(string: imageURL)
+        }
+        if let creatorProfileImageURL {
+            profilePath = URL(string: creatorProfileImageURL)
+        }
+        return RandomImage(
+            id: id,
+            imageURL: imagePath,
+            localURL: localURL,
+            creatorProfileImageURL: profilePath,
+            creatorProfileImageLocalPath: creatorProfileImageURL,
+            creatorName: creatorName,
+            createdAt: createdAt,
+            imageWidth: imageWidth,
+            imageHeight: imageHeight,
+            isLiked: isLiked
         )
     }
     
