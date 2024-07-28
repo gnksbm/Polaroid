@@ -41,6 +41,16 @@ final class FavoriteRepository {
         return imageObject.toDomain()
     }
     
+    func reConfigureImages(_ images: [LikableImage]) -> [LikableImage] {
+        images.map { image in
+            var copy = image
+            if !fetchObject().where({ $0.id.equals(image.id) }).isEmpty {
+                copy.isLiked = true
+            }
+            return copy
+        }
+    }
+    
     func fetchImage() -> [LikableImage] {
         fetchObject().map { $0.toDomain() }
     }

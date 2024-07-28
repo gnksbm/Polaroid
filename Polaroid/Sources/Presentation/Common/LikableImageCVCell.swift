@@ -23,17 +23,16 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
                 cell.imageView.load(urlStr: localURL)
             } else {
                 cell.imageView.kf.setImage(with: item.imageURL)
+                if let likeCount = item.likeCount {
+                    cell.likeCountView.isHidden = false
+                    cell.likeCountView.updateLabel(text: likeCount.formatted())
+                }
             }
             cell.likeButton.setImage(
                 UIImage(systemName: item.isLiked ? "heart.fill" : "heart"),
                 for: .normal
             )
-            if let likeCount = item.likeCount {
-                cell.likeCountView.isHidden = false
-                cell.likeCountView.updateLabel(text: likeCount.formatted())
-            }
-            let tapObservable = cell.likeButton.tapEvent.asObservable()
-            tapObservable
+            cell.likeButton.tapEvent
                 .bind { _ in
                     cell.likeButtonTapEvent.onNext(
                         LikableImageData(
@@ -42,9 +41,8 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
                                 .jpegData(compressionQuality: 1)
                         )
                     )
-                    tapObservable.eventBag.cancel()
                 }
-                .store(in: &tapObservable.eventBag)
+                .store(in: &cell.observableBag)
         }
     }
     

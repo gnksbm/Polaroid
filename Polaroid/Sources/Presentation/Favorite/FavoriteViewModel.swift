@@ -44,6 +44,21 @@ final class FavoriteViewModel: ViewModel {
             }
             .store(in: &observableBag)
         
+        input.likeButtonTapEvent
+            .bind { [weak self] imageData in
+                guard let self,
+                      let imageData else { return }
+                do {
+                    _ = try favoriteRepository.removeImage(imageData.item)
+                    output.images.onNext(
+                        favoriteRepository.fetchImage()
+                    )
+                } catch {
+                    output.onError.onNext(())
+                }
+            }
+            .store(in: &observableBag)
+        
         return output
     }
 }

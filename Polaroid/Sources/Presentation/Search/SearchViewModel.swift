@@ -102,12 +102,15 @@ final class SearchViewModel: ViewModel {
                 color: input.colorOptionSelectEvent.value()
             )
         ) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let success):
-                if success.page == self?.page {
+                if success.page == page {
                     output.searchState.onNext(.finalPage)
                 }
-                completion(success.images)
+                completion(
+                    favoriteRepository.reConfigureImages(success.images)
+                )
             case .failure(let error):
                 Logger.error(error)
                 output.onError.onNext(())
