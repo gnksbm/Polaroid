@@ -9,6 +9,9 @@ import UIKit
 
 final class ProfileSettingViewModel: ViewModel {
     private let flowType: FlowType
+    
+    private let favoriteRepository = FavoriteRepository.shared
+    
     private let selectedImage = Observable<UIImage?>(nil)
     private var observableBag = ObservableBag()
     
@@ -24,7 +27,9 @@ final class ProfileSettingViewModel: ViewModel {
             doneButtonEnable: Observable<Bool>(false), 
             startMainTabFlow: Observable<Void>(()), 
             selectedUser: Observable<User?>(nil), 
-            finishFlow: Observable<Void>(())
+            finishFlow: Observable<Void>(()), 
+            showRemoveAccountButton: Observable<Void>(()), 
+            showRemoveAlert: Observable<Void>(())
         )
         
         selectedImage
@@ -45,6 +50,7 @@ final class ProfileSettingViewModel: ViewModel {
                     guard let user else { return }
                     selectedImage.onNext(UIImage(data: user.profileImageData))
                     output.selectedUser.onNext(user)
+                    output.showRemoveAccountButton.onNext(())
                 }
             }
             .store(in: &observableBag)
@@ -94,6 +100,22 @@ final class ProfileSettingViewModel: ViewModel {
             .bind { [weak self] _ in
                 guard let self else { return }
                 createUser(input: input, output: output)
+            }
+            .store(in: &observableBag)
+        
+        input.removeAccountButtonTapEvent
+            .bind { _ in
+                output.showRemoveAlert.onNext(())
+            }
+            .store(in: &observableBag)
+        
+        input.removeAlertTapEvent
+            .bind { [weak self] _ in
+                @UserDefaultsWrapper(key: .user, defaultValue: nil)
+                var user: User?
+                _user.removeValue()
+                self?.favoriteRepository.removeAll()
+                output.startMainTabFlow.onNext(())
             }
             .store(in: &observableBag)
         
@@ -148,6 +170,8 @@ extension ProfileSettingViewModel {
         let nicknameChangeEvent: Observable<String>
         let mbtiSelectEvent: Observable<MBTI?>
         let doneButtonTapEvent: Observable<Void>
+        let removeAccountButtonTapEvent: Observable<Void>
+        let removeAlertTapEvent: Observable<Void>
     }
     
     struct Output {
@@ -158,6 +182,8 @@ extension ProfileSettingViewModel {
         let startMainTabFlow: Observable<Void>
         let selectedUser: Observable<User?>
         let finishFlow: Observable<Void>
+        let showRemoveAccountButton: Observable<Void>
+        let showRemoveAlert: Observable<Void>
     }
     
     enum ValidationResult {

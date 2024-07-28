@@ -8,7 +8,7 @@
 import Foundation
 
 final class TopicViewModel: ViewModel {
-    private let topicRepository = TopicRepository()
+    private let topicRepository = TopicRepository.shared
     private var observableBag = ObservableBag()
     
     func transform(input: Input) -> Output {

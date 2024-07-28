@@ -8,7 +8,11 @@
 import Foundation
 
 final class StatisticsRepository {
+    static let shared = StatisticsRepository()
+    
     private let networkService = NetworkService.shared
+    
+    private init() { }
     
     func fetchStatistics<T: MinimumImageData>(
         imageData: T,

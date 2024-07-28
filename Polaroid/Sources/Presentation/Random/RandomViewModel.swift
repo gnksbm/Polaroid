@@ -8,8 +8,8 @@
 import Foundation
 
 final class RandomViewModel: ViewModel {
-    private var randomRepository = RandomRepository()
-    private var favoriteRepository = FavoriteRepository()
+    private var randomRepository = RandomRepository.shared
+    private var favoriteRepository = FavoriteRepository.shared
     
     private var observableBag = ObservableBag()
     

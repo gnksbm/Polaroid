@@ -38,6 +38,10 @@ final class RealmStorage {
             realm.delete(object)
         }
     }
+    
+    func deleteAll() {
+        realm.deleteAll()
+    }
 }
 
 extension RealmStorage {

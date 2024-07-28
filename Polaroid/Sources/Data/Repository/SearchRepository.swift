@@ -8,7 +8,11 @@
 import Foundation
 
 final class SearchRepository {
+    static let shared = SearchRepository()
+    
     private let networkService = NetworkService.shared
+    
+    private init() { }
     
     func search(
         request: SearchRequest,

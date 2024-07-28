@@ -8,8 +8,8 @@
 import Foundation
 
 final class SearchViewModel: ViewModel {
-    private let searchRepository = SearchRepository()
-    private let favoriteRepository = FavoriteRepository()
+    private let searchRepository = SearchRepository.shared
+    private let favoriteRepository = FavoriteRepository.shared
     
     private var currentImage = ObservableBag()
     private var observableBag = ObservableBag()

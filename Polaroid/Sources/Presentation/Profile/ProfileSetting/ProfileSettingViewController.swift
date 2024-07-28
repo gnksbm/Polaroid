@@ -12,6 +12,7 @@ import SnapKit
 
 final class ProfileSettingViewController: BaseViewController, View {
     private var viewDidLoadEvent = Observable<Void>(())
+    private var removeAlertTapEvent = Observable<Void>(())
     private var observableBag = ObservableBag()
     
     private let profileImageButton = ProfileImageButton(
@@ -46,6 +47,22 @@ final class ProfileSettingViewController: BaseViewController, View {
         $0.isEnabled(false)
     }
     
+    private let removeAccountButton = UIButton().nt.configure {
+        $0.isHidden(true)
+            .configuration(.plain())
+            .configuration.attributedTitle(
+                AttributedString(
+                    "회원탈퇴",
+                    attributes: AttributeContainer([
+                        .font: MPDesign.Font.label1,
+                        .foregroundColor: MPDesign.Color.tint,
+                        .underlineColor: MPDesign.Color.tint,
+                        .underlineStyle: NSUnderlineStyle.single.rawValue
+                    ])
+                )
+            )
+    }
+    
     init(flowType: ProfileSettingViewModel.FlowType = .register) {
         super.init()
         viewModel = ProfileSettingViewModel(flowType: flowType)
@@ -67,7 +84,10 @@ final class ProfileSettingViewController: BaseViewController, View {
                     .map { $0.text ?? "" },
                 mbtiSelectEvent: mbtiSelectionView.mbtiSelectEvent,
                 doneButtonTapEvent: doneButton.tapEvent.asObservable()
-                    .map { _ in }
+                    .map { _ in }, 
+                removeAccountButtonTapEvent: removeAccountButton.tapEvent
+                    .asObservable().map { _ in }, 
+                removeAlertTapEvent: removeAlertTapEvent
             )
         )
         
@@ -141,6 +161,24 @@ final class ProfileSettingViewController: BaseViewController, View {
                 self?.navigationController?.popViewController(animated: true)
             }
             .store(in: &observableBag)
+        
+        output.showRemoveAccountButton
+            .bind { [weak self] _ in
+                self?.removeAccountButton.isHidden = false
+            }
+            .store(in: &observableBag)
+        
+        output.showRemoveAlert
+            .bind { [weak self] _ in
+                guard let self else { return }
+                showAlert(
+                    title: "계정을 삭제하시겠습니까?",
+                    actionTitle: "확인"
+                ) { _ in
+                    self.removeAlertTapEvent.onNext(())
+                }
+            }
+            .store(in: &observableBag)
     }
     
     override func configureLayout() {
@@ -150,7 +188,8 @@ final class ProfileSettingViewController: BaseViewController, View {
             textFieldUnderlineView,
             validationLabel,
             mbtiSelectionView,
-            doneButton
+            doneButton,
+            removeAccountButton
         ].forEach { view.addSubview($0) }
         
         let padding = 20.f
@@ -186,6 +225,11 @@ final class ProfileSettingViewController: BaseViewController, View {
             make.top.equalTo(validationLabel.snp.bottom).offset(padding)
             make.centerX.equalTo(safeArea)
             make.horizontalEdges.equalTo(safeArea).inset(padding / 2)
+        }
+        
+        removeAccountButton.snp.makeConstraints { make in
+            make.centerX.equalTo(safeArea)
+            make.bottom.equalTo(doneButton.snp.top).offset(-padding)
         }
         
         doneButton.snp.makeConstraints { make in

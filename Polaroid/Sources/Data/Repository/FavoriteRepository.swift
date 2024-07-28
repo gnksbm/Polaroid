@@ -10,8 +10,12 @@ import Foundation
 import RealmSwift
 
 final class FavoriteRepository {
+    static let shared = FavoriteRepository()
+    
     private let realmStorage = RealmStorage()
     private let imageStorage = ImageStorage()
+    
+    private init() { }
     
     func saveImage(_ imageData: LikableImageData) throws -> LikableImage {
         guard !fetchObject().contains(where: { $0.id == imageData.item.id })
@@ -173,6 +177,10 @@ final class FavoriteRepository {
         newImage.localURL = nil
         newImage.creatorProfileImageLocalPath = nil
         return newImage
+    }
+    
+    func removeAll() {
+        realmStorage.deleteAll()
     }
     
     private func fetchObject() -> Results<FavoriteDTO> {

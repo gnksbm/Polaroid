@@ -20,6 +20,27 @@ extension UIViewController {
             rootViewController: OnboardingViewController()
         )
     }
+    
+    func showAlert(
+        title: String,
+        actionTitle: String,
+        _ handler: @escaping (UIAlertAction) -> Void
+    ) {
+        let alertController = UIAlertController(
+            title: title,
+            message: nil,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(
+            title: actionTitle,
+            style: .destructive,
+            handler: handler
+        )
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true)
+    }
 }
 
 extension UIViewController {

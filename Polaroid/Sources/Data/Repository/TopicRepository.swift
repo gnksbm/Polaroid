@@ -8,7 +8,11 @@
 import Foundation
 
 final class TopicRepository {
+    static let shared = TopicRepository()
+    
     private let networkService = NetworkService.shared
+    
+    private init() { }
     
     func fetchTopic(
         request: TopicRequest,

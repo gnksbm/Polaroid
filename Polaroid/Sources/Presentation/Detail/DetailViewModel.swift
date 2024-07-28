@@ -10,8 +10,8 @@ import Foundation
 final class DetailViewModel: ViewModel {
     private var data: MinimumImageData
     
-    private let statisticsRepository = StatisticsRepository()
-    private let favoriteRepository = FavoriteRepository()
+    private let statisticsRepository = StatisticsRepository.shared
+    private let favoriteRepository = FavoriteRepository.shared
     
     private var observableBag = ObservableBag()
     

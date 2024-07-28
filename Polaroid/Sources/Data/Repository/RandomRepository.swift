@@ -8,7 +8,11 @@
 import Foundation
 
 final class RandomRepository {
+    static let shared = RandomRepository()
+    
     private let networkService = NetworkService.shared
+    
+    private init() { }
     
     func fetchRandom(
         _ completion: @escaping (Result<[RandomImage], Error>) -> Void

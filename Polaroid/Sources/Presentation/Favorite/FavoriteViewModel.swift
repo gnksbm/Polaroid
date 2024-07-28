@@ -8,7 +8,7 @@
 import Foundation
 
 final class FavoriteViewModel: ViewModel {
-    private let favoriteRepository = FavoriteRepository()
+    private let favoriteRepository = FavoriteRepository.shared
     
     private var observableBag = ObservableBag()
     
