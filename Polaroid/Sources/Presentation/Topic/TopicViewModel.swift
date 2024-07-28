@@ -14,7 +14,8 @@ final class TopicViewModel: ViewModel {
     func transform(input: Input) -> Output {
         let output = Output(
             imageDic: Observable([:]),
-            onError: Observable<Void>(())
+            onError: Observable<Void>(()),
+            startDetailFlow: Observable<TopicImage?>(nil)
         )
         
         input.viewDidLoadEvent
@@ -43,6 +44,10 @@ final class TopicViewModel: ViewModel {
             }
             .store(in: &observableBag)
         
+        input.itemSelectEvent
+            .bind(to: output.startDetailFlow)
+            .store(in: &observableBag)
+        
         return output
     }
 }
@@ -50,10 +55,12 @@ final class TopicViewModel: ViewModel {
 extension TopicViewModel {
     struct Input {
         let viewDidLoadEvent: Observable<Void>
+        let itemSelectEvent: Observable<TopicImage?>
     }
     
     struct Output {
         let imageDic: Observable<[TopicSection: [TopicImage]]>
         let onError: Observable<Void>
+        let startDetailFlow: Observable<TopicImage?>
     }
 }

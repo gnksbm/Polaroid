@@ -37,7 +37,13 @@ final class TopicViewController: BaseViewController, View {
     func bind(viewModel: TopicViewModel) {
         let output = viewModel.transform(
             input: TopicViewModel.Input(
-                viewDidLoadEvent: viewDidLoadEvent
+                viewDidLoadEvent: viewDidLoadEvent,
+                itemSelectEvent: collectionView.obDidSelectItemEvent
+                    .map { [weak self] indexPath in
+                        guard let self,
+                              let indexPath else { return nil }
+                        return collectionView.getItem(for: indexPath)
+                    }
             )
         )
         
@@ -56,6 +62,17 @@ final class TopicViewController: BaseViewController, View {
                 guard let self else { return }
                 showToast(message: "오류가 발생했습니다")
                 hideProgressView()
+            }
+            .store(in: &observableBag)
+        
+        output.startDetailFlow
+            .bind { [weak self] image in
+                guard let self,
+                      let image else { return }
+                navigationController?.pushViewController(
+                    DetailViewController(imageID: image.id),
+                    animated: true
+                )
             }
             .store(in: &observableBag)
     }

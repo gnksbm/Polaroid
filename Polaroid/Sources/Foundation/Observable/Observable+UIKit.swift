@@ -37,7 +37,8 @@ extension ObservableControlEventType where Self: UITextField {
 }
 
 extension UICollectionView {
-    var obDidSelectItemEvent: ObservableCollectionViewDelegateProxy {
+    var obDidSelectItemEvent: Observable<IndexPath?> {
         ObservableCollectionViewDelegateProxy(collectionView: self)
+            .asObservable()
     }
 }

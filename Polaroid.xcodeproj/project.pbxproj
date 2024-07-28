@@ -43,6 +43,10 @@
 		8EB3FEA32C539FA30012D1A3 /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEA22C539FA30012D1A3 /* ImageStorage.swift */; };
 		8EB3FEA52C53A6230012D1A3 /* FavoriteSortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEA42C53A6230012D1A3 /* FavoriteSortOption.swift */; };
 		8EB3FEA82C53A6C30012D1A3 /* SortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEA72C53A6C30012D1A3 /* SortOption.swift */; };
+		8EB3FEAD2C5627FC0012D1A3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEAC2C5627FC0012D1A3 /* DetailViewController.swift */; };
+		8EB3FEAF2C56309B0012D1A3 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEAE2C56309B0012D1A3 /* DetailViewModel.swift */; };
+		8EB3FEB12C5631E30012D1A3 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEB02C5631E30012D1A3 /* SummaryView.swift */; };
+		8EB3FEB32C5632130012D1A3 /* ItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEB22C5632130012D1A3 /* ItemInfoView.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
@@ -195,6 +199,10 @@
 		8EB3FEA22C539FA30012D1A3 /* ImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
 		8EB3FEA42C53A6230012D1A3 /* FavoriteSortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSortOption.swift; sourceTree = "<group>"; };
 		8EB3FEA72C53A6C30012D1A3 /* SortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOption.swift; sourceTree = "<group>"; };
+		8EB3FEAC2C5627FC0012D1A3 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		8EB3FEAE2C56309B0012D1A3 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		8EB3FEB02C5631E30012D1A3 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		8EB3FEB22C5632130012D1A3 /* ItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoView.swift; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -409,6 +417,15 @@
 			path = SortOption;
 			sourceTree = "<group>";
 		};
+		8EB3FEAB2C5627C50012D1A3 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				8EB3FEAC2C5627FC0012D1A3 /* DetailViewController.swift */,
+				8EB3FEAE2C56309B0012D1A3 /* DetailViewModel.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		BE2AFB1B2C4E280400C6718C = {
 			isa = PBXGroup;
 			children = (
@@ -476,6 +493,7 @@
 			children = (
 				BE5F22F42C526D6400CC7DD6 /* Appearance.swift */,
 				BE2AFBC92C4E9EA400C6718C /* Common */,
+				8EB3FEAB2C5627C50012D1A3 /* Detail */,
 				8EB3FE982C539BC70012D1A3 /* Favorite */,
 				BE2AFB952C4E3C1F00C6718C /* MainTab */,
 				BE2AFB922C4E39AC00C6718C /* Onboarding */,
@@ -688,10 +706,12 @@
 				8E768E8A2C513EE40062431F /* CapsuleView.swift */,
 				BE2AFBCA2C4E9EA900C6718C /* CircleButton.swift */,
 				BE5F22DB2C52488200CC7DD6 /* ImageCreateInfoView.swift */,
+				8EB3FEB22C5632130012D1A3 /* ItemInfoView.swift */,
 				BE5F22FC2C52732A00CC7DD6 /* LikableCollectionView.swift */,
 				BE5F22FE2C52745C00CC7DD6 /* LikableImageCVCell.swift */,
 				BE5F22362C4F965C00CC7DD6 /* ProfileImageButton.swift */,
 				8EB3FE962C5396D70012D1A3 /* SortOptionButton.swift */,
+				8EB3FEB02C5631E30012D1A3 /* SummaryView.swift */,
 				8E768E8C2C5147E90062431F /* ToastView.swift */,
 				BE2AFBCC2C4EA04300C6718C /* ToggleView.swift */,
 			);
@@ -1022,6 +1042,7 @@
 				BE2AFBC42C4E884D00C6718C /* MBTIElementSelectionView.swift in Sources */,
 				BE2AFBB92C4E655B00C6718C /* ProfileSettingViewController.swift in Sources */,
 				BE2AFB552C4E2EAC00C6718C /* CancelBag.swift in Sources */,
+				8EB3FEAD2C5627FC0012D1A3 /* DetailViewController.swift in Sources */,
 				BE2AFBD12C4EA29A00C6718C /* BaseButton.swift in Sources */,
 				BE5F22F52C526D6400CC7DD6 /* Appearance.swift in Sources */,
 				BE5F22DA2C52449000CC7DD6 /* RandomViewModel.swift in Sources */,
@@ -1047,12 +1068,15 @@
 				8E768E8B2C513EE40062431F /* CapsuleView.swift in Sources */,
 				BE2AFB9A2C4E3E3F00C6718C /* MPDesign.swift in Sources */,
 				BE2AFBB22C4E612D00C6718C /* OnboardingViewModel.swift in Sources */,
+				8EB3FEAF2C56309B0012D1A3 /* DetailViewModel.swift in Sources */,
 				BE5F226B2C50F6FA00CC7DD6 /* ProfileImageCollectionView.swift in Sources */,
 				BE5F22FA2C52731A00CC7DD6 /* SearchViewModel.swift in Sources */,
 				8EB3FE892C5346CD0012D1A3 /* ColorOption.swift in Sources */,
 				BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */,
 				BE2AFB9F2C4E444500C6718C /* Observable.swift in Sources */,
 				BE2AFBAC2C4E510800C6718C /* UIButton+.swift in Sources */,
+				8EB3FEB12C5631E30012D1A3 /* SummaryView.swift in Sources */,
+				8EB3FEB32C5632130012D1A3 /* ItemInfoView.swift in Sources */,
 				BE2AFB6B2C4E334200C6718C /* DeinitHandler.swift in Sources */,
 				BE5F22AC2C520F5500CC7DD6 /* RandomEndpoint.swift in Sources */,
 				BE2AFB6E2C4E335F00C6718C /* ViewModelStorage.swift in Sources */,

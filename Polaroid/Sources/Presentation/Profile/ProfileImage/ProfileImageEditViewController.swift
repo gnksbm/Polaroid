@@ -36,7 +36,6 @@ final class ProfileImageViewController: BaseViewController, View {
             input: ProfileImageViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent,
                 itemSelectEvent: collectionView.obDidSelectItemEvent
-                    .asObservable()
                     .map { [weak self] indexPath in
                         guard let self,
                               let indexPath else { return nil }
