@@ -10,7 +10,7 @@ import Foundation
 protocol MinimumImageData {
     var id: String { get }
     var creatorProfileImageURL: URL? { get }
-    var creatorProfileImageLocalPath: URL? { get }
+    var creatorProfileImageLocalPath: String? { get }
     var creatorName: String { get }
     var createdAt: Date? { get }
     var imageURL: URL? { get }

@@ -10,7 +10,7 @@ import Foundation
 struct DetailImage: Hashable {
     let id: String
     let creatorProfileImageURL: URL?
-    let creatorProfileImageLocalPath: URL?
+    let creatorProfileImageLocalPath: String?
     let creatorName: String
     let createdAt: Date?
     let imageURL: URL?

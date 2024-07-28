@@ -11,7 +11,7 @@ struct TopicImage: Hashable {
     let id: String
     let imageURL: URL?
     let creatorProfileImageURL: URL?
-    var creatorProfileImageLocalPath: URL?
+    var creatorProfileImageLocalPath: String?
     let likeCount: Int
     let creatorName: String
     let createdAt: Date?

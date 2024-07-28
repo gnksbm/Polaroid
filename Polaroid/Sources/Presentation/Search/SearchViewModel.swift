@@ -19,7 +19,8 @@ final class SearchViewModel: ViewModel {
         let output = Output(
             searchState: Observable<SearchState>(.none),
             changedImage: Observable<LikableImage?>(nil),
-            onError: Observable<Void>(())
+            onError: Observable<Void>(()), 
+            startDetailFlow: Observable<LikableImage?>(nil)
         )
         
         input.searchTextChangeEvent
@@ -88,6 +89,10 @@ final class SearchViewModel: ViewModel {
             }
             .store(in: &observableBag)
         
+        input.itemSelectEvent
+            .bind(to: output.startDetailFlow)
+            .store(in: &observableBag)
+        
         return output
     }
     
@@ -129,12 +134,14 @@ extension SearchViewModel {
         let sortOptionSelectEvent: Observable<SearchSortOption>
         let colorOptionSelectEvent: Observable<ColorOption?>
         let likeButtonTapEvent: Observable<LikableImageData?>
+        let itemSelectEvent: Observable<LikableImage?>
     }
     
     struct Output {
         let searchState: Observable<SearchState>
         let changedImage: Observable<LikableImage?>
         let onError: Observable<Void>
+        let startDetailFlow: Observable<LikableImage?>
     }
     
     enum SearchState: Equatable {

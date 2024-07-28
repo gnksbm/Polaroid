@@ -12,6 +12,7 @@ import SnapKit
 
 final class SearchViewController: BaseViewController, View {
     private var scrollReachedBottomEvent = Observable<Void>(())
+    private let didSelectItemEvent = Observable<LikableImage?>(nil)
     private var observableBag = ObservableBag()
     
     private let searchController = UISearchController().nt.configure {
@@ -50,7 +51,8 @@ final class SearchViewController: BaseViewController, View {
                     .throttle(period: 3),
                 sortOptionSelectEvent: sortButton.sortSelectEvent,
                 colorOptionSelectEvent: colorButtonView.colorSelectEvent,
-                likeButtonTapEvent: collectionView.likeButtonTapEvent
+                likeButtonTapEvent: collectionView.likeButtonTapEvent,
+                itemSelectEvent: didSelectItemEvent
             )
         )
         
@@ -105,6 +107,17 @@ final class SearchViewController: BaseViewController, View {
                 self?.collectionView.updateItems([item])
             }
             .store(in: &observableBag)
+        
+        output.startDetailFlow
+            .bind { [weak self] image in
+                guard let self,
+                      let image else { return }
+                navigationController?.pushViewController(
+                    DetailViewController(data: image),
+                    animated: true
+                )
+            }
+            .store(in: &observableBag)
     }
     
     override func configureLayout() {
@@ -145,5 +158,14 @@ extension SearchViewController: UICollectionViewDelegate {
            scrollView.contentSize.height > scrollView.bounds.size.height {
             scrollReachedBottomEvent.onNext(())
         }
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        let selectedItem =
+        (collectionView as? LikableCollectionView)?.getItem(for: indexPath)
+        didSelectItemEvent.onNext(selectedItem)
     }
 }
