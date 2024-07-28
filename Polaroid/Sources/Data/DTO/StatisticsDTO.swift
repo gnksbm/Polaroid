@@ -19,7 +19,7 @@ extension StatisticsDTO {
             creatorProfileImageURL: data.creatorProfileImageURL,
             creatorProfileImageLocalPath: data.creatorProfileImageLocalPath,
             creatorName: data.creatorName,
-            createAt: data.createAt,
+            createdAt: data.createdAt,
             imageURL: data.imageURL,
             imageWidth: data.imageWidth,
             imageHeight: data.imageHeight,

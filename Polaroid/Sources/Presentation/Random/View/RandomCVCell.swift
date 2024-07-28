@@ -15,7 +15,11 @@ final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
     static func makeRegistration() -> Registration<RandomImage> {
         Registration { cell, indexPath, item in
             cell.imageTask = cell.imageView.kf.setImage(with: item.imageURL)
-            cell.createInfoView.updateView(item: item)
+            cell.createInfoView.updateView(
+                imageURL: item.imageURL,
+                name: item.creatorName,
+                date: item.createdAt
+            )
         }
     }
     

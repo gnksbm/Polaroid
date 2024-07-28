@@ -12,8 +12,8 @@ protocol MinimumImageData {
     var creatorProfileImageURL: URL? { get }
     var creatorProfileImageLocalPath: URL? { get }
     var creatorName: String { get }
-    var createAt: Date? { get }
+    var createdAt: Date? { get }
     var imageURL: URL? { get }
-    var imageWidth: CGFloat { get }
-    var imageHeight: CGFloat { get }
+    var imageWidth: Int { get }
+    var imageHeight: Int { get }
 }

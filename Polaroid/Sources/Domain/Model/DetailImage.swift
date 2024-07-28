@@ -12,10 +12,10 @@ struct DetailImage: Hashable {
     let creatorProfileImageURL: URL?
     let creatorProfileImageLocalPath: URL?
     let creatorName: String
-    let createAt: Date?
+    let createdAt: Date?
     let imageURL: URL?
-    let imageWidth: CGFloat
-    let imageHeight: CGFloat
+    let imageWidth: Int
+    let imageHeight: Int
     let views: Statistics
     let download: Statistics
     

@@ -31,10 +31,21 @@ final class RandomViewController: BaseViewController, View {
         navigationController?.isNavigationBarHidden = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     func bind(viewModel: RandomViewModel) {
         let output = viewModel.transform(
             input: RandomViewModel.Input(
-                viewDidLoadEvent: viewDidLoadEvent
+                viewDidLoadEvent: viewDidLoadEvent,
+                itemSelectEvent: collectionView.obDidSelectItemEvent
+                    .map { [weak self] indexPath in
+                        guard let self,
+                              let indexPath else { return nil }
+                        return collectionView.getItem(for: indexPath)
+                    }
             )
         )
         
@@ -51,6 +62,17 @@ final class RandomViewController: BaseViewController, View {
                 guard let self else { return }
                 showToast(message: "오류가 발생했습니다")
                 hideProgressView()
+            }
+            .store(in: &observableBag)
+        
+        output.startDetailFlow
+            .bind { [weak self] image in
+                guard let self,
+                      let image else { return }
+                navigationController?.pushViewController(
+                    DetailViewController(data: image),
+                    animated: true
+                )
             }
             .store(in: &observableBag)
     }

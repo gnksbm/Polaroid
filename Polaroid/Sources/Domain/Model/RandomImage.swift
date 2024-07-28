@@ -11,6 +11,11 @@ struct RandomImage: Hashable {
     let id: String
     let imageURL: URL?
     let creatorProfileImageURL: URL?
+    let creatorProfileImageLocalPath: URL?
     let creatorName: String
     let createdAt: Date?
+    let imageWidth: Int
+    let imageHeight: Int
 }
+
+extension RandomImage: MinimumImageData { }

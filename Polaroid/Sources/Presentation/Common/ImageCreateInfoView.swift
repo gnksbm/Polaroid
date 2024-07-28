@@ -12,6 +12,17 @@ import Neat
 import SnapKit
 
 final class ImageCreateInfoView: BaseView {
+    var textColor: UIColor = MPDesign.Color.white {
+        willSet {
+            creatorNameLabel.textColor = newValue
+            createdAtLabel.textColor = newValue
+        }
+    }
+    var imageColor: UIColor = MPDesign.Color.white {
+        willSet {
+            likeButton.configuration?.baseForegroundColor = newValue
+        }
+    }
     private let creatorImageView = UIImageView().nt.configure {
         $0.clipsToBounds(true)
     }
@@ -40,10 +51,14 @@ final class ImageCreateInfoView: BaseView {
         creatorImageView.applyCornerRadius(demension: .height)
     }
     
-    func updateView(item: RandomImage) {
-        creatorImageView.kf.setImage(with: item.creatorProfileImageURL)
-        creatorNameLabel.text = item.creatorName
-        createdAtLabel.text = item.createdAt?.formatted(dateFormat: .createdAt)
+    func updateView(
+        imageURL: URL?,
+        name: String,
+        date: Date?
+    ) {
+        creatorImageView.kf.setImage(with: imageURL)
+        creatorNameLabel.text = name
+        createdAtLabel.text = date?.formatted(dateFormat: .createdAt)
     }
     
     override func configureLayout() {

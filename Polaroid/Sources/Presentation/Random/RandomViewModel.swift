@@ -14,7 +14,8 @@ final class RandomViewModel: ViewModel {
     func transform(input: Input) -> Output {
         let output = Output(
             randomImages: Observable<[RandomImage]>([]),
-            onError: Observable<Void>(())
+            onError: Observable<Void>(()),
+            startDetailFlow: Observable<RandomImage?>(nil)
         )
         
         input.viewDidLoadEvent
@@ -33,6 +34,10 @@ final class RandomViewModel: ViewModel {
             }
             .store(in: &observableBag)
         
+        input.itemSelectEvent
+            .bind(to: output.startDetailFlow)
+            .store(in: &observableBag)
+        
         return output
     }
 }
@@ -40,10 +45,12 @@ final class RandomViewModel: ViewModel {
 extension RandomViewModel {
     struct Input {
         let viewDidLoadEvent: Observable<Void>
+        let itemSelectEvent: Observable<RandomImage?>
     }
     
     struct Output {
         let randomImages: Observable<[RandomImage]>
         let onError: Observable<Void>
+        let startDetailFlow: Observable<RandomImage?>
     }
 }

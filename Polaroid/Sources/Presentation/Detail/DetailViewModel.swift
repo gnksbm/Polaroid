@@ -19,7 +19,10 @@ final class DetailViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
-        let output = Output()
+        let output = Output(
+            randomImages: Observable<DetailImage?>(nil),
+            onError: Observable<Void>(())
+        )
         
         input.viewDidLoadEvent
             .bind { [weak self] _ in
@@ -27,7 +30,13 @@ final class DetailViewModel: ViewModel {
                 statisticsRepository.fetchStatistics(
                     imageData: data
                 ) { result in
-                    
+                    switch result {
+                    case .success(let success):
+                        output.randomImages.onNext(success)
+                    case .failure(let error):
+                        Logger.error(error)
+                        output.onError.onNext(())
+                    }
                 }
             }
             .store(in: &observableBag)
@@ -41,5 +50,8 @@ extension DetailViewModel {
         let viewDidLoadEvent: Observable<Void>
     }
     
-    struct Output { }
+    struct Output {
+        let randomImages: Observable<DetailImage?>
+        let onError: Observable<Void>
+    }
 }

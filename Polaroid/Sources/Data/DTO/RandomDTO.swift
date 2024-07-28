@@ -30,9 +30,12 @@ extension RandomDTO {
         RandomImage(
             id: id,
             imageURL: URL(string: urls.regular),
-            creatorProfileImageURL: URL(string: user.profileImage.small),
+            creatorProfileImageURL: URL(string: user.profileImage.medium),
+            creatorProfileImageLocalPath: nil,
             creatorName: user.name,
-            createdAt: createdAt.iso8601Formatted()
+            createdAt: createdAt.iso8601Formatted(),
+            imageWidth: width,
+            imageHeight: height
         )
     }
 }
