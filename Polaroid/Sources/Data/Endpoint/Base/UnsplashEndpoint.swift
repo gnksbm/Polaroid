@@ -20,7 +20,7 @@ extension UnsplashEndpoint {
         components.host = host
         components.path = path
         components.port = port
-        components.queryItems = queries?.map { key, value in
+        components.queryItems = queries.map { key, value in
             URLQueryItem(name: key, value: value)
         }
         components.queryItems?.append(

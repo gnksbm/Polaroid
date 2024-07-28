@@ -36,4 +36,32 @@ final class DTOParseTests: XCTestCase {
             _ = try JSONDecoder().decode([RandomDTO].self, from: data)
         }
     }
+    
+    func test_parse_Search() throws {
+        guard let url = Bundle(for: type(of: self)).url(
+            forResource: "Search",
+            withExtension: "json"
+        ) else {
+            XCTFail()
+            return
+        }
+        XCTAssertNoThrow {
+            let data = try Data(contentsOf: url)
+            _ = try JSONDecoder().decode(SearchDTO.self, from: data)
+        }
+    }
+    
+    func test_parse_statistics() throws {
+        guard let url = Bundle(for: type(of: self)).url(
+            forResource: "Statistics",
+            withExtension: "json"
+        ) else {
+            XCTFail()
+            return
+        }
+        XCTAssertNoThrow {
+            let data = try Data(contentsOf: url)
+            _ = try JSONDecoder().decode(StatisticsDTO.self, from: data)
+        }
+    }
 }

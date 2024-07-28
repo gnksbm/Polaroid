@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 final class DetailViewController: BaseViewController, View {
+    private let viewDidLoadEvent = Observable<Void>(())
+    
     private let createInfoView = ImageCreateInfoView()
     private let imageView = UIImageView()
     private lazy var imageInfoView = SummaryView(
@@ -29,8 +31,17 @@ final class DetailViewController: BaseViewController, View {
         viewModel = DetailViewModel(imageID: imageID)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewDidLoadEvent.onNext(())
+    }
+    
     func bind(viewModel: DetailViewModel) {
-        
+        let output = viewModel.transform(
+            input: DetailViewModel.Input(
+                viewDidLoadEvent: viewDidLoadEvent
+            )
+        )
     }
     
     override func configureLayout() {

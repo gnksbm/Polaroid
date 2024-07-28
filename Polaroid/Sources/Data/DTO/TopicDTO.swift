@@ -190,7 +190,3 @@ extension TopicDTO {
         }
     }
 }
-
-struct UnsplashDate {
-    let value: String
-}

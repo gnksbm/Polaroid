@@ -15,8 +15,8 @@ protocol EndpointRepresentable: URLConvertible, URLRequestConvertible {
     var host: String { get }
     var port: Int? { get }
     var path: String { get }
-    var queries: [String: String]? { get }
-    var header: [String : String]? { get }
+    var queries: [String: String] { get }
+    var header: [String : String] { get }
     var body: [String: any Encodable]? { get }
     
     func toURLRequest() -> URLRequest?
@@ -25,8 +25,8 @@ protocol EndpointRepresentable: URLConvertible, URLRequestConvertible {
 
 extension EndpointRepresentable {
     var port: Int? { nil }
-    var queries: [String: String]? { nil }
-    var header: [String : String]? { nil }
+    var queries: [String: String] { [:] }
+    var header: [String : String] { [:] }
     var body: [String: any Encodable]? { nil }
     
     func toURL() -> URL? {
@@ -35,7 +35,7 @@ extension EndpointRepresentable {
         components.host = host
         components.path = path
         components.port = port
-        components.queryItems = queries?.map { key, value in
+        components.queryItems = queries.map { key, value in
             URLQueryItem(name: key, value: value)
         }
         return components.url
