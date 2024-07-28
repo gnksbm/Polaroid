@@ -36,6 +36,16 @@ final class OnboardingViewController: BaseViewController, View {
         viewModel = OnboardingViewModel()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     func bind(viewModel: OnboardingViewModel) {
         let output = viewModel.transform(
             input: OnboardingViewModel.Input(
