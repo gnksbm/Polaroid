@@ -30,9 +30,9 @@ final class ImageStorage {
             try data?.write(to: fileURL)
         }
         if #available(iOS 16.0, *) {
-            return fileURL.path().removingPercentEncoding
+            return encodedPath
         } else {
-            return fileURL.path.removingPercentEncoding
+            return encodedPath
         }
     }
     

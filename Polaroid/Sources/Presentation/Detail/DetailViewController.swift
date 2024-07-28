@@ -46,31 +46,19 @@ final class DetailViewController: BaseViewController, View {
     func bind(viewModel: DetailViewModel) {
         let output = viewModel.transform(
             input: DetailViewModel.Input(
-                viewDidLoadEvent: viewDidLoadEvent
+                viewDidLoadEvent: viewDidLoadEvent, 
+                likeButtonTapEvent: createInfoView.likeButtonTapEvent
+                    .map { [weak self] profileImageData in
+                        let imageData =
+                        self?.imageView.image?.jpegData(compressionQuality: 1)
+                        return (imageData, profileImageData)
+                    }
             )
         )
         
-        output.randomImages
+        output.detailImage
             .bind { [weak self] detailImage in
-                guard let self,
-                      let detailImage else { return }
-                createInfoView.updateView(
-                    imageURL: detailImage.imageURL,
-                    name: detailImage.creatorName,
-                    date: detailImage.createdAt
-                )
-                imageView.kf.setImage(with: detailImage.imageURL)
-                imageView.snp.makeConstraints { make in
-                    make.height.equalTo(self.imageView.snp.width)
-                        .multipliedBy(
-                            detailImage.imageHeight.f / detailImage.imageWidth.f  
-                        )
-                }
-                imageSizeView.updateValue(
-                    "\(detailImage.imageWidth) x \(detailImage.imageHeight)"
-                )
-                viewsCountView.updateValue(detailImage.views.total.formatted())
-                downloadView.updateValue(detailImage.download.total.formatted())
+                self?.updateView(detailImage: detailImage)
             }
             .store(in: &observableBag)
         
@@ -113,6 +101,41 @@ final class DetailViewController: BaseViewController, View {
             make.top.equalTo(imageView.snp.bottom)
             make.horizontalEdges.equalTo(scrollView.contentLayoutGuide)
             make.bottom.equalTo(scrollView.contentLayoutGuide)
+        }
+    }
+    
+    private func updateView(detailImage: DetailImage?) {
+        guard let detailImage else { return }
+        var localProfileURL: URL?
+        if let localProfilePath = detailImage.creatorProfileImageLocalPath {
+            localProfileURL = URL(string: localProfilePath)
+        }
+        createInfoView.updateView(
+            imageURL: detailImage.creatorProfileImageURL,
+            localURL: localProfileURL,
+            name: detailImage.creatorName,
+            date: detailImage.createdAt,
+            isLiked: detailImage.isLiked
+        )
+        if let localURL = detailImage.localURL {
+            imageView.load(urlStr: localURL)
+        } else {
+            imageView.kf.setImage(with: detailImage.imageURL)
+        }
+        imageView.snp.makeConstraints { make in
+            make.height.equalTo(self.imageView.snp.width)
+                .multipliedBy(
+                    detailImage.imageHeight.f / detailImage.imageWidth.f
+                )
+        }
+        imageSizeView.updateValue(
+            "\(detailImage.imageWidth) x \(detailImage.imageHeight)"
+        )
+        if let views = detailImage.views {
+            viewsCountView.updateValue(views.total.formatted())
+        }
+        if let download = detailImage.download {
+            viewsCountView.updateValue(download.total.formatted())
         }
     }
 }

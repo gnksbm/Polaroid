@@ -10,14 +10,16 @@ import Foundation
 struct DetailImage: Hashable {
     let id: String
     let creatorProfileImageURL: URL?
-    let creatorProfileImageLocalPath: String?
+    var creatorProfileImageLocalPath: String?
     let creatorName: String
     let createdAt: Date?
     let imageURL: URL?
+    var localURL: String?
+    var isLiked: Bool
     let imageWidth: Int
     let imageHeight: Int
-    let views: Statistics
-    let download: Statistics
+    var views: Statistics?
+    var download: Statistics?
     
     struct Statistics: Hashable {
         let total: Int

@@ -9,6 +9,8 @@ import Foundation
 
 final class RandomViewModel: ViewModel {
     private var randomRepository = RandomRepository()
+    private var favoriteRepository = FavoriteRepository()
+    
     private var observableBag = ObservableBag()
     
     func transform(input: Input) -> Output {
@@ -24,7 +26,9 @@ final class RandomViewModel: ViewModel {
                 randomRepository.fetchRandom { result in
                     switch result {
                     case .success(let imageList):
-                        output.randomImages.onNext(imageList)
+                        output.randomImages.onNext(
+                            self.favoriteRepository.reConfigureImages(imageList)
+                        )
                     case .failure(let error):
                         dump(error)
                         Logger.error(error)

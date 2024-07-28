@@ -8,9 +8,10 @@
 import Foundation
 
 final class DetailViewModel: ViewModel {
-    private let data: MinimumImageData
+    private var data: MinimumImageData
     
     private let statisticsRepository = StatisticsRepository()
+    private let favoriteRepository = FavoriteRepository()
     
     private var observableBag = ObservableBag()
     
@@ -20,7 +21,7 @@ final class DetailViewModel: ViewModel {
     
     func transform(input: Input) -> Output {
         let output = Output(
-            randomImages: Observable<DetailImage?>(nil),
+            detailImage: Observable<DetailImage?>(nil),
             onError: Observable<Void>(())
         )
         
@@ -32,11 +33,39 @@ final class DetailViewModel: ViewModel {
                 ) { result in
                     switch result {
                     case .success(let success):
-                        output.randomImages.onNext(success)
+                        output.detailImage.onNext(
+                            self.favoriteRepository.reConfigureImages(success)
+                        )
                     case .failure(let error):
                         Logger.error(error)
                         output.onError.onNext(())
                     }
+                }
+            }
+            .store(in: &observableBag)
+        
+        input.likeButtonTapEvent
+            .bind { [weak self] data in
+                guard let self,
+                      let detailImage = output.detailImage.value()
+                else { return }
+                do {
+                    if detailImage.isLiked {
+                        let newImage =
+                        try favoriteRepository.removeImage(detailImage)
+                        output.detailImage.onNext(newImage)
+                    } else {
+                        let newImage =
+                        try favoriteRepository.saveImage(
+                            detailImage,
+                            imageData: data.0,
+                            profileImageData: data.1
+                        )
+                        output.detailImage.onNext(newImage)
+                    }
+                } catch {
+                    Logger.error(error)
+                    output.onError.onNext(())
                 }
             }
             .store(in: &observableBag)
@@ -48,10 +77,11 @@ final class DetailViewModel: ViewModel {
 extension DetailViewModel {
     struct Input {
         let viewDidLoadEvent: Observable<Void>
+        let likeButtonTapEvent: Observable<(Data?, Data?)>
     }
     
     struct Output {
-        let randomImages: Observable<DetailImage?>
+        let detailImage: Observable<DetailImage?>
         let onError: Observable<Void>
     }
 }

@@ -40,10 +40,26 @@ final class FavoriteDTO: Object {
         self.imageWidth = likableImage.imageWidth
         self.imageHeight = likableImage.imageHeight
     }
+    
+    convenience init(detailImage: DetailImage) {
+        self.init()
+        self.id = detailImage.id
+        self.imageURL = detailImage.imageURL?.absoluteString
+        self.localURL = detailImage.localURL
+        self.date = .now
+        self.creatorProfileImageURL = 
+        detailImage.creatorProfileImageURL?.absoluteString
+        self.creatorProfileImageLocalPath =
+        detailImage.creatorProfileImageLocalPath
+        self.creatorName = detailImage.creatorName
+        self.createdAt = detailImage.createdAt
+        self.imageWidth = detailImage.imageWidth
+        self.imageHeight = detailImage.imageHeight
+    }
 }
 
 extension FavoriteDTO {
-    func toDomain() -> LikableImage {
+    func toLikableImage() -> LikableImage {
         var imagePath: URL?
         var profilePath: URL?
         if let imageURL {
@@ -64,6 +80,29 @@ extension FavoriteDTO {
             creatorProfileImageLocalPath: creatorProfileImageLocalPath,
             creatorName: creatorName,
             createdAt: createdAt,
+            imageWidth: imageWidth,
+            imageHeight: imageHeight
+        )
+    }
+    
+    func toDetailImage() -> DetailImage {
+        var imagePath: URL?
+        var profilePath: URL?
+        if let imageURL {
+            imagePath = URL(string: imageURL)
+        }
+        if let creatorProfileImageURL {
+            profilePath = URL(string: creatorProfileImageURL)
+        }
+        return DetailImage(
+            id: id,
+            creatorProfileImageURL: profilePath,
+            creatorProfileImageLocalPath: creatorProfileImageURL,
+            creatorName: creatorName,
+            createdAt: createdAt,
+            imageURL: imagePath,
+            localURL: localURL,
+            isLiked: isLiked,
             imageWidth: imageWidth,
             imageHeight: imageHeight
         )

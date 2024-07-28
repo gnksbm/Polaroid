@@ -21,6 +21,7 @@ extension StatisticsDTO {
             creatorName: data.creatorName,
             createdAt: data.createdAt,
             imageURL: data.imageURL,
+            isLiked: false,
             imageWidth: data.imageWidth,
             imageHeight: data.imageHeight,
             views: DetailImage.Statistics(

@@ -65,26 +65,21 @@ final class SearchViewModel: ViewModel {
             .bind { [weak self] imageData in
                 guard let self,
                       let imageData else { return }
-                if imageData.item.isLiked {
-                    do {
+                do {
+                    if imageData.item.isLiked {
                         let newImage =
                         try favoriteRepository.removeImage(imageData.item)
                         output.changedImage.onNext(newImage)
-                    } catch {
-                        Logger.error(error)
-                        output.onError.onNext(())
-                    }
-                } else {
-                    do {
+                    } else {
                         var copy = imageData
                         copy.item.color =
                         input.colorOptionSelectEvent.value()?.rawValue
                         let newImage = try favoriteRepository.saveImage(copy)
                         output.changedImage.onNext(newImage)
-                    } catch {
-                        Logger.error(error)
-                        output.onError.onNext(())
                     }
+                } catch {
+                    Logger.error(error)
+                    output.onError.onNext(())
                 }
             }
             .store(in: &observableBag)

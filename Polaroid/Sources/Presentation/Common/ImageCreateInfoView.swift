@@ -23,6 +23,12 @@ final class ImageCreateInfoView: BaseView {
             likeButton.configuration?.baseForegroundColor = newValue
         }
     }
+    
+    lazy var likeButtonTapEvent = likeButton.tapEvent.asObservable()
+        .map { [weak self] _ in
+            self?.creatorImageView.image?.jpegData(compressionQuality: 1)
+        }
+    
     private let creatorImageView = UIImageView().nt.configure {
         $0.clipsToBounds(true)
     }
@@ -53,12 +59,16 @@ final class ImageCreateInfoView: BaseView {
     
     func updateView(
         imageURL: URL?,
+        localURL: URL?,
         name: String,
-        date: Date?
+        date: Date?,
+        isLiked: Bool
     ) {
         creatorImageView.kf.setImage(with: imageURL)
         creatorNameLabel.text = name
         createdAtLabel.text = date?.formatted(dateFormat: .createdAt)
+        likeButton.configuration?.image =
+        UIImage(systemName: isLiked ? "heart.fill" : "heart")
     }
     
     override func configureLayout() {

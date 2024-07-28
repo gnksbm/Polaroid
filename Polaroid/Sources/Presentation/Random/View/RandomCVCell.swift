@@ -17,8 +17,10 @@ final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
             cell.imageTask = cell.imageView.kf.setImage(with: item.imageURL)
             cell.createInfoView.updateView(
                 imageURL: item.imageURL,
+                localURL: nil,
                 name: item.creatorName,
-                date: item.createdAt
+                date: item.createdAt, 
+                isLiked: item.isLiked
             )
         }
     }

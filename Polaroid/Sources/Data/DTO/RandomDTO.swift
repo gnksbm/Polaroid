@@ -35,7 +35,8 @@ extension RandomDTO {
             creatorName: user.name,
             createdAt: createdAt.iso8601Formatted(),
             imageWidth: width,
-            imageHeight: height
+            imageHeight: height, 
+            isLiked: false
         )
     }
 }

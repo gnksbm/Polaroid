@@ -16,6 +16,7 @@ struct RandomImage: Hashable {
     let createdAt: Date?
     let imageWidth: Int
     let imageHeight: Int
+    var isLiked: Bool
 }
 
 extension RandomImage: MinimumImageData { }

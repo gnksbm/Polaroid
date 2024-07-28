@@ -10,7 +10,17 @@ import UIKit
 extension UIImageView {
     func load(urlStr: String) {
         DispatchQueue.global().async {
-            let image = UIImage(contentsOfFile: urlStr)
+            guard let path = FileManager.default.urls(
+                for: .documentDirectory,
+                in: .userDomainMask
+            )
+            .first?
+            .appendingPathComponent(
+                urlStr,
+                conformingTo: .jpeg
+            )
+            .absoluteString else { return }
+            let image = UIImage(contentsOfFile: path)
             DispatchQueue.main.async {
                 self.image = image
             }
