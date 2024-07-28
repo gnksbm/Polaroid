@@ -20,6 +20,8 @@ final class ProfileImageButton: CircleButton, ToggleView {
         dimension: CircleButton.Dimension
     ) {
         super.init(dimension: dimension)
+        configuration = nil
+        imageView?.contentMode = .scaleAspectFit
         switch type {
         case .static:
             updateView(isSelected: true)

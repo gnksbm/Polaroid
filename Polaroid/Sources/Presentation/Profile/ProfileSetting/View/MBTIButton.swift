@@ -28,8 +28,8 @@ final class MBTIButton: CircleButton, ToggleView {
     var selectedBackgroundColor: UIColor? { MPDesign.Color.tint }
     var selectedBorderColor: UIColor? { MPDesign.Color.clear }
     
-    override init(dimension: CircleButton.Dimension) {
-        super.init(dimension: dimension)
+    override init(dimension: CircleButton.Dimension, padding: CGFloat = 15) {
+        super.init(dimension: dimension, padding: padding)
         bindColor()
         
         tapEvent

@@ -12,7 +12,7 @@ import Neat
 import SnapKit
 
 struct LikableImageData {
-    let item: LikableImage
+    var item: LikableImage
     let data: Data?
 }
 
@@ -23,15 +23,14 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
                 cell.imageView.load(urlStr: localURL)
             } else {
                 cell.imageView.kf.setImage(with: item.imageURL)
-                if let likeCount = item.likeCount {
-                    cell.likeCountView.isHidden = false
-                    cell.likeCountView.updateLabel(text: likeCount.formatted())
-                }
             }
-            cell.likeButton.setImage(
-                UIImage(systemName: item.isLiked ? "heart.fill" : "heart"),
-                for: .normal
-            )
+            cell.likeCountView.isHidden = item.isLikeCountHidden
+            if !item.isLikeCountHidden,
+               let likeCount = item.likeCount {
+                cell.likeCountView.updateLabel(text: likeCount.formatted())
+            }
+            cell.likeButton.configuration?.image =
+            UIImage(systemName: item.isLiked ? "heart.fill" : "heart")
             cell.likeButton.tapEvent
                 .bind { _ in
                     cell.likeButtonTapEvent.onNext(
@@ -58,16 +57,18 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
     }
     
     private let likeCountView = CapsuleView().nt.configure {
-        $0.isHidden(true)
-            .perform {
-                $0.setImage(
-                    UIImage(systemName: "star.fill"),
-                    tintColor: .yellow
-                )
-            }
+        $0.perform {
+            $0.setImage(
+                UIImage(systemName: "star.fill"),
+                tintColor: .yellow
+            )
+        }
     }
     
-    private let likeButton = CircleButton(dimension: .width).nt.configure {
+    private let likeButton = CircleButton(
+        dimension: .width,
+        padding: 5
+    ).nt.configure {
         $0.backgroundColor(MPDesign.Color.white.withAlphaComponent(0.5))
     }
     

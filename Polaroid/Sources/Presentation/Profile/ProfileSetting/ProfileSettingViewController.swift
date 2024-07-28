@@ -36,7 +36,7 @@ final class ProfileSettingViewController: BaseViewController, View {
     }
     
     private let validationLabel = UILabel().nt.configure {
-        $0.font(MPDesign.Font.label1.with(weight: .medium))
+        $0.font(MPDesign.Font.caption.with(weight: .medium))
     }
     
     private let mbtiSelectionView = MBTISelectionView()
@@ -144,18 +144,19 @@ final class ProfileSettingViewController: BaseViewController, View {
         nicknameTextField.snp.makeConstraints { make in
             make.top.equalTo(profileImageButton.snp.bottom).offset(padding)
             make.centerX.equalTo(safeArea)
-            make.width.equalTo(safeArea).multipliedBy(0.8)
+            make.width.equalTo(safeArea).multipliedBy(0.85)
         }
         
         textFieldUnderlineView.snp.makeConstraints { make in
-            make.top.equalTo(nicknameTextField.snp.bottom).offset(padding)
+            make.top.equalTo(nicknameTextField.snp.bottom).offset(padding / 2)
             make.centerX.equalTo(safeArea)
-            make.horizontalEdges.equalTo(nicknameTextField)
-            make.height.equalTo(1)
+            make.width.equalTo(safeArea).multipliedBy(0.9)
+            make.height.equalTo(2)
         }
         
         validationLabel.snp.makeConstraints { make in
-            make.top.equalTo(textFieldUnderlineView.snp.bottom).offset(padding)
+            make.top.equalTo(textFieldUnderlineView.snp.bottom)
+                .offset(padding / 2)
             make.centerX.equalTo(safeArea)
             make.horizontalEdges.equalTo(nicknameTextField)
         }
@@ -163,11 +164,11 @@ final class ProfileSettingViewController: BaseViewController, View {
         mbtiSelectionView.snp.makeConstraints { make in
             make.top.equalTo(validationLabel.snp.bottom).offset(padding)
             make.centerX.equalTo(safeArea)
-            make.horizontalEdges.equalTo(nicknameTextField)
+            make.horizontalEdges.equalTo(safeArea).inset(padding / 2)
         }
         
         doneButton.snp.makeConstraints { make in
-            make.width.equalTo(safeArea).multipliedBy(0.8)
+            make.width.equalTo(nicknameTextField)
             make.centerX.equalTo(safeArea)
             make.bottom.equalTo(safeArea).inset(padding)
         }

@@ -40,6 +40,8 @@ final class ColorButtonView: UIScrollView {
     }
     
     func addSpacing(length: CGFloat) {
+        guard buttonStackView.arrangedSubviews.count <
+                ColorOption.allCases.count + 1 else { return }
         let viewLength = length - buttonStackView.spacing * 2
         let spacerView = UIView()
         buttonStackView.addArrangedSubview(spacerView)

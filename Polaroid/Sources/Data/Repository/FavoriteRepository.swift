@@ -38,7 +38,9 @@ final class FavoriteRepository {
             try imageStorage.removeImage(additionalPath: imageURLStr)
             throw error
         }
-        return imageObject.toDomain()
+        var result = imageObject.toDomain()
+        result.isLikeCountHidden = false
+        return result
     }
     
     func reConfigureImages(_ images: [LikableImage]) -> [LikableImage] {
@@ -68,9 +70,15 @@ final class FavoriteRepository {
             .map { $0.toDomain() }
     }
     
-    func fetchImage(with color: ColorOption) -> [LikableImage] {
+    func fetchImage(with color: ColorOption?) -> [LikableImage] {
         fetchObject()
-            .where { $0.color.equals(color.rawValue) }
+            .where {
+                if let color {
+                    $0.color.equals(color.rawValue)
+                } else {
+                    $0.isLiked
+                }
+            }
             .map { $0.toDomain() }
     }
     

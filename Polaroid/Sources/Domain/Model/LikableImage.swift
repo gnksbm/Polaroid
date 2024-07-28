@@ -11,9 +11,10 @@ struct LikableImage: Hashable, Identifiable {
     let id: String
     let imageURL: URL?
     let likeCount: Int?
+    var isLikeCountHidden: Bool
     var isLiked: Bool
     var localURL: String?
-    var color: String
+    var color: String?
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id.hashValue)

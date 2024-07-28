@@ -36,8 +36,7 @@ final class FavoriteViewModel: ViewModel {
         
         input.colorOptionSelectEvent
             .bind { [weak self] colorOption in
-                guard let self,
-                      let colorOption else { return }
+                guard let self else { return }
                 output.images.onNext(
                     favoriteRepository.fetchImage(with: colorOption)
                 )

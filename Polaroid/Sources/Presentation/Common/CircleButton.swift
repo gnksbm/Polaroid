@@ -7,19 +7,32 @@
 
 import UIKit
 
+import SnapKit
+
 class CircleButton: BaseButton {
     private let dimension: UIView.Dimension
     
     init(
-        dimension: UIView.Dimension
+        dimension: UIView.Dimension,
+        padding: CGFloat = 0
     ) {
         self.dimension = dimension
         super.init()
-        clipsToBounds = true
+        configureView(padding: padding)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        applyCornerRadius(demension: dimension)
+    private func configureView(padding: CGFloat) {
+        configuration = .plain()
+        configuration?.contentInsets = .same(size: padding)
+        clipsToBounds = true
+        
+        snp.makeConstraints { make in
+            make.width.equalTo(snp.height)
+        }
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        applyCornerRadius(demension: .size(rect.width / 2))
     }
 }

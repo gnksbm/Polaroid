@@ -29,7 +29,10 @@ final class MBTISelectionView: BaseView {
     MBTIElementSelectionView<MBTI.DecisionMaking>()
     private let lifestyleView = MBTIElementSelectionView<MBTI.Lifestyle>()
     
-    private lazy var mbtiStackView = DeclarativeStackView(axis: .horizontal) {
+    private lazy var mbtiStackView = DeclarativeStackView(
+        axis: .horizontal,
+        spacing: 10
+    ) {
         energyView
         perceptionView
         decisionMakingView

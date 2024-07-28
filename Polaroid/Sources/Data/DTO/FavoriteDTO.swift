@@ -38,6 +38,7 @@ extension FavoriteDTO {
             id: id,
             imageURL: imagePath,
             likeCount: likeCount,
+            isLikeCountHidden: true,
             isLiked: isLiked,
             localURL: localURL,
             color: color

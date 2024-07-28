@@ -75,8 +75,10 @@ final class SearchViewModel: ViewModel {
                     }
                 } else {
                     do {
-                        let newImage = 
-                        try favoriteRepository.saveImage(imageData)
+                        var copy = imageData
+                        copy.item.color =
+                        input.colorOptionSelectEvent.value()?.rawValue
+                        let newImage = try favoriteRepository.saveImage(copy)
                         output.changedImage.onNext(newImage)
                     } catch {
                         Logger.error(error)

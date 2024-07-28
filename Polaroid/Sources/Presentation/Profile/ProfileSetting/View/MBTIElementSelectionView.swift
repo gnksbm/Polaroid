@@ -28,7 +28,7 @@ final class MBTIElementSelectionView
     
     override func configureLayout() {
         axis = .vertical
-        spacing = 20
+        spacing = 10
         distribution = .equalSpacing
         
         buttons.forEach { addArrangedSubview($0) }
