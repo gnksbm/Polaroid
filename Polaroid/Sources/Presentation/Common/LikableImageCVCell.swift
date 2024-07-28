@@ -29,8 +29,8 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
                let likeCount = item.likeCount {
                 cell.likeCountView.updateLabel(text: likeCount.formatted())
             }
-            cell.likeButton.configuration?.image =
-            UIImage(systemName: item.isLiked ? "heart.fill" : "heart")
+            cell.likeButton.configuration?.baseForegroundColor =
+            item.isLiked ? MPDesign.Color.tint : MPDesign.Color.white
             cell.likeButton.tapEvent
                 .bind { _ in
                     cell.likeButtonTapEvent.onNext(
@@ -70,6 +70,7 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
         padding: 5
     ).nt.configure {
         $0.backgroundColor(MPDesign.Color.white.withAlphaComponent(0.5))
+            .configuration.image(UIImage(systemName: "heart.fill"))
     }
     
     override func prepareForReuse() {
