@@ -67,7 +67,7 @@ final class DetailViewController: BaseViewController, View {
                         )
                 }
                 imageSizeView.updateValue(
-                    "\(detailImage.imageWidth) X \(detailImage.imageHeight)"
+                    "\(detailImage.imageWidth) x \(detailImage.imageHeight)"
                 )
                 viewsCountView.updateValue(detailImage.views.total.formatted())
                 downloadView.updateValue(detailImage.download.total.formatted())

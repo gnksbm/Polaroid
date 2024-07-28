@@ -69,6 +69,10 @@ final class TopicViewController: BaseViewController, View {
             .bind { [weak self] image in
                 guard let self,
                       let image else { return }
+                navigationController?.pushViewController(
+                    DetailViewController(data: image),
+                    animated: true
+                )
             }
             .store(in: &observableBag)
     }
