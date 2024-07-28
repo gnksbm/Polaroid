@@ -37,8 +37,9 @@ final class ProfileImageViewController: BaseViewController, View {
                 viewDidLoadEvent: viewDidLoadEvent,
                 itemSelectEvent: collectionView.obDidSelectItemEvent
                     .map { [weak self] indexPath in
+                        var result: ProfileImageItem?
                         guard let self,
-                              let indexPath else { return nil }
+                              let indexPath else { return result }
                         return collectionView.getItem(for: indexPath)
                     },
                 viewWillDisappearEvent: viewWillDisappearEvent

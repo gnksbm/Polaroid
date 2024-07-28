@@ -11,7 +11,7 @@ struct SearchEndpoint: UnsplashEndpoint {
     let request: SearchRequest
     
     var path: String { "/search/photos" }
-    var queries: [String : String]? {
+    var queries: [String : String] {
         var queries = [
             "query": request.keyword,
             "page": "\(request.page)",

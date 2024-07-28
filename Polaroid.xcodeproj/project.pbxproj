@@ -52,6 +52,8 @@
 		8EB3FEB92C5633790012D1A3 /* StatisticsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEB82C5633790012D1A3 /* StatisticsRepository.swift */; };
 		8EB3FEBD2C56358A0012D1A3 /* Statistics.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EB3FEBC2C56358A0012D1A3 /* Statistics.json */; };
 		8EB3FEBF2C5635B20012D1A3 /* StatisticsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEBE2C5635B20012D1A3 /* StatisticsDTO.swift */; };
+		8EB3FEC12C564D750012D1A3 /* MinimumImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEC02C564D750012D1A3 /* MinimumImageData.swift */; };
+		8EB3FEC32C564D810012D1A3 /* DetailImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEC22C564D810012D1A3 /* DetailImage.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
@@ -213,6 +215,8 @@
 		8EB3FEB82C5633790012D1A3 /* StatisticsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsRepository.swift; sourceTree = "<group>"; };
 		8EB3FEBC2C56358A0012D1A3 /* Statistics.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Statistics.json; sourceTree = "<group>"; };
 		8EB3FEBE2C5635B20012D1A3 /* StatisticsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsDTO.swift; sourceTree = "<group>"; };
+		8EB3FEC02C564D750012D1A3 /* MinimumImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimumImageData.swift; sourceTree = "<group>"; };
+		8EB3FEC22C564D810012D1A3 /* DetailImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImage.swift; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -681,14 +685,16 @@
 		BE2AFBB42C4E61D700C6718C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8EB3FE882C5346CD0012D1A3 /* ColorOption.swift */,
+				8EB3FEC22C564D810012D1A3 /* DetailImage.swift */,
 				BE2AFBB52C4E61DE00C6718C /* MBTI.swift */,
-				BE5F22D72C5243E800CC7DD6 /* RandomImage.swift */,
+				8EB3FEC02C564D750012D1A3 /* MinimumImageData.swift */,
 				8EB3FE842C5342270012D1A3 /* LikableImage.swift */,
-				8E768E582C508F3F0062431F /* TopicImage.swift */,
 				BE5F226C2C50FC5100CC7DD6 /* ProfileImageItem.swift */,
+				BE5F22D72C5243E800CC7DD6 /* RandomImage.swift */,
+				8E768E582C508F3F0062431F /* TopicImage.swift */,
 				BE5F22702C50FCA100CC7DD6 /* TopicSection.swift */,
 				8EB3FEA62C53A6C00012D1A3 /* SortOption */,
-				8EB3FE882C5346CD0012D1A3 /* ColorOption.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1021,6 +1027,7 @@
 				BE5F227B2C51705200CC7DD6 /* RandomCVCell.swift in Sources */,
 				BE2AFBBE2C4E822C00C6718C /* UIViewBuilder.swift in Sources */,
 				BE5F22672C50F6D900CC7DD6 /* ProfileImageViewModel.swift in Sources */,
+				8EB3FEC12C564D750012D1A3 /* MinimumImageData.swift in Sources */,
 				8E768E8F2C51482D0062431F /* TopicViewModel.swift in Sources */,
 				BE2AFB7E2C4E349E00C6718C /* DiffableCollectionViewType.swift in Sources */,
 				BE5F22F82C5272B600CC7DD6 /* SearchViewController.swift in Sources */,
@@ -1094,6 +1101,7 @@
 				BE2AFBAC2C4E510800C6718C /* UIButton+.swift in Sources */,
 				8EB3FEB12C5631E30012D1A3 /* SummaryView.swift in Sources */,
 				8EB3FEB92C5633790012D1A3 /* StatisticsRepository.swift in Sources */,
+				8EB3FEC32C564D810012D1A3 /* DetailImage.swift in Sources */,
 				8EB3FEB32C5632130012D1A3 /* ItemInfoView.swift in Sources */,
 				BE2AFB6B2C4E334200C6718C /* DeinitHandler.swift in Sources */,
 				BE5F22AC2C520F5500CC7DD6 /* RandomEndpoint.swift in Sources */,

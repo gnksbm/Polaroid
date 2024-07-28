@@ -8,14 +8,14 @@
 import Foundation
 
 final class DetailViewModel: ViewModel {
-    private let imageID: String
+    private let data: MinimumImageData
     
     private let statisticsRepository = StatisticsRepository()
     
     private var observableBag = ObservableBag()
     
-    init(imageID: String) {
-        self.imageID = imageID
+    init<T: MinimumImageData>(data: T) {
+        self.data = data
     }
     
     func transform(input: Input) -> Output {
@@ -25,7 +25,7 @@ final class DetailViewModel: ViewModel {
             .bind { [weak self] _ in
                 guard let self else { return }
                 statisticsRepository.fetchStatistics(
-                    request: StatisticsRequest(imageID: imageID)
+                    imageData: data
                 ) { result in
                     
                 }

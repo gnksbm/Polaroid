@@ -10,16 +10,21 @@ import Foundation
 final class StatisticsRepository {
     private let networkService = NetworkService.shared
     
-    func fetchStatistics(
-        request: StatisticsRequest,
-        _ completion: @escaping (Result<[TopicImage], Error>) -> Void
+    func fetchStatistics<T: MinimumImageData>(
+        imageData: T,
+        _ completion: @escaping (Result<DetailImage, Error>) -> Void
     ) {
         networkService.callRequest(
-            endpoint: StatisticsEndpoint(request: request)
+            endpoint: StatisticsEndpoint(
+                request: StatisticsRequest(
+                    imageID: imageData.id
+                )
+            )
         ) { result in
-//            completion(
-//                result.decode(type: StatisticsDTO.self)
-//            )
+            completion(
+                result.decode(type: StatisticsDTO.self)
+                    .map { $0.toDetailImage(with: imageData) }
+            )
         }
     }
 }

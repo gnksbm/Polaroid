@@ -9,7 +9,7 @@ import Foundation
 
 struct RandomEndpoint: UnsplashEndpoint {
     var path: String { "/photos/random" }
-    var queries: [String : String]? {
+    var queries: [String : String] {
         ["count": "10"]
     }
 }

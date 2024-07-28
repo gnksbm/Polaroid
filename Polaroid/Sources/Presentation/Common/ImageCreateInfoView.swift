@@ -21,7 +21,7 @@ final class ImageCreateInfoView: BaseView {
             .font(MPDesign.Font.body1)
     }
     
-    private let creatorAtLabel = UILabel().nt.configure {
+    private let createdAtLabel = UILabel().nt.configure {
         $0.textColor(MPDesign.Color.white)
             .font(MPDesign.Font.caption.with(weight: .semibold))
     }
@@ -43,14 +43,14 @@ final class ImageCreateInfoView: BaseView {
     func updateView(item: RandomImage) {
         creatorImageView.kf.setImage(with: item.creatorProfileImageURL)
         creatorNameLabel.text = item.creatorName
-        creatorAtLabel.text = item.creatorAt?.formatted(dateFormat: .createdAt)
+        createdAtLabel.text = item.createdAt?.formatted(dateFormat: .createdAt)
     }
     
     override func configureLayout() {
         [
             creatorImageView,
             creatorNameLabel,
-            creatorAtLabel,
+            createdAtLabel,
             likeButton
         ].forEach { addSubview($0) }
         
@@ -68,7 +68,7 @@ final class ImageCreateInfoView: BaseView {
             make.bottom.equalTo(snp.centerY)
         }
         
-        creatorAtLabel.snp.makeConstraints { make in
+        createdAtLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(creatorNameLabel)
             make.top.equalTo(creatorNameLabel.snp.bottom).offset(padding / 2)
         }

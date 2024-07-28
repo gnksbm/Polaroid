@@ -26,9 +26,9 @@ final class DetailViewController: BaseViewController, View {
     private let hitsCountView = ItemInfoView(title: "조회수")
     private let downloadView = ItemInfoView(title: "다운로드")
     
-    init(imageID: String) {
+    init<T: MinimumImageData>(data: T) {
         super.init()
-        viewModel = DetailViewModel(imageID: imageID)
+        viewModel = DetailViewModel(data: data)
     }
     
     override func viewDidLoad() {

@@ -12,5 +12,5 @@ struct RandomImage: Hashable {
     let imageURL: URL?
     let creatorProfileImageURL: URL?
     let creatorName: String
-    let creatorAt: Date?
+    let createdAt: Date?
 }

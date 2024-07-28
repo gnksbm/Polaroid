@@ -25,6 +25,7 @@ final class RandomViewModel: ViewModel {
                     case .success(let imageList):
                         output.randomImages.onNext(imageList)
                     case .failure(let error):
+                        dump(error)
                         Logger.error(error)
                         output.onError.onNext(())
                     }
