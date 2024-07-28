@@ -44,6 +44,13 @@ final class MBTISelectionView: BaseView {
         bindSelectionView()
     }
     
+    func updateMBTI(mbti: MBTI) {
+        energyView.updateSelection(element: mbti.energy)
+        perceptionView.updateSelection(element: mbti.perception)
+        decisionMakingView.updateSelection(element: mbti.decisionMaking)
+        lifestyleView.updateSelection(element: mbti.lifestyle)
+    }
+    
     override func configureLayout() {
         [titleLabel, mbtiStackView].forEach { addSubview($0) }
         
@@ -65,33 +72,33 @@ final class MBTISelectionView: BaseView {
         energyView.elementSelectEvent
             .bind { [weak self] energe in
                 self?.selectedEnergy = energe
-                self?.bindMBTI()
+                self?.setMBTI()
             }
             .store(in: &observableBag)
         
         perceptionView.elementSelectEvent
             .bind { [weak self] perception in
                 self?.selectedPerception = perception
-                self?.bindMBTI()
+                self?.setMBTI()
             }
             .store(in: &observableBag)
         
         decisionMakingView.elementSelectEvent
             .bind { [weak self] decisionMaking in
                 self?.selectedDecisionMaking = decisionMaking
-                self?.bindMBTI()
+                self?.setMBTI()
             }
             .store(in: &observableBag)
         
         lifestyleView.elementSelectEvent
             .bind { [weak self] lifestyle in
                 self?.selectedLifestyle = lifestyle
-                self?.bindMBTI()
+                self?.setMBTI()
             }
             .store(in: &observableBag)
     }
     
-    private func bindMBTI() {
+    private func setMBTI() {
         let mbti = MBTI(
             energy: selectedEnergy,
             perception: selectedPerception,

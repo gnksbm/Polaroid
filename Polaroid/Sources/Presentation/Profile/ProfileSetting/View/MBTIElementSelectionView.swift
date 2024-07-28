@@ -15,6 +15,7 @@ final class MBTIElementSelectionView
     private lazy var buttons = MBTIElement.allCases.map { element in
         MBTIButton(dimension: .width).nt.configure {
             $0.setTitle(element.keyword, for: .normal)
+                .tag(element.rawValue)
                 .perform { button in
                     button.tapEvent.asObservable()
                         .bind { [weak self] button in
@@ -32,6 +33,15 @@ final class MBTIElementSelectionView
         distribution = .equalSpacing
         
         buttons.forEach { addArrangedSubview($0) }
+    }
+    
+    func updateSelection(element: MBTIElement) {
+        elementSelectEvent.onNext(element)
+        buttons
+            .first { button in
+                button.tag == element.rawValue
+            }?
+            .selectedState.onNext(true)
     }
     
     private func bindButton(sender: MBTIButton, element: MBTIElement) {

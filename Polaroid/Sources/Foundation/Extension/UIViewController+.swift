@@ -13,9 +13,9 @@ extension UIViewController {
     }
     
     static func getCurrentRootVC() -> UIViewController {
-        @UserDefaultsWrapper(key: .isJoinedUser, defaultValue: false)
-        var isJoinedUser
-        return isJoinedUser ?
+        @UserDefaultsWrapper(key: .user, defaultValue: nil)
+        var user: User?
+        return user != nil ?
         MainTabBarController() : UINavigationController(
             rootViewController: OnboardingViewController()
         )

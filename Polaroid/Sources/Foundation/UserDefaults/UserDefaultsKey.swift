@@ -8,5 +8,5 @@
 import Foundation
 
 enum UserDefaultsKey: String {
-    case isJoinedUser
+    case user
 }

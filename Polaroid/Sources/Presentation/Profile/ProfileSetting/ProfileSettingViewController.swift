@@ -46,9 +46,9 @@ final class ProfileSettingViewController: BaseViewController, View {
         $0.isEnabled(false)
     }
     
-    override init() {
+    init(flowType: ProfileSettingViewModel.FlowType = .register) {
         super.init()
-        viewModel = ProfileSettingViewModel()
+        viewModel = ProfileSettingViewModel(flowType: flowType)
     }
     
     override func viewDidLoad() {
@@ -115,9 +115,30 @@ final class ProfileSettingViewController: BaseViewController, View {
             }
             .store(in: &observableBag)
         
-        output.startMainTabFolw
+        output.startMainTabFlow
             .bind { [weak self] _ in
                 self?.view.window?.rootViewController = .getCurrentRootVC()
+            }
+            .store(in: &observableBag)
+        
+        output.selectedUser
+            .bind { [weak self] user in
+                guard let self,
+                      let user else { return }
+                profileImageButton.setImage(
+                    UIImage(
+                        data: user.profileImageData
+                    ),
+                    for: .normal
+                )
+                nicknameTextField.text = user.name
+                mbtiSelectionView.updateMBTI(mbti: user.mbti)
+            }
+            .store(in: &observableBag)
+        
+        output.finishFlow
+            .bind { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
             }
             .store(in: &observableBag)
     }

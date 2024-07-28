@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MBTI {
+struct MBTI: Codable, Equatable {
     let energy: Energy
     let perception: Perception
     let decisionMaking: DecisionMaking
@@ -42,12 +42,12 @@ struct MBTI {
     }
 }
 
-protocol MBTIElementType: CaseIterable, Equatable {
+protocol MBTIElementType: RawRepresentable<Int>, CaseIterable, Equatable {
     var keyword: String { get }
 }
 
 extension MBTI {
-    enum Energy: MBTIElementType {
+    enum Energy: Int, MBTIElementType, Codable {
         case introversion, extroversion
         
         var keyword: String {
@@ -60,7 +60,7 @@ extension MBTI {
         }
     }
     
-    enum Perception: MBTIElementType {
+    enum Perception: Int, MBTIElementType, Codable {
         case intuition, sensing
         
         var keyword: String {
@@ -73,7 +73,7 @@ extension MBTI {
         }
     }
     
-    enum DecisionMaking: MBTIElementType {
+    enum DecisionMaking: Int, MBTIElementType, Codable {
         case feeling, thinking
         
         var keyword: String {
@@ -86,7 +86,7 @@ extension MBTI {
         }
     }
     
-    enum Lifestyle: MBTIElementType {
+    enum Lifestyle: Int, MBTIElementType, Codable {
         case perceiving, judging
         
         var keyword: String {

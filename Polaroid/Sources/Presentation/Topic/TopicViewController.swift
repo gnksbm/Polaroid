@@ -37,7 +37,9 @@ final class TopicViewController: BaseViewController, View {
     func bind(viewModel: TopicViewModel) {
         let output = viewModel.transform(
             input: TopicViewModel.Input(
-                viewDidLoadEvent: viewDidLoadEvent,
+                viewDidLoadEvent: viewDidLoadEvent, 
+                profileTapEvent: profileButton.tapEvent.asObservable()
+                    .map { _ in },
                 itemSelectEvent: collectionView.obDidSelectItemEvent
                     .map { [weak self] indexPath in
                         guard let self,
@@ -46,6 +48,16 @@ final class TopicViewController: BaseViewController, View {
                     }
             )
         )
+        
+        output.currentUser
+            .bind { [weak self] user in
+                guard let user else { return }
+                self?.profileButton.setImage(
+                    UIImage(data: user.profileImageData),
+                    for: .normal
+                )
+            }
+            .store(in: &observableBag)
         
         output.imageDic
             .bind { [weak self] itemDic in
@@ -62,6 +74,15 @@ final class TopicViewController: BaseViewController, View {
                 guard let self else { return }
                 showToast(message: "오류가 발생했습니다")
                 hideProgressView()
+            }
+            .store(in: &observableBag)
+        
+        output.startProfileFlow
+            .bind { [weak self] _ in
+                self?.navigationController?.pushViewController(
+                    ProfileSettingViewController(flowType: .edit),
+                    animated: true
+                )
             }
             .store(in: &observableBag)
         

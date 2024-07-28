@@ -54,6 +54,7 @@
 		8EB3FEBF2C5635B20012D1A3 /* StatisticsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEBE2C5635B20012D1A3 /* StatisticsDTO.swift */; };
 		8EB3FEC12C564D750012D1A3 /* MinimumImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEC02C564D750012D1A3 /* MinimumImageData.swift */; };
 		8EB3FEC32C564D810012D1A3 /* DetailImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEC22C564D810012D1A3 /* DetailImage.swift */; };
+		8EB3FEC52C569F2A0012D1A3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEC42C569F2A0012D1A3 /* User.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
@@ -217,6 +218,7 @@
 		8EB3FEBE2C5635B20012D1A3 /* StatisticsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsDTO.swift; sourceTree = "<group>"; };
 		8EB3FEC02C564D750012D1A3 /* MinimumImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimumImageData.swift; sourceTree = "<group>"; };
 		8EB3FEC22C564D810012D1A3 /* DetailImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImage.swift; sourceTree = "<group>"; };
+		8EB3FEC42C569F2A0012D1A3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -694,6 +696,7 @@
 				BE5F22D72C5243E800CC7DD6 /* RandomImage.swift */,
 				8E768E582C508F3F0062431F /* TopicImage.swift */,
 				BE5F22702C50FCA100CC7DD6 /* TopicSection.swift */,
+				8EB3FEC42C569F2A0012D1A3 /* User.swift */,
 				8EB3FEA62C53A6C00012D1A3 /* SortOption */,
 			);
 			path = Model;
@@ -1141,6 +1144,7 @@
 				8EB3FE822C533CD60012D1A3 /* SearchDTO.swift in Sources */,
 				8E768E382C4EC5CA0062431F /* NicknameValidator.swift in Sources */,
 				BE5F22302C4F933500CC7DD6 /* RealmStorage.swift in Sources */,
+				8EB3FEC52C569F2A0012D1A3 /* User.swift in Sources */,
 				BE2AFB862C4E355A00C6718C /* RegistrableCellType.swift in Sources */,
 				BE2AFB5D2C4E2FB100C6718C /* UITableViewDelegateProxy.swift in Sources */,
 				8EB3FE932C537ACB0012D1A3 /* UIView+.swift in Sources */,

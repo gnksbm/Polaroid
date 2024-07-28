@@ -8,8 +8,13 @@
 import UIKit
 
 final class ProfileSettingViewModel: ViewModel {
+    private let flowType: FlowType
     private let selectedImage = Observable<UIImage?>(nil)
     private var observableBag = ObservableBag()
+    
+    init(flowType: FlowType) {
+        self.flowType = flowType
+    }
     
     func transform(input: Input) -> Output {
         let output = Output(
@@ -17,7 +22,9 @@ final class ProfileSettingViewModel: ViewModel {
             validationResult: Observable<ValidationResult?>(nil),
             startEditProfileFlow: Observable<Void>(()),
             doneButtonEnable: Observable<Bool>(false), 
-            startMainTabFolw: Observable<Void>(())
+            startMainTabFlow: Observable<Void>(()), 
+            selectedUser: Observable<User?>(nil), 
+            finishFlow: Observable<Void>(())
         )
         
         selectedImage
@@ -26,9 +33,19 @@ final class ProfileSettingViewModel: ViewModel {
         
         input.viewDidLoadEvent
             .bind { [weak self] _ in
-                self?.selectedImage.onNext(
-                    Literal.Image.defaultProfileList.randomElement()
-                )
+                guard let self else { return }
+                switch flowType {
+                case .register:
+                    selectedImage.onNext(
+                        Literal.Image.defaultProfileList.randomElement()
+                    )
+                case .edit:
+                    @UserDefaultsWrapper(key: .user, defaultValue: nil)
+                    var user: User?
+                    guard let user else { return }
+                    selectedImage.onNext(UIImage(data: user.profileImageData))
+                    output.selectedUser.onNext(user)
+                }
             }
             .store(in: &observableBag)
         
@@ -76,18 +93,29 @@ final class ProfileSettingViewModel: ViewModel {
         input.doneButtonTapEvent
             .bind { [weak self] _ in
                 guard let self else { return }
-                createUser()
-                output.startMainTabFolw.onNext(())
+                createUser(input: input, output: output)
             }
             .store(in: &observableBag)
         
         return output
     }
     
-    private func createUser() {
-        @UserDefaultsWrapper(key: .isJoinedUser, defaultValue: false)
-        var isJoinedUser
-        isJoinedUser = true
+    private func createUser(input: Input, output: Output) {
+        @UserDefaultsWrapper(key: .user, defaultValue: nil)
+        var user: User?
+        guard let imageData = selectedImage.value()?.pngData(),
+              let mbti = input.mbtiSelectEvent.value() else { return }
+        user = User(
+            profileImageData: imageData,
+            name: input.nicknameChangeEvent.value(),
+            mbti: mbti
+        )
+        switch flowType {
+        case .register:
+            output.startMainTabFlow.onNext(())
+        case .edit:
+            output.finishFlow.onNext(())
+        }
     }
     
     private func requiredInputFilled(
@@ -97,9 +125,18 @@ final class ProfileSettingViewModel: ViewModel {
     ) -> Bool {
         switch output.validationResult.value() {
         case .success:
-            !nickname.isEmpty && mbti != nil
+            switch flowType {
+            case .register:
+                return !nickname.isEmpty && mbti != nil
+            case .edit:
+                @UserDefaultsWrapper(key: .user, defaultValue: nil)
+                var user: User?
+                return !nickname.isEmpty && mbti != nil &&
+                nickname != user?.name && mbti != user?.mbti &&
+                selectedImage.value()?.pngData() != user?.profileImageData
+            }
         default:
-            false
+            return false
         }
     }
 }
@@ -118,11 +155,17 @@ extension ProfileSettingViewModel {
         let validationResult: Observable<ValidationResult?>
         let startEditProfileFlow: Observable<Void>
         let doneButtonEnable: Observable<Bool>
-        let startMainTabFolw: Observable<Void>
+        let startMainTabFlow: Observable<Void>
+        let selectedUser: Observable<User?>
+        let finishFlow: Observable<Void>
     }
     
     enum ValidationResult {
         case success(String), failure(String)
+    }
+    
+    enum FlowType {
+        case register, edit
     }
 }
 

@@ -13,14 +13,19 @@ final class TopicViewModel: ViewModel {
     
     func transform(input: Input) -> Output {
         let output = Output(
+            currentUser: Observable<User?>(nil),
             imageDic: Observable([:]),
             onError: Observable<Void>(()),
+            startProfileFlow: Observable<Void>(()),
             startDetailFlow: Observable<TopicImage?>(nil)
         )
         
         input.viewDidLoadEvent
             .bind { [weak self] _ in
                 guard let self else { return }
+                @UserDefaultsWrapper(key: .user, defaultValue: nil)
+                var user: User?
+                output.currentUser.onNext(user)
                 var itemDic = [TopicSection: [TopicImage]]()
                 let group = DispatchGroup()
                 TopicSection.allCases.forEach { section in
@@ -44,6 +49,10 @@ final class TopicViewModel: ViewModel {
             }
             .store(in: &observableBag)
         
+        input.profileTapEvent
+            .bind(to: output.startProfileFlow)
+            .store(in: &observableBag)
+        
         input.itemSelectEvent
             .bind(to: output.startDetailFlow)
             .store(in: &observableBag)
@@ -55,12 +64,15 @@ final class TopicViewModel: ViewModel {
 extension TopicViewModel {
     struct Input {
         let viewDidLoadEvent: Observable<Void>
+        let profileTapEvent: Observable<Void>
         let itemSelectEvent: Observable<TopicImage?>
     }
     
     struct Output {
+        let currentUser: Observable<User?>
         let imageDic: Observable<[TopicSection: [TopicImage]]>
         let onError: Observable<Void>
+        let startProfileFlow: Observable<Void>
         let startDetailFlow: Observable<TopicImage?>
     }
 }
