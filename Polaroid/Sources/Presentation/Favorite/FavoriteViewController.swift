@@ -37,7 +37,13 @@ final class FavoriteViewController: BaseViewController, View {
                 viewWillAppearEvent: viewWillAppearEvent,
                 sortOptionSelectEvent: sortButton.sortSelectEvent,
                 colorOptionSelectEvent: colorButtonView.colorSelectEvent,
-                likeButtonTapEvent: collectionView.likeButtonTapEvent
+                likeButtonTapEvent: collectionView.likeButtonTapEvent, 
+                itemSelectEvent: collectionView.obDidSelectItemEvent
+                    .map { [weak self] indexPath in
+                        guard let self,
+                              let indexPath else { return nil }
+                        return collectionView.getItem(for: indexPath)
+                    }
             )
         )
         
@@ -51,6 +57,17 @@ final class FavoriteViewController: BaseViewController, View {
             .bind { [weak self] _ in
                 guard let self else { return }
                 showToast(message: "오류가 발생했습니다")
+            }
+            .store(in: &observableBag)
+        
+        output.startDetailFlow
+            .bind { [weak self] image in
+                guard let self,
+                      let image else { return }
+                navigationController?.pushViewController(
+                    DetailViewController(data: image),
+                    animated: true
+                )
             }
             .store(in: &observableBag)
     }

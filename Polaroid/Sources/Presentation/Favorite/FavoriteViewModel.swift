@@ -15,7 +15,8 @@ final class FavoriteViewModel: ViewModel {
     func transform(input: Input) -> Output {
         let output = Output(
             images: Observable<[LikableImage]>([]),
-            onError: Observable<Void>(())
+            onError: Observable<Void>(()), 
+            startDetailFlow: Observable<LikableImage?>(nil)
         )
         
         input.viewWillAppearEvent
@@ -58,6 +59,10 @@ final class FavoriteViewModel: ViewModel {
             }
             .store(in: &observableBag)
         
+        input.itemSelectEvent
+            .bind(to: output.startDetailFlow)
+            .store(in: &observableBag)
+        
         return output
     }
 }
@@ -68,10 +73,12 @@ extension FavoriteViewModel {
         let sortOptionSelectEvent: Observable<FavoriteSortOption>
         let colorOptionSelectEvent: Observable<ColorOption?>
         let likeButtonTapEvent: Observable<LikableImageData?>
+        let itemSelectEvent: Observable<LikableImage?>
     }
     
     struct Output {
         let images: Observable<[LikableImage]>
         let onError: Observable<Void>
+        let startDetailFlow: Observable<LikableImage?>
     }
 }
