@@ -100,8 +100,10 @@ final class SearchViewController: BaseViewController, View {
         
         output.changedImage
             .bind { [weak self] item in
-                guard let item else { return }
-                self?.collectionView.updateItems([item])
+                guard let self,
+                      let item else { return }
+                collectionView.updateItems([item])
+                showToast(message: item.isLiked ? "❤️" : "💔")
             }
             .store(in: &observableBag)
         

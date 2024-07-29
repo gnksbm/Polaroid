@@ -69,6 +69,15 @@ final class DetailViewController: BaseViewController, View {
             }
             .store(in: &observableBag)
         
+        output.changedImage
+            .bind { [weak self] detailImage in
+                guard let self,
+                      let detailImage else { return }
+                updateView(detailImage: detailImage)
+                showToast(message: detailImage.isLiked ? "❤️" : "💔")
+            }
+            .store(in: &observableBag)
+        
         output.onError
             .bind { [weak self] _ in
                 guard let self else { return }

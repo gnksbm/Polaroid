@@ -78,8 +78,10 @@ final class RandomViewController: BaseViewController, View {
         
         output.changedImage
             .bind { [weak self] randomImage in
-                guard let randomImage else { return }
-                self?.collectionView.updateItems([randomImage])
+                guard let self,
+                      let randomImage else { return }
+                collectionView.updateItems([randomImage])
+                showToast(message: randomImage.isLiked ? "❤️" : "💔")
             }
             .store(in: &observableBag)
     }

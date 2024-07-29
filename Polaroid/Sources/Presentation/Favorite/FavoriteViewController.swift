@@ -70,6 +70,12 @@ final class FavoriteViewController: BaseViewController, View {
             }
             .store(in: &observableBag)
         
+        output.removeSuccessed
+            .bind { [weak self] _ in
+                self?.showToast(message: "💔")
+            }
+            .store(in: &observableBag)
+        
         output.onError
             .bind { [weak self] _ in
                 guard let self else { return }

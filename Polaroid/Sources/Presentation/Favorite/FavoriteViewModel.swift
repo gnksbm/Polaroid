@@ -15,7 +15,8 @@ final class FavoriteViewModel: ViewModel {
     func transform(input: Input) -> Output {
         let output = Output(
             images: Observable<[LikableImage]>([]),
-            onError: Observable<Void>(()), 
+            removeSuccessed: Observable<Void>(()),
+            onError: Observable<Void>(()),
             startDetailFlow: Observable<LikableImage?>(nil)
         )
         
@@ -53,6 +54,7 @@ final class FavoriteViewModel: ViewModel {
                     output.images.onNext(
                         favoriteRepository.fetchImage()
                     )
+                    output.removeSuccessed.onNext(())
                 } catch {
                     output.onError.onNext(())
                 }
@@ -78,6 +80,7 @@ extension FavoriteViewModel {
     
     struct Output {
         let images: Observable<[LikableImage]>
+        let removeSuccessed: Observable<Void>
         let onError: Observable<Void>
         let startDetailFlow: Observable<LikableImage?>
     }

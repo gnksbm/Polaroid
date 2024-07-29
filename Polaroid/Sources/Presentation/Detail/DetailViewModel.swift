@@ -22,6 +22,7 @@ final class DetailViewModel: ViewModel {
     func transform(input: Input) -> Output {
         let output = Output(
             detailImage: Observable<DetailImage?>(nil),
+            changedImage: Observable<DetailImage?>(nil),
             onError: Observable<Void>(())
         )
         
@@ -59,13 +60,16 @@ final class DetailViewModel: ViewModel {
         input.likeButtonTapEvent
             .bind { [weak self] data in
                 guard let self,
-                      let detailImage = output.detailImage.value()
+                      var detailImage = output.detailImage.value()
                 else { return }
+                if let currentImage = output.changedImage.value() {
+                    detailImage = currentImage
+                }
                 do {
                     if detailImage.isLiked {
                         let newImage =
                         try favoriteRepository.removeImage(detailImage)
-                        output.detailImage.onNext(newImage)
+                        output.changedImage.onNext(newImage)
                     } else {
                         let newImage =
                         try favoriteRepository.saveImage(
@@ -73,7 +77,7 @@ final class DetailViewModel: ViewModel {
                             imageData: data.0,
                             profileImageData: data.1
                         )
-                        output.detailImage.onNext(newImage)
+                        output.changedImage.onNext(newImage)
                     }
                 } catch {
                     Logger.error(error)
@@ -95,6 +99,7 @@ extension DetailViewModel {
     
     struct Output {
         let detailImage: Observable<DetailImage?>
+        let changedImage: Observable<DetailImage?>
         let onError: Observable<Void>
     }
 }
