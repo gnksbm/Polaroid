@@ -162,6 +162,7 @@
 		BE5F22FA2C52731A00CC7DD6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22F92C52731A00CC7DD6 /* SearchViewModel.swift */; };
 		BE5F22FD2C52732A00CC7DD6 /* LikableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22FC2C52732A00CC7DD6 /* LikableCollectionView.swift */; };
 		BE5F22FF2C52745C00CC7DD6 /* LikableImageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22FE2C52745C00CC7DD6 /* LikableImageCVCell.swift */; };
+		BE5F23012C5768CD00CC7DD6 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F23002C5768CD00CC7DD6 /* UIWindow+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,6 +343,7 @@
 		BE5F22F92C52731A00CC7DD6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		BE5F22FC2C52732A00CC7DD6 /* LikableCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikableCollectionView.swift; sourceTree = "<group>"; };
 		BE5F22FE2C52745C00CC7DD6 /* LikableImageCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikableImageCVCell.swift; sourceTree = "<group>"; };
+		BE5F23002C5768CD00CC7DD6 /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -580,6 +582,7 @@
 				BE5F22EA2C524B5A00CC7DD6 /* UIImageView+.swift */,
 				8EB3FE922C537ACB0012D1A3 /* UIView+.swift */,
 				BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */,
+				BE5F23002C5768CD00CC7DD6 /* UIWindow+.swift */,
 				8EB3FEC62C571C890012D1A3 /* URL+.swift */,
 				BE2AFB642C4E323200C6718C /* Combine */,
 			);
@@ -1101,6 +1104,7 @@
 				BE2AFB892C4E36DD00C6718C /* Logger.swift in Sources */,
 				BE2AFB842C4E34E800C6718C /* ModernCollectionView.swift in Sources */,
 				BE2AFBCD2C4EA04300C6718C /* ToggleView.swift in Sources */,
+				BE5F23012C5768CD00CC7DD6 /* UIWindow+.swift in Sources */,
 				BE5F22792C51704D00CC7DD6 /* RandomCollectionView.swift in Sources */,
 				BE5F22DC2C52488200CC7DD6 /* ImageCreateInfoView.swift in Sources */,
 				BE2AFBC62C4E8A9400C6718C /* ProfileSettingViewModel.swift in Sources */,

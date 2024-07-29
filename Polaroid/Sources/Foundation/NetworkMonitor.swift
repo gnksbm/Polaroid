@@ -27,7 +27,6 @@ final class NetworkMonitor {
         monitor.pathUpdateHandler = { path in
             handler(path)
         }
-        
         monitor.start(queue: queue)
     }
     
