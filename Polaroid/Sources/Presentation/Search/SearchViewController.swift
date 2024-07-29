@@ -11,6 +11,7 @@ import Neat
 import SnapKit
 
 final class SearchViewController: BaseViewController, View {
+    private var viewWillAppearEvent = Observable<Void>(())
     private var scrollReachedBottomEvent = Observable<Void>(())
     private let didSelectItemEvent = Observable<LikableImage?>(nil)
     private var observableBag = ObservableBag()
@@ -33,6 +34,11 @@ final class SearchViewController: BaseViewController, View {
         viewModel = SearchViewModel()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewWillAppearEvent.onNext(())
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         colorButtonView.addSpacing(length: sortButton.bounds.width)
@@ -41,6 +47,7 @@ final class SearchViewController: BaseViewController, View {
     func bind(viewModel: SearchViewModel) {
         let output = viewModel.transform(
             input: SearchViewModel.Input(
+                viewWillAppearEvent: viewWillAppearEvent.skip(1),
                 searchTextChangeEvent: searchController.searchBar
                     .searchTextField.textChangeEvent.asObservable()
                     .map { $0.text ?? "" },
@@ -77,16 +84,6 @@ final class SearchViewController: BaseViewController, View {
                     showProgressView()
                 case .result(let items):
                     collectionView.applyItem(items: items)
-                    hideProgressView()
-                    if items.isEmpty {
-                        collectionViewBGView.text =
-                        Literal.Search.emptyResultBackground
-                        collectionView.backgroundView = collectionViewBGView
-                    } else {
-                        collectionView.backgroundView = nil
-                    }
-                case .nextPage(let items):
-                    collectionView.appendItem(items: items)
                     hideProgressView()
                     if items.isEmpty {
                         collectionViewBGView.text =

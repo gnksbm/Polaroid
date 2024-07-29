@@ -10,10 +10,15 @@ import Foundation
 final class Observable<Base> {
     var eventBag = ObservableBag()
     
+    private var skipCount = 0
     private var handlers = [ObservableHandler<Base>]()
     private var throttle: Throttle?
     private var base: Base {
         didSet {
+            guard skipCount < 1 else {
+                skipCount -= 1
+                return
+            }
             if let throttle {
                 throttle.run { [weak self] in
                     guard let self else { return }
@@ -55,6 +60,11 @@ final class Observable<Base> {
 }
 
 extension Observable {
+    func skip(_ count: Int) -> Self {
+        skipCount = count
+        return self
+    }
+    
     func map<T>(_ block: @escaping (Base) -> T) -> Observable<T> {
         let newBase = block(base)
         let newObservable = Observable<T>(newBase)

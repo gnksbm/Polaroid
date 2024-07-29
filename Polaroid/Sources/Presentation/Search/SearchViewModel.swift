@@ -11,7 +11,7 @@ final class SearchViewModel: ViewModel {
     private let searchRepository = SearchRepository.shared
     private let favoriteRepository = FavoriteRepository.shared
     
-    private var currentImage = ObservableBag()
+    private var currentImage = Observable<[LikableImage]>([])
     private var observableBag = ObservableBag()
     private var page = 1
     
@@ -22,6 +22,22 @@ final class SearchViewModel: ViewModel {
             onError: Observable<Void>(()), 
             startDetailFlow: Observable<LikableImage?>(nil)
         )
+        
+        currentImage
+            .bind { images in
+                output.searchState.onNext(.result(images))
+            }
+            .store(in: &observableBag)
+        
+        input.viewWillAppearEvent
+            .bind { [weak self] _ in
+                guard let self else { return }
+                let newImages = favoriteRepository.reConfigureImages(
+                    currentImage.value()
+                )
+                currentImage.onNext(newImages)
+            }
+            .store(in: &observableBag)
         
         input.searchTextChangeEvent
             .bind { searchQuery in
@@ -39,7 +55,7 @@ final class SearchViewModel: ViewModel {
                 }
                 page = 1
                 search(input: input, output: output) { images in
-                    output.searchState.onNext(.result(images))
+                    self.currentImage.onNext(images)
                 }
                 output.searchState.onNext(.searching)
             }
@@ -53,7 +69,9 @@ final class SearchViewModel: ViewModel {
                 }
                 page += 1
                 search(input: input, output: output) { images in
-                    output.searchState.onNext(.nextPage(images))
+                    self.currentImage.onNext(
+                        self.currentImage.value() + images
+                    )
                 }
                 output.searchState.onNext(.searching)
             }
@@ -127,6 +145,7 @@ final class SearchViewModel: ViewModel {
 
 extension SearchViewModel {
     struct Input { 
+        let viewWillAppearEvent: Observable<Void>
         let searchTextChangeEvent: Observable<String>
         let queryEnterEvent: Observable<String>
         let scrollReachedBottomEvent: Observable<Void>
@@ -145,12 +164,12 @@ extension SearchViewModel {
     
     enum SearchState: Equatable {
         case emptyQuery, searching
-        case result([LikableImage]), nextPage([LikableImage]), finalPage
+        case result([LikableImage]), finalPage
         case none
         
         var isSearchAllowed: Bool {
             switch self {
-            case .emptyQuery, .none, .result, .nextPage:
+            case .emptyQuery, .none, .result:
                 true
             case .searching, .finalPage:
                 false
