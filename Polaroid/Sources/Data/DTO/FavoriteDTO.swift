@@ -15,7 +15,7 @@ final class FavoriteDTO: Object {
     @Persisted var localURL: String?
     @Persisted var likeCount: Int?
     @Persisted var isLiked: Bool = true
-    @Persisted var color: String
+    @Persisted var color: String?
     @Persisted var date: Date
     @Persisted var creatorProfileImageURL: String?
     @Persisted var creatorProfileImageLocalPath: String?
@@ -30,6 +30,7 @@ final class FavoriteDTO: Object {
         self.imageURL = likableImage.imageURL?.absoluteString
         self.localURL = likableImage.localURL
         self.likeCount = likableImage.likeCount
+        self.color = likableImage.color
         self.date = .now
         self.creatorProfileImageURL = 
         likableImage.creatorProfileImageURL?.absoluteString
