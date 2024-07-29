@@ -37,8 +37,10 @@ final class DetailViewModel: ViewModel {
                             self.favoriteRepository.reConfigureImages(success)
                         )
                     case .failure(let error):
+                        output.detailImage.onNext(
+                            DetailImage(minImageData: self.data)
+                        )
                         Logger.error(error)
-                        output.onError.onNext(())
                     }
                 }
             }

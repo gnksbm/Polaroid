@@ -114,7 +114,7 @@ final class ProfileSettingViewModel: ViewModel {
                 @UserDefaultsWrapper(key: .user, defaultValue: nil)
                 var user: User?
                 _user.removeValue()
-                self?.favoriteRepository.removeAll()
+                try? self?.favoriteRepository.removeAll()
                 output.startMainTabFlow.onNext(())
             }
             .store(in: &observableBag)

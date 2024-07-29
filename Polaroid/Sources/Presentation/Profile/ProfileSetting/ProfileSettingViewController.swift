@@ -71,6 +71,7 @@ final class ProfileSettingViewController: BaseViewController, View {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewDidLoadEvent.onNext(())
+        hideKeaboardOnTap()
     }
     
     func bind(viewModel: ProfileSettingViewModel) {

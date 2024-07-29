@@ -15,12 +15,12 @@ extension UIImageView {
                 in: .userDomainMask
             )
             .first?
-            .appendingPathComponent(
-                urlStr,
-                conformingTo: .jpeg
-            )
-            .absoluteString else { return }
-            let image = UIImage(contentsOfFile: path)
+            .appendingPathComponent(urlStr, conformingTo: .jpeg)
+            .currentPath else { return }
+            guard let image = UIImage(contentsOfFile: path) else {
+                Logger.debug("\(path)\n이미지 찾을 수 없음")
+                return
+            }
             DispatchQueue.main.async {
                 self.image = image
             }

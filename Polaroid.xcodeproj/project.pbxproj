@@ -55,6 +55,8 @@
 		8EB3FEC12C564D750012D1A3 /* MinimumImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEC02C564D750012D1A3 /* MinimumImageData.swift */; };
 		8EB3FEC32C564D810012D1A3 /* DetailImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEC22C564D810012D1A3 /* DetailImage.swift */; };
 		8EB3FEC52C569F2A0012D1A3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEC42C569F2A0012D1A3 /* User.swift */; };
+		8EB3FEC72C571C890012D1A3 /* URL+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEC62C571C890012D1A3 /* URL+.swift */; };
+		8EB3FED02C573B1A0012D1A3 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = BE2AFB452C4E2C0200C6718C /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
@@ -170,6 +172,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		8EB3FED12C573B1A0012D1A3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8EB3FED02C573B1A0012D1A3 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		8E768E352C4EC5A10062431F /* RegexValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexValidator.swift; sourceTree = "<group>"; };
 		8E768E372C4EC5CA0062431F /* NicknameValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameValidator.swift; sourceTree = "<group>"; };
@@ -219,6 +235,7 @@
 		8EB3FEC02C564D750012D1A3 /* MinimumImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimumImageData.swift; sourceTree = "<group>"; };
 		8EB3FEC22C564D810012D1A3 /* DetailImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImage.swift; sourceTree = "<group>"; };
 		8EB3FEC42C569F2A0012D1A3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8EB3FEC62C571C890012D1A3 /* URL+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+.swift"; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -557,6 +574,7 @@
 				BE5F22EA2C524B5A00CC7DD6 /* UIImageView+.swift */,
 				8EB3FE922C537ACB0012D1A3 /* UIView+.swift */,
 				BE2AFB932C4E3A8A00C6718C /* UIViewController+.swift */,
+				8EB3FEC62C571C890012D1A3 /* URL+.swift */,
 				BE2AFB642C4E323200C6718C /* Combine */,
 			);
 			path = Extension;
@@ -904,6 +922,7 @@
 				BE2AFB202C4E280400C6718C /* Sources */,
 				BE2AFB212C4E280400C6718C /* Frameworks */,
 				BE2AFB222C4E280400C6718C /* Resources */,
+				8EB3FED12C573B1A0012D1A3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1057,6 +1076,7 @@
 				8EB3FE972C5396D70012D1A3 /* SortOptionButton.swift in Sources */,
 				8E768E512C501E080062431F /* TopicEndpoint.swift in Sources */,
 				BE2AFBCB2C4E9EA900C6718C /* CircleButton.swift in Sources */,
+				8EB3FEC72C571C890012D1A3 /* URL+.swift in Sources */,
 				8EB3FEA82C53A6C30012D1A3 /* SortOption.swift in Sources */,
 				8EB3FE872C5346C40012D1A3 /* SearchSortOption.swift in Sources */,
 				8E768E4C2C501AD10062431F /* HTTPMethod.swift in Sources */,

@@ -25,13 +25,9 @@ final class FavoriteRepository {
         guard let data = imageData.data else {
             throw FavoriteRepositoryError.noData
         }
-        guard let imageURLStr = imageData.item.imageURL?.absoluteString
-        else {
-            throw FavoriteRepositoryError.noURL
-        }
         let localURL = try imageStorage.addImage(
             data,
-            additionalPath: imageURLStr
+            additionalPath: imageData.item.id
         )
         var newImage = imageData.item
         newImage.localURL = localURL
@@ -39,7 +35,7 @@ final class FavoriteRepository {
         do {
             try realmStorage.create(imageObject)
         } catch {
-            try imageStorage.removeImage(additionalPath: imageURLStr)
+            try imageStorage.removeImage(additionalPath: imageData.item.id)
             throw error
         }
         var result = imageObject.toLikableImage()
@@ -56,19 +52,13 @@ final class FavoriteRepository {
               let profileImageData = imageData.profileImageData else {
             throw FavoriteRepositoryError.noData
         }
-        guard let imageURLStr = imageData.item.imageURL?.absoluteString,
-              let profileURLStr = imageData.item.creatorProfileImageURL?
-            .absoluteString
-        else {
-            throw FavoriteRepositoryError.noURL
-        }
         let localURL = try imageStorage.addImage(
             imgData,
-            additionalPath: imageURLStr
+            additionalPath: imageData.item.id
         )
         let localProfileURL = try imageStorage.addImage(
             profileImageData,
-            additionalPath: profileURLStr
+            additionalPath: imageData.item.creatorName
         )
         var newImage = imageData.item
         newImage.localURL = localURL
@@ -77,11 +67,13 @@ final class FavoriteRepository {
         do {
             try realmStorage.create(imageObject)
         } catch {
-            try imageStorage.removeImage(additionalPath: imageURLStr)
+            try imageStorage.removeImage(additionalPath: imageData.item.id)
+            try imageStorage.removeImage(
+                additionalPath: imageData.item.creatorName
+            )
             throw error
         }
-        var result = imageObject.toRandomImage()
-        return result
+        return imageObject.toRandomImage()
     }
     
     func saveImage(
@@ -96,18 +88,13 @@ final class FavoriteRepository {
         guard let imageData, let profileImageData else {
             throw FavoriteRepositoryError.noData
         }
-        guard let imageURLStr = image.imageURL?.absoluteString,
-              let profileURLStr = image.creatorProfileImageURL?.absoluteString
-        else {
-            throw FavoriteRepositoryError.noURL
-        }
         let localURL = try imageStorage.addImage(
             imageData,
-            additionalPath: imageURLStr
+            additionalPath: image.id
         )
         let localProfileURL = try imageStorage.addImage(
             profileImageData,
-            additionalPath: profileURLStr
+            additionalPath: image.creatorName
         )
         var newImage = image
         newImage.localURL = localURL
@@ -116,8 +103,8 @@ final class FavoriteRepository {
         do {
             try realmStorage.create(imageObject)
         } catch {
-            try imageStorage.removeImage(additionalPath: imageURLStr)
-            try imageStorage.removeImage(additionalPath: profileURLStr)
+            try imageStorage.removeImage(additionalPath: image.id)
+            try imageStorage.removeImage(additionalPath: image.creatorName)
             throw error
         }
         return imageObject.toDetailImage()
@@ -147,8 +134,10 @@ final class FavoriteRepository {
     func reConfigureImages(_ images: [RandomImage]) -> [RandomImage] {
         images.map { image in
             var copy = image
-            if !fetchObject().where({ $0.id.equals(image.id) }).isEmpty {
+            if let object = fetchObject().where({ $0.id.equals(image.id) })
+                .first {
                 copy.isLiked = true
+                copy.localURL = object.localURL
             }
             return copy
         }
@@ -233,8 +222,10 @@ final class FavoriteRepository {
         return newImage
     }
     
-    func removeAll() {
-        realmStorage.deleteAll()
+    func removeAll() throws {
+        try fetchObject().forEach {
+            try realmStorage.delete($0)
+        }
     }
     
     private func fetchObject() -> Results<FavoriteDTO> {

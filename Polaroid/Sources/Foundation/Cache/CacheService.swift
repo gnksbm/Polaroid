@@ -87,11 +87,6 @@ final class DiskStorage<Value: Codable> {
     }
     
     private func getFilePath(url: URL) -> String {
-        let url = getFileURL(url: url)
-        return if #available(iOS 16.0, *) {
-            url.path()
-        } else {
-            url.path
-        }
+        getFileURL(url: url).currentPath
     }
 }

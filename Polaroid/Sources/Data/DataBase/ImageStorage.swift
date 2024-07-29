@@ -26,14 +26,10 @@ final class ImageStorage {
             encodedPath,
             conformingTo: .jpeg
         )
-        if !fileManager.fileExists(atPath: fileURL.absoluteString) {
+        if !fileManager.fileExists(atPath: fileURL.currentPath) {
             try data?.write(to: fileURL)
         }
-        if #available(iOS 16.0, *) {
-            return encodedPath
-        } else {
-            return encodedPath
-        }
+        return encodedPath
     }
     
     func removeImage(additionalPath: String) throws {

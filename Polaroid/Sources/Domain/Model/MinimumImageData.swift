@@ -14,6 +14,8 @@ protocol MinimumImageData {
     var creatorName: String { get }
     var createdAt: Date? { get }
     var imageURL: URL? { get }
+    var localURL: String? { get }
     var imageWidth: Int { get }
     var imageHeight: Int { get }
+    var isLiked: Bool { get }
 }
