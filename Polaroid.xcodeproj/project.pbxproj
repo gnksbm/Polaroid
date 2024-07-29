@@ -57,6 +57,7 @@
 		8EB3FEC52C569F2A0012D1A3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEC42C569F2A0012D1A3 /* User.swift */; };
 		8EB3FEC72C571C890012D1A3 /* URL+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FEC62C571C890012D1A3 /* URL+.swift */; };
 		8EB3FED02C573B1A0012D1A3 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = BE2AFB452C4E2C0200C6718C /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8EB3FED32C57541C0012D1A3 /* UnsplashSearchValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3FED22C57541C0012D1A3 /* UnsplashSearchValidator.swift */; };
 		BE2AFB282C4E280400C6718C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB272C4E280400C6718C /* AppDelegate.swift */; };
 		BE2AFB2A2C4E280400C6718C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB292C4E280400C6718C /* SceneDelegate.swift */; };
 		BE2AFB2C2C4E280400C6718C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AFB2B2C4E280400C6718C /* OnboardingViewController.swift */; };
@@ -236,6 +237,7 @@
 		8EB3FEC22C564D810012D1A3 /* DetailImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImage.swift; sourceTree = "<group>"; };
 		8EB3FEC42C569F2A0012D1A3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8EB3FEC62C571C890012D1A3 /* URL+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+.swift"; sourceTree = "<group>"; };
+		8EB3FED22C57541C0012D1A3 /* UnsplashSearchValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchValidator.swift; sourceTree = "<group>"; };
 		BE2AFB242C4E280400C6718C /* Polaroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Polaroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2AFB272C4E280400C6718C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2AFB292C4E280400C6718C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 			children = (
 				8E768E372C4EC5CA0062431F /* NicknameValidator.swift */,
 				8E768E352C4EC5A10062431F /* RegexValidator.swift */,
+				8EB3FED22C57541C0012D1A3 /* UnsplashSearchValidator.swift */,
 			);
 			path = Validation;
 			sourceTree = "<group>";
@@ -1159,6 +1162,7 @@
 				BE5F22622C50D2B600CC7DD6 /* ProfileImageEditViewController.swift in Sources */,
 				BE5F22AE2C520F9700CC7DD6 /* RandomRepository.swift in Sources */,
 				BE2AFB912C4E38C200C6718C /* UserDefaultsKey.swift in Sources */,
+				8EB3FED32C57541C0012D1A3 /* UnsplashSearchValidator.swift in Sources */,
 				8E768E4A2C5019E80062431F /* Secret.swift in Sources */,
 				BE5F22FF2C52745C00CC7DD6 /* LikableImageCVCell.swift in Sources */,
 				8EB3FE822C533CD60012D1A3 /* SearchDTO.swift in Sources */,

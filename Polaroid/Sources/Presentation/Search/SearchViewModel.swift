@@ -34,7 +34,6 @@ final class SearchViewModel: ViewModel {
         input.queryEnterEvent
             .bind { [weak self] searchQuery in
                 guard let self,
-                      !searchQuery.isEmpty,
                       output.searchState.value().isSearchAllowed else {
                     return
                 }
@@ -49,7 +48,6 @@ final class SearchViewModel: ViewModel {
         input.scrollReachedBottomEvent
             .bind { [weak self] _ in
                 guard let self,
-                      !input.searchTextChangeEvent.value().isEmpty,
                       output.searchState.value().isSearchAllowed else {
                     return
                 }
@@ -96,27 +94,33 @@ final class SearchViewModel: ViewModel {
         output: Output,
         _ completion: @escaping ([LikableImage]) -> Void
     ) {
-        searchRepository.search(
-            request: SearchRequest(
-                keyword: input.searchTextChangeEvent.value(),
-                page: page,
-                sortOption: input.sortOptionSelectEvent.value(),
-                color: input.colorOptionSelectEvent.value()
-            )
-        ) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let success):
-                if success.page == page {
-                    output.searchState.onNext(.finalPage)
-                }
-                completion(
-                    favoriteRepository.reConfigureImages(success.images)
+        do {
+            let query = input.searchTextChangeEvent.value()
+            try query.validate(validator: UnsplashSearchValidator())
+            searchRepository.search(
+                request: SearchRequest(
+                    keyword: query,
+                    page: page,
+                    sortOption: input.sortOptionSelectEvent.value(),
+                    color: input.colorOptionSelectEvent.value()
                 )
-            case .failure(let error):
-                Logger.error(error)
-                output.onError.onNext(())
+            ) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let success):
+                    if success.page == page {
+                        output.searchState.onNext(.finalPage)
+                    }
+                    completion(
+                        favoriteRepository.reConfigureImages(success.images)
+                    )
+                case .failure(let error):
+                    Logger.error(error)
+                    output.onError.onNext(())
+                }
             }
+        } catch {
+            output.searchState.onNext(.emptyQuery)
         }
     }
 }

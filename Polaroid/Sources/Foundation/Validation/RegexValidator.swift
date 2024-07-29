@@ -62,4 +62,5 @@ extension String {
     func fix<T: RegexValidator>(validator: T) -> String {
         validator.fix(input: self)
     }
+    
 }
