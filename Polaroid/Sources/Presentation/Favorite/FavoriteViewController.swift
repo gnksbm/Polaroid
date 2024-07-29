@@ -5,7 +5,10 @@
 //  Created by gnksbm on 7/26/24.
 //
 
-import Foundation
+import UIKit
+
+import Neat
+import SnapKit
 
 final class FavoriteViewController: BaseViewController, View {
     private let viewWillAppearEvent = Observable<Void>(())
@@ -47,9 +50,23 @@ final class FavoriteViewController: BaseViewController, View {
             )
         )
         
+        let collectionViewBGView = UILabel().nt.configure {
+            $0.text(Literal.Search.beforeSearchBackground)
+                .font(MPDesign.Font.subtitle.with(weight: .bold))
+                .textAlignment(.center)
+        }
+        
         output.images
             .bind { [weak self] images in
-                self?.collectionView.applyItem(items: images)
+                guard let self else { return }
+                if images.isEmpty {
+                    collectionViewBGView.text =
+                    Literal.Favorite.emptyResultBackground
+                    collectionView.backgroundView = collectionViewBGView
+                } else {
+                    collectionView.backgroundView = nil
+                }
+                collectionView.applyItem(items: images)
             }
             .store(in: &observableBag)
         
