@@ -19,6 +19,18 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = .getCurrentRootVC()
         window?.makeKeyAndVisible()
+        NetworkMonitor.shared.start { [weak self] path in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch path.status {
+                case .satisfied:
+                    self.window?.rootViewController?.hideWarningLabel()
+                default:
+                    self.window?.rootViewController?
+                        .showWarningLabel(message: "네크워크 연결을 확인해주세요")
+                }
+            }
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) { }

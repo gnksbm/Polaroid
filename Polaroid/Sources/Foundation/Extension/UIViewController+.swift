@@ -62,6 +62,8 @@ extension UIViewController {
         static var isToastShowing = false
         static var activityView: UIActivityIndicatorView?
         static var progressView: UIProgressView?
+        static var warningLabel: UILabel?
+        static var warningLabelBottomConstraint: NSLayoutConstraint?
     }
     
     func showToast(message: String, duration: Double = 2) {
@@ -187,6 +189,63 @@ extension UIViewController {
             completion: { _ in
                 OverlayHelper.progressView?.removeFromSuperview()
                 OverlayHelper.progressView = nil
+            }
+        )
+    }
+    
+    func showWarningLabel(message: String) {
+        guard OverlayHelper.warningLabel == nil else { return }
+        let label = UILabel().nt.configure {
+            $0.backgroundColor(MPDesign.Color.red)
+                .textColor(MPDesign.Color.white)
+                .text(message)
+                .alpha(0)
+                .textAlignment(.center)
+        }
+        
+        OverlayHelper.warningLabel = label
+        view.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(
+                equalTo: safeArea.leadingAnchor
+            ),
+            label.trailingAnchor.constraint(
+                equalTo: safeArea.trailingAnchor
+            ),
+        ])
+        OverlayHelper.warningLabelBottomConstraint = label.topAnchor.constraint(
+            equalTo: safeArea.bottomAnchor
+        )
+        OverlayHelper.warningLabelBottomConstraint?.isActive = true
+        view.layoutIfNeeded()
+        
+        UIView.animate(
+            withDuration: 0.3,
+            delay: 0,
+            options: [.curveEaseOut],
+            animations: {
+                OverlayHelper.warningLabelBottomConstraint?.constant =
+                -label.bounds.height
+                label.alpha = 1
+                self.view.layoutIfNeeded()
+            }
+        )
+    }
+    
+    func hideWarningLabel() {
+        UIView.animate(
+            withDuration: 0.3,
+            delay: 0,
+            options: [.curveEaseOut],
+            animations: {
+                OverlayHelper.warningLabelBottomConstraint?.constant = 0
+                OverlayHelper.warningLabel?.alpha = 0
+                self.view.layoutIfNeeded()
+            },
+            completion: { _ in
+                OverlayHelper.warningLabel?.removeFromSuperview()
             }
         )
     }
