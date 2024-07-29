@@ -36,18 +36,12 @@ final class TopicViewController: BaseViewController, View {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.standardAppearance.shadowColor =
-        UIColor.clear
-        navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor =
-        UIColor.clear
+        navigationController?.isNavigationBarHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.standardAppearance.shadowColor =
-        MPDesign.Color.gray
-        navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor =
-        MPDesign.Color.gray
+        navigationController?.isNavigationBarHidden = false
     }
     
     func bind(viewModel: TopicViewModel) {
@@ -115,14 +109,20 @@ final class TopicViewController: BaseViewController, View {
     }
     
     override func configureLayout() {
-        [titleLabel, collectionView].forEach {
+        [profileButton, titleLabel, collectionView].forEach {
             view.addSubview($0)
         }
         
         let padding = 20.f
         
+        profileButton.snp.makeConstraints { make in
+            make.top.equalTo(safeArea).inset(padding / 2)
+            make.trailing.equalTo(safeArea).inset(padding)
+            make.width.equalTo(safeArea).multipliedBy(0.1)
+        }
+        
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(safeArea)
+            make.top.equalTo(profileButton.snp.bottom).offset(padding / 2)
             make.leading.equalTo(safeArea).inset(padding * 0.75)
         }
         
@@ -130,11 +130,5 @@ final class TopicViewController: BaseViewController, View {
             make.top.equalTo(titleLabel.snp.bottom).offset(padding)
             make.horizontalEdges.bottom.equalTo(safeArea)
         }
-    }
-    
-    override func configureNavigation() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            customView: profileButton
-        )
     }
 }
