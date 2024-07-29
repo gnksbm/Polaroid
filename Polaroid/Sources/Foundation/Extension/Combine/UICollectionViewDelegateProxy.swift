@@ -4,7 +4,7 @@
 //
 //  Created by gnksbm on 7/22/24.
 //
-
+/*
 import Combine
 import UIKit
 
@@ -58,3 +58,4 @@ class UICollectionViewDelegateSubscrioption<S: Subscriber<IndexPath, Never>>:
         _ = subscriber?.receive(indexPath)
     }
 }
+*/
