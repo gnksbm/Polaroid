@@ -117,16 +117,22 @@ final class FavoriteRepository {
                 .first {
                 copy.isLiked = true
                 copy.localURL = object.localURL
+            } else {
+                copy.isLiked = false
+                copy.localURL = nil
             }
             return copy
         }
     }
     
-    func reConfigureImages(_ image: DetailImage) -> DetailImage {
+    func reConfigureImage(_ image: DetailImage) -> DetailImage {
         var copy = image
         if let object = fetchObject().where({ $0.id.equals(image.id) }).first {
             copy.isLiked = true
             copy.localURL = object.localURL
+        } else {
+            copy.isLiked = false
+            copy.localURL = nil
         }
         return copy
     }
@@ -138,6 +144,9 @@ final class FavoriteRepository {
                 .first {
                 copy.isLiked = true
                 copy.localURL = object.localURL
+            } else {
+                copy.isLiked = false
+                copy.localURL = nil
             }
             return copy
         }

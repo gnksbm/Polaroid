@@ -34,7 +34,7 @@ final class DetailViewModel: ViewModel {
                     switch result {
                     case .success(let success):
                         output.detailImage.onNext(
-                            self.favoriteRepository.reConfigureImages(success)
+                            self.favoriteRepository.reConfigureImage(success)
                         )
                     case .failure(let error):
                         output.detailImage.onNext(
@@ -43,6 +43,16 @@ final class DetailViewModel: ViewModel {
                         Logger.error(error)
                     }
                 }
+            }
+            .store(in: &observableBag)
+        
+        input.viewWillAppearEvent
+            .bind { [weak self] _ in
+                guard let self,
+                      let detailImage = output.detailImage.value()
+                else { return }
+                let newImage = favoriteRepository.reConfigureImage(detailImage)
+                output.detailImage.onNext(newImage)
             }
             .store(in: &observableBag)
         
@@ -79,6 +89,7 @@ final class DetailViewModel: ViewModel {
 extension DetailViewModel {
     struct Input {
         let viewDidLoadEvent: Observable<Void>
+        let viewWillAppearEvent: Observable<Void>
         let likeButtonTapEvent: Observable<(Data?, Data?)>
     }
     

@@ -12,6 +12,7 @@ import SnapKit
 
 final class DetailViewController: BaseViewController, View {
     private let viewDidLoadEvent = Observable<Void>(())
+    private let viewWillAppearEvent = Observable<Void>(())
     private var observableBag = ObservableBag()
     
     private let createInfoView = ImageCreateInfoView().nt.configure {
@@ -43,10 +44,16 @@ final class DetailViewController: BaseViewController, View {
         viewDidLoadEvent.onNext(())
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewWillAppearEvent.onNext(())
+    }
+    
     func bind(viewModel: DetailViewModel) {
         let output = viewModel.transform(
             input: DetailViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent, 
+                viewWillAppearEvent: viewWillAppearEvent,
                 likeButtonTapEvent: createInfoView.likeButtonTapEvent
                     .map { [weak self] profileImageData in
                         let imageData =
