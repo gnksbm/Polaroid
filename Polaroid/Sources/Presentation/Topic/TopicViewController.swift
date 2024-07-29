@@ -34,6 +34,22 @@ final class TopicViewController: BaseViewController, View {
         showProgressView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.standardAppearance.shadowColor =
+        UIColor.clear
+        navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor =
+        UIColor.clear
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.standardAppearance.shadowColor =
+        MPDesign.Color.gray
+        navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor =
+        MPDesign.Color.gray
+    }
+    
     func bind(viewModel: TopicViewModel) {
         let output = viewModel.transform(
             input: TopicViewModel.Input(
