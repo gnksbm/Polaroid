@@ -151,7 +151,7 @@ final class DetailViewController: BaseViewController, View {
             viewsCountView.updateValue(views.total.formatted())
         }
         if let download = detailImage.download {
-            viewsCountView.updateValue(download.total.formatted())
+            downloadView.updateValue(download.total.formatted())
         }
     }
 }
