@@ -11,6 +11,7 @@ import SnapKit
 
 final class RandomViewController: BaseViewController, View {
     private let viewDidLoadEvent = Observable<Void>(())
+    private let viewWillAppearEvent = Observable<Void>(())
     private var observableBag = ObservableBag()
     
     private let collectionView = RandomCollectionView()
@@ -29,6 +30,7 @@ final class RandomViewController: BaseViewController, View {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        viewWillAppearEvent.onNext(())
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -40,8 +42,10 @@ final class RandomViewController: BaseViewController, View {
         let output = viewModel.transform(
             input: RandomViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent,
+                viewWillAppearEvent: viewWillAppearEvent,
                 itemSelectEvent: collectionView.cellTapEvent,
-                likeButtonTapEvent: collectionView.likeButtonTapEvent
+                likeButtonTapEvent: collectionView.likeButtonTapEvent, 
+                pageChangeEvent: collectionView.pageChangeEvent
             )
         )
         

@@ -29,6 +29,7 @@ final class RandomCollectionView:
     }
     
     let likeButtonTapEvent = Observable<RandomImageData?>(nil)
+    let pageChangeEvent = Observable<Int>(0)
     let cellTapEvent = Observable<RandomImage?>(nil)
     
     private let cellPagingEvent = Observable<Int>(0)
@@ -73,6 +74,7 @@ final class RandomCollectionView:
                 capsuleView.updateLabel(
                     text: "\(min(cellIndex + 1, itemCount)) / \(itemCount)"
                 )
+                pageChangeEvent.onNext(min(cellIndex + 1, itemCount))
             }
             .store(in: &observableBag)
     }

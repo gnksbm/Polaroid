@@ -23,19 +23,20 @@ final class RandomViewModel: ViewModel {
         
         input.viewDidLoadEvent
             .bind { [weak self] _ in
+                self?.fetchImages(output: output)
+            }
+            .store(in: &observableBag)
+        
+        input.viewWillAppearEvent
+            .bind { [weak self] _ in
                 guard let self else { return }
-                randomRepository.fetchRandom { result in
-                    switch result {
-                    case .success(let imageList):
-                        output.randomImages.onNext(
-                            self.favoriteRepository.reConfigureImages(imageList)
-                        )
-                    case .failure(let error):
-                        dump(error)
-                        Logger.error(error)
-                        output.onError.onNext(())
-                    }
+                if output.randomImages.value().count < 10 {
+                    fetchImages(output: output)
                 }
+                let newImages = favoriteRepository.reConfigureImages(
+                    output.randomImages.value()
+                )
+                output.randomImages.onNext(newImages)
             }
             .store(in: &observableBag)
         
@@ -66,13 +67,30 @@ final class RandomViewModel: ViewModel {
         
         return output
     }
+    
+    private func fetchImages(output: Output) {
+        randomRepository.fetchRandom { result in
+            switch result {
+            case .success(let imageList):
+                output.randomImages.onNext(
+                    self.favoriteRepository.reConfigureImages(imageList)
+                )
+            case .failure(let error):
+                dump(error)
+                Logger.error(error)
+                output.onError.onNext(())
+            }
+        }
+    }
 }
 
 extension RandomViewModel {
     struct Input {
         let viewDidLoadEvent: Observable<Void>
+        let viewWillAppearEvent: Observable<Void>
         let itemSelectEvent: Observable<RandomImage?>
         let likeButtonTapEvent: Observable<RandomImageData?>
+        let pageChangeEvent: Observable<Int>
     }
     
     struct Output {
