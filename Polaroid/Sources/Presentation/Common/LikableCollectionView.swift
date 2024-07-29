@@ -33,6 +33,11 @@ final class LikableCollectionView:
     
     let likeButtonTapEvent = Observable<LikableImageData?>(nil)
     
+    override init() {
+        super.init()
+        keyboardDismissMode = .onDrag
+    }
+    
     override func configureDataSource() {
         let registration = Cell.makeRegistration()
         diffableDataSource = DiffableDataSource(
