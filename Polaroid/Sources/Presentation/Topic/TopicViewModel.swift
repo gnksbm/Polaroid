@@ -23,9 +23,6 @@ final class TopicViewModel: ViewModel {
         input.viewDidLoadEvent
             .bind { [weak self] _ in
                 guard let self else { return }
-                @UserDefaultsWrapper(key: .user, defaultValue: nil)
-                var user: User?
-                output.currentUser.onNext(user)
                 var itemDic = [TopicSection: [TopicImage]]()
                 let group = DispatchGroup()
                 TopicSection.allCases.forEach { section in
@@ -49,6 +46,14 @@ final class TopicViewModel: ViewModel {
             }
             .store(in: &observableBag)
         
+        input.viewWillAppearEvent
+            .bind { _ in
+                @UserDefaultsWrapper(key: .user, defaultValue: nil)
+                var user: User?
+                output.currentUser.onNext(user)
+            }
+            .store(in: &observableBag)
+        
         input.profileTapEvent
             .bind(to: output.startProfileFlow)
             .store(in: &observableBag)
@@ -64,6 +69,7 @@ final class TopicViewModel: ViewModel {
 extension TopicViewModel {
     struct Input {
         let viewDidLoadEvent: Observable<Void>
+        let viewWillAppearEvent: Observable<Void>
         let profileTapEvent: Observable<Void>
         let itemSelectEvent: Observable<TopicImage?>
     }

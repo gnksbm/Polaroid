@@ -11,6 +11,7 @@ import SnapKit
 
 final class TopicViewController: BaseViewController, View {
     private let viewDidLoadEvent = Observable<Void>(())
+    private let viewWillAppearEvent = Observable<Void>(())
     private var observableBag = ObservableBag()
     
     private let profileButton = ProfileImageButton(
@@ -37,6 +38,7 @@ final class TopicViewController: BaseViewController, View {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        viewWillAppearEvent.onNext(())
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -48,6 +50,7 @@ final class TopicViewController: BaseViewController, View {
         let output = viewModel.transform(
             input: TopicViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent, 
+                viewWillAppearEvent: viewWillAppearEvent,
                 profileTapEvent: profileButton.tapEvent.asObservable()
                     .map { _ in },
                 itemSelectEvent: collectionView.obDidSelectItemEvent
