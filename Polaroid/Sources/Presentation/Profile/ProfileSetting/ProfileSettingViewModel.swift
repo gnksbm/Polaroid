@@ -154,8 +154,8 @@ final class ProfileSettingViewModel: ViewModel {
                 @UserDefaultsWrapper(key: .user, defaultValue: nil)
                 var user: User?
                 return !nickname.isEmpty && mbti != nil &&
-                nickname != user?.name && mbti != user?.mbti &&
-                selectedImage.value()?.pngData() != user?.profileImageData
+                (nickname != user?.name || mbti != user?.mbti ||
+                selectedImage.value()?.pngData() != user?.profileImageData)
             }
         default:
             return false

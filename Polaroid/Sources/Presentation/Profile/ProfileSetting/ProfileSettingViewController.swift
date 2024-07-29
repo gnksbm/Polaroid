@@ -46,6 +46,15 @@ final class ProfileSettingViewController: BaseViewController, View {
     ).nt.configure {
         $0.isEnabled(false)
     }
+    private let saveButton = UIButton().nt.configure {
+        $0.setTitle("저장", for: .normal)
+            .isEnabled(false)
+            .setTitleColor(MPDesign.Color.black, for: .normal)
+            .setTitleColor(MPDesign.Color.lightGray, for: .disabled)
+            .perform {
+                $0.titleLabel?.font = MPDesign.Font.label1.with(weight: .bold)
+            }
+    }
     
     private let removeAccountButton = UIButton().nt.configure {
         $0.isHidden(true)
@@ -66,6 +75,12 @@ final class ProfileSettingViewController: BaseViewController, View {
     init(flowType: ProfileSettingViewModel.FlowType = .register) {
         super.init()
         viewModel = ProfileSettingViewModel(flowType: flowType)
+        switch flowType {
+        case .register:
+            saveButton.isHidden = true
+        case .edit:
+            doneButton.isHidden = true
+        }
     }
     
     override func viewDidLoad() {
@@ -75,6 +90,14 @@ final class ProfileSettingViewController: BaseViewController, View {
     }
     
     func bind(viewModel: ProfileSettingViewModel) {
+        let doneButtonTapEvent = doneButton.tapEvent.asObservable()
+            .map { _ in }
+        saveButton.tapEvent
+            .bind { _ in
+                doneButtonTapEvent.onNext(())
+            }
+            .store(in: &observableBag)
+        
         let output = viewModel.transform(
             input: ProfileSettingViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent, 
@@ -84,8 +107,7 @@ final class ProfileSettingViewController: BaseViewController, View {
                     .asObservable()
                     .map { $0.text ?? "" },
                 mbtiSelectEvent: mbtiSelectionView.mbtiSelectEvent,
-                doneButtonTapEvent: doneButton.tapEvent.asObservable()
-                    .map { _ in }, 
+                doneButtonTapEvent: doneButtonTapEvent,
                 removeAccountButtonTapEvent: removeAccountButton.tapEvent
                     .asObservable().map { _ in }, 
                 removeAlertTapEvent: removeAlertTapEvent
@@ -133,6 +155,7 @@ final class ProfileSettingViewController: BaseViewController, View {
         output.doneButtonEnable
             .bind { [weak self] isEnabled in
                 self?.doneButton.isEnabled = isEnabled
+                self?.saveButton.isEnabled = isEnabled
             }
             .store(in: &observableBag)
         
@@ -238,5 +261,10 @@ final class ProfileSettingViewController: BaseViewController, View {
             make.centerX.equalTo(safeArea)
             make.bottom.equalTo(safeArea).inset(padding)
         }
+    }
+    
+    override func configureNavigation() {
+        navigationItem.rightBarButtonItem =
+        UIBarButtonItem(customView: saveButton)
     }
 }
