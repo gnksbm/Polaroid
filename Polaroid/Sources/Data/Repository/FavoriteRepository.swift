@@ -163,9 +163,9 @@ final class FavoriteRepository {
             .sorted {
                 switch option {
                 case .latest:
-                    $0.date > $1.date
-                case .oldest:
                     $0.date < $1.date
+                case .oldest:
+                    $0.date > $1.date
                 }
             }
             .map { $0.toLikableImage() }

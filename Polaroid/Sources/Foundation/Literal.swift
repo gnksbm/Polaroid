@@ -23,7 +23,7 @@ enum Literal {
         static let containNumber = "닉네임에 숫자는 포함할 수 없어요"
         static func invalidWord(words: [String]) -> String {
             let invalidWord = words.joined(separator: ", ")
-            return "닉네임에 \(invalidWord) 는. 포할할 수 없어요"
+            return "닉네임에 \(invalidWord) 는 포함할 수 없어요"
         }
         static let prefixWhiteSpace = "닉네임은 공백으로 시작할 수 없어요"
         static let suffixWhiteSpace = "닉네임은 공백으로 끝날 수 없어요"
