@@ -44,7 +44,9 @@ final class FavoriteRepository {
     }
     
     func saveImage(_ imageData: RandomImageData) throws -> RandomImage {
-        guard !fetchObject().contains(where: { $0.id == imageData.item.id })
+        guard fetchObject()
+            .where({ $0.id.equals(imageData.item.id) })
+            .isEmpty
         else {
             throw FavoriteRepositoryError.duplicatedImage
         }
@@ -189,9 +191,12 @@ final class FavoriteRepository {
         if let localURL = likableImage.localURL {
             try imageStorage.removeImage(additionalPath: localURL)
         }
+        if let profileLocalURL = likableImage.creatorProfileImageLocalPath {
+            try imageStorage.removeImage(additionalPath: profileLocalURL)
+        }
         try realmStorage.delete(object)
         var newImage = likableImage
-        newImage.isLiked.toggle()
+        newImage.isLiked = false
         newImage.localURL = nil
         return newImage
     }
@@ -201,14 +206,15 @@ final class FavoriteRepository {
             { $0.id.equals(randomImage.id) }
         ).first
         else { return randomImage }
-        if let localURL = randomImage.localURL,
-           let profileURL = randomImage.creatorProfileImageLocalPath {
+        if let localURL = randomImage.localURL {
             try imageStorage.removeImage(additionalPath: localURL)
+        }
+        if let profileURL = randomImage.creatorProfileImageLocalPath {
             try imageStorage.removeImage(additionalPath: profileURL)
         }
         try realmStorage.delete(object)
         var newImage = randomImage
-        newImage.isLiked.toggle()
+        newImage.isLiked = false
         newImage.localURL = nil
         return newImage
     }
@@ -218,14 +224,15 @@ final class FavoriteRepository {
             { $0.id.equals(detailImage.id) }
         ).first
         else { return detailImage }
-        if let localURL = detailImage.localURL,
-           let profileURL = detailImage.creatorProfileImageLocalPath {
+        if let localURL = detailImage.localURL {
             try imageStorage.removeImage(additionalPath: localURL)
+        }
+        if let profileURL = detailImage.creatorProfileImageLocalPath {
             try imageStorage.removeImage(additionalPath: profileURL)
         }
         try realmStorage.delete(object)
         var newImage = detailImage
-        newImage.isLiked.toggle()
+        newImage.isLiked = false
         newImage.localURL = nil
         newImage.creatorProfileImageLocalPath = nil
         return newImage

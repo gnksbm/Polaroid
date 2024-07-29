@@ -51,7 +51,10 @@ class ObservableControlEvent<Control: UIControl> {
 }
 
 extension ObservableControlEvent: Hashable {
-    static func == (lhs: ObservableControlEvent, rhs: ObservableControlEvent) -> Bool {
+    static func == (
+        lhs: ObservableControlEvent,
+        rhs: ObservableControlEvent
+    ) -> Bool {
         lhs.hashValue == rhs.hashValue
     }
     

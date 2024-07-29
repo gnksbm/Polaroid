@@ -115,7 +115,7 @@ extension FavoriteDTO {
             imageURL: imagePath,
             localURL: localURL,
             creatorProfileImageURL: profilePath,
-            creatorProfileImageLocalPath: creatorProfileImageURL,
+            creatorProfileImageLocalPath: creatorProfileImageLocalPath,
             creatorName: creatorName,
             createdAt: createdAt,
             imageWidth: imageWidth,
@@ -136,7 +136,7 @@ extension FavoriteDTO {
         return DetailImage(
             id: id,
             creatorProfileImageURL: profilePath,
-            creatorProfileImageLocalPath: creatorProfileImageURL,
+            creatorProfileImageLocalPath: creatorProfileImageLocalPath,
             creatorName: creatorName,
             createdAt: createdAt,
             imageURL: imagePath,
