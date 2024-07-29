@@ -100,6 +100,34 @@ final class SearchViewModel: ViewModel {
             }
             .store(in: &observableBag)
         
+        input.colorOptionSelectEvent
+            .bind { [weak self] _ in
+                guard let self,
+                      output.searchState.value().isSearchAllowed else {
+                    return
+                }
+                page += 1
+                search(input: input, output: output) { images in
+                    self.currentImage.onNext(images)
+                }
+                output.searchState.onNext(.searching)
+            }
+            .store(in: &observableBag)
+        
+        input.sortOptionSelectEvent
+            .bind { [weak self] _ in
+                guard let self,
+                      output.searchState.value().isSearchAllowed else {
+                    return
+                }
+                page += 1
+                search(input: input, output: output) { images in
+                    self.currentImage.onNext(images)
+                }
+                output.searchState.onNext(.searching)
+            }
+            .store(in: &observableBag)
+        
         input.itemSelectEvent
             .bind(to: output.startDetailFlow)
             .store(in: &observableBag)
