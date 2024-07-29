@@ -20,7 +20,15 @@ final class ProfileSettingViewController: BaseViewController, View {
         dimension: .width
     )
     
-    private lazy var nicknameTextField = UITextField().nt.configure { 
+    private let cameraImageView = UIImageView().nt.configure {
+        $0.image(UIImage(systemName: "camera.circle.fill"))
+            .contentMode(.scaleAspectFit)
+            .backgroundColor(MPDesign.Color.white)
+            .layer.borderWidth(3)
+            .layer.borderColor(MPDesign.Color.tint.cgColor)
+    }
+    
+    private lazy var nicknameTextField = UITextField().nt.configure {
         $0.attributedPlaceholder(
                 NSAttributedString(
                     string: Literal.Nickname.placeholder,
@@ -87,6 +95,11 @@ final class ProfileSettingViewController: BaseViewController, View {
         super.viewDidLoad()
         viewDidLoadEvent.onNext(())
         hideKeaboardOnTap()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        cameraImageView.applyCornerRadius(demension: .width)
     }
     
     func bind(viewModel: ProfileSettingViewModel) {
@@ -213,7 +226,8 @@ final class ProfileSettingViewController: BaseViewController, View {
             validationLabel,
             mbtiSelectionView,
             doneButton,
-            removeAccountButton
+            removeAccountButton,
+            cameraImageView
         ].forEach { view.addSubview($0) }
         
         let padding = 20.f
@@ -260,6 +274,11 @@ final class ProfileSettingViewController: BaseViewController, View {
             make.width.equalTo(nicknameTextField)
             make.centerX.equalTo(safeArea)
             make.bottom.equalTo(safeArea).inset(padding)
+        }
+        
+        cameraImageView.snp.makeConstraints { make in
+            make.trailing.bottom.equalTo(profileImageButton)
+            make.size.equalTo(profileImageButton.snp.width).multipliedBy(0.3)
         }
     }
     

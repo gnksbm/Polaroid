@@ -39,7 +39,9 @@ final class ProfileImageButton: CircleButton, ToggleView {
                 .store(in: &observableBag)
         }
     }
-    
+}
+
+extension ProfileImageButton {
     enum ViewType {
         case `static`, dynamic
     }

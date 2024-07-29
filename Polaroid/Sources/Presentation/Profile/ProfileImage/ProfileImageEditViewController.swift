@@ -19,11 +19,24 @@ final class ProfileImageViewController: BaseViewController, View {
         dimension: .width
     )
     
+    private let cameraImageView = UIImageView().nt.configure {
+        $0.image(UIImage(systemName: "camera.circle.fill"))
+            .contentMode(.scaleAspectFit)
+            .backgroundColor(MPDesign.Color.white)
+            .layer.borderWidth(3)
+            .layer.borderColor(MPDesign.Color.tint.cgColor)
+    }
+    
     private let collectionView = ProfileImageCollectionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewDidLoadEvent.onNext(())
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        cameraImageView.applyCornerRadius(demension: .width)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -60,7 +73,7 @@ final class ProfileImageViewController: BaseViewController, View {
     }
     
     override func configureLayout() {
-        [profileButton, collectionView].forEach { 
+        [profileButton, cameraImageView, collectionView].forEach { 
             view.addSubview($0)
         }
         
@@ -71,6 +84,11 @@ final class ProfileImageViewController: BaseViewController, View {
             make.centerX.equalTo(safeArea)
             make.width.equalTo(safeArea).multipliedBy(0.25)
             make.width.equalTo(profileButton.snp.height)
+        }
+        
+        cameraImageView.snp.makeConstraints { make in
+            make.trailing.bottom.equalTo(profileButton)
+            make.size.equalTo(profileButton.snp.width).multipliedBy(0.3)
         }
         
         collectionView.snp.makeConstraints { make in
