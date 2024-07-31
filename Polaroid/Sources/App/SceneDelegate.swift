@@ -26,15 +26,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidDisconnect(_ scene: UIScene) { }
     
     func sceneDidBecomeActive(_ scene: UIScene) { 
-        networkMonitor.start { [weak self] path in
+        networkMonitor.startMonitoring { [weak self] isConnected in
             guard let self else { return }
             DispatchQueue.main.async {
-                switch path.status {
-                case .satisfied:
-                    self.window?.hideWarningLabel()
-                default:
+                if isConnected {
+                    self.window?.hideWarningLabel(with: "인터넷에 다시 연결됨")
+                } else {
                     self.window?.showWarningLabel(
-                        message: "네크워크 연결을 확인해주세요"
+                        message: "인터넷 연결을 확인해주세요"
                     )
                 }
             }
@@ -46,6 +45,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) { }
     
     func sceneDidEnterBackground(_ scene: UIScene) { 
-        networkMonitor.stop()
+        networkMonitor.stopMonitoring()
     }
 }

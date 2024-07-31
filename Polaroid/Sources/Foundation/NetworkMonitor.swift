@@ -14,6 +14,8 @@ final class NetworkMonitor {
     private let monitor = NWPathMonitor()
     private let queue: DispatchQueue
     
+    private var latestStatus = NWPath.Status.requiresConnection
+    
     private init(
         queue: DispatchQueue = DispatchQueue(
             label: "NetworkMonitor",
@@ -23,14 +25,18 @@ final class NetworkMonitor {
         self.queue = queue
     }
     
-    func start(_ handler: @escaping (NWPath) -> Void) {
-        monitor.pathUpdateHandler = { path in
-            handler(path)
+    func startMonitoring(_ handler: @escaping (_ isConnected: Bool) -> Void) {
+        monitor.pathUpdateHandler = { [weak self] path in
+            guard let self else { return }
+            if latestStatus != path.status {
+                latestStatus = path.status
+                handler(latestStatus == .satisfied)
+            }
         }
         monitor.start(queue: queue)
     }
     
-    func stop() {
+    func stopMonitoring() {
         monitor.cancel()
     }
 }

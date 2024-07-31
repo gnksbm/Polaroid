@@ -55,39 +55,48 @@ extension UIWindow {
                 equalTo: safeArea.trailingAnchor
             ),
         ])
-        OverlayHelper.warningLabelBottomConstraint = label.bottomAnchor
-            .constraint(equalTo: safeArea.topAnchor)
+        OverlayHelper.warningLabelBottomConstraint = label.topAnchor
+            .constraint(equalTo: safeArea.bottomAnchor)
         OverlayHelper.warningLabelBottomConstraint?.isActive = true
         layoutIfNeeded()
         
         UIView.animate(
-            withDuration: 0.3,
+            withDuration: 0.5,
             delay: 0,
-            options: [.curveEaseOut],
-            animations: { [weak self] in
-                guard let self else { return }
+            options: [.curveEaseIn],
+            animations: {
                 OverlayHelper.warningLabelBottomConstraint?.constant =
-                label.bounds.height
+                -label.bounds.height
                 label.alpha = 1
-                layoutIfNeeded()
             }
         )
     }
     
-    func hideWarningLabel() {
-        guard OverlayHelper.warningLabel != nil else { return }
-        UIView.animate(
-            withDuration: 0.3,
-            delay: 0,
-            options: [.curveEaseOut],
-            animations: { [weak self] in 
-                OverlayHelper.warningLabelBottomConstraint?.constant = 0
-                OverlayHelper.warningLabel?.alpha = 0
-                self?.layoutIfNeeded()
-            },
-            completion: { _ in
-                OverlayHelper.warningLabel?.removeFromSuperview()
+    func hideWarningLabel(with message: String? = nil) {
+        guard let warningLabel = OverlayHelper.warningLabel else { return }
+        UIView.transition(
+            with: warningLabel,
+            duration: 0.3,
+            options: .transitionCrossDissolve
+        ) {
+            if let message {
+                warningLabel.text = message
             }
-        )
+            warningLabel.backgroundColor = MPDesign.Color.green
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            UIView.transition(
+                with: warningLabel,
+                duration: 0.5,
+                options: .curveEaseOut,
+                animations: {
+                    warningLabel.alpha = 0
+                },
+                completion: { _ in
+                    warningLabel.removeFromSuperview()
+                    OverlayHelper.warningLabel = nil
+                }
+            )
+        }
     }
 }
