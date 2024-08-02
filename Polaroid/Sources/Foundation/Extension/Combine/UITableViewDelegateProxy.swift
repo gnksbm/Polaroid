@@ -4,7 +4,7 @@
 //
 //  Created by gnksbm on 7/22/24.
 //
-/*
+
 import Combine
 import UIKit
 
@@ -58,4 +58,3 @@ class UITableViewDelegateSubscrioption
         _ = subscriber?.receive(indexPath)
     }
 }
-*/
