@@ -22,7 +22,7 @@ struct UITableViewDelegateProxy<TableView: UITableView>: Publisher {
         subscriber: S
     ) where S : Subscriber, Never == S.Failure, IndexPath == S.Input {
         subscriber.receive(
-            subscription: UITableViewDelegateSubscrioption(
+            subscription: UITableViewDelegateSubscription(
                 subscriber: subscriber,
                 tableView: tableView
             )
@@ -30,7 +30,7 @@ struct UITableViewDelegateProxy<TableView: UITableView>: Publisher {
     }
 }
 
-class UITableViewDelegateSubscrioption
+class UITableViewDelegateSubscription
 <S: Subscriber<IndexPath, Never>, TableView: UITableView>: NSObject, UITableViewDelegate, Subscription {
     var subscriber: S?
     var demand: Subscribers.Demand = .none

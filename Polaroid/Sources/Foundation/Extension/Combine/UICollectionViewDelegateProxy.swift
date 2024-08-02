@@ -22,7 +22,7 @@ struct UICollectionViewDelegateProxy: Publisher {
         subscriber: S
     ) where S : Subscriber, Never == S.Failure, IndexPath == S.Input {
         subscriber.receive(
-            subscription: UICollectionViewDelegateSubscrioption(
+            subscription: UICollectionViewDelegateSubscription(
                 subscriber: subscriber,
                 collectionView: collectionView
             )
@@ -30,7 +30,7 @@ struct UICollectionViewDelegateProxy: Publisher {
     }
 }
 
-class UICollectionViewDelegateSubscrioption<S: Subscriber<IndexPath, Never>>:
+class UICollectionViewDelegateSubscription<S: Subscriber<IndexPath, Never>>:
     NSObject, UICollectionViewDelegate, Subscription {
     var subscriber: S?
     var demand: Subscribers.Demand = .none
