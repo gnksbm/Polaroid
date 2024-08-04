@@ -30,13 +30,13 @@ final class FavoriteViewModel: ViewModel {
             .store(in: &observableBag)
         
         input.sortOptionSelectEvent
-            .bind { [weak self] sortOption in
-                guard let self else { return }
+            .withUnretained(self)
+            .sink { vm, sortOption in
                 output.images.onNext(
-                    favoriteRepository.fetchImage(with: sortOption)
+                    vm.favoriteRepository.fetchImage(with: sortOption)
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.colorOptionSelectEvent
             .sink { [weak self] colorOption in
@@ -74,7 +74,8 @@ final class FavoriteViewModel: ViewModel {
 extension FavoriteViewModel {
     struct Input {
         let viewWillAppearEvent: Observable<Void>
-        let sortOptionSelectEvent: Observable<FavoriteSortOption>
+        let sortOptionSelectEvent: 
+        CurrentValueSubject<FavoriteSortOption, Never>
         let colorOptionSelectEvent: CurrentValueSubject<ColorOption?, Never>
         let likeButtonTapEvent: CurrentValueSubject<LikableImageData?, Never>
         let itemSelectEvent: Observable<LikableImage?>

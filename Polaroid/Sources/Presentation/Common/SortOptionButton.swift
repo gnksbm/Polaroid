@@ -5,13 +5,14 @@
 //  Created by gnksbm on 7/26/24.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 
 final class SortOptionButton<Option: SortOption>: BaseButton {
-    var sortSelectEvent = Observable<Option>(Option.firstCase)
-    private var observableBag = ObservableBag()
+    var sortSelectEvent = CurrentValueSubject<Option, Never>(Option.firstCase)
+    private var cancelBag = CancelBag()
     
     override init() {
         super.init()
@@ -31,7 +32,7 @@ final class SortOptionButton<Option: SortOption>: BaseButton {
             .SymbolConfiguration(font: MPDesign.Font.body1.with(weight: .bold))
         configuration?.imagePadding = 5
         configuration?.attributedTitle = AttributedString(
-            sortSelectEvent.value().title,
+            sortSelectEvent.value.title,
             attributes: AttributeContainer([
                 .font: MPDesign.Font.body1.with(weight: .bold)
             ])
@@ -51,26 +52,29 @@ final class SortOptionButton<Option: SortOption>: BaseButton {
     
     private func bindButton() {
         tapEvent
-            .bind { [weak self] _ in
-                guard let self else { return }
+            .withUnretained(self)
+            .sink { button, _ in
                 let options = Option.allCases
-                if let index = options.firstIndex(of: sortSelectEvent.value()) {
+                if let index = options.firstIndex(
+                    of: button.sortSelectEvent.value
+                ) {
                     let newIndex = options.index(after: index) % options.count
                     let newOption = options[newIndex]
-                    sortSelectEvent.onNext(newOption)
+                    button.sortSelectEvent.send(newOption)
                 }
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         sortSelectEvent
-            .bind { [weak self] option in
-                self?.configuration?.attributedTitle = AttributedString(
+            .withUnretained(self)
+            .sink { button, option in
+                button.configuration?.attributedTitle = AttributedString(
                     option.title,
                     attributes: AttributeContainer([
                         .font: MPDesign.Font.body1.with(weight: .bold)
                     ])
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
     }
 }

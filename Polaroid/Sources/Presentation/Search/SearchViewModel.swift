@@ -117,7 +117,7 @@ final class SearchViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.sortOptionSelectEvent
-            .bind { [weak self] _ in
+            .sink { [weak self] _ in
                 guard let self,
                       output.searchState.value().isSearchAllowed else {
                     return
@@ -128,7 +128,7 @@ final class SearchViewModel: ViewModel {
                 }
                 output.searchState.onNext(.searching)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.itemSelectEvent
             .bind(to: output.startDetailFlow)
@@ -149,7 +149,7 @@ final class SearchViewModel: ViewModel {
                 request: SearchRequest(
                     keyword: query,
                     page: page,
-                    sortOption: input.sortOptionSelectEvent.value(),
+                    sortOption: input.sortOptionSelectEvent.value,
                     color: input.colorOptionSelectEvent.value
                 )
             ) { [weak self] result in
@@ -179,7 +179,7 @@ extension SearchViewModel {
         let searchTextChangeEvent: Observable<String>
         let queryEnterEvent: Observable<String>
         let scrollReachedBottomEvent: Observable<Void>
-        let sortOptionSelectEvent: Observable<SearchSortOption>
+        let sortOptionSelectEvent: CurrentValueSubject<SearchSortOption, Never>
         let colorOptionSelectEvent: CurrentValueSubject<ColorOption?, Never>
         let likeButtonTapEvent: CurrentValueSubject<LikableImageData?, Never>
         let itemSelectEvent: Observable<LikableImage?>
