@@ -48,7 +48,7 @@ final class FavoriteViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.likeButtonTapEvent
-            .bind { [weak self] imageData in
+            .sink { [weak self] imageData in
                 guard let self,
                       let imageData else { return }
                 do {
@@ -61,7 +61,7 @@ final class FavoriteViewModel: ViewModel {
                     output.onError.onNext(())
                 }
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.itemSelectEvent
             .bind(to: output.startDetailFlow)
@@ -76,7 +76,7 @@ extension FavoriteViewModel {
         let viewWillAppearEvent: Observable<Void>
         let sortOptionSelectEvent: Observable<FavoriteSortOption>
         let colorOptionSelectEvent: CurrentValueSubject<ColorOption?, Never>
-        let likeButtonTapEvent: Observable<LikableImageData?>
+        let likeButtonTapEvent: CurrentValueSubject<LikableImageData?, Never>
         let itemSelectEvent: Observable<LikableImage?>
     }
     

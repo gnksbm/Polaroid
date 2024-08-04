@@ -5,6 +5,7 @@
 //  Created by gnksbm on 7/25/24.
 //
 
+import Combine
 import UIKit
 
 final class LikableCollectionView: 
@@ -31,7 +32,7 @@ final class LikableCollectionView:
         }
     }
     
-    let likeButtonTapEvent = Observable<LikableImageData?>(nil)
+    let likeButtonTapEvent = CurrentValueSubject<LikableImageData?, Never>(nil)
     
     override init() {
         super.init()
@@ -50,8 +51,8 @@ final class LikableCollectionView:
                 item: item
             )
             cell.likeButtonTapEvent
-                .bind(to: likeButtonTapEvent)
-                .store(in: &cell.observableBag)
+                .subscribe(likeButtonTapEvent)
+                .store(in: &cell.cancelBag)
             return cell
         }
     }

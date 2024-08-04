@@ -5,6 +5,7 @@
 //  Created by gnksbm on 7/25/24.
 //
 
+import Combine
 import UIKit
 
 import Kingfisher
@@ -32,21 +33,20 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
             cell.likeButton.configuration?.baseForegroundColor =
             item.isLiked ? MPDesign.Color.tint : MPDesign.Color.white
             cell.likeButton.tapEvent
-                .bind { _ in
-                    cell.likeButtonTapEvent.onNext(
-                        LikableImageData(
-                            item: item,
-                            data: cell.imageView.image?
-                                .jpegData(compressionQuality: 1)
-                        )
+                .map { _ in
+                    LikableImageData(
+                        item: item,
+                        data: cell.imageView.image?
+                            .jpegData(compressionQuality: 1)
                     )
                 }
-                .store(in: &cell.observableBag)
+                .subscribe(cell.likeButtonTapEvent)
+                .store(in: &cell.cancelBag)
         }
     }
     
-    let likeButtonTapEvent = Observable<LikableImageData?>(nil)
-    var observableBag = ObservableBag()
+    let likeButtonTapEvent = CurrentValueSubject<LikableImageData?, Never>(nil)
+    var cancelBag = CancelBag()
     
     private var imageTask: URLSessionTask?
     
@@ -75,7 +75,6 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        observableBag.cancel()
         imageTask?.cancel()
         imageTask = nil
         imageView.image = nil
