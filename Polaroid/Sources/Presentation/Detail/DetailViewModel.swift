@@ -5,6 +5,7 @@
 //  Created by gnksbm on 7/28/24.
 //
 
+import Combine
 import Foundation
 
 final class DetailViewModel: ViewModel {
@@ -14,6 +15,7 @@ final class DetailViewModel: ViewModel {
     private let favoriteRepository = FavoriteRepository.shared
     
     private var observableBag = ObservableBag()
+    private var cancelBag = CancelBag()
     
     init<T: MinimumImageData>(data: T) {
         self.data = data
@@ -58,9 +60,9 @@ final class DetailViewModel: ViewModel {
             .store(in: &observableBag)
         
         input.likeButtonTapEvent
-            .bind { [weak self] data in
-                guard let self,
-                      var detailImage = output.detailImage.value()
+            .withUnretained(self)
+            .sink { vm, data in
+                guard var detailImage = output.detailImage.value()
                 else { return }
                 if let currentImage = output.changedImage.value() {
                     detailImage = currentImage
@@ -68,11 +70,11 @@ final class DetailViewModel: ViewModel {
                 do {
                     if detailImage.isLiked {
                         let newImage =
-                        try favoriteRepository.removeImage(detailImage)
+                        try vm.favoriteRepository.removeImage(detailImage)
                         output.changedImage.onNext(newImage)
                     } else {
                         let newImage =
-                        try favoriteRepository.saveImage(
+                        try vm.favoriteRepository.saveImage(
                             detailImage,
                             imageData: data.0,
                             profileImageData: data.1
@@ -84,7 +86,7 @@ final class DetailViewModel: ViewModel {
                     output.onError.onNext(())
                 }
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         return output
     }
@@ -94,7 +96,7 @@ extension DetailViewModel {
     struct Input {
         let viewDidLoadEvent: Observable<Void>
         let viewWillAppearEvent: Observable<Void>
-        let likeButtonTapEvent: Observable<(Data?, Data?)>
+        let likeButtonTapEvent: AnyPublisher<(Data?, Data?), Never>
     }
     
     struct Output {

@@ -24,9 +24,10 @@ final class ImageCreateInfoView: BaseView {
         }
     }
     
-    lazy var likeButtonTapEvent = likeButton.tapEvent.asObservable()
-        .map { [weak self] _ in
-            self?.creatorImageView.image?.jpegData(compressionQuality: 1)
+    lazy var likeButtonTapEvent = likeButton.tapEvent
+        .withUnretained(self)
+        .map { view, _ in
+            view.creatorImageView.image?.jpegData(compressionQuality: 1)
         }
     
     private let creatorImageView = UIImageView().nt.configure {

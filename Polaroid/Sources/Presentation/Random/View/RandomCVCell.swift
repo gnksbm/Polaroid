@@ -29,23 +29,23 @@ final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
                 isLiked: item.isLiked
             )
             cell.createInfoView.likeButtonTapEvent
-                .bind { _ in
+                .sink { profileImageData in
                     cell.likeButtonTapEvent.onNext(
                         RandomImageData(
                             item: item,
                             imageData: cell.imageView.image?
                                 .jpegData(compressionQuality: 1),
-                            profileImageData: cell.createInfoView
-                                .likeButtonTapEvent.value()
+                            profileImageData: profileImageData
                         )
                     )
                 }
-                .store(in: &cell.observableBag)
+                .store(in: &cell.cancelBag)
         }
     }
     
     let likeButtonTapEvent = Observable<RandomImageData?>(nil)
     var observableBag = ObservableBag()
+    var cancelBag = CancelBag()
     
     private var imageTask: DownloadTask?
     
@@ -58,6 +58,7 @@ final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
     override func prepareForReuse() {
         super.prepareForReuse()
         observableBag.cancel()
+        cancelBag.cancel()
         imageView.image = nil
         imageTask?.cancel()
         imageTask = nil
