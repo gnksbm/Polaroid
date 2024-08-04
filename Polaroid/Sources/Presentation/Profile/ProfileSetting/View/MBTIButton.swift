@@ -5,11 +5,12 @@
 //  Created by gnksbm on 7/22/24.
 //
 
+import Combine
 import UIKit
 
 final class MBTIButton: CircleButton, ToggleView {
-    var selectedState = Observable<Bool>(false)
-    var observableBag = ObservableBag()
+    var selectedState = CurrentValueSubject<Bool, Never>(false)
+    var cancelBag = CancelBag()
     
     var foregroundColor: UIColor? {
         get {
@@ -32,13 +33,11 @@ final class MBTIButton: CircleButton, ToggleView {
         super.init(dimension: dimension, padding: padding)
         bindColor()
         
+        
         tapEvent
-            .asObservable()
-            .map { [weak self] button in
-                guard let self else { return false }
-                return !selectedState.value()
-            }
-            .bind(to: selectedState)
-            .store(in: &observableBag)
+            .withUnretained(self)
+            .map { button, _ in button.selectedState.value }
+            .subscribe(selectedState)
+            .store(in: &cancelBag)
     }
 }

@@ -5,6 +5,7 @@
 //  Created by gnksbm on 7/25/24.
 //
 
+import Combine
 import Foundation
 
 final class SearchViewModel: ViewModel {
@@ -13,6 +14,7 @@ final class SearchViewModel: ViewModel {
     
     private var currentImage = Observable<[LikableImage]>([])
     private var observableBag = ObservableBag()
+    private var cancelBag = CancelBag()
     private var page = 1
     
     func transform(input: Input) -> Output {
@@ -89,7 +91,7 @@ final class SearchViewModel: ViewModel {
                     } else {
                         var copy = imageData
                         copy.item.color =
-                        input.colorOptionSelectEvent.value()?.rawValue
+                        input.colorOptionSelectEvent.value?.rawValue
                         let newImage = try favoriteRepository.saveImage(copy)
                         output.changedImage.onNext(newImage)
                     }
@@ -101,7 +103,7 @@ final class SearchViewModel: ViewModel {
             .store(in: &observableBag)
         
         input.colorOptionSelectEvent
-            .bind { [weak self] _ in
+            .sink { [weak self] _ in
                 guard let self,
                       output.searchState.value().isSearchAllowed else {
                     return
@@ -112,7 +114,7 @@ final class SearchViewModel: ViewModel {
                 }
                 output.searchState.onNext(.searching)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.sortOptionSelectEvent
             .bind { [weak self] _ in
@@ -148,7 +150,7 @@ final class SearchViewModel: ViewModel {
                     keyword: query,
                     page: page,
                     sortOption: input.sortOptionSelectEvent.value(),
-                    color: input.colorOptionSelectEvent.value()
+                    color: input.colorOptionSelectEvent.value
                 )
             ) { [weak self] result in
                 guard let self else { return }
@@ -178,7 +180,7 @@ extension SearchViewModel {
         let queryEnterEvent: Observable<String>
         let scrollReachedBottomEvent: Observable<Void>
         let sortOptionSelectEvent: Observable<SearchSortOption>
-        let colorOptionSelectEvent: Observable<ColorOption?>
+        let colorOptionSelectEvent: CurrentValueSubject<ColorOption?, Never>
         let likeButtonTapEvent: Observable<LikableImageData?>
         let itemSelectEvent: Observable<LikableImage?>
     }

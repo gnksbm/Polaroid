@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import Combine
 
 final class FavoriteViewModel: ViewModel {
     private let favoriteRepository = FavoriteRepository.shared
     
     private var observableBag = ObservableBag()
+    private var cancelBag = CancelBag()
     
     func transform(input: Input) -> Output {
         let output = Output(
@@ -37,13 +39,13 @@ final class FavoriteViewModel: ViewModel {
             .store(in: &observableBag)
         
         input.colorOptionSelectEvent
-            .bind { [weak self] colorOption in
+            .sink { [weak self] colorOption in
                 guard let self else { return }
                 output.images.onNext(
                     favoriteRepository.fetchImage(with: colorOption)
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.likeButtonTapEvent
             .bind { [weak self] imageData in
@@ -73,7 +75,7 @@ extension FavoriteViewModel {
     struct Input {
         let viewWillAppearEvent: Observable<Void>
         let sortOptionSelectEvent: Observable<FavoriteSortOption>
-        let colorOptionSelectEvent: Observable<ColorOption?>
+        let colorOptionSelectEvent: CurrentValueSubject<ColorOption?, Never>
         let likeButtonTapEvent: Observable<LikableImageData?>
         let itemSelectEvent: Observable<LikableImage?>
     }

@@ -5,11 +5,12 @@
 //  Created by gnksbm on 7/23/24.
 //
 
+import Combine
 import UIKit
 
 final class ProfileImageButton: CircleButton, ToggleView {
-    var selectedState = Observable<Bool>(false)
-    var observableBag = ObservableBag()
+    var selectedState = CurrentValueSubject<Bool, Never>(false)
+    var cancelBag = CancelBag()
     
     var normalBorderColor: UIColor? { MPDesign.Color.gray }
     
@@ -31,12 +32,12 @@ final class ProfileImageButton: CircleButton, ToggleView {
             bindColor()
             isEnabled = true
             selectedState
-                .bind { [weak self] isSelected in
+                .sink { [weak self] isSelected in
                     self?.layer.borderWidth = isSelected ?
                     MPDesign.BorderSize.large : MPDesign.BorderSize.small
                     self?.alpha = isSelected ? 1 : 0.5
                 }
-                .store(in: &observableBag)
+                .store(in: &cancelBag)
         }
     }
 }

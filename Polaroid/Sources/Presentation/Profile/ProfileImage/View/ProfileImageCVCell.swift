@@ -5,18 +5,19 @@
 //  Created by gnksbm on 7/24/24.
 //
 
+import Combine
 import UIKit
 
 final class ProfileImageCVCell: BaseCollectionViewCell, RegistrableCellType {
     static func makeRegistration() -> Registration<ProfileImageItem> {
         Registration { cell, indexPath, item in
             cell.imageView.image = item.image
-            cell.selectedState.onNext(item.isSelected)
+            cell.selectedState.send(item.isSelected)
         }
     }
     
-    var selectedState = Observable<Bool>(false)
-    var observableBag = ObservableBag()
+    var selectedState = CurrentValueSubject<Bool, Never>(false)
+    var cancelBag = CancelBag()
     
     var normalBorderColor: UIColor? { MPDesign.Color.gray }
     
@@ -33,7 +34,7 @@ final class ProfileImageCVCell: BaseCollectionViewCell, RegistrableCellType {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        observableBag.cancel()
+        cancelBag.cancel()
     }
     
     override func configureLayout() {

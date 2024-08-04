@@ -41,24 +41,24 @@ final class MBTIElementSelectionView
             .first { button in
                 button.tag == element.rawValue
             }?
-            .selectedState.onNext(true)
+            .selectedState.send(true)
     }
     
     private func bindButton(sender: MBTIButton, element: MBTIElement) {
         let selectedValue = elementSelectEvent.value()
         if selectedValue == nil {
-            sender.selectedState.onNext(true)
+            sender.selectedState.send(true)
             elementSelectEvent.onNext(element)
         } else {
             if selectedValue == element {
-                sender.selectedState.onNext(false)
+                sender.selectedState.send(false)
                 elementSelectEvent.onNext(nil)
             } else {
                 buttons.filter { $0 !== sender }
                     .forEach { button in
-                        button.selectedState.onNext(false)
+                        button.selectedState.send(false)
                     }
-                sender.selectedState.onNext(true)
+                sender.selectedState.send(true)
                 elementSelectEvent.onNext(element)
             }
         }

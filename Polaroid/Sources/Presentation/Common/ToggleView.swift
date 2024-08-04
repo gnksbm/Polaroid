@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 protocol ToggleView: AnyObject {
-    var selectedState: Observable<Bool> { get }
-    var observableBag: ObservableBag { get set }
+    var selectedState: CurrentValueSubject<Bool, Never> { get }
+    var cancelBag: CancelBag { get set }
     
     var foregroundColor: UIColor? { get set }
     
@@ -41,10 +42,10 @@ extension ToggleView where Self: UIView {
     
     func bindColor() {
         selectedState
-            .bind { [weak self] isSelected in
+            .sink { [weak self] isSelected in
                 self?.updateView(isSelected: isSelected)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
  
         foregroundColor = normalForegroundColor
         backgroundColor = normalBackgroundColor

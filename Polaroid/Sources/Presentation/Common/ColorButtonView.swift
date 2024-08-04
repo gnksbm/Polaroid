@@ -5,14 +5,15 @@
 //  Created by gnksbm on 7/26/24.
 //
 
+import Combine
 import UIKit
 
 import Neat
 import SnapKit
 
 final class ColorButtonView: UIScrollView {
-    var colorSelectEvent = Observable<ColorOption?>(nil)
-    private var observableBag = ObservableBag()
+    var colorSelectEvent = CurrentValueSubject<ColorOption?, Never>(nil)
+    private var cancelBag = CancelBag()
     
     private lazy var buttonStackView = DeclarativeStackView(
         axis: .horizontal,
@@ -75,22 +76,23 @@ final class ColorButtonView: UIScrollView {
         option: ColorOption
     ) {
         sender.tapEvent
-            .bind { [weak self] colorButton in
-                guard let self else { return }
-                let selectedColor = colorSelectEvent.value()
+            .withUnretained(self)
+            .map { view, _ in
+                let selectedColor = view.colorSelectEvent.value
                 if selectedColor != option {
-                    colorSelectEvent.onNext(option)
+                    return option
                 } else {
-                    colorSelectEvent.onNext(nil)
+                    return nil
                 }
             }
-            .store(in: &observableBag)
+            .subscribe(colorSelectEvent)
+            .store(in: &cancelBag)
         
         colorSelectEvent
             .map { selectedColor in
                 selectedColor == option
             }
-            .bind(to: sender.selectedState)
-            .store(in: &sender.observableBag)
+            .subscribe(sender.selectedState)
+            .store(in: &cancelBag)
     }
 }

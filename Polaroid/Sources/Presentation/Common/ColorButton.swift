@@ -5,13 +5,14 @@
 //  Created by gnksbm on 7/26/24.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 
 final class ColorButton: BaseButton, ToggleView {
-    var selectedState = Observable<Bool>(false)
-    var observableBag = ObservableBag()
+    var selectedState = CurrentValueSubject<Bool, Never>(false)
+    var cancelBag = CancelBag()
     
     var normalBackgroundColor: UIColor? { MPDesign.Color.lightGray }
     
