@@ -5,14 +5,15 @@
 //  Created by gnksbm on 7/24/24.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 
 final class ProfileImageViewController: BaseViewController, View {
-    private let viewDidLoadEvent = Observable<Void>(())
-    private let viewWillDisappearEvent = Observable<Void>(())
-    private var observableBag = ObservableBag()
+    private let viewDidLoadEvent = PassthroughSubject<Void, Never>()
+    private let viewWillDisappearEvent = PassthroughSubject<Void, Never>()
+    private var cancelBag = CancelBag()
     
     private let profileButton = ProfileImageButton(
         type: .static,
@@ -31,7 +32,7 @@ final class ProfileImageViewController: BaseViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewDidLoadEvent.onNext(())
+        viewDidLoadEvent.send(())
     }
     
     override func viewDidLayoutSubviews() {
@@ -41,35 +42,36 @@ final class ProfileImageViewController: BaseViewController, View {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewWillDisappearEvent.onNext(())
+        viewWillDisappearEvent.send(())
     }
     
     func bind(viewModel: ProfileImageViewModel) {
         let output = viewModel.transform(
             input: ProfileImageViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent,
-                itemSelectEvent: collectionView.obDidSelectItemEvent
-                    .map { [weak self] indexPath in
-                        var result: ProfileImageItem?
-                        guard let self,
-                              let indexPath else { return result }
-                        return collectionView.getItem(for: indexPath)
-                    },
+                itemSelectEvent: collectionView.didSelectItemEvent
+                    .withUnretained(self)
+                    .map { vc, indexPath in
+                        vc.collectionView.getItem(for: indexPath)
+                    }
+                    .eraseToAnyPublisher(),
                 viewWillDisappearEvent: viewWillDisappearEvent
             )
         )
         
         output.selectedImage
-            .bind { [weak self] image in
-                self?.profileButton.setImage(image, for: .normal)
+            .withUnretained(self)
+            .sink { vc, image in
+                vc.profileButton.setImage(image, for: .normal)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.profileImages
-            .bind { [weak self] items in
-                self?.collectionView.applyItem(items: items)
+            .withUnretained(self)
+            .sink { vc, items in
+                vc.collectionView.applyItem(items: items)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
     }
     
     override func configureLayout() {

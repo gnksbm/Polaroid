@@ -5,6 +5,7 @@
 //  Created by gnksbm on 7/24/24.
 //
 
+import Combine
 import UIKit
 
 final class ProfileImageViewModel: ViewModel {
@@ -12,7 +13,7 @@ final class ProfileImageViewModel: ViewModel {
     
     private var selectedImage: UIImage?
     
-    private var observableBag = ObservableBag()
+    private var cancelBag = CancelBag()
     
     init(selectedImage: UIImage?) {
         self.selectedImage = selectedImage
@@ -20,37 +21,37 @@ final class ProfileImageViewModel: ViewModel {
     
     func transform(input: Input) -> Output {
         let output = Output(
-            selectedImage: Observable<UIImage?>(nil),
-            profileImages: Observable([])
+            selectedImage: PassthroughSubject(),
+            profileImages: PassthroughSubject()
         )
         
         input.viewDidLoadEvent
-            .bind { [weak self] _ in
-                guard let self else { return }
-                setNewOutput(
+            .withUnretained(self)
+            .sink { vm, _ in
+                vm.setNewOutput(
                     output: output,
-                    selectedImage: selectedImage
+                    selectedImage: vm.selectedImage
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.itemSelectEvent
-            .bind { [weak self] item in
-                guard let self else { return }
-                selectedImage = item?.image
-                setNewOutput(
+            .withUnretained(self)
+            .sink { vm, item in
+                vm.selectedImage = item.image
+                vm.setNewOutput(
                     output: output,
-                    selectedImage: item?.image
+                    selectedImage: item.image
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.viewWillDisappearEvent
-            .bind { [weak self] _ in
-                guard let self else { return }
-                delegate?.finishedFlow(with: selectedImage)
+            .withUnretained(self)
+            .sink { vm, _ in
+                vm.delegate?.finishedFlow(with: vm.selectedImage)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         return output
     }
@@ -63,21 +64,21 @@ final class ProfileImageViewModel: ViewModel {
             images: Literal.Image.defaultProfileList,
             selectedImage: selectedImage
         )
-        output.selectedImage.onNext(selectedImage)
-        output.profileImages.onNext(profileImages)
+        output.selectedImage.send(selectedImage)
+        output.profileImages.send(profileImages)
     }
 }
 
 extension ProfileImageViewModel {
     struct Input {
-        let viewDidLoadEvent: Observable<Void>
-        let itemSelectEvent: Observable<ProfileImageItem?>
-        let viewWillDisappearEvent: Observable<Void>
+        let viewDidLoadEvent: PassthroughSubject<Void, Never>
+        let itemSelectEvent: AnyPublisher<ProfileImageItem, Never>
+        let viewWillDisappearEvent: PassthroughSubject<Void, Never>
     }
     
     struct Output {
-        let selectedImage: Observable<UIImage?>
-        let profileImages: Observable<[ProfileImageItem]>
+        let selectedImage: PassthroughSubject<UIImage?, Never>
+        let profileImages: PassthroughSubject<[ProfileImageItem], Never>
     }
 }
 
