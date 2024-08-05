@@ -54,7 +54,6 @@ final class SearchViewModel: ViewModel {
                 vm.search(input: input, output: output) { images in
                     vm.currentImage.send(images)
                 }
-                output.searchState.send(.searching)
             }
             .store(in: &cancelBag)
         
@@ -67,7 +66,6 @@ final class SearchViewModel: ViewModel {
                         vm.currentImage.value + images
                     )
                 }
-                output.searchState.send(.searching)
             }
             .store(in: &cancelBag)
         
@@ -93,24 +91,24 @@ final class SearchViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.colorOptionSelectEvent
+            .dropFirst()
             .sink(with: self) { vm, _ in
                 guard output.searchState.value.isSearchAllowed else { return }
                 vm.page += 1
                 vm.search(input: input, output: output) { images in
                     vm.currentImage.send(images)
                 }
-                output.searchState.send(.searching)
             }
             .store(in: &cancelBag)
         
         input.sortOptionSelectEvent
+            .dropFirst()
             .sink(with: self) { vm, _ in
                 guard output.searchState.value.isSearchAllowed else { return }
                 vm.page += 1
                 vm.search(input: input, output: output) { images in
                     vm.currentImage.send(images)
                 }
-                output.searchState.send(.searching)
             }
             .store(in: &cancelBag)
         
@@ -125,6 +123,7 @@ final class SearchViewModel: ViewModel {
         do {
             let query = input.searchTextChangeEvent.value
             try query.validate(validator: UnsplashSearchValidator())
+            output.searchState.send(.searching)
             searchRepository.search(
                 request: SearchRequest(
                     keyword: query,
@@ -145,6 +144,7 @@ final class SearchViewModel: ViewModel {
                 case .failure(let error):
                     Logger.error(error)
                     output.onError.send(())
+                    output.searchState.send(.none)
                 }
             }
         } catch {

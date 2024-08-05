@@ -46,13 +46,17 @@ final class SearchViewController: BaseViewController, View {
     }
     
     func bind(viewModel: SearchViewModel) {
+        let searchTextChangeEvent = CurrentValueSubject<String, Never>("")
+        
+        searchController.searchBar.searchTextField.textChangeEvent
+            .subscribe(searchTextChangeEvent)
+            .store(in: &cancelBag)
+        
         let output = viewModel.transform(
             input: SearchViewModel.Input(
                 viewWillAppearEvent: viewWillAppearEvent.dropFirst()
                     .eraseToAnyPublisher(),
-                searchTextChangeEvent: searchController.searchBar
-                    .searchTextField.textChangeEvent
-                    .asCurrentValueSubject(default: ""),
+                searchTextChangeEvent: searchTextChangeEvent,
                 queryEnterEvent: searchController.searchBar.searchTextField
                     .didEndOnExitEvent,
                 scrollReachedBottomEvent: scrollReachedBottomEvent.throttle(

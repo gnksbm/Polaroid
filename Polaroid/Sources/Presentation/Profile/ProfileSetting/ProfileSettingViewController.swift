@@ -110,12 +110,17 @@ final class ProfileSettingViewController: BaseViewController, View {
         )
         .eraseToAnyPublisher()
         
+        let nicknameChangeEvent = CurrentValueSubject<String, Never>("")
+        
+        nicknameTextField.textChangeEvent
+            .subscribe(nicknameChangeEvent)
+            .store(in: &cancelBag)
+        
         let output = viewModel.transform(
             input: ProfileSettingViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent, 
                 profileTapEvent: profileImageButton.tapEvent,
-                nicknameChangeEvent: nicknameTextField.textChangeEvent
-                    .asCurrentValueSubject(default: ""),
+                nicknameChangeEvent: nicknameChangeEvent,
                 mbtiSelectEvent: mbtiSelectionView.mbtiSelectEvent,
                 doneButtonTapEvent: doneButtonTapEvent,
                 removeAccountButtonTapEvent: removeAccountButton.tapEvent,
