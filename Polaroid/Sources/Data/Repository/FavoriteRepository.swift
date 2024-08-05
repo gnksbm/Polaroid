@@ -202,10 +202,13 @@ final class FavoriteRepository {
     }
     
     func removeImage(_ randomImage: RandomImage) throws -> RandomImage {
+        var newImage = randomImage
+        newImage.isLiked = false
+        newImage.localURL = nil
         guard let object = fetchObject().where(
             { $0.id.equals(randomImage.id) }
         ).first
-        else { return randomImage }
+        else { return newImage }
         if let localURL = randomImage.localURL {
             try imageStorage.removeImage(additionalPath: localURL)
         }
@@ -213,9 +216,6 @@ final class FavoriteRepository {
             try imageStorage.removeImage(additionalPath: profileURL)
         }
         try realmStorage.delete(object)
-        var newImage = randomImage
-        newImage.isLiked = false
-        newImage.localURL = nil
         return newImage
     }
     

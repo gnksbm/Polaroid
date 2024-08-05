@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 final class FavoriteDTO: Object {
-    @Persisted var id: String
+    @Persisted(primaryKey: true) var id: String
     @Persisted var imageURL: String?
     @Persisted var localURL: String?
     @Persisted var likeCount: Int?

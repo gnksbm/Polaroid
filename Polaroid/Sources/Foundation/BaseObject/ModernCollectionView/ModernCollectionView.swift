@@ -115,10 +115,12 @@ class ModernCollectionView
                 snapshot.appendItems(items, toSection: section)
             }
         }
-        diffableDataSource.apply(
-            snapshot,
-            animatingDifferences: withAnimating
-        )
+        DispatchQueue.main.async { [weak self] in
+            self?.diffableDataSource.apply(
+                snapshot,
+                animatingDifferences: withAnimating
+            )
+        }
     }
     
     // SingleSection

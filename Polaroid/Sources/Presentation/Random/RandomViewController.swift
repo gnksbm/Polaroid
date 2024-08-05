@@ -13,6 +13,7 @@ final class RandomViewController: BaseViewController, View {
     private let viewDidLoadEvent = Observable<Void>(())
     private let viewWillAppearEvent = Observable<Void>(())
     private var observableBag = ObservableBag()
+    private var cancelBag = CancelBag()
     
     private let collectionView = RandomCollectionView()
     
@@ -44,8 +45,7 @@ final class RandomViewController: BaseViewController, View {
                 viewDidLoadEvent: viewDidLoadEvent,
                 viewWillAppearEvent: viewWillAppearEvent,
                 itemSelectEvent: collectionView.cellTapEvent,
-                likeButtonTapEvent: collectionView.likeButtonTapEvent, 
-                pageChangeEvent: collectionView.pageChangeEvent
+                likeButtonTapEvent: collectionView.likeButtonTapEvent
             )
         )
         
@@ -66,15 +66,14 @@ final class RandomViewController: BaseViewController, View {
             .store(in: &observableBag)
         
         output.startDetailFlow
-            .bind { [weak self] image in
-                guard let self,
-                      let image else { return }
-                navigationController?.pushViewController(
+            .withUnretained(self)
+            .sink { vc, image in
+                vc.navigationController?.pushViewController(
                     DetailViewController(data: image),
                     animated: true
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.changedImage
             .bind { [weak self] randomImage in

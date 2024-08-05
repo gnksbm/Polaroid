@@ -5,6 +5,7 @@
 //  Created by gnksbm on 7/25/24.
 //
 
+import Combine
 import UIKit
 
 final class RandomCollectionView: 
@@ -28,12 +29,11 @@ final class RandomCollectionView:
         }
     }
     
-    let likeButtonTapEvent = Observable<RandomImageData?>(nil)
-    let pageChangeEvent = Observable<Int>(0)
-    let cellTapEvent = Observable<RandomImage?>(nil)
+    let likeButtonTapEvent = PassthroughSubject<RandomImageData?, Never>()
+    let cellTapEvent = PassthroughSubject<RandomImage, Never>()
+    private let pageChangeEvent = PassthroughSubject<Int, Never>()
+    private var cancelBag = CancelBag()
     
-    private let cellPagingEvent = Observable<Int>(0)
-    private var observableBag = ObservableBag()
     private let capsuleView = CapsuleView()
     
     override init() {
@@ -54,29 +54,28 @@ final class RandomCollectionView:
                 item: item
             )
             cell.likeButtonTapEvent
-                .bind(to: likeButtonTapEvent)
-                .store(in: &cell.observableBag)
+                .subscribe(likeButtonTapEvent)
+                .store(in: &cell.cancelBag)
             return cell
         }
     }
     
     override func applyItem(items: [RandomImage], withAnimating: Bool = true) {
         super.applyItem(items: items, withAnimating: withAnimating)
-        observableBag.cancel()
+        cancelBag.cancel()
         capsuleView.updateLabel(
             text: "\(min(1, items.count)) / \(items.count)"
         )
-        cellPagingEvent
-            .bind { [weak self] cellIndex in
-                guard let self else { return }
+        pageChangeEvent
+            .withUnretained(self)
+            .sink { view, cellIndex in
                 let itemCount =
-                diffableDataSource.snapshot(for: .main).items.count
-                capsuleView.updateLabel(
+                view.diffableDataSource.snapshot(for: .main).items.count
+                view.capsuleView.updateLabel(
                     text: "\(min(cellIndex + 1, itemCount)) / \(itemCount)"
                 )
-                pageChangeEvent.onNext(min(cellIndex + 1, itemCount))
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
     }
     
     private func configureLayout() {
@@ -103,13 +102,15 @@ extension RandomCollectionView: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        let selectedItem = (collectionView as? Self)?.getItem(for: indexPath)
-        cellTapEvent.onNext(selectedItem)
+        if let selectedItem = 
+            (collectionView as? Self)?.getItem(for: indexPath) {
+            cellTapEvent.send(selectedItem)
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentCellIndex =
         Int(scrollView.contentOffset.y / scrollView.bounds.height)
-        cellPagingEvent.onNext(currentCellIndex)
+        pageChangeEvent.send(currentCellIndex)
     }
 }

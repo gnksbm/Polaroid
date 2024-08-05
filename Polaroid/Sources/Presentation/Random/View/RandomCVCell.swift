@@ -5,6 +5,7 @@
 //  Created by gnksbm on 7/25/24.
 //
 
+import Combine
 import UIKit
 
 import Neat
@@ -29,22 +30,20 @@ final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
                 isLiked: item.isLiked
             )
             cell.createInfoView.likeButtonTapEvent
-                .sink { profileImageData in
-                    cell.likeButtonTapEvent.onNext(
-                        RandomImageData(
-                            item: item,
-                            imageData: cell.imageView.image?
-                                .jpegData(compressionQuality: 1),
-                            profileImageData: profileImageData
-                        )
+                .map { profileImageData in
+                    RandomImageData(
+                        item: item,
+                        imageData: cell.imageView.image?
+                            .jpegData(compressionQuality: 1),
+                        profileImageData: profileImageData
                     )
                 }
+                .subscribe(cell.likeButtonTapEvent)
                 .store(in: &cell.cancelBag)
         }
     }
     
-    let likeButtonTapEvent = Observable<RandomImageData?>(nil)
-    var observableBag = ObservableBag()
+    let likeButtonTapEvent = PassthroughSubject<RandomImageData?, Never>()
     var cancelBag = CancelBag()
     
     private var imageTask: DownloadTask?
@@ -57,7 +56,6 @@ final class RandomCVCell: BaseCollectionViewCell, RegistrableCellType {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        observableBag.cancel()
         cancelBag.cancel()
         imageView.image = nil
         imageTask?.cancel()

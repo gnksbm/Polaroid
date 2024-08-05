@@ -5,6 +5,7 @@
 //  Created by gnksbm on 7/25/24.
 //
 
+import Combine
 import Foundation
 
 final class RandomViewModel: ViewModel {
@@ -12,12 +13,13 @@ final class RandomViewModel: ViewModel {
     private var favoriteRepository = FavoriteRepository.shared
     
     private var observableBag = ObservableBag()
+    private var cancelBag = CancelBag()
     
     func transform(input: Input) -> Output {
         let output = Output(
             randomImages: Observable<[RandomImage]>([]),
             onError: Observable<Void>(()),
-            startDetailFlow: Observable<RandomImage?>(nil),
+            startDetailFlow: PassthroughSubject<RandomImage, Never>(),
             changedImage: Observable<RandomImage?>(nil)
         )
         
@@ -41,11 +43,11 @@ final class RandomViewModel: ViewModel {
             .store(in: &observableBag)
         
         input.itemSelectEvent
-            .bind(to: output.startDetailFlow)
-            .store(in: &observableBag)
+            .subscribe(output.startDetailFlow)
+            .store(in: &cancelBag)
         
         input.likeButtonTapEvent
-            .bind { [weak self] randomImage in
+            .sink { [weak self] randomImage in
                 guard let self,
                       let randomImage else { return }
                 do {
@@ -63,7 +65,7 @@ final class RandomViewModel: ViewModel {
                     output.onError.onNext(())
                 }
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         return output
     }
@@ -88,15 +90,14 @@ extension RandomViewModel {
     struct Input {
         let viewDidLoadEvent: Observable<Void>
         let viewWillAppearEvent: Observable<Void>
-        let itemSelectEvent: Observable<RandomImage?>
-        let likeButtonTapEvent: Observable<RandomImageData?>
-        let pageChangeEvent: Observable<Int>
+        let itemSelectEvent: PassthroughSubject<RandomImage, Never>
+        let likeButtonTapEvent: PassthroughSubject<RandomImageData?, Never>
     }
     
     struct Output {
         let randomImages: Observable<[RandomImage]>
         let onError: Observable<Void>
-        let startDetailFlow: Observable<RandomImage?>
+        let startDetailFlow: PassthroughSubject<RandomImage, Never>
         let changedImage: Observable<RandomImage?>
     }
 }
