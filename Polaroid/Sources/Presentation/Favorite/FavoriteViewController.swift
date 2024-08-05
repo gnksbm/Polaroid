@@ -5,14 +5,15 @@
 //  Created by gnksbm on 7/26/24.
 //
 
+import Combine
 import UIKit
 
 import Neat
 import SnapKit
 
 final class FavoriteViewController: BaseViewController, View {
-    private let viewWillAppearEvent = Observable<Void>(())
-    private var observableBag = ObservableBag()
+    private let viewWillAppearEvent = PassthroughSubject<Void, Never>()
+    private var cancelBag = CancelBag()
     
     private lazy var sortButton = SortOptionButton<FavoriteSortOption>()
     private lazy var colorButtonView = ColorButtonView()
@@ -26,7 +27,7 @@ final class FavoriteViewController: BaseViewController, View {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewWillAppearEvent.onNext(())
+        viewWillAppearEvent.send(())
     }
     
     override func viewDidLayoutSubviews() {
@@ -41,12 +42,12 @@ final class FavoriteViewController: BaseViewController, View {
                 sortOptionSelectEvent: sortButton.sortSelectEvent,
                 colorOptionSelectEvent: colorButtonView.colorSelectEvent,
                 likeButtonTapEvent: collectionView.likeButtonTapEvent, 
-                itemSelectEvent: collectionView.obDidSelectItemEvent
-                    .map { [weak self] indexPath in
-                        guard let self,
-                              let indexPath else { return nil }
-                        return collectionView.getItem(for: indexPath)
+                itemSelectEvent: collectionView.didSelectItemEvent
+                    .withUnretained(self)
+                    .map { vc, indexPath in
+                        vc.collectionView.getItem(for: indexPath)
                     }
+                    .eraseToAnyPublisher()
             )
         )
         
@@ -57,42 +58,42 @@ final class FavoriteViewController: BaseViewController, View {
         }
         
         output.images
-            .bind { [weak self] images in
-                guard let self else { return }
+            .withUnretained(self)
+            .sink { vc, images in
                 if images.isEmpty {
                     collectionViewBGView.text =
                     Literal.Favorite.emptyResultBackground
-                    collectionView.backgroundView = collectionViewBGView
+                    vc.collectionView.backgroundView = collectionViewBGView
                 } else {
-                    collectionView.backgroundView = nil
+                    vc.collectionView.backgroundView = nil
                 }
-                collectionView.applyItem(items: images)
+                vc.collectionView.applyItem(items: images)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.removeSuccessed
-            .bind { [weak self] _ in
-                self?.showToast(message: "💔")
+            .withUnretained(self)
+            .sink { vc, _ in
+                vc.showToast(message: "💔")
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.onError
-            .bind { [weak self] _ in
-                guard let self else { return }
-                showToast(message: "오류가 발생했습니다")
+            .withUnretained(self)
+            .sink { vc, _ in
+                vc.showToast(message: "오류가 발생했습니다")
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.startDetailFlow
-            .bind { [weak self] image in
-                guard let self,
-                      let image else { return }
-                navigationController?.pushViewController(
+            .withUnretained(self)
+            .sink { vc, image in
+                vc.navigationController?.pushViewController(
                     DetailViewController(data: image),
                     animated: true
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
     }
     
     override func configureLayout() {

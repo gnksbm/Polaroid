@@ -11,38 +11,37 @@ import Combine
 final class FavoriteViewModel: ViewModel {
     private let favoriteRepository = FavoriteRepository.shared
     
-    private var observableBag = ObservableBag()
     private var cancelBag = CancelBag()
     
     func transform(input: Input) -> Output {
         let output = Output(
-            images: Observable<[LikableImage]>([]),
-            removeSuccessed: Observable<Void>(()),
-            onError: Observable<Void>(()),
-            startDetailFlow: Observable<LikableImage?>(nil)
+            images: PassthroughSubject(),
+            removeSuccessed: PassthroughSubject(),
+            onError: PassthroughSubject(),
+            startDetailFlow: input.itemSelectEvent
         )
         
         input.viewWillAppearEvent
-            .bind { [weak self] _ in
-                guard let self else { return }
-                output.images.onNext(favoriteRepository.fetchImage())
+            .withUnretained(self)
+            .sink { vm, _ in
+                output.images.send(vm.favoriteRepository.fetchImage())
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.sortOptionSelectEvent
             .withUnretained(self)
             .sink { vm, sortOption in
-                output.images.onNext(
+                output.images.send(
                     vm.favoriteRepository.fetchImage(with: sortOption)
                 )
             }
             .store(in: &cancelBag)
         
         input.colorOptionSelectEvent
-            .sink { [weak self] colorOption in
-                guard let self else { return }
-                output.images.onNext(
-                    favoriteRepository.fetchImage(with: colorOption)
+            .withUnretained(self)
+            .sink { vm, colorOption in
+                output.images.send(
+                    vm.favoriteRepository.fetchImage(with: colorOption)
                 )
             }
             .store(in: &cancelBag)
@@ -52,19 +51,15 @@ final class FavoriteViewModel: ViewModel {
             .sink { vm, imageData in
                 do {
                     _ = try vm.favoriteRepository.removeImage(imageData.item)
-                    output.images.onNext(
+                    output.images.send(
                         vm.favoriteRepository.fetchImage()
                     )
-                    output.removeSuccessed.onNext(())
+                    output.removeSuccessed.send(())
                 } catch {
-                    output.onError.onNext(())
+                    output.onError.send(())
                 }
             }
             .store(in: &cancelBag)
-        
-        input.itemSelectEvent
-            .bind(to: output.startDetailFlow)
-            .store(in: &observableBag)
         
         return output
     }
@@ -72,18 +67,18 @@ final class FavoriteViewModel: ViewModel {
 
 extension FavoriteViewModel {
     struct Input {
-        let viewWillAppearEvent: Observable<Void>
-        let sortOptionSelectEvent: 
+        let viewWillAppearEvent: PassthroughSubject<Void, Never>
+        let sortOptionSelectEvent:
         CurrentValueSubject<FavoriteSortOption, Never>
         let colorOptionSelectEvent: CurrentValueSubject<ColorOption?, Never>
         let likeButtonTapEvent: PassthroughSubject<LikableImageData, Never>
-        let itemSelectEvent: Observable<LikableImage?>
+        let itemSelectEvent: AnyPublisher<LikableImage, Never>
     }
     
     struct Output {
-        let images: Observable<[LikableImage]>
-        let removeSuccessed: Observable<Void>
-        let onError: Observable<Void>
-        let startDetailFlow: Observable<LikableImage?>
+        let images: PassthroughSubject<[LikableImage], Never>
+        let removeSuccessed: PassthroughSubject<Void, Never>
+        let onError: PassthroughSubject<Void, Never>
+        let startDetailFlow: AnyPublisher<LikableImage, Never>
     }
 }
