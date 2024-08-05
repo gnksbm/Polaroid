@@ -14,7 +14,6 @@ final class DetailViewModel: ViewModel {
     private let statisticsRepository = StatisticsRepository.shared
     private let favoriteRepository = FavoriteRepository.shared
     
-    private var observableBag = ObservableBag()
     private var cancelBag = CancelBag()
     
     init<T: MinimumImageData>(data: T) {
@@ -23,55 +22,55 @@ final class DetailViewModel: ViewModel {
     
     func transform(input: Input) -> Output {
         let output = Output(
-            detailImage: Observable<DetailImage?>(nil),
-            changedImage: Observable<DetailImage?>(nil),
-            onError: Observable<Void>(())
+            detailImage: CurrentValueSubject(nil),
+            changedImage: CurrentValueSubject(nil),
+            onError: PassthroughSubject()
         )
         
         input.viewDidLoadEvent
-            .bind { [weak self] _ in
+            .sink { [weak self] _ in
                 guard let self else { return }
                 statisticsRepository.fetchStatistics(
                     imageData: data
                 ) { result in
                     switch result {
                     case .success(let success):
-                        output.detailImage.onNext(
+                        output.detailImage.send(
                             self.favoriteRepository.reConfigureImage(success)
                         )
                     case .failure(let error):
-                        output.detailImage.onNext(
+                        output.detailImage.send(
                             DetailImage(minImageData: self.data)
                         )
                         Logger.error(error)
                     }
                 }
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.viewWillAppearEvent
-            .bind { [weak self] _ in
+            .sink { [weak self] _ in
                 guard let self,
-                      let detailImage = output.detailImage.value()
+                      let detailImage = output.detailImage.value
                 else { return }
                 let newImage = favoriteRepository.reConfigureImage(detailImage)
-                output.detailImage.onNext(newImage)
+                output.detailImage.send(newImage)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.likeButtonTapEvent
             .withUnretained(self)
             .sink { vm, data in
-                guard var detailImage = output.detailImage.value()
+                guard var detailImage = output.detailImage.value
                 else { return }
-                if let currentImage = output.changedImage.value() {
+                if let currentImage = output.changedImage.value {
                     detailImage = currentImage
                 }
                 do {
                     if detailImage.isLiked {
                         let newImage =
                         try vm.favoriteRepository.removeImage(detailImage)
-                        output.changedImage.onNext(newImage)
+                        output.changedImage.send(newImage)
                     } else {
                         let newImage =
                         try vm.favoriteRepository.saveImage(
@@ -79,11 +78,11 @@ final class DetailViewModel: ViewModel {
                             imageData: data.0,
                             profileImageData: data.1
                         )
-                        output.changedImage.onNext(newImage)
+                        output.changedImage.send(newImage)
                     }
                 } catch {
                     Logger.error(error)
-                    output.onError.onNext(())
+                    output.onError.send(())
                 }
             }
             .store(in: &cancelBag)
@@ -94,14 +93,14 @@ final class DetailViewModel: ViewModel {
 
 extension DetailViewModel {
     struct Input {
-        let viewDidLoadEvent: Observable<Void>
-        let viewWillAppearEvent: Observable<Void>
+        let viewDidLoadEvent: PassthroughSubject<Void, Never>
+        let viewWillAppearEvent: PassthroughSubject<Void, Never>
         let likeButtonTapEvent: AnyPublisher<(Data?, Data?), Never>
     }
     
     struct Output {
-        let detailImage: Observable<DetailImage?>
-        let changedImage: Observable<DetailImage?>
-        let onError: Observable<Void>
+        let detailImage: CurrentValueSubject<DetailImage?, Never>
+        let changedImage: CurrentValueSubject<DetailImage?, Never>
+        let onError: PassthroughSubject<Void, Never>
     }
 }

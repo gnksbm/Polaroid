@@ -5,15 +5,16 @@
 //  Created by gnksbm on 7/28/24.
 //
 
+import Combine
 import UIKit
 
 import Neat
 import SnapKit
 
 final class DetailViewController: BaseViewController, View {
-    private let viewDidLoadEvent = Observable<Void>(())
-    private let viewWillAppearEvent = Observable<Void>(())
-    private var observableBag = ObservableBag()
+    private let viewDidLoadEvent = PassthroughSubject<Void, Never>()
+    private let viewWillAppearEvent = PassthroughSubject<Void, Never>()
+    private var cancelBag = CancelBag()
     
     private let createInfoView = ImageCreateInfoView().nt.configure {
         $0.textColor(MPDesign.Color.black)
@@ -41,12 +42,12 @@ final class DetailViewController: BaseViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewDidLoadEvent.onNext(())
+        viewDidLoadEvent.send(())
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewWillAppearEvent.onNext(())
+        viewWillAppearEvent.send(())
     }
     
     func bind(viewModel: DetailViewModel) {
@@ -66,27 +67,28 @@ final class DetailViewController: BaseViewController, View {
         )
         
         output.detailImage
-            .bind { [weak self] detailImage in
-                self?.updateView(detailImage: detailImage)
+            .withUnretained(self)
+            .sink { vc, detailImage in
+                vc.updateView(detailImage: detailImage)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.changedImage
-            .bind { [weak self] detailImage in
-                guard let self,
-                      let detailImage else { return }
-                updateView(detailImage: detailImage)
-                showToast(message: detailImage.isLiked ? "❤️" : "💔")
+            .withUnretained(self)
+            .sink { vc, detailImage in
+                guard let detailImage else { return }
+                vc.updateView(detailImage: detailImage)
+                vc.showToast(message: detailImage.isLiked ? "❤️" : "💔")
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.onError
-            .bind { [weak self] _ in
-                guard let self else { return }
-                showToast(message: "오류가 발생했습니다")
-                hideProgressView()
+            .withUnretained(self)
+            .sink { vc, _ in
+                vc.showToast(message: "오류가 발생했습니다")
+                vc.hideProgressView()
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
     }
     
     override func configureLayout() {
