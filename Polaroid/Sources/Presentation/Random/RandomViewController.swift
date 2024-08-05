@@ -5,14 +5,14 @@
 //  Created by gnksbm on 7/24/24.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 
 final class RandomViewController: BaseViewController, View {
-    private let viewDidLoadEvent = Observable<Void>(())
-    private let viewWillAppearEvent = Observable<Void>(())
-    private var observableBag = ObservableBag()
+    private let viewDidLoadEvent = PassthroughSubject<Void, Never>()
+    private let viewWillAppearEvent = PassthroughSubject<Void, Never>()
     private var cancelBag = CancelBag()
     
     private let collectionView = RandomCollectionView()
@@ -25,13 +25,13 @@ final class RandomViewController: BaseViewController, View {
     override func viewDidLoad() {
         super.viewDidLoad()
         showProgressView()
-        viewDidLoadEvent.onNext(())
+        viewDidLoadEvent.send(())
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        viewWillAppearEvent.onNext(())
+        viewWillAppearEvent.send(())
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -50,20 +50,20 @@ final class RandomViewController: BaseViewController, View {
         )
         
         output.randomImages
-            .bind { [weak self] items in
-                guard let self else { return }
-                collectionView.applyItem(items: items)
-                hideProgressView()
+            .withUnretained(self)
+            .sink { vc, items in
+                vc.collectionView.applyItem(items: items)
+                vc.hideProgressView()
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.onError
-            .bind { [weak self] _ in
-                guard let self else { return }
-                showToast(message: "오류가 발생했습니다")
-                hideProgressView()
+            .withUnretained(self)
+            .sink { vc, _ in
+                vc.showToast(message: "오류가 발생했습니다")
+                vc.hideProgressView()
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.startDetailFlow
             .withUnretained(self)
@@ -76,13 +76,12 @@ final class RandomViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.changedImage
-            .bind { [weak self] randomImage in
-                guard let self,
-                      let randomImage else { return }
-                collectionView.updateItems([randomImage])
-                showToast(message: randomImage.isLiked ? "❤️" : "💔")
+            .withUnretained(self)
+            .sink { vc, randomImage in
+                vc.collectionView.updateItems([randomImage])
+                vc.showToast(message: randomImage.isLiked ? "❤️" : "💔")
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
     }
     
     override func configureLayout() {

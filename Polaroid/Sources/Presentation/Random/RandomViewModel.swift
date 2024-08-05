@@ -12,35 +12,34 @@ final class RandomViewModel: ViewModel {
     private var randomRepository = RandomRepository.shared
     private var favoriteRepository = FavoriteRepository.shared
     
-    private var observableBag = ObservableBag()
     private var cancelBag = CancelBag()
     
     func transform(input: Input) -> Output {
         let output = Output(
-            randomImages: Observable<[RandomImage]>([]),
-            onError: Observable<Void>(()),
-            startDetailFlow: PassthroughSubject<RandomImage, Never>(),
-            changedImage: Observable<RandomImage?>(nil)
+            randomImages: CurrentValueSubject([]),
+            onError: PassthroughSubject(),
+            startDetailFlow: PassthroughSubject(),
+            changedImage: PassthroughSubject()
         )
         
         input.viewDidLoadEvent
-            .bind { [weak self] _ in
-                self?.fetchImages(output: output)
+            .withUnretained(self)
+            .sink { vm, _ in
+                vm.fetchImages(output: output)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.viewWillAppearEvent
-            .bind { [weak self] _ in
-                guard let self else { return }
-                if output.randomImages.value().count < 10 {
-                    fetchImages(output: output)
+            .withUnretained(self)
+            .sink { vm, _ in
+                let images = output.randomImages.value
+                if images.count < 10 {
+                    vm.fetchImages(output: output)
                 }
-                let newImages = favoriteRepository.reConfigureImages(
-                    output.randomImages.value()
-                )
-                output.randomImages.onNext(newImages)
+                let newImages = vm.favoriteRepository.reConfigureImages(images)
+                output.randomImages.send(newImages)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.itemSelectEvent
             .subscribe(output.startDetailFlow)
@@ -51,18 +50,17 @@ final class RandomViewModel: ViewModel {
                 guard let self,
                       let randomImage else { return }
                 do {
+                    var newImage: RandomImage
                     if randomImage.item.isLiked {
-                        let newImage =
+                        newImage =
                         try favoriteRepository.removeImage(randomImage.item)
-                        output.changedImage.onNext(newImage)
                     } else {
-                        let newImage =
-                        try favoriteRepository.saveImage(randomImage)
-                        output.changedImage.onNext(newImage)
+                        newImage = try favoriteRepository.saveImage(randomImage)
                     }
+                    output.changedImage.send(newImage)
                 } catch {
                     Logger.error(error)
-                    output.onError.onNext(())
+                    output.onError.send(())
                 }
             }
             .store(in: &cancelBag)
@@ -74,13 +72,13 @@ final class RandomViewModel: ViewModel {
         randomRepository.fetchRandom { result in
             switch result {
             case .success(let imageList):
-                output.randomImages.onNext(
+                output.randomImages.send(
                     self.favoriteRepository.reConfigureImages(imageList)
                 )
             case .failure(let error):
                 dump(error)
                 Logger.error(error)
-                output.onError.onNext(())
+                output.onError.send(())
             }
         }
     }
@@ -88,16 +86,16 @@ final class RandomViewModel: ViewModel {
 
 extension RandomViewModel {
     struct Input {
-        let viewDidLoadEvent: Observable<Void>
-        let viewWillAppearEvent: Observable<Void>
+        let viewDidLoadEvent: PassthroughSubject<Void, Never>
+        let viewWillAppearEvent: PassthroughSubject<Void, Never>
         let itemSelectEvent: PassthroughSubject<RandomImage, Never>
         let likeButtonTapEvent: PassthroughSubject<RandomImageData?, Never>
     }
     
     struct Output {
-        let randomImages: Observable<[RandomImage]>
-        let onError: Observable<Void>
+        let randomImages: CurrentValueSubject<[RandomImage], Never>
+        let onError: PassthroughSubject<Void, Never>
         let startDetailFlow: PassthroughSubject<RandomImage, Never>
-        let changedImage: Observable<RandomImage?>
+        let changedImage: PassthroughSubject<RandomImage, Never>
     }
 }
