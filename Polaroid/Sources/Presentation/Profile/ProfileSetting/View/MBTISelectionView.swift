@@ -5,19 +5,20 @@
 //  Created by gnksbm on 7/22/24.
 //
 
+import Combine
 import UIKit
 
 import Neat
 
 final class MBTISelectionView: BaseView {
-    let mbtiSelectEvent = Observable<MBTI?>(nil)
+    let mbtiSelectEvent = CurrentValueSubject<MBTI?, Never>(nil)
     
     private var selectedEnergy: MBTI.Energy? = nil
     private var selectedPerception: MBTI.Perception? = nil
     private var selectedDecisionMaking: MBTI.DecisionMaking? = nil
     private var selectedLifestyle: MBTI.Lifestyle? = nil
     
-    private var observableBag = ObservableBag()
+    private var cancelBag = CancelBag()
     
     private let titleLabel = UILabel().nt.configure {
         $0.text(Literal.MBTI.title)
@@ -41,7 +42,7 @@ final class MBTISelectionView: BaseView {
     
     override init() {
         super.init()
-        bindSelectionView()
+        sinkSelectionView()
     }
     
     func updateMBTI(mbti: MBTI) {
@@ -68,34 +69,34 @@ final class MBTISelectionView: BaseView {
         }
     }
     
-    private func bindSelectionView() {
+    private func sinkSelectionView() {
         energyView.elementSelectEvent
-            .bind { [weak self] energe in
+            .sink { [weak self] energe in
                 self?.selectedEnergy = energe
                 self?.setMBTI()
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         perceptionView.elementSelectEvent
-            .bind { [weak self] perception in
+            .sink { [weak self] perception in
                 self?.selectedPerception = perception
                 self?.setMBTI()
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         decisionMakingView.elementSelectEvent
-            .bind { [weak self] decisionMaking in
+            .sink { [weak self] decisionMaking in
                 self?.selectedDecisionMaking = decisionMaking
                 self?.setMBTI()
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         lifestyleView.elementSelectEvent
-            .bind { [weak self] lifestyle in
+            .sink { [weak self] lifestyle in
                 self?.selectedLifestyle = lifestyle
                 self?.setMBTI()
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
     }
     
     private func setMBTI() {
@@ -105,6 +106,6 @@ final class MBTISelectionView: BaseView {
             decisionMaking: selectedDecisionMaking,
             lifestyle: selectedLifestyle
         )
-        mbtiSelectEvent.onNext(mbti)
+        mbtiSelectEvent.send(mbti)
     }
 }

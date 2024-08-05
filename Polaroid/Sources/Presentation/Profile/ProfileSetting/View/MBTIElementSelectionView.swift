@@ -5,24 +5,26 @@
 //  Created by gnksbm on 7/22/24.
 //
 
+import Combine
 import UIKit
 
 final class MBTIElementSelectionView
 <MBTIElement: MBTIElementType>: BaseStackView {
-    let elementSelectEvent = Observable<MBTIElement?>(nil)
-    private var observableBag = ObservableBag()
+    let elementSelectEvent = CurrentValueSubject<MBTIElement?, Never>(nil)
+    private var cancelBag = CancelBag()
     
     private lazy var buttons = MBTIElement.allCases.map { element in
         MBTIButton(dimension: .width).nt.configure {
             $0.setTitle(element.keyword, for: .normal)
                 .tag(element.rawValue)
                 .perform { button in
-                    button.tapEvent.asObservable()
-                        .bind { [weak self] button in
-                            guard let self else { return }
-                            bindButton(sender: button, element: element)
+                    button.tapEvent
+                        .map { button }
+                        .withUnretained(self)
+                        .sink { view, button in
+                            view.bindButton(sender: button, element: element)
                         }
-                        .store(in: &observableBag)
+                        .store(in: &cancelBag)
                 }
         }
     }
@@ -36,7 +38,7 @@ final class MBTIElementSelectionView
     }
     
     func updateSelection(element: MBTIElement) {
-        elementSelectEvent.onNext(element)
+        elementSelectEvent.send(element)
         buttons
             .first { button in
                 button.tag == element.rawValue
@@ -45,21 +47,21 @@ final class MBTIElementSelectionView
     }
     
     private func bindButton(sender: MBTIButton, element: MBTIElement) {
-        let selectedValue = elementSelectEvent.value()
+        let selectedValue = elementSelectEvent.value
         if selectedValue == nil {
             sender.selectedState.send(true)
-            elementSelectEvent.onNext(element)
+            elementSelectEvent.send(element)
         } else {
             if selectedValue == element {
                 sender.selectedState.send(false)
-                elementSelectEvent.onNext(nil)
+                elementSelectEvent.send(nil)
             } else {
                 buttons.filter { $0 !== sender }
                     .forEach { button in
                         button.selectedState.send(false)
                     }
                 sender.selectedState.send(true)
-                elementSelectEvent.onNext(element)
+                elementSelectEvent.send(element)
             }
         }
     }

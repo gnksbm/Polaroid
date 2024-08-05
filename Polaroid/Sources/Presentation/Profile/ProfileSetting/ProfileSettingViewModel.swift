@@ -5,6 +5,7 @@
 //  Created by gnksbm on 7/22/24.
 //
 
+import Combine
 import UIKit
 
 final class ProfileSettingViewModel: ViewModel {
@@ -14,6 +15,7 @@ final class ProfileSettingViewModel: ViewModel {
     
     private let selectedImage = Observable<UIImage?>(nil)
     private var observableBag = ObservableBag()
+    private var cancelBag = CancelBag()
     
     init(flowType: FlowType) {
         self.flowType = flowType
@@ -24,8 +26,8 @@ final class ProfileSettingViewModel: ViewModel {
             selectedImage: Observable<UIImage?>(nil), 
             validationResult: Observable<ValidationResult?>(nil),
             startEditProfileFlow: Observable<Void>(()),
-            doneButtonEnable: Observable<Bool>(false), 
-            startMainTabFlow: Observable<Void>(()), 
+            doneButtonEnable: PassthroughSubject(),
+            startMainTabFlow: Observable<Void>(()),
             selectedUser: Observable<User?>(nil), 
             finishFlow: Observable<Void>(()), 
             showRemoveAccountButton: Observable<Void>(()), 
@@ -74,10 +76,10 @@ final class ProfileSettingViewModel: ViewModel {
                         .failure(message)
                     )
                 }
-                output.doneButtonEnable.onNext(
+                output.doneButtonEnable.send(
                     requiredInputFilled(
                         nickname: nickname,
-                        mbti: input.mbtiSelectEvent.value(),
+                        mbti: input.mbtiSelectEvent.value,
                         output: output
                     )
                 )
@@ -93,8 +95,8 @@ final class ProfileSettingViewModel: ViewModel {
                     output: output
                 )
             }
-            .bind(to: output.doneButtonEnable)
-            .store(in: &observableBag)
+            .subscribe(output.doneButtonEnable)
+            .store(in: &cancelBag)
         
         input.doneButtonTapEvent
             .bind { [weak self] _ in
@@ -126,7 +128,7 @@ final class ProfileSettingViewModel: ViewModel {
         @UserDefaultsWrapper(key: .user, defaultValue: nil)
         var user: User?
         guard let imageData = selectedImage.value()?.pngData(),
-              let mbti = input.mbtiSelectEvent.value() else { return }
+              let mbti = input.mbtiSelectEvent.value else { return }
         user = User(
             profileImageData: imageData,
             name: input.nicknameChangeEvent.value(),
@@ -168,7 +170,7 @@ extension ProfileSettingViewModel {
         let viewDidLoadEvent: Observable<Void>
         let profileTapEvent: Observable<Void>
         let nicknameChangeEvent: Observable<String>
-        let mbtiSelectEvent: Observable<MBTI?>
+        let mbtiSelectEvent: CurrentValueSubject<MBTI?, Never>
         let doneButtonTapEvent: Observable<Void>
         let removeAccountButtonTapEvent: Observable<Void>
         let removeAlertTapEvent: Observable<Void>
@@ -178,7 +180,7 @@ extension ProfileSettingViewModel {
         let selectedImage: Observable<UIImage?>
         let validationResult: Observable<ValidationResult?>
         let startEditProfileFlow: Observable<Void>
-        let doneButtonEnable: Observable<Bool>
+        let doneButtonEnable: PassthroughSubject<Bool, Never>
         let startMainTabFlow: Observable<Void>
         let selectedUser: Observable<User?>
         let finishFlow: Observable<Void>

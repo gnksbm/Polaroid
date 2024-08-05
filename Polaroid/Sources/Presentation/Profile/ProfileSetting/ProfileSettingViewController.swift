@@ -14,6 +14,7 @@ final class ProfileSettingViewController: BaseViewController, View {
     private var viewDidLoadEvent = Observable<Void>(())
     private var removeAlertTapEvent = Observable<Void>(())
     private var observableBag = ObservableBag()
+    private var cancelBag = CancelBag()
     
     private let profileImageButton = ProfileImageButton(
         type: .static,
@@ -166,11 +167,12 @@ final class ProfileSettingViewController: BaseViewController, View {
             .store(in: &observableBag)
         
         output.doneButtonEnable
-            .bind { [weak self] isEnabled in
-                self?.doneButton.isEnabled = isEnabled
-                self?.saveButton.isEnabled = isEnabled
+            .withUnretained(self)
+            .sink { vc, isEnabled in
+                vc.doneButton.isEnabled = isEnabled
+                vc.saveButton.isEnabled = isEnabled
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.startMainTabFlow
             .bind { [weak self] _ in
