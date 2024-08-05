@@ -13,8 +13,7 @@ final class ProfileSettingViewModel: ViewModel {
     
     private let favoriteRepository = FavoriteRepository.shared
     
-    private let selectedImage = Observable<UIImage?>(nil)
-    private var observableBag = ObservableBag()
+    private let selectedImage = CurrentValueSubject<UIImage?, Never>(nil)
     private var cancelBag = CancelBag()
     
     init(flowType: FlowType) {
@@ -23,56 +22,56 @@ final class ProfileSettingViewModel: ViewModel {
     
     func transform(input: Input) -> Output {
         let output = Output(
-            selectedImage: Observable<UIImage?>(nil), 
-            validationResult: Observable<ValidationResult?>(nil),
-            startEditProfileFlow: Observable<Void>(()),
+            selectedImage: PassthroughSubject(),
+            validationResult: CurrentValueSubject(nil),
+            startEditProfileFlow: PassthroughSubject(),
             doneButtonEnable: PassthroughSubject(),
-            startMainTabFlow: Observable<Void>(()),
-            selectedUser: Observable<User?>(nil), 
-            finishFlow: Observable<Void>(()), 
-            showRemoveAccountButton: Observable<Void>(()), 
-            showRemoveAlert: Observable<Void>(())
+            startMainTabFlow: PassthroughSubject(),
+            selectedUser: PassthroughSubject(),
+            finishFlow: PassthroughSubject(),
+            showRemoveAccountButton: PassthroughSubject(),
+            showRemoveAlert: PassthroughSubject()
         )
         
         selectedImage
-            .bind(to: output.selectedImage)
-            .store(in: &observableBag)
+            .subscribe(output.selectedImage)
+            .store(in: &cancelBag)
         
         input.viewDidLoadEvent
-            .bind { [weak self] _ in
-                guard let self else { return }
-                switch flowType {
+            .withUnretained(self)
+            .sink { vm, _ in
+                switch vm.flowType {
                 case .register:
-                    selectedImage.onNext(
+                    vm.selectedImage.send(
                         Literal.Image.defaultProfileList.randomElement()
                     )
                 case .edit:
                     @UserDefaultsWrapper(key: .user, defaultValue: nil)
                     var user: User?
                     guard let user else { return }
-                    selectedImage.onNext(UIImage(data: user.profileImageData))
-                    output.selectedUser.onNext(user)
-                    output.showRemoveAccountButton.onNext(())
+                    vm.selectedImage.send(UIImage(data: user.profileImageData))
+                    output.selectedUser.send(user)
+                    output.showRemoveAccountButton.send(())
                 }
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.profileTapEvent
-            .bind(to: output.startEditProfileFlow)
-            .store(in: &observableBag)
+            .subscribe(output.startEditProfileFlow)
+            .store(in: &cancelBag)
         
         input.nicknameChangeEvent
-            .bind { [weak self] nickname in
+            .sink { [weak self] nickname in
                 guard let self else { return }
                 do {
                     try nickname.validate(validator: NicknameValidator())
                     let message = Literal.Nickname.validationSuccess
-                    output.validationResult.onNext(
+                    output.validationResult.send(
                         .success(message)
                     )
                 } catch {
                     let message = error.localizedDescription
-                    output.validationResult.onNext(
+                    output.validationResult.send(
                         .failure(message)
                     )
                 }
@@ -84,13 +83,13 @@ final class ProfileSettingViewModel: ViewModel {
                     )
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.mbtiSelectEvent
             .map { [weak self] mbti in
                 guard let self else { return false }
                 return requiredInputFilled(
-                    nickname: input.nicknameChangeEvent.value(),
+                    nickname: input.nicknameChangeEvent.value,
                     mbti: mbti,
                     output: output
                 )
@@ -99,27 +98,27 @@ final class ProfileSettingViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.doneButtonTapEvent
-            .bind { [weak self] _ in
+            .sink { [weak self] _ in
                 guard let self else { return }
                 createUser(input: input, output: output)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.removeAccountButtonTapEvent
-            .bind { _ in
-                output.showRemoveAlert.onNext(())
+            .sink { _ in
+                output.showRemoveAlert.send(())
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.removeAlertTapEvent
-            .bind { [weak self] _ in
+            .sink { [weak self] _ in
                 @UserDefaultsWrapper(key: .user, defaultValue: nil)
                 var user: User?
                 _user.removeValue()
                 try? self?.favoriteRepository.removeAll()
-                output.startMainTabFlow.onNext(())
+                output.startMainTabFlow.send(())
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         return output
     }
@@ -127,18 +126,18 @@ final class ProfileSettingViewModel: ViewModel {
     private func createUser(input: Input, output: Output) {
         @UserDefaultsWrapper(key: .user, defaultValue: nil)
         var user: User?
-        guard let imageData = selectedImage.value()?.pngData(),
+        guard let imageData = selectedImage.value?.pngData(),
               let mbti = input.mbtiSelectEvent.value else { return }
         user = User(
             profileImageData: imageData,
-            name: input.nicknameChangeEvent.value(),
+            name: input.nicknameChangeEvent.value,
             mbti: mbti
         )
         switch flowType {
         case .register:
-            output.startMainTabFlow.onNext(())
+            output.startMainTabFlow.send(())
         case .edit:
-            output.finishFlow.onNext(())
+            output.finishFlow.send(())
         }
     }
     
@@ -147,7 +146,7 @@ final class ProfileSettingViewModel: ViewModel {
         mbti: MBTI?,
         output: Output
     ) -> Bool {
-        switch output.validationResult.value() {
+        switch output.validationResult.value {
         case .success:
             switch flowType {
             case .register:
@@ -157,7 +156,7 @@ final class ProfileSettingViewModel: ViewModel {
                 var user: User?
                 return !nickname.isEmpty && mbti != nil &&
                 (nickname != user?.name || mbti != user?.mbti ||
-                selectedImage.value()?.pngData() != user?.profileImageData)
+                selectedImage.value?.pngData() != user?.profileImageData)
             }
         default:
             return false
@@ -167,25 +166,25 @@ final class ProfileSettingViewModel: ViewModel {
 
 extension ProfileSettingViewModel {
     struct Input {
-        let viewDidLoadEvent: Observable<Void>
-        let profileTapEvent: Observable<Void>
-        let nicknameChangeEvent: Observable<String>
+        let viewDidLoadEvent: PassthroughSubject<Void, Never>
+        let profileTapEvent: AnyPublisher<Void, Never>
+        let nicknameChangeEvent: CurrentValueSubject<String, Never>
         let mbtiSelectEvent: CurrentValueSubject<MBTI?, Never>
-        let doneButtonTapEvent: Observable<Void>
-        let removeAccountButtonTapEvent: Observable<Void>
-        let removeAlertTapEvent: Observable<Void>
+        let doneButtonTapEvent: AnyPublisher<Void, Never>
+        let removeAccountButtonTapEvent: AnyPublisher<Void, Never>
+        let removeAlertTapEvent: AnyPublisher<Void, Never>
     }
     
     struct Output {
-        let selectedImage: Observable<UIImage?>
-        let validationResult: Observable<ValidationResult?>
-        let startEditProfileFlow: Observable<Void>
+        let selectedImage: PassthroughSubject<UIImage?, Never>
+        let validationResult: CurrentValueSubject<ValidationResult?, Never>
+        let startEditProfileFlow: PassthroughSubject<Void, Never>
         let doneButtonEnable: PassthroughSubject<Bool, Never>
-        let startMainTabFlow: Observable<Void>
-        let selectedUser: Observable<User?>
-        let finishFlow: Observable<Void>
-        let showRemoveAccountButton: Observable<Void>
-        let showRemoveAlert: Observable<Void>
+        let startMainTabFlow: PassthroughSubject<Void, Never>
+        let selectedUser: PassthroughSubject<User, Never>
+        let finishFlow: PassthroughSubject<Void, Never>
+        let showRemoveAccountButton: PassthroughSubject<Void, Never>
+        let showRemoveAlert: PassthroughSubject<Void, Never>
     }
     
     enum ValidationResult {
@@ -199,6 +198,6 @@ extension ProfileSettingViewModel {
 
 extension ProfileSettingViewModel: ProfileImageViewModelDelegate {
     func finishedFlow(with: UIImage?) {
-        selectedImage.onNext(with)
+        selectedImage.send(with)
     }
 }

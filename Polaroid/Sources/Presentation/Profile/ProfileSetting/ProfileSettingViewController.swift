@@ -5,15 +5,15 @@
 //  Created by gnksbm on 7/22/24.
 //
 
+import Combine
 import UIKit
 
 import Neat
 import SnapKit
 
 final class ProfileSettingViewController: BaseViewController, View {
-    private var viewDidLoadEvent = Observable<Void>(())
-    private var removeAlertTapEvent = Observable<Void>(())
-    private var observableBag = ObservableBag()
+    private var viewDidLoadEvent = PassthroughSubject<Void, Never>()
+    private var removeAlertTapEvent = PassthroughSubject<Void, Never>()
     private var cancelBag = CancelBag()
     
     private let profileImageButton = ProfileImageButton(
@@ -94,7 +94,7 @@ final class ProfileSettingViewController: BaseViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewDidLoadEvent.onNext(())
+        viewDidLoadEvent.send(())
         hideKeaboardOnTap()
     }
     
@@ -104,67 +104,65 @@ final class ProfileSettingViewController: BaseViewController, View {
     }
     
     func bind(viewModel: ProfileSettingViewModel) {
-        let doneButtonTapEvent = doneButton.tapEvent.asObservable()
-            .map { _ in }
-        saveButton.tapEvent
-            .bind { _ in
-                doneButtonTapEvent.onNext(())
-            }
-            .store(in: &observableBag)
+        let doneButtonTapEvent = Publishers.Merge(
+            doneButton.tapEvent,
+            saveButton.tapEvent
+        )
+        .eraseToAnyPublisher()
         
         let output = viewModel.transform(
             input: ProfileSettingViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent, 
-                profileTapEvent: profileImageButton.tapEvent.asObservable()
-                    .map { _ in }, 
+                profileTapEvent: profileImageButton.tapEvent,
                 nicknameChangeEvent: nicknameTextField.textChangeEvent
-                    .asObservable()
-                    .map { $0.text ?? "" },
+                    .asCurrentValueSubject(default: ""),
                 mbtiSelectEvent: mbtiSelectionView.mbtiSelectEvent,
                 doneButtonTapEvent: doneButtonTapEvent,
-                removeAccountButtonTapEvent: removeAccountButton.tapEvent
-                    .asObservable().map { _ in }, 
-                removeAlertTapEvent: removeAlertTapEvent
+                removeAccountButtonTapEvent: removeAccountButton.tapEvent,
+                removeAlertTapEvent: removeAlertTapEvent.eraseToAnyPublisher()
             )
         )
         
         output.selectedImage
-            .bind { [weak self] image in
-                self?.profileImageButton.setImage(image, for: .normal)
+            .withUnretained(self)
+            .sink { vc, image in
+                vc.profileImageButton.setImage(image, for: .normal)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.startEditProfileFlow
-            .bind { [weak self] _ in
+            .withUnretained(self)
+            .sink { vc, _ in
                 let profileVC = ProfileImageViewController()
                 let profileVM = ProfileImageViewModel(
-                    selectedImage: self?.profileImageButton.imageView?.image
+                    selectedImage: vc.profileImageButton.imageView?.image
                 )
                 profileVM.delegate = viewModel
                 profileVC.viewModel = profileVM
-                self?.navigationController?.pushViewController(
+                vc.navigationController?.pushViewController(
                     profileVC,
                     animated: true
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.validationResult
-            .bind { [weak self] result in
+            .withUnretained(self)
+            .sink { vc, result in
                 var message: String
                 switch result {
                 case .success(let str):
                     message = str
-                    self?.validationLabel.textColor = MPDesign.Color.tint
+                    vc.validationLabel.textColor = MPDesign.Color.tint
                 case .failure(let str):
                     message = str
-                    self?.validationLabel.textColor = MPDesign.Color.red
+                    vc.validationLabel.textColor = MPDesign.Color.red
                 case nil:
                     message = ""
                 }
-                self?.validationLabel.text = message
+                vc.validationLabel.text = message
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.doneButtonEnable
             .withUnretained(self)
@@ -175,49 +173,51 @@ final class ProfileSettingViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.startMainTabFlow
-            .bind { [weak self] _ in
-                self?.view.window?.rootViewController = .getCurrentRootVC()
+            .withUnretained(self)
+            .sink { vc, _ in
+                vc.view.window?.rootViewController = .getCurrentRootVC()
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.selectedUser
-            .bind { [weak self] user in
-                guard let self,
-                      let user else { return }
-                profileImageButton.setImage(
+            .withUnretained(self)
+            .sink { vc, user in
+                vc.profileImageButton.setImage(
                     UIImage(
                         data: user.profileImageData
                     ),
                     for: .normal
                 )
-                nicknameTextField.text = user.name
-                mbtiSelectionView.updateMBTI(mbti: user.mbti)
+                vc.nicknameTextField.text = user.name
+                vc.mbtiSelectionView.updateMBTI(mbti: user.mbti)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.finishFlow
-            .bind { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
+            .withUnretained(self)
+            .sink { vc, _ in
+                vc.navigationController?.popViewController(animated: true)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.showRemoveAccountButton
-            .bind { [weak self] _ in
-                self?.removeAccountButton.isHidden = false
+            .withUnretained(self)
+            .sink { vc, _ in
+                vc.removeAccountButton.isHidden = false
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.showRemoveAlert
-            .bind { [weak self] _ in
-                guard let self else { return }
-                showAlert(
+            .withUnretained(self)
+            .sink { vc, _ in
+                vc.showAlert(
                     title: "계정을 삭제하시겠습니까?",
                     actionTitle: "확인"
                 ) { _ in
-                    self.removeAlertTapEvent.onNext(())
+                    self.removeAlertTapEvent.send(())
                 }
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
     }
     
     override func configureLayout() {
