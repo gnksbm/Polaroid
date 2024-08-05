@@ -25,30 +25,29 @@ final class ProfileImageViewModel: ViewModel {
             profileImages: PassthroughSubject()
         )
         
-        input.viewDidLoadEvent
-            .sink(with: self) { vm, _ in
-                vm.setNewOutput(
-                    output: output,
-                    selectedImage: vm.selectedImage
-                )
-            }
-            .store(in: &cancelBag)
-        
-        input.itemSelectEvent
-            .sink(with: self) { vm, item in
-                vm.selectedImage = item.image
-                vm.setNewOutput(
-                    output: output,
-                    selectedImage: item.image
-                )
-            }
-            .store(in: &cancelBag)
-        
-        input.viewWillDisappearEvent
-            .sink(with: self) { vm, _ in
-                vm.delegate?.finishedFlow(with: vm.selectedImage)
-            }
-            .store(in: &cancelBag)
+        cancelBag.insert {
+            input.viewDidLoadEvent
+                .sink(with: self) { vm, _ in
+                    vm.setNewOutput(
+                        output: output,
+                        selectedImage: vm.selectedImage
+                    )
+                }
+            
+            input.itemSelectEvent
+                .sink(with: self) { vm, item in
+                    vm.selectedImage = item.image
+                    vm.setNewOutput(
+                        output: output,
+                        selectedImage: item.image
+                    )
+                }
+            
+            input.viewWillDisappearEvent
+                .sink(with: self) { vm, _ in
+                    vm.delegate?.finishedFlow(with: vm.selectedImage)
+                }
+        }
         
         return output
     }

@@ -33,74 +33,73 @@ final class ProfileSettingViewModel: ViewModel {
             showRemoveAlert: input.removeAccountButtonTapEvent
         )
         
-        input.viewDidLoadEvent
-            .sink(with: self) { vm, _ in
-                switch vm.flowType {
-                case .register:
-                    vm.selectedImage.send(
-                        Literal.Image.defaultProfileList.randomElement()
-                    )
-                case .edit:
-                    @UserDefaultsWrapper(key: .user, defaultValue: nil)
-                    var user: User?
-                    guard let user else { return }
-                    vm.selectedImage.send(UIImage(data: user.profileImageData))
-                    output.selectedUser.send(user)
-                    output.showRemoveAccountButton.send(())
+        cancelBag.insert {
+            input.viewDidLoadEvent
+                .sink(with: self) { vm, _ in
+                    switch vm.flowType {
+                    case .register:
+                        vm.selectedImage.send(
+                            Literal.Image.defaultProfileList.randomElement()
+                        )
+                    case .edit:
+                        @UserDefaultsWrapper(key: .user, defaultValue: nil)
+                        var user: User?
+                        guard let user else { return }
+                        vm.selectedImage.send(
+                            UIImage(data: user.profileImageData)
+                        )
+                        output.selectedUser.send(user)
+                        output.showRemoveAccountButton.send(())
+                    }
                 }
-            }
-            .store(in: &cancelBag)
-        
-        input.nicknameChangeEvent
-            .sink(with: self) { vm, nickname in
-                do {
-                    try nickname.validate(validator: NicknameValidator())
-                    let message = Literal.Nickname.validationSuccess
-                    output.validationResult.send(
-                        .success(message)
-                    )
-                } catch {
-                    let message = error.localizedDescription
-                    output.validationResult.send(
-                        .failure(message)
+            
+            input.nicknameChangeEvent
+                .sink(with: self) { vm, nickname in
+                    do {
+                        try nickname.validate(validator: NicknameValidator())
+                        let message = Literal.Nickname.validationSuccess
+                        output.validationResult.send(
+                            .success(message)
+                        )
+                    } catch {
+                        let message = error.localizedDescription
+                        output.validationResult.send(
+                            .failure(message)
+                        )
+                    }
+                    output.doneButtonEnable.send(
+                        vm.requiredInputFilled(
+                            nickname: nickname,
+                            mbti: input.mbtiSelectEvent.value,
+                            output: output
+                        )
                     )
                 }
-                output.doneButtonEnable.send(
-                    vm.requiredInputFilled(
-                        nickname: nickname,
-                        mbti: input.mbtiSelectEvent.value,
+            
+            input.mbtiSelectEvent
+                .map(with: self) { vm, mbti in
+                    return vm.requiredInputFilled(
+                        nickname: input.nicknameChangeEvent.value,
+                        mbti: mbti,
                         output: output
                     )
-                )
-            }
-            .store(in: &cancelBag)
-        
-        input.mbtiSelectEvent
-            .map(with: self) { vm, mbti in
-                return vm.requiredInputFilled(
-                    nickname: input.nicknameChangeEvent.value,
-                    mbti: mbti,
-                    output: output
-                )
-            }
-            .subscribe(output.doneButtonEnable)
-            .store(in: &cancelBag)
-        
-        input.doneButtonTapEvent
-            .sink(with: self) { vm, _ in
-                vm.createUser(input: input, output: output)
-            }
-            .store(in: &cancelBag)
-        
-        input.removeAlertTapEvent
-            .sink(with: self) { vm, _ in
-                @UserDefaultsWrapper(key: .user, defaultValue: nil)
-                var user: User?
-                _user.removeValue()
-                try? vm.favoriteRepository.removeAll()
-                output.startMainTabFlow.send(())
-            }
-            .store(in: &cancelBag)
+                }
+                .subscribe(output.doneButtonEnable)
+            
+            input.doneButtonTapEvent
+                .sink(with: self) { vm, _ in
+                    vm.createUser(input: input, output: output)
+                }
+            
+            input.removeAlertTapEvent
+                .sink(with: self) { vm, _ in
+                    @UserDefaultsWrapper(key: .user, defaultValue: nil)
+                    var user: User?
+                    _user.removeValue()
+                    try? vm.favoriteRepository.removeAll()
+                    output.startMainTabFlow.send(())
+                }
+        }
         
         return output
     }

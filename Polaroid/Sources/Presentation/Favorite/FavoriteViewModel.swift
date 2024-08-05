@@ -21,41 +21,41 @@ final class FavoriteViewModel: ViewModel {
             startDetailFlow: input.itemSelectEvent
         )
         
-        input.viewWillAppearEvent
-            .sink(with: self) { vm, _ in
-                output.images.send(vm.favoriteRepository.fetchImage())
-            }
-            .store(in: &cancelBag)
-        
-        input.sortOptionSelectEvent
-            .sink(with: self) { vm, sortOption in
-                output.images.send(
-                    vm.favoriteRepository.fetchImage(with: sortOption)
-                )
-            }
-            .store(in: &cancelBag)
-        
-        input.colorOptionSelectEvent
-            .sink(with: self) { vm, colorOption in
-                output.images.send(
-                    vm.favoriteRepository.fetchImage(with: colorOption)
-                )
-            }
-            .store(in: &cancelBag)
-        
-        input.likeButtonTapEvent
-            .sink(with: self) { vm, imageData in
-                do {
-                    _ = try vm.favoriteRepository.removeImage(imageData.item)
-                    output.images.send(
-                        vm.favoriteRepository.fetchImage()
-                    )
-                    output.removeSuccessed.send(())
-                } catch {
-                    output.onError.send(())
+        cancelBag.insert {
+            input.viewWillAppearEvent
+                .sink(with: self) { vm, _ in
+                    output.images.send(vm.favoriteRepository.fetchImage())
                 }
-            }
-            .store(in: &cancelBag)
+            
+            input.sortOptionSelectEvent
+                .sink(with: self) { vm, sortOption in
+                    output.images.send(
+                        vm.favoriteRepository.fetchImage(with: sortOption)
+                    )
+                }
+            
+            input.colorOptionSelectEvent
+                .sink(with: self) { vm, colorOption in
+                    output.images.send(
+                        vm.favoriteRepository.fetchImage(with: colorOption)
+                    )
+                }
+            
+            input.likeButtonTapEvent
+                .sink(with: self) { vm, imageData in
+                    do {
+                        _ = try vm.favoriteRepository.removeImage(
+                            imageData.item
+                        )
+                        output.images.send(
+                            vm.favoriteRepository.fetchImage()
+                        )
+                        output.removeSuccessed.send(())
+                    } catch {
+                        output.onError.send(())
+                    }
+                }
+        }
         
         return output
     }

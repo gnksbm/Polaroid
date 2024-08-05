@@ -78,48 +78,48 @@ final class SearchViewController: BaseViewController, View {
         }
         collectionView.backgroundView = collectionViewBGView
         
-        output.searchState
-            .sink(with: self) { vc, state in
-                switch state {
-                case .emptyQuery:
-                    vc.collectionView.applyItem(items: [])
-                    collectionViewBGView.text =
-                    Literal.Search.beforeSearchBackground
-                    vc.collectionView.backgroundView = collectionViewBGView
-                    vc.hideProgressView()
-                case .searching:
-                    vc.showProgressView()
-                case .result(let items):
-                    vc.collectionView.applyItem(items: items)
-                    vc.hideProgressView()
-                    if items.isEmpty {
+        cancelBag.insert {
+            output.searchState
+                .sink(with: self) { vc, state in
+                    switch state {
+                    case .emptyQuery:
+                        vc.collectionView.applyItem(items: [])
                         collectionViewBGView.text =
-                        Literal.Search.emptyResultBackground
+                        Literal.Search.beforeSearchBackground
                         vc.collectionView.backgroundView = collectionViewBGView
-                    } else {
-                        vc.collectionView.backgroundView = nil
+                        vc.hideProgressView()
+                    case .searching:
+                        vc.showProgressView()
+                    case .result(let items):
+                        vc.collectionView.applyItem(items: items)
+                        vc.hideProgressView()
+                        if items.isEmpty {
+                            collectionViewBGView.text =
+                            Literal.Search.emptyResultBackground
+                            vc.collectionView.backgroundView =
+                            collectionViewBGView
+                        } else {
+                            vc.collectionView.backgroundView = nil
+                        }
+                    case .finalPage, .none:
+                        break
                     }
-                case .finalPage, .none:
-                    break
                 }
-            }
-            .store(in: &cancelBag)
-        
-        output.changedImage
-            .sink(with: self) { vc, item in
-                vc.collectionView.updateItems([item])
-                vc.showToast(message: item.isLiked ? "❤️" : "💔")
-            }
-            .store(in: &cancelBag)
-        
-        output.startDetailFlow
-            .sink(with: self) { vc, image in
-                vc.navigationController?.pushViewController(
-                    DetailViewController(data: image),
-                    animated: true
-                )
-            }
-            .store(in: &cancelBag)
+            
+            output.changedImage
+                .sink(with: self) { vc, item in
+                    vc.collectionView.updateItems([item])
+                    vc.showToast(message: item.isLiked ? "❤️" : "💔")
+                }
+            
+            output.startDetailFlow
+                .sink(with: self) { vc, image in
+                    vc.navigationController?.pushViewController(
+                        DetailViewController(data: image),
+                        animated: true
+                    )
+                }
+        }
     }
     
     override func configureLayout() {

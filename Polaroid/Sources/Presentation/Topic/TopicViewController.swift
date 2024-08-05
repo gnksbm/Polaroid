@@ -57,48 +57,45 @@ final class TopicViewController: BaseViewController, View {
             )
         )
         
-        output.currentUser
-            .sink(with: self) { vc, user in
-                vc.profileButton.setImage(
-                    UIImage(data: user.profileImageData),
-                    for: .normal
-                )
-            }
-            .store(in: &cancelBag)
-        
-        output.imageDic
-            .sink(with: self) { vc, itemDic in
-                vc.collectionView.applyItem { section in
-                    itemDic[section, default: []]
+        cancelBag.insert {
+            output.currentUser
+                .sink(with: self) { vc, user in
+                    vc.profileButton.setImage(
+                        UIImage(data: user.profileImageData),
+                        for: .normal
+                    )
                 }
-                vc.hideProgressView()
-            }
-            .store(in: &cancelBag)
-        
-        output.onError
-            .sink(with: self) { vc, _ in
-                vc.showToast(message: "오류가 발생했습니다")
-                vc.hideProgressView()
-            }
-            .store(in: &cancelBag)
-        
-        output.startProfileFlow
-            .sink(with: self) { vc, _ in
-                vc.navigationController?.pushViewController(
-                    ProfileSettingViewController(flowType: .edit),
-                    animated: true
-                )
-            }
-            .store(in: &cancelBag)
-        
-        output.startDetailFlow
-            .sink(with: self) { vc, image in
-                vc.navigationController?.pushViewController(
-                    DetailViewController(data: image),
-                    animated: true
-                )
-            }
-            .store(in: &cancelBag)
+            
+            output.imageDic
+                .sink(with: self) { vc, itemDic in
+                    vc.collectionView.applyItem { section in
+                        itemDic[section, default: []]
+                    }
+                    vc.hideProgressView()
+                }
+            
+            output.onError
+                .sink(with: self) { vc, _ in
+                    vc.showToast(message: "오류가 발생했습니다")
+                    vc.hideProgressView()
+                }
+            
+            output.startProfileFlow
+                .sink(with: self) { vc, _ in
+                    vc.navigationController?.pushViewController(
+                        ProfileSettingViewController(flowType: .edit),
+                        animated: true
+                    )
+                }
+            
+            output.startDetailFlow
+                .sink(with: self) { vc, image in
+                    vc.navigationController?.pushViewController(
+                        DetailViewController(data: image),
+                        animated: true
+                    )
+                }
+        }
     }
     
     override func configureLayout() {

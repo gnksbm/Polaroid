@@ -49,35 +49,33 @@ final class RandomViewController: BaseViewController, View {
             )
         )
         
-        output.randomImages
-            .sink(with: self) { vc, items in
-                vc.collectionView.applyItem(items: items)
-                vc.hideProgressView()
-            }
-            .store(in: &cancelBag)
-        
-        output.onError
-            .sink(with: self) { vc, _ in
-                vc.showToast(message: "오류가 발생했습니다")
-                vc.hideProgressView()
-            }
-            .store(in: &cancelBag)
-        
-        output.startDetailFlow
-            .sink(with: self) { vc, image in
-                vc.navigationController?.pushViewController(
-                    DetailViewController(data: image),
-                    animated: true
-                )
-            }
-            .store(in: &cancelBag)
-        
-        output.changedImage
-            .sink(with: self) { vc, randomImage in
-                vc.collectionView.updateItems([randomImage])
-                vc.showToast(message: randomImage.isLiked ? "❤️" : "💔")
-            }
-            .store(in: &cancelBag)
+        cancelBag.insert {
+            output.randomImages
+                .sink(with: self) { vc, items in
+                    vc.collectionView.applyItem(items: items)
+                    vc.hideProgressView()
+                }
+            
+            output.onError
+                .sink(with: self) { vc, _ in
+                    vc.showToast(message: "오류가 발생했습니다")
+                    vc.hideProgressView()
+                }
+            
+            output.startDetailFlow
+                .sink(with: self) { vc, image in
+                    vc.navigationController?.pushViewController(
+                        DetailViewController(data: image),
+                        animated: true
+                    )
+                }
+            
+            output.changedImage
+                .sink(with: self) { vc, randomImage in
+                    vc.collectionView.updateItems([randomImage])
+                    vc.showToast(message: randomImage.isLiked ? "❤️" : "💔")
+                }
+        }
     }
     
     override func configureLayout() {

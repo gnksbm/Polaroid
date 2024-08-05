@@ -65,26 +65,25 @@ final class DetailViewController: BaseViewController, View {
             )
         )
         
-        output.detailImage
-            .sink(with: self) { vc, detailImage in
-                vc.updateView(detailImage: detailImage)
-            }
-            .store(in: &cancelBag)
-        
-        output.changedImage
-            .sink(with: self) { vc, detailImage in
-                guard let detailImage else { return }
-                vc.updateView(detailImage: detailImage)
-                vc.showToast(message: detailImage.isLiked ? "❤️" : "💔")
-            }
-            .store(in: &cancelBag)
-        
-        output.onError
-            .sink(with: self) { vc, _ in
-                vc.showToast(message: "오류가 발생했습니다")
-                vc.hideProgressView()
-            }
-            .store(in: &cancelBag)
+        cancelBag.insert {
+            output.detailImage
+                .sink(with: self) { vc, detailImage in
+                    vc.updateView(detailImage: detailImage)
+                }
+            
+            output.changedImage
+                .sink(with: self) { vc, detailImage in
+                    guard let detailImage else { return }
+                    vc.updateView(detailImage: detailImage)
+                    vc.showToast(message: detailImage.isLiked ? "❤️" : "💔")
+                }
+            
+            output.onError
+                .sink(with: self) { vc, _ in
+                    vc.showToast(message: "오류가 발생했습니다")
+                    vc.hideProgressView()
+                }
+        }
     }
     
     override func configureLayout() {

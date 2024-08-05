@@ -27,64 +27,67 @@ final class DetailViewModel: ViewModel {
             onError: PassthroughSubject()
         )
         
-        input.viewDidLoadEvent
-            .sink { [weak self] _ in
-                guard let self else { return }
-                statisticsRepository.fetchStatistics(
-                    imageData: data
-                ) { result in
-                    switch result {
-                    case .success(let success):
-                        output.detailImage.send(
-                            self.favoriteRepository.reConfigureImage(success)
-                        )
-                    case .failure(let error):
-                        output.detailImage.send(
-                            DetailImage(minImageData: self.data)
-                        )
+        cancelBag.insert {
+            input.viewDidLoadEvent
+                .sink { [weak self] _ in
+                    guard let self else { return }
+                    statisticsRepository.fetchStatistics(
+                        imageData: data
+                    ) { result in
+                        switch result {
+                        case .success(let success):
+                            output.detailImage.send(
+                                self.favoriteRepository.reConfigureImage(
+                                    success
+                                )
+                            )
+                        case .failure(let error):
+                            output.detailImage.send(
+                                DetailImage(minImageData: self.data)
+                            )
+                            Logger.error(error)
+                        }
+                    }
+                }
+            
+            input.viewWillAppearEvent
+                .sink { [weak self] _ in
+                    guard let self,
+                          let detailImage = output.detailImage.value
+                    else { return }
+                    let newImage = favoriteRepository.reConfigureImage(
+                        detailImage
+                    )
+                    output.detailImage.send(newImage)
+                }
+            
+            input.likeButtonTapEvent
+                .sink(with: self) { vm, data in
+                    guard var detailImage = output.detailImage.value
+                    else { return }
+                    if let currentImage = output.changedImage.value {
+                        detailImage = currentImage
+                    }
+                    do {
+                        if detailImage.isLiked {
+                            let newImage =
+                            try vm.favoriteRepository.removeImage(detailImage)
+                            output.changedImage.send(newImage)
+                        } else {
+                            let newImage =
+                            try vm.favoriteRepository.saveImage(
+                                detailImage,
+                                imageData: data.0,
+                                profileImageData: data.1
+                            )
+                            output.changedImage.send(newImage)
+                        }
+                    } catch {
                         Logger.error(error)
+                        output.onError.send(())
                     }
                 }
-            }
-            .store(in: &cancelBag)
-        
-        input.viewWillAppearEvent
-            .sink { [weak self] _ in
-                guard let self,
-                      let detailImage = output.detailImage.value
-                else { return }
-                let newImage = favoriteRepository.reConfigureImage(detailImage)
-                output.detailImage.send(newImage)
-            }
-            .store(in: &cancelBag)
-        
-        input.likeButtonTapEvent
-            .sink(with: self) { vm, data in
-                guard var detailImage = output.detailImage.value
-                else { return }
-                if let currentImage = output.changedImage.value {
-                    detailImage = currentImage
-                }
-                do {
-                    if detailImage.isLiked {
-                        let newImage =
-                        try vm.favoriteRepository.removeImage(detailImage)
-                        output.changedImage.send(newImage)
-                    } else {
-                        let newImage =
-                        try vm.favoriteRepository.saveImage(
-                            detailImage,
-                            imageData: data.0,
-                            profileImageData: data.1
-                        )
-                        output.changedImage.send(newImage)
-                    }
-                } catch {
-                    Logger.error(error)
-                    output.onError.send(())
-                }
-            }
-            .store(in: &cancelBag)
+        }
         
         return output
     }

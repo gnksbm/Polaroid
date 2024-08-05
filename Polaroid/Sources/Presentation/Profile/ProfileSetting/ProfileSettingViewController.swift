@@ -128,92 +128,85 @@ final class ProfileSettingViewController: BaseViewController, View {
             )
         )
         
-        output.selectedImage
-            .sink(with: self) { vc, image in
-                vc.profileImageButton.setImage(image, for: .normal)
-            }
-            .store(in: &cancelBag)
-        
-        output.startEditProfileFlow
-            .sink(with: self) { vc, _ in
-                let profileVC = ProfileImageViewController()
-                let profileVM = ProfileImageViewModel(
-                    selectedImage: vc.profileImageButton.imageView?.image
-                )
-                profileVM.delegate = viewModel
-                profileVC.viewModel = profileVM
-                vc.navigationController?.pushViewController(
-                    profileVC,
-                    animated: true
-                )
-            }
-            .store(in: &cancelBag)
-        
-        output.validationResult
-            .sink(with: self) { vc, result in
-                var message: String
-                switch result {
-                case .success(let str):
-                    message = str
-                    vc.validationLabel.textColor = MPDesign.Color.tint
-                case .failure(let str):
-                    message = str
-                    vc.validationLabel.textColor = MPDesign.Color.red
-                case nil:
-                    message = ""
+        cancelBag.insert {
+            output.selectedImage
+                .sink(with: self) { vc, image in
+                    vc.profileImageButton.setImage(image, for: .normal)
                 }
-                vc.validationLabel.text = message
-            }
-            .store(in: &cancelBag)
-        
-        output.doneButtonEnable
-            .sink(with: self) { vc, isEnabled in
-                vc.doneButton.isEnabled = isEnabled
-                vc.saveButton.isEnabled = isEnabled
-            }
-            .store(in: &cancelBag)
-        
-        output.startMainTabFlow
-            .sink(with: self) { vc, _ in
-                vc.view.window?.rootViewController = .getCurrentRootVC()
-            }
-            .store(in: &cancelBag)
-        
-        output.selectedUser
-            .sink(with: self) { vc, user in
-                vc.profileImageButton.setImage(
-                    UIImage(
-                        data: user.profileImageData
-                    ),
-                    for: .normal
-                )
-                vc.nicknameTextField.text = user.name
-                vc.mbtiSelectionView.updateMBTI(mbti: user.mbti)
-            }
-            .store(in: &cancelBag)
-        
-        output.finishFlow
-            .sink(with: self) { vc, _ in
-                vc.navigationController?.popViewController(animated: true)
-            }
-            .store(in: &cancelBag)
-        
-        output.showRemoveAccountButton
-            .sink(with: self) { vc, _ in
-                vc.removeAccountButton.isHidden = false
-            }
-            .store(in: &cancelBag)
-        
-        output.showRemoveAlert
-            .sink(with: self) { vc, _ in
-                vc.showAlert(
-                    title: "계정을 삭제하시겠습니까?",
-                    actionTitle: "확인"
-                ) { _ in
-                    self.removeAlertTapEvent.send(())
+            
+            output.startEditProfileFlow
+                .sink(with: self) { vc, _ in
+                    let profileVC = ProfileImageViewController()
+                    let profileVM = ProfileImageViewModel(
+                        selectedImage: vc.profileImageButton.imageView?.image
+                    )
+                    profileVM.delegate = viewModel
+                    profileVC.viewModel = profileVM
+                    vc.navigationController?.pushViewController(
+                        profileVC,
+                        animated: true
+                    )
                 }
-            }
-            .store(in: &cancelBag)
+            
+            output.validationResult
+                .sink(with: self) { vc, result in
+                    var message: String
+                    switch result {
+                    case .success(let str):
+                        message = str
+                        vc.validationLabel.textColor = MPDesign.Color.tint
+                    case .failure(let str):
+                        message = str
+                        vc.validationLabel.textColor = MPDesign.Color.red
+                    case nil:
+                        message = ""
+                    }
+                    vc.validationLabel.text = message
+                }
+            
+            output.doneButtonEnable
+                .sink(with: self) { vc, isEnabled in
+                    vc.doneButton.isEnabled = isEnabled
+                    vc.saveButton.isEnabled = isEnabled
+                }
+            
+            output.startMainTabFlow
+                .sink(with: self) { vc, _ in
+                    vc.view.window?.rootViewController = .getCurrentRootVC()
+                }
+            
+            output.selectedUser
+                .sink(with: self) { vc, user in
+                    vc.profileImageButton.setImage(
+                        UIImage(
+                            data: user.profileImageData
+                        ),
+                        for: .normal
+                    )
+                    vc.nicknameTextField.text = user.name
+                    vc.mbtiSelectionView.updateMBTI(mbti: user.mbti)
+                }
+            
+            output.finishFlow
+                .sink(with: self) { vc, _ in
+                    vc.navigationController?.popViewController(animated: true)
+                }
+            
+            output.showRemoveAccountButton
+                .sink(with: self) { vc, _ in
+                    vc.removeAccountButton.isHidden = false
+                }
+            
+            output.showRemoveAlert
+                .sink(with: self) { vc, _ in
+                    vc.showAlert(
+                        title: "계정을 삭제하시겠습니까?",
+                        actionTitle: "확인"
+                    ) { _ in
+                        self.removeAlertTapEvent.send(())
+                    }
+                }
+        }
     }
     
     override func configureLayout() {

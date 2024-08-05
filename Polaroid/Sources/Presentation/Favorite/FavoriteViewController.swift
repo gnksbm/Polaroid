@@ -56,39 +56,37 @@ final class FavoriteViewController: BaseViewController, View {
                 .textAlignment(.center)
         }
         
-        output.images
-            .sink(with: self) { vc, images in
-                if images.isEmpty {
-                    collectionViewBGView.text =
-                    Literal.Favorite.emptyResultBackground
-                    vc.collectionView.backgroundView = collectionViewBGView
-                } else {
-                    vc.collectionView.backgroundView = nil
+        cancelBag.insert {
+            output.images
+                .sink(with: self) { vc, images in
+                    if images.isEmpty {
+                        collectionViewBGView.text =
+                        Literal.Favorite.emptyResultBackground
+                        vc.collectionView.backgroundView = collectionViewBGView
+                    } else {
+                        vc.collectionView.backgroundView = nil
+                    }
+                    vc.collectionView.applyItem(items: images)
                 }
-                vc.collectionView.applyItem(items: images)
-            }
-            .store(in: &cancelBag)
-        
-        output.removeSuccessed
-            .sink(with: self) { vc, _ in
-                vc.showToast(message: "💔")
-            }
-            .store(in: &cancelBag)
-        
-        output.onError
-            .sink(with: self) { vc, _ in
-                vc.showToast(message: "오류가 발생했습니다")
-            }
-            .store(in: &cancelBag)
-        
-        output.startDetailFlow
-            .sink(with: self) { vc, image in
-                vc.navigationController?.pushViewController(
-                    DetailViewController(data: image),
-                    animated: true
-                )
-            }
-            .store(in: &cancelBag)
+            
+            output.removeSuccessed
+                .sink(with: self) { vc, _ in
+                    vc.showToast(message: "💔")
+                }
+            
+            output.onError
+                .sink(with: self) { vc, _ in
+                    vc.showToast(message: "오류가 발생했습니다")
+                }
+            
+            output.startDetailFlow
+                .sink(with: self) { vc, image in
+                    vc.navigationController?.pushViewController(
+                        DetailViewController(data: image),
+                        animated: true
+                    )
+                }
+        }
     }
     
     override func configureLayout() {

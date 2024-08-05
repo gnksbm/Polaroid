@@ -24,93 +24,93 @@ final class SearchViewModel: ViewModel {
             startDetailFlow: input.itemSelectEvent
         )
         
-        currentImage
-            .sink { images in
-                output.searchState.send(.result(images))
-            }
-            .store(in: &cancelBag)
-        
-        input.viewWillAppearEvent
-            .sink(with: self) { vm, _ in
-                let newImages = vm.favoriteRepository.reConfigureImages(
-                    vm.currentImage.value
-                )
-                vm.currentImage.send(newImages)
-            }
-            .store(in: &cancelBag)
-        
-        input.searchTextChangeEvent
-            .sink { searchQuery in
-                if searchQuery.isEmpty {
-                    output.searchState.send(.emptyQuery)
+        cancelBag.insert {
+            currentImage
+                .sink { images in
+                    output.searchState.send(.result(images))
                 }
-            }
-            .store(in: &cancelBag)
-        
-        input.queryEnterEvent
-            .sink(with: self) { vm, searchQuery in
-                guard output.searchState.value.isSearchAllowed else { return }
-                vm.page = 1
-                vm.search(input: input, output: output) { images in
-                    vm.currentImage.send(images)
-                }
-            }
-            .store(in: &cancelBag)
-        
-        input.scrollReachedBottomEvent
-            .sink(with: self) { vm, _ in
-                guard output.searchState.value.isSearchAllowed else { return }
-                vm.page += 1
-                vm.search(input: input, output: output) { images in
-                    vm.currentImage.send(
-                        vm.currentImage.value + images
+            
+            input.viewWillAppearEvent
+                .sink(with: self) { vm, _ in
+                    let newImages = vm.favoriteRepository.reConfigureImages(
+                        vm.currentImage.value
                     )
+                    vm.currentImage.send(newImages)
                 }
-            }
-            .store(in: &cancelBag)
-        
-        input.likeButtonTapEvent
-            .sink(with: self) { vm, imageData in
-                do {
-                    var newImage: LikableImage
-                    if imageData.item.isLiked {
-                        newImage =
-                        try vm.favoriteRepository.removeImage(imageData.item)
-                    } else {
-                        var copy = imageData
-                        copy.item.color =
-                        input.colorOptionSelectEvent.value?.rawValue
-                        newImage = try vm.favoriteRepository.saveImage(copy)
+            
+            input.searchTextChangeEvent
+                .sink { searchQuery in
+                    if searchQuery.isEmpty {
+                        output.searchState.send(.emptyQuery)
                     }
-                    output.changedImage.send(newImage)
-                } catch {
-                    Logger.error(error)
-                    output.onError.send(())
                 }
-            }
-            .store(in: &cancelBag)
-        
-        input.colorOptionSelectEvent
-            .dropFirst()
-            .sink(with: self) { vm, _ in
-                guard output.searchState.value.isSearchAllowed else { return }
-                vm.page += 1
-                vm.search(input: input, output: output) { images in
-                    vm.currentImage.send(images)
+            
+            input.queryEnterEvent
+                .sink(with: self) { vm, searchQuery in
+                    guard output.searchState.value.isSearchAllowed 
+                    else { return }
+                    vm.page = 1
+                    vm.search(input: input, output: output) { images in
+                        vm.currentImage.send(images)
+                    }
                 }
-            }
-            .store(in: &cancelBag)
-        
-        input.sortOptionSelectEvent
-            .dropFirst()
-            .sink(with: self) { vm, _ in
-                guard output.searchState.value.isSearchAllowed else { return }
-                vm.page += 1
-                vm.search(input: input, output: output) { images in
-                    vm.currentImage.send(images)
+            
+            input.scrollReachedBottomEvent
+                .sink(with: self) { vm, _ in
+                    guard output.searchState.value.isSearchAllowed 
+                    else { return }
+                    vm.page += 1
+                    vm.search(input: input, output: output) { images in
+                        vm.currentImage.send(
+                            vm.currentImage.value + images
+                        )
+                    }
                 }
-            }
-            .store(in: &cancelBag)
+            
+            input.likeButtonTapEvent
+                .sink(with: self) { vm, imageData in
+                    do {
+                        var newImage: LikableImage
+                        if imageData.item.isLiked {
+                            newImage =
+                            try vm.favoriteRepository.removeImage(
+                                imageData.item
+                            )
+                        } else {
+                            var copy = imageData
+                            copy.item.color =
+                            input.colorOptionSelectEvent.value?.rawValue
+                            newImage = try vm.favoriteRepository.saveImage(copy)
+                        }
+                        output.changedImage.send(newImage)
+                    } catch {
+                        Logger.error(error)
+                        output.onError.send(())
+                    }
+                }
+            
+            input.colorOptionSelectEvent
+                .dropFirst()
+                .sink(with: self) { vm, _ in
+                    guard output.searchState.value.isSearchAllowed
+                    else { return }
+                    vm.page += 1
+                    vm.search(input: input, output: output) { images in
+                        vm.currentImage.send(images)
+                    }
+                }
+            
+            input.sortOptionSelectEvent
+                .dropFirst()
+                .sink(with: self) { vm, _ in
+                    guard output.searchState.value.isSearchAllowed 
+                    else { return }
+                    vm.page += 1
+                    vm.search(input: input, output: output) { images in
+                        vm.currentImage.send(images)
+                    }
+                }
+        }
         
         return output
     }

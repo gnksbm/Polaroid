@@ -18,50 +18,49 @@ final class RandomViewModel: ViewModel {
         let output = Output(
             randomImages: CurrentValueSubject([]),
             onError: PassthroughSubject(),
-            startDetailFlow: PassthroughSubject(),
+            startDetailFlow: input.itemSelectEvent,
             changedImage: PassthroughSubject()
         )
         
-        input.viewDidLoadEvent
-            .sink(with: self) { vm, _ in
-                vm.fetchImages(output: output)
-            }
-            .store(in: &cancelBag)
-        
-        input.viewWillAppearEvent
-            .sink(with: self) { vm, _ in
-                let images = output.randomImages.value
-                if images.count < 10 {
+        cancelBag.insert {
+            input.viewDidLoadEvent
+                .sink(with: self) { vm, _ in
                     vm.fetchImages(output: output)
                 }
-                let newImages = vm.favoriteRepository.reConfigureImages(images)
-                output.randomImages.send(newImages)
-            }
-            .store(in: &cancelBag)
-        
-        input.itemSelectEvent
-            .subscribe(output.startDetailFlow)
-            .store(in: &cancelBag)
-        
-        input.likeButtonTapEvent
-            .sink { [weak self] randomImage in
-                guard let self,
-                      let randomImage else { return }
-                do {
-                    var newImage: RandomImage
-                    if randomImage.item.isLiked {
-                        newImage =
-                        try favoriteRepository.removeImage(randomImage.item)
-                    } else {
-                        newImage = try favoriteRepository.saveImage(randomImage)
+            
+            input.viewWillAppearEvent
+                .sink(with: self) { vm, _ in
+                    let images = output.randomImages.value
+                    if images.count < 10 {
+                        vm.fetchImages(output: output)
                     }
-                    output.changedImage.send(newImage)
-                } catch {
-                    Logger.error(error)
-                    output.onError.send(())
+                    let newImages = vm.favoriteRepository.reConfigureImages(
+                        images
+                    )
+                    output.randomImages.send(newImages)
                 }
-            }
-            .store(in: &cancelBag)
+            
+            input.likeButtonTapEvent
+                .sink { [weak self] randomImage in
+                    guard let self,
+                          let randomImage else { return }
+                    do {
+                        var newImage: RandomImage
+                        if randomImage.item.isLiked {
+                            newImage =
+                            try favoriteRepository.removeImage(randomImage.item)
+                        } else {
+                            newImage = try favoriteRepository.saveImage(
+                                randomImage
+                            )
+                        }
+                        output.changedImage.send(newImage)
+                    } catch {
+                        Logger.error(error)
+                        output.onError.send(())
+                    }
+                }
+        }
         
         return output
     }

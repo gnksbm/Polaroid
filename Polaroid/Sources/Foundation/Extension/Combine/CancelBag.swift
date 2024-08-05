@@ -16,4 +16,19 @@ extension CancelBag {
         }
         removeAll()
     }
+    
+    mutating func insert(
+        @CancellableBuilder _ cancellables: () -> [AnyCancellable]
+    ) {
+        cancellables().forEach { insert($0) }
+    }
+    
+    @resultBuilder
+    enum CancellableBuilder {
+        static func buildBlock(
+            _ components: AnyCancellable...
+        ) -> [AnyCancellable] {
+            components
+        }
+    }
 }

@@ -58,17 +58,17 @@ final class ProfileImageViewController: BaseViewController, View {
             )
         )
         
-        output.selectedImage
-            .sink(with: self) { vc, image in
-                vc.profileButton.setImage(image, for: .normal)
-            }
-            .store(in: &cancelBag)
-        
-        output.profileImages
-            .sink(with: self) { vc, items in
-                vc.collectionView.applyItem(items: items)
-            }
-            .store(in: &cancelBag)
+        cancelBag.insert {
+            output.selectedImage
+                .sink(with: self) { vc, image in
+                    vc.profileButton.setImage(image, for: .normal)
+                }
+            
+            output.profileImages
+                .sink(with: self) { vc, items in
+                    vc.collectionView.applyItem(items: items)
+                }
+        }
     }
     
     override func configureLayout() {

@@ -53,14 +53,15 @@ final class OnboardingViewController: BaseViewController, View {
             )
         )
         
-        output.startProfileFlow
-            .sink(with: self) { vc, _ in
-                vc.navigationController?.pushViewController(
-                    ProfileSettingViewController(),
-                    animated: true
-                )
-            }
-            .store(in: &cancelBag)
+        cancelBag.insert {
+            output.startProfileFlow
+                .sink(with: self) { vc, _ in
+                    vc.navigationController?.pushViewController(
+                        ProfileSettingViewController(),
+                        animated: true
+                    )
+                }
+        }
     }
     
     override func configureLayout() {
