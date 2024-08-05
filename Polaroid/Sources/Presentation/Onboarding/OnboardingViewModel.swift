@@ -5,32 +5,23 @@
 //  Created by gnksbm on 7/22/24.
 //
 
+import Combine
 import Foundation
 
 final class OnboardingViewModel: ViewModel {
-    private var observableBag = ObservableBag()
-    
     func transform(input: Input) -> Output {
-        let output = Output(
-            startProfileFlow: Observable<Void>(())
+        Output(
+            startProfileFlow: input.startButtonTapEvent
         )
-        
-        input.startButtonTapEvent
-            .bind { _ in
-                output.startProfileFlow.onNext(())
-            }
-            .store(in: &observableBag)
-        
-        return output
     }
 }
 
 extension OnboardingViewModel {
     struct Input {
-        let startButtonTapEvent: Observable<Void>
+        let startButtonTapEvent: AnyPublisher<Void, Never>
     }
     
     struct Output {
-        let startProfileFlow: Observable<Void>
+        let startProfileFlow: AnyPublisher<Void, Never>
     }
 }

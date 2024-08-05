@@ -11,7 +11,7 @@ import Neat
 import SnapKit
 
 final class OnboardingViewController: BaseViewController, View {
-    private var observableBag = ObservableBag()
+    private var cancelBag = CancelBag()
     
     private let messageImageView = UIImageView().nt.configure {
         $0.image(UIImage.launchMessage)
@@ -49,19 +49,19 @@ final class OnboardingViewController: BaseViewController, View {
     func bind(viewModel: OnboardingViewModel) {
         let output = viewModel.transform(
             input: OnboardingViewModel.Input(
-                startButtonTapEvent: startButton.tapEvent.asObservable()
-                    .map { _ in }
+                startButtonTapEvent: startButton.tapEvent
             )
         )
         
         output.startProfileFlow
-            .bind { [weak self] _ in
-                self?.navigationController?.pushViewController(
+            .withUnretained(self)
+            .sink { vc, _ in
+                vc.navigationController?.pushViewController(
                     ProfileSettingViewController(),
                     animated: true
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
     }
     
     override func configureLayout() {
