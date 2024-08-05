@@ -45,7 +45,7 @@ final class LikableImageCVCell: BaseCollectionViewCell, RegistrableCellType {
         }
     }
     
-    let likeButtonTapEvent = CurrentValueSubject<LikableImageData?, Never>(nil)
+    let likeButtonTapEvent = PassthroughSubject<LikableImageData, Never>()
     var cancelBag = CancelBag()
     
     private var imageTask: URLSessionTask?

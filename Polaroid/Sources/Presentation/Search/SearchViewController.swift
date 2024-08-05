@@ -5,16 +5,17 @@
 //  Created by gnksbm on 7/25/24.
 //
 
+import Combine
 import UIKit
 
 import Neat
 import SnapKit
 
 final class SearchViewController: BaseViewController, View {
-    private var viewWillAppearEvent = Observable<Void>(())
-    private var scrollReachedBottomEvent = Observable<Void>(())
-    private let didSelectItemEvent = Observable<LikableImage?>(nil)
-    private var observableBag = ObservableBag()
+    private var viewWillAppearEvent = PassthroughSubject<Void, Never>()
+    private var scrollReachedBottomEvent = PassthroughSubject<Void, Never>()
+    private let didSelectItemEvent = PassthroughSubject<LikableImage, Never>()
+    private var cancelBag = CancelBag()
     
     private let searchController = UISearchController().nt.configure {
         $0.searchBar.placeholder(Literal.Search.searchBarPlaceholder)
@@ -36,7 +37,7 @@ final class SearchViewController: BaseViewController, View {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewWillAppearEvent.onNext(())
+        viewWillAppearEvent.send(())
     }
     
     override func viewDidLayoutSubviews() {
@@ -47,15 +48,18 @@ final class SearchViewController: BaseViewController, View {
     func bind(viewModel: SearchViewModel) {
         let output = viewModel.transform(
             input: SearchViewModel.Input(
-                viewWillAppearEvent: viewWillAppearEvent.skip(1),
+                viewWillAppearEvent: viewWillAppearEvent.dropFirst()
+                    .eraseToAnyPublisher(),
                 searchTextChangeEvent: searchController.searchBar
-                    .searchTextField.textChangeEvent.asObservable()
-                    .map { $0.text ?? "" },
+                    .searchTextField.textChangeEvent
+                    .asCurrentValueSubject(default: ""),
                 queryEnterEvent: searchController.searchBar.searchTextField
-                    .enterEvent.asObservable()
-                    .map { $0.text ?? "" },
-                scrollReachedBottomEvent: scrollReachedBottomEvent
-                    .throttle(period: 3),
+                    .didEndOnExitEvent,
+                scrollReachedBottomEvent: scrollReachedBottomEvent.throttle(
+                    for: 3,
+                    scheduler: RunLoop.main,
+                    latest: false
+                ).eraseToAnyPublisher(),
                 sortOptionSelectEvent: sortButton.sortSelectEvent,
                 colorOptionSelectEvent: colorButtonView.colorSelectEvent,
                 likeButtonTapEvent: collectionView.likeButtonTapEvent,
@@ -71,52 +75,50 @@ final class SearchViewController: BaseViewController, View {
         collectionView.backgroundView = collectionViewBGView
         
         output.searchState
-            .bind { [weak self] state in
-                guard let self else { return }
+            .withUnretained(self)
+            .sink { vc, state in
                 switch state {
                 case .emptyQuery:
-                    collectionView.applyItem(items: [])
+                    vc.collectionView.applyItem(items: [])
                     collectionViewBGView.text =
                     Literal.Search.beforeSearchBackground
-                    collectionView.backgroundView = collectionViewBGView
-                    hideProgressView()
+                    vc.collectionView.backgroundView = collectionViewBGView
+                    vc.hideProgressView()
                 case .searching:
-                    showProgressView()
+                    vc.showProgressView()
                 case .result(let items):
-                    collectionView.applyItem(items: items)
-                    hideProgressView()
+                    vc.collectionView.applyItem(items: items)
+                    vc.hideProgressView()
                     if items.isEmpty {
                         collectionViewBGView.text =
                         Literal.Search.emptyResultBackground
-                        collectionView.backgroundView = collectionViewBGView
+                        vc.collectionView.backgroundView = collectionViewBGView
                     } else {
-                        collectionView.backgroundView = nil
+                        vc.collectionView.backgroundView = nil
                     }
                 case .finalPage, .none:
                     break
                 }
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.changedImage
-            .bind { [weak self] item in
-                guard let self,
-                      let item else { return }
-                collectionView.updateItems([item])
-                showToast(message: item.isLiked ? "❤️" : "💔")
+            .withUnretained(self)
+            .sink { vc, item in
+                vc.collectionView.updateItems([item])
+                vc.showToast(message: item.isLiked ? "❤️" : "💔")
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.startDetailFlow
-            .bind { [weak self] image in
-                guard let self,
-                      let image else { return }
-                navigationController?.pushViewController(
+            .withUnretained(self)
+            .sink { vc, image in
+                vc.navigationController?.pushViewController(
                     DetailViewController(data: image),
                     animated: true
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
     }
     
     override func configureLayout() {
@@ -155,7 +157,7 @@ extension SearchViewController: UICollectionViewDelegate {
         if scrollView.contentOffset.y >=
             scrollView.contentSize.height - scrollView.bounds.size.height,
            scrollView.contentSize.height > scrollView.bounds.size.height {
-            scrollReachedBottomEvent.onNext(())
+            scrollReachedBottomEvent.send(())
         }
     }
     
@@ -163,8 +165,9 @@ extension SearchViewController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        let selectedItem =
-        (collectionView as? LikableCollectionView)?.getItem(for: indexPath)
-        didSelectItemEvent.onNext(selectedItem)
+        if let selectedItem = (collectionView as? LikableCollectionView)?
+            .getItem(for: indexPath) {
+            didSelectItemEvent.send(selectedItem)
+        }
     }
 }

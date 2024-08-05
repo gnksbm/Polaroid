@@ -48,13 +48,12 @@ final class FavoriteViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.likeButtonTapEvent
-            .sink { [weak self] imageData in
-                guard let self,
-                      let imageData else { return }
+            .withUnretained(self)
+            .sink { vm, imageData in
                 do {
-                    _ = try favoriteRepository.removeImage(imageData.item)
+                    _ = try vm.favoriteRepository.removeImage(imageData.item)
                     output.images.onNext(
-                        favoriteRepository.fetchImage()
+                        vm.favoriteRepository.fetchImage()
                     )
                     output.removeSuccessed.onNext(())
                 } catch {
@@ -77,7 +76,7 @@ extension FavoriteViewModel {
         let sortOptionSelectEvent: 
         CurrentValueSubject<FavoriteSortOption, Never>
         let colorOptionSelectEvent: CurrentValueSubject<ColorOption?, Never>
-        let likeButtonTapEvent: CurrentValueSubject<LikableImageData?, Never>
+        let likeButtonTapEvent: PassthroughSubject<LikableImageData, Never>
         let itemSelectEvent: Observable<LikableImage?>
     }
     

@@ -24,6 +24,13 @@ extension CombineControlCompatible where Self: UITextField {
             .eraseToAnyPublisher()
             .eraseToAnyPublisher()
     }
+    
+    var didEndOnExitEvent: AnyPublisher<String, Never> {
+        publisher(for: .editingDidEndOnExit)
+            .compactMap(\.text)
+            .eraseToAnyPublisher()
+            .eraseToAnyPublisher()
+    }
 }
 
 extension CombineControlCompatible where Self: UIDatePicker {

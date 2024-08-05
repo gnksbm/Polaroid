@@ -32,7 +32,7 @@ final class LikableCollectionView:
         }
     }
     
-    let likeButtonTapEvent = CurrentValueSubject<LikableImageData?, Never>(nil)
+    let likeButtonTapEvent = PassthroughSubject<LikableImageData, Never>()
     
     override init() {
         super.init()

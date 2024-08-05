@@ -12,127 +12,117 @@ final class SearchViewModel: ViewModel {
     private let searchRepository = SearchRepository.shared
     private let favoriteRepository = FavoriteRepository.shared
     
-    private var currentImage = Observable<[LikableImage]>([])
-    private var observableBag = ObservableBag()
+    private var currentImage = CurrentValueSubject<[LikableImage], Never>([])
     private var cancelBag = CancelBag()
     private var page = 1
     
     func transform(input: Input) -> Output {
         let output = Output(
-            searchState: Observable<SearchState>(.none),
-            changedImage: Observable<LikableImage?>(nil),
-            onError: Observable<Void>(()), 
-            startDetailFlow: Observable<LikableImage?>(nil)
+            searchState: CurrentValueSubject(.none),
+            changedImage: PassthroughSubject(),
+            onError: PassthroughSubject(),
+            startDetailFlow: PassthroughSubject()
         )
         
         currentImage
-            .bind { images in
-                output.searchState.onNext(.result(images))
+            .sink { images in
+                output.searchState.send(.result(images))
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.viewWillAppearEvent
-            .bind { [weak self] _ in
-                guard let self else { return }
-                let newImages = favoriteRepository.reConfigureImages(
-                    currentImage.value()
+            .withUnretained(self)
+            .sink { vm, _ in
+                let newImages = vm.favoriteRepository.reConfigureImages(
+                    vm.currentImage.value
                 )
-                currentImage.onNext(newImages)
+                vm.currentImage.send(newImages)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.searchTextChangeEvent
-            .bind { searchQuery in
+            .sink { searchQuery in
                 if searchQuery.isEmpty {
-                    output.searchState.onNext(.emptyQuery)
+                    output.searchState.send(.emptyQuery)
                 }
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.queryEnterEvent
-            .bind { [weak self] searchQuery in
-                guard let self,
-                      output.searchState.value().isSearchAllowed else {
-                    return
+            .withUnretained(self)
+            .sink { vm, searchQuery in
+                guard output.searchState.value.isSearchAllowed else { return }
+                vm.page = 1
+                vm.search(input: input, output: output) { images in
+                    vm.currentImage.send(images)
                 }
-                page = 1
-                search(input: input, output: output) { images in
-                    self.currentImage.onNext(images)
-                }
-                output.searchState.onNext(.searching)
+                output.searchState.send(.searching)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.scrollReachedBottomEvent
-            .bind { [weak self] _ in
-                guard let self,
-                      output.searchState.value().isSearchAllowed else {
-                    return
-                }
-                page += 1
-                search(input: input, output: output) { images in
-                    self.currentImage.onNext(
-                        self.currentImage.value() + images
+            .withUnretained(self)
+            .sink { vm, _ in
+                guard output.searchState.value.isSearchAllowed else { return }
+                vm.page += 1
+                vm.search(input: input, output: output) { images in
+                    vm.currentImage.send(
+                        vm.currentImage.value + images
                     )
                 }
-                output.searchState.onNext(.searching)
+                output.searchState.send(.searching)
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.likeButtonTapEvent
-            .sink { [weak self] imageData in
-                guard let self,
-                      let imageData else { return }
+            .withUnretained(self)
+            .sink { vm, imageData in
                 do {
+                    var newImage: LikableImage
                     if imageData.item.isLiked {
-                        let newImage =
-                        try favoriteRepository.removeImage(imageData.item)
-                        output.changedImage.onNext(newImage)
+                        newImage =
+                        try vm.favoriteRepository.removeImage(imageData.item)
                     } else {
                         var copy = imageData
                         copy.item.color =
                         input.colorOptionSelectEvent.value?.rawValue
-                        let newImage = try favoriteRepository.saveImage(copy)
-                        output.changedImage.onNext(newImage)
+                        newImage = try vm.favoriteRepository.saveImage(copy)
                     }
+                    output.changedImage.send(newImage)
                 } catch {
                     Logger.error(error)
-                    output.onError.onNext(())
+                    output.onError.send(())
                 }
             }
             .store(in: &cancelBag)
         
         input.colorOptionSelectEvent
-            .sink { [weak self] _ in
-                guard let self,
-                      output.searchState.value().isSearchAllowed else {
-                    return
+            .withUnretained(self)
+            .sink { vm, _ in
+                guard output.searchState.value.isSearchAllowed else { return }
+                vm.page += 1
+                vm.search(input: input, output: output) { images in
+                    vm.currentImage.send(images)
                 }
-                page += 1
-                search(input: input, output: output) { images in
-                    self.currentImage.onNext(images)
-                }
-                output.searchState.onNext(.searching)
+                output.searchState.send(.searching)
             }
             .store(in: &cancelBag)
         
         input.sortOptionSelectEvent
-            .sink { [weak self] _ in
-                guard let self,
-                      output.searchState.value().isSearchAllowed else {
-                    return
+            .withUnretained(self)
+            .sink { vm, _ in
+                guard output.searchState.value.isSearchAllowed else { return }
+                vm.page += 1
+                vm.search(input: input, output: output) { images in
+                    vm.currentImage.send(images)
                 }
-                page += 1
-                search(input: input, output: output) { images in
-                    self.currentImage.onNext(images)
-                }
-                output.searchState.onNext(.searching)
+                output.searchState.send(.searching)
             }
             .store(in: &cancelBag)
         
         input.itemSelectEvent
-            .bind(to: output.startDetailFlow)
-            .store(in: &observableBag)
+            .subscribe(output.startDetailFlow)
+            .store(in: &cancelBag)
         
         return output
     }
@@ -143,7 +133,7 @@ final class SearchViewModel: ViewModel {
         _ completion: @escaping ([LikableImage]) -> Void
     ) {
         do {
-            let query = input.searchTextChangeEvent.value()
+            let query = input.searchTextChangeEvent.value
             try query.validate(validator: UnsplashSearchValidator())
             searchRepository.search(
                 request: SearchRequest(
@@ -157,39 +147,39 @@ final class SearchViewModel: ViewModel {
                 switch result {
                 case .success(let success):
                     if success.page == page {
-                        output.searchState.onNext(.finalPage)
+                        output.searchState.send(.finalPage)
                     }
                     completion(
                         favoriteRepository.reConfigureImages(success.images)
                     )
                 case .failure(let error):
                     Logger.error(error)
-                    output.onError.onNext(())
+                    output.onError.send(())
                 }
             }
         } catch {
-            output.searchState.onNext(.emptyQuery)
+            output.searchState.send(.emptyQuery)
         }
     }
 }
 
 extension SearchViewModel {
     struct Input { 
-        let viewWillAppearEvent: Observable<Void>
-        let searchTextChangeEvent: Observable<String>
-        let queryEnterEvent: Observable<String>
-        let scrollReachedBottomEvent: Observable<Void>
+        let viewWillAppearEvent: AnyPublisher<Void, Never>
+        let searchTextChangeEvent: CurrentValueSubject<String, Never>
+        let queryEnterEvent: AnyPublisher<String, Never>
+        let scrollReachedBottomEvent: AnyPublisher<Void, Never>
         let sortOptionSelectEvent: CurrentValueSubject<SearchSortOption, Never>
         let colorOptionSelectEvent: CurrentValueSubject<ColorOption?, Never>
-        let likeButtonTapEvent: CurrentValueSubject<LikableImageData?, Never>
-        let itemSelectEvent: Observable<LikableImage?>
+        let likeButtonTapEvent: PassthroughSubject<LikableImageData, Never>
+        let itemSelectEvent: PassthroughSubject<LikableImage, Never>
     }
     
     struct Output {
-        let searchState: Observable<SearchState>
-        let changedImage: Observable<LikableImage?>
-        let onError: Observable<Void>
-        let startDetailFlow: Observable<LikableImage?>
+        let searchState: CurrentValueSubject<SearchState, Never>
+        let changedImage: PassthroughSubject<LikableImage, Never>
+        let onError: PassthroughSubject<Void, Never>
+        let startDetailFlow: PassthroughSubject<LikableImage, Never>
     }
     
     enum SearchState: Equatable {

@@ -16,4 +16,10 @@ extension Publisher {
             return (object, output)
         }
     }
+    
+    func asCurrentValueSubject(
+        default value: Output
+    ) -> CurrentValueSubject<Output, Failure> {
+        CurrentValueSubject<Output, Failure>(value)
+    }
 }
