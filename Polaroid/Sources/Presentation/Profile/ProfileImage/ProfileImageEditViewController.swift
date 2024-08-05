@@ -50,8 +50,7 @@ final class ProfileImageViewController: BaseViewController, View {
             input: ProfileImageViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent,
                 itemSelectEvent: collectionView.didSelectItemEvent
-                    .withUnretained(self)
-                    .map { vc, indexPath in
+                    .map(with: self) { vc, indexPath in
                         vc.collectionView.getItem(for: indexPath)
                     }
                     .eraseToAnyPublisher(),

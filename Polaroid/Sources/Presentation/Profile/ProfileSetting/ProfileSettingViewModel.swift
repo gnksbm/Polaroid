@@ -76,8 +76,7 @@ final class ProfileSettingViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.mbtiSelectEvent
-            .withUnretained(self)
-            .map { vm, mbti in
+            .map(with: self) { vm, mbti in
                 return vm.requiredInputFilled(
                     nickname: input.nicknameChangeEvent.value,
                     mbti: mbti,

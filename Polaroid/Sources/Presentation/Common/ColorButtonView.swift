@@ -76,8 +76,7 @@ final class ColorButtonView: UIScrollView {
         option: ColorOption
     ) {
         sender.tapEvent
-            .withUnretained(self)
-            .map { view, _ in
+            .map(with: self) { view, _ in
                 let selectedColor = view.colorSelectEvent.value
                 if selectedColor != option {
                     return option

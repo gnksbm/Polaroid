@@ -56,8 +56,7 @@ final class DetailViewController: BaseViewController, View {
                 viewDidLoadEvent: viewDidLoadEvent, 
                 viewWillAppearEvent: viewWillAppearEvent,
                 likeButtonTapEvent: createInfoView.likeButtonTapEvent
-                    .withUnretained(self)
-                    .map { vc, profileImageData in
+                    .map(with: self) { vc, profileImageData in
                         let imageData =
                         vc.imageView.image?.jpegData(compressionQuality: 1)
                         return (imageData, profileImageData)

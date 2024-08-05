@@ -28,6 +28,17 @@ extension Publisher {
         .sink(receiveValue: receiveValue)
     }
     
+    func map<Object: AnyObject, Result>(
+        with object: Object,
+        _ transform: @escaping (Object, Output) -> Result
+    ) -> Publishers.CompactMap<Self, (Result)> {
+        compactMap { [weak object] output in
+            guard let object else { return nil }
+            return (object, output)
+        }
+        .map(transform)
+    }
+    
     func asCurrentValueSubject(
         default value: Output
     ) -> CurrentValueSubject<Output, Failure> {

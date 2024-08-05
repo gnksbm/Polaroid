@@ -25,8 +25,7 @@ final class ImageCreateInfoView: BaseView {
     }
     
     lazy var likeButtonTapEvent = likeButton.tapEvent
-        .withUnretained(self)
-        .map { view, _ in
+        .map(with: self) { view, _ in
             view.creatorImageView.image?.jpegData(compressionQuality: 1)
         }
     

@@ -45,8 +45,8 @@ class ModernCollectionView
     func getItemSelectedEvent(
     ) -> AnyPublisher<Item, Never>
     where Section: CaseIterable, Section.AllCases.Index == Int {
-        didSelectItemEvent.withUnretained(self)
-            .map { view, indexPath in
+        didSelectItemEvent
+            .map(with: self) { view, indexPath in
                 view.getItem(for: indexPath)
             }
             .eraseToAnyPublisher()

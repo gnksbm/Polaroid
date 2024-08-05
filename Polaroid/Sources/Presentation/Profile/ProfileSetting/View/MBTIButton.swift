@@ -33,10 +33,8 @@ final class MBTIButton: CircleButton, ToggleView {
         super.init(dimension: dimension, padding: padding)
         bindColor()
         
-        
         tapEvent
-            .withUnretained(self)
-            .map { button, _ in button.selectedState.value }
+            .map(with: self) { button, _ in button.selectedState.value }
             .subscribe(selectedState)
             .store(in: &cancelBag)
     }

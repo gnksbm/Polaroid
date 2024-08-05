@@ -43,8 +43,7 @@ final class FavoriteViewController: BaseViewController, View {
                 colorOptionSelectEvent: colorButtonView.colorSelectEvent,
                 likeButtonTapEvent: collectionView.likeButtonTapEvent, 
                 itemSelectEvent: collectionView.didSelectItemEvent
-                    .withUnretained(self)
-                    .map { vc, indexPath in
+                    .map(with: self) { vc, indexPath in
                         vc.collectionView.getItem(for: indexPath)
                     }
                     .eraseToAnyPublisher()
