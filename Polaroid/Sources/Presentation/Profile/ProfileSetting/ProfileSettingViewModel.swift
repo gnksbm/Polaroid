@@ -22,20 +22,16 @@ final class ProfileSettingViewModel: ViewModel {
     
     func transform(input: Input) -> Output {
         let output = Output(
-            selectedImage: PassthroughSubject(),
+            selectedImage: selectedImage,
             validationResult: CurrentValueSubject(nil),
-            startEditProfileFlow: PassthroughSubject(),
+            startEditProfileFlow: input.profileTapEvent,
             doneButtonEnable: PassthroughSubject(),
             startMainTabFlow: PassthroughSubject(),
             selectedUser: PassthroughSubject(),
             finishFlow: PassthroughSubject(),
             showRemoveAccountButton: PassthroughSubject(),
-            showRemoveAlert: PassthroughSubject()
+            showRemoveAlert: input.removeAccountButtonTapEvent
         )
-        
-        selectedImage
-            .subscribe(output.selectedImage)
-            .store(in: &cancelBag)
         
         input.viewDidLoadEvent
             .withUnretained(self)
@@ -56,13 +52,9 @@ final class ProfileSettingViewModel: ViewModel {
             }
             .store(in: &cancelBag)
         
-        input.profileTapEvent
-            .subscribe(output.startEditProfileFlow)
-            .store(in: &cancelBag)
-        
         input.nicknameChangeEvent
-            .sink { [weak self] nickname in
-                guard let self else { return }
+            .withUnretained(self)
+            .sink { vm, nickname in
                 do {
                     try nickname.validate(validator: NicknameValidator())
                     let message = Literal.Nickname.validationSuccess
@@ -76,7 +68,7 @@ final class ProfileSettingViewModel: ViewModel {
                     )
                 }
                 output.doneButtonEnable.send(
-                    requiredInputFilled(
+                    vm.requiredInputFilled(
                         nickname: nickname,
                         mbti: input.mbtiSelectEvent.value,
                         output: output
@@ -86,9 +78,9 @@ final class ProfileSettingViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.mbtiSelectEvent
-            .map { [weak self] mbti in
-                guard let self else { return false }
-                return requiredInputFilled(
+            .withUnretained(self)
+            .map { vm, mbti in
+                return vm.requiredInputFilled(
                     nickname: input.nicknameChangeEvent.value,
                     mbti: mbti,
                     output: output
@@ -98,24 +90,19 @@ final class ProfileSettingViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.doneButtonTapEvent
-            .sink { [weak self] _ in
-                guard let self else { return }
-                createUser(input: input, output: output)
-            }
-            .store(in: &cancelBag)
-        
-        input.removeAccountButtonTapEvent
-            .sink { _ in
-                output.showRemoveAlert.send(())
+            .withUnretained(self)
+            .sink { vm, _ in
+                vm.createUser(input: input, output: output)
             }
             .store(in: &cancelBag)
         
         input.removeAlertTapEvent
-            .sink { [weak self] _ in
+            .withUnretained(self)
+            .sink { vm, _ in
                 @UserDefaultsWrapper(key: .user, defaultValue: nil)
                 var user: User?
                 _user.removeValue()
-                try? self?.favoriteRepository.removeAll()
+                try? vm.favoriteRepository.removeAll()
                 output.startMainTabFlow.send(())
             }
             .store(in: &cancelBag)
@@ -176,15 +163,15 @@ extension ProfileSettingViewModel {
     }
     
     struct Output {
-        let selectedImage: PassthroughSubject<UIImage?, Never>
+        let selectedImage: CurrentValueSubject<UIImage?, Never>
         let validationResult: CurrentValueSubject<ValidationResult?, Never>
-        let startEditProfileFlow: PassthroughSubject<Void, Never>
+        let startEditProfileFlow: AnyPublisher<Void, Never>
         let doneButtonEnable: PassthroughSubject<Bool, Never>
         let startMainTabFlow: PassthroughSubject<Void, Never>
         let selectedUser: PassthroughSubject<User, Never>
         let finishFlow: PassthroughSubject<Void, Never>
         let showRemoveAccountButton: PassthroughSubject<Void, Never>
-        let showRemoveAlert: PassthroughSubject<Void, Never>
+        let showRemoveAlert: AnyPublisher<Void, Never>
     }
     
     enum ValidationResult {
