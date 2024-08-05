@@ -12,9 +12,7 @@ final class RandomViewModel: ViewModel {
     private var randomRepository = RandomRepository.shared
     private var favoriteRepository = FavoriteRepository.shared
     
-    private var cancelBag = CancelBag()
-    
-    func transform(input: Input) -> Output {
+    func transform(input: Input, cancelBag: inout CancelBag) -> Output {
         let output = Output(
             randomImages: CurrentValueSubject([]),
             onError: PassthroughSubject(),

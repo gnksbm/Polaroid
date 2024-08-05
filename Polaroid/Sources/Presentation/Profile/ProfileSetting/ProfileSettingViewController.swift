@@ -125,7 +125,8 @@ final class ProfileSettingViewController: BaseViewController, View {
                 doneButtonTapEvent: doneButtonTapEvent,
                 removeAccountButtonTapEvent: removeAccountButton.tapEvent,
                 removeAlertTapEvent: removeAlertTapEvent.eraseToAnyPublisher()
-            )
+            ),
+            cancelBag: &cancelBag
         )
         
         cancelBag.insert {

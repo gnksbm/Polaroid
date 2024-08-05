@@ -13,13 +13,11 @@ final class ProfileImageViewModel: ViewModel {
     
     private var selectedImage: UIImage?
     
-    private var cancelBag = CancelBag()
-    
     init(selectedImage: UIImage?) {
         self.selectedImage = selectedImage
     }
     
-    func transform(input: Input) -> Output {
+    func transform(input: Input, cancelBag: inout CancelBag) -> Output {
         let output = Output(
             selectedImage: PassthroughSubject(),
             profileImages: PassthroughSubject()

@@ -47,7 +47,8 @@ final class FavoriteViewController: BaseViewController, View {
                         vc.collectionView.getItem(for: indexPath)
                     }
                     .eraseToAnyPublisher()
-            )
+            ),
+            cancelBag: &cancelBag
         )
         
         let collectionViewBGView = UILabel().nt.configure {

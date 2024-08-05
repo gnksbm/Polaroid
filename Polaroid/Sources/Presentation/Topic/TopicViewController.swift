@@ -54,7 +54,8 @@ final class TopicViewController: BaseViewController, View {
                 viewWillAppearEvent: viewWillAppearEvent,
                 profileTapEvent: profileButton.tapEvent,
                 itemSelectEvent: collectionView.getItemSelectedEvent()
-            )
+            ),
+            cancelBag: &cancelBag
         )
         
         cancelBag.insert {

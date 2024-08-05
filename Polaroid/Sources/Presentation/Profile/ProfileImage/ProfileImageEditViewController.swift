@@ -55,7 +55,8 @@ final class ProfileImageViewController: BaseViewController, View {
                     }
                     .eraseToAnyPublisher(),
                 viewWillDisappearEvent: viewWillDisappearEvent
-            )
+            ),
+            cancelBag: &cancelBag
         )
         
         cancelBag.insert {

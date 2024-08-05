@@ -10,9 +10,8 @@ import Foundation
 
 final class TopicViewModel: ViewModel {
     private let topicRepository = TopicRepository.shared
-    private var cancelBag = CancelBag()
     
-    func transform(input: Input) -> Output {
+    func transform(input: Input, cancelBag: inout CancelBag) -> Output {
         let output = Output(
             currentUser: PassthroughSubject(),
             imageDic: PassthroughSubject(),

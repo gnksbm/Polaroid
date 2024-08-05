@@ -14,13 +14,11 @@ final class DetailViewModel: ViewModel {
     private let statisticsRepository = StatisticsRepository.shared
     private let favoriteRepository = FavoriteRepository.shared
     
-    private var cancelBag = CancelBag()
-    
     init<T: MinimumImageData>(data: T) {
         self.data = data
     }
     
-    func transform(input: Input) -> Output {
+    func transform(input: Input, cancelBag: inout CancelBag) -> Output {
         let output = Output(
             detailImage: CurrentValueSubject(nil),
             changedImage: CurrentValueSubject(nil),

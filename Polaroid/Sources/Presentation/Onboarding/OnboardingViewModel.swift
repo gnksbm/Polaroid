@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 final class OnboardingViewModel: ViewModel {
-    func transform(input: Input) -> Output {
+    func transform(input: Input, cancelBag: inout CancelBag) -> Output {
         Output(
             startProfileFlow: input.startButtonTapEvent
         )

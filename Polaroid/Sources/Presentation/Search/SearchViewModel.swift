@@ -13,10 +13,9 @@ final class SearchViewModel: ViewModel {
     private let favoriteRepository = FavoriteRepository.shared
     
     private var currentImage = CurrentValueSubject<[LikableImage], Never>([])
-    private var cancelBag = CancelBag()
     private var page = 1
     
-    func transform(input: Input) -> Output {
+    func transform(input: Input, cancelBag: inout CancelBag) -> Output {
         let output = Output(
             searchState: CurrentValueSubject(.none),
             changedImage: PassthroughSubject(),

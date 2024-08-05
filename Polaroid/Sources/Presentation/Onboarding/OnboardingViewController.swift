@@ -50,7 +50,8 @@ final class OnboardingViewController: BaseViewController, View {
         let output = viewModel.transform(
             input: OnboardingViewModel.Input(
                 startButtonTapEvent: startButton.tapEvent
-            )
+            ),
+            cancelBag: &cancelBag
         )
         
         cancelBag.insert {

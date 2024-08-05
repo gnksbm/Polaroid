@@ -62,7 +62,8 @@ final class DetailViewController: BaseViewController, View {
                         return (imageData, profileImageData)
                     }
                     .eraseToAnyPublisher()
-            )
+            ),
+            cancelBag: &cancelBag
         )
         
         cancelBag.insert {

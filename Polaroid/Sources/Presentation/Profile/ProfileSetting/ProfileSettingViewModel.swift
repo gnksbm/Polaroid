@@ -14,13 +14,12 @@ final class ProfileSettingViewModel: ViewModel {
     private let favoriteRepository = FavoriteRepository.shared
     
     private let selectedImage = CurrentValueSubject<UIImage?, Never>(nil)
-    private var cancelBag = CancelBag()
     
     init(flowType: FlowType) {
         self.flowType = flowType
     }
     
-    func transform(input: Input) -> Output {
+    func transform(input: Input, cancelBag: inout CancelBag) -> Output {
         let output = Output(
             selectedImage: selectedImage,
             validationResult: CurrentValueSubject(nil),

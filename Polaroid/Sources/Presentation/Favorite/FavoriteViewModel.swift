@@ -11,9 +11,7 @@ import Combine
 final class FavoriteViewModel: ViewModel {
     private let favoriteRepository = FavoriteRepository.shared
     
-    private var cancelBag = CancelBag()
-    
-    func transform(input: Input) -> Output {
+    func transform(input: Input, cancelBag: inout CancelBag) -> Output {
         let output = Output(
             images: PassthroughSubject(),
             removeSuccessed: PassthroughSubject(),

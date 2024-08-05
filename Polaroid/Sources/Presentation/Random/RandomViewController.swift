@@ -46,7 +46,8 @@ final class RandomViewController: BaseViewController, View {
                 viewWillAppearEvent: viewWillAppearEvent,
                 itemSelectEvent: collectionView.cellTapEvent,
                 likeButtonTapEvent: collectionView.likeButtonTapEvent
-            )
+            ),
+            cancelBag: &cancelBag
         )
         
         cancelBag.insert {

@@ -68,7 +68,8 @@ final class SearchViewController: BaseViewController, View {
                 colorOptionSelectEvent: colorButtonView.colorSelectEvent,
                 likeButtonTapEvent: collectionView.likeButtonTapEvent,
                 itemSelectEvent: didSelectItemEvent
-            )
+            ),
+            cancelBag: &cancelBag
         )
         
         let collectionViewBGView = UILabel().nt.configure {
