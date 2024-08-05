@@ -21,7 +21,7 @@ final class SearchViewModel: ViewModel {
             searchState: CurrentValueSubject(.none),
             changedImage: PassthroughSubject(),
             onError: PassthroughSubject(),
-            startDetailFlow: PassthroughSubject()
+            startDetailFlow: input.itemSelectEvent
         )
         
         currentImage
@@ -31,8 +31,7 @@ final class SearchViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.viewWillAppearEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 let newImages = vm.favoriteRepository.reConfigureImages(
                     vm.currentImage.value
                 )
@@ -49,8 +48,7 @@ final class SearchViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.queryEnterEvent
-            .withUnretained(self)
-            .sink { vm, searchQuery in
+            .sink(with: self) { vm, searchQuery in
                 guard output.searchState.value.isSearchAllowed else { return }
                 vm.page = 1
                 vm.search(input: input, output: output) { images in
@@ -61,8 +59,7 @@ final class SearchViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.scrollReachedBottomEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 guard output.searchState.value.isSearchAllowed else { return }
                 vm.page += 1
                 vm.search(input: input, output: output) { images in
@@ -75,8 +72,7 @@ final class SearchViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.likeButtonTapEvent
-            .withUnretained(self)
-            .sink { vm, imageData in
+            .sink(with: self) { vm, imageData in
                 do {
                     var newImage: LikableImage
                     if imageData.item.isLiked {
@@ -97,8 +93,7 @@ final class SearchViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.colorOptionSelectEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 guard output.searchState.value.isSearchAllowed else { return }
                 vm.page += 1
                 vm.search(input: input, output: output) { images in
@@ -109,8 +104,7 @@ final class SearchViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.sortOptionSelectEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 guard output.searchState.value.isSearchAllowed else { return }
                 vm.page += 1
                 vm.search(input: input, output: output) { images in
@@ -118,10 +112,6 @@ final class SearchViewModel: ViewModel {
                 }
                 output.searchState.send(.searching)
             }
-            .store(in: &cancelBag)
-        
-        input.itemSelectEvent
-            .subscribe(output.startDetailFlow)
             .store(in: &cancelBag)
         
         return output

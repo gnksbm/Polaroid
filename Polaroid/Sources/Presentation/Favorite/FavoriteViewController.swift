@@ -58,8 +58,7 @@ final class FavoriteViewController: BaseViewController, View {
         }
         
         output.images
-            .withUnretained(self)
-            .sink { vc, images in
+            .sink(with: self) { vc, images in
                 if images.isEmpty {
                     collectionViewBGView.text =
                     Literal.Favorite.emptyResultBackground
@@ -72,22 +71,19 @@ final class FavoriteViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.removeSuccessed
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 vc.showToast(message: "💔")
             }
             .store(in: &cancelBag)
         
         output.onError
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 vc.showToast(message: "오류가 발생했습니다")
             }
             .store(in: &cancelBag)
         
         output.startDetailFlow
-            .withUnretained(self)
-            .sink { vc, image in
+            .sink(with: self) { vc, image in
                 vc.navigationController?.pushViewController(
                     DetailViewController(data: image),
                     animated: true

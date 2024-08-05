@@ -54,8 +54,7 @@ final class OnboardingViewController: BaseViewController, View {
         )
         
         output.startProfileFlow
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 vc.navigationController?.pushViewController(
                     ProfileSettingViewController(),
                     animated: true

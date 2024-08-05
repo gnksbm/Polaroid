@@ -124,15 +124,13 @@ final class ProfileSettingViewController: BaseViewController, View {
         )
         
         output.selectedImage
-            .withUnretained(self)
-            .sink { vc, image in
+            .sink(with: self) { vc, image in
                 vc.profileImageButton.setImage(image, for: .normal)
             }
             .store(in: &cancelBag)
         
         output.startEditProfileFlow
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 let profileVC = ProfileImageViewController()
                 let profileVM = ProfileImageViewModel(
                     selectedImage: vc.profileImageButton.imageView?.image
@@ -147,8 +145,7 @@ final class ProfileSettingViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.validationResult
-            .withUnretained(self)
-            .sink { vc, result in
+            .sink(with: self) { vc, result in
                 var message: String
                 switch result {
                 case .success(let str):
@@ -165,23 +162,20 @@ final class ProfileSettingViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.doneButtonEnable
-            .withUnretained(self)
-            .sink { vc, isEnabled in
+            .sink(with: self) { vc, isEnabled in
                 vc.doneButton.isEnabled = isEnabled
                 vc.saveButton.isEnabled = isEnabled
             }
             .store(in: &cancelBag)
         
         output.startMainTabFlow
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 vc.view.window?.rootViewController = .getCurrentRootVC()
             }
             .store(in: &cancelBag)
         
         output.selectedUser
-            .withUnretained(self)
-            .sink { vc, user in
+            .sink(with: self) { vc, user in
                 vc.profileImageButton.setImage(
                     UIImage(
                         data: user.profileImageData
@@ -194,22 +188,19 @@ final class ProfileSettingViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.finishFlow
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 vc.navigationController?.popViewController(animated: true)
             }
             .store(in: &cancelBag)
         
         output.showRemoveAccountButton
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 vc.removeAccountButton.isHidden = false
             }
             .store(in: &cancelBag)
         
         output.showRemoveAlert
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 vc.showAlert(
                     title: "계정을 삭제하시겠습니까?",
                     actionTitle: "확인"

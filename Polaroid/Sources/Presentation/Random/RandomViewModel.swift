@@ -23,15 +23,13 @@ final class RandomViewModel: ViewModel {
         )
         
         input.viewDidLoadEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 vm.fetchImages(output: output)
             }
             .store(in: &cancelBag)
         
         input.viewWillAppearEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 let images = output.randomImages.value
                 if images.count < 10 {
                     vm.fetchImages(output: output)

@@ -22,15 +22,13 @@ final class FavoriteViewModel: ViewModel {
         )
         
         input.viewWillAppearEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 output.images.send(vm.favoriteRepository.fetchImage())
             }
             .store(in: &cancelBag)
         
         input.sortOptionSelectEvent
-            .withUnretained(self)
-            .sink { vm, sortOption in
+            .sink(with: self) { vm, sortOption in
                 output.images.send(
                     vm.favoriteRepository.fetchImage(with: sortOption)
                 )
@@ -38,8 +36,7 @@ final class FavoriteViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.colorOptionSelectEvent
-            .withUnretained(self)
-            .sink { vm, colorOption in
+            .sink(with: self) { vm, colorOption in
                 output.images.send(
                     vm.favoriteRepository.fetchImage(with: colorOption)
                 )
@@ -47,8 +44,7 @@ final class FavoriteViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.likeButtonTapEvent
-            .withUnretained(self)
-            .sink { vm, imageData in
+            .sink(with: self) { vm, imageData in
                 do {
                     _ = try vm.favoriteRepository.removeImage(imageData.item)
                     output.images.send(

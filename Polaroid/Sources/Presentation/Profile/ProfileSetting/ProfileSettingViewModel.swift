@@ -34,8 +34,7 @@ final class ProfileSettingViewModel: ViewModel {
         )
         
         input.viewDidLoadEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 switch vm.flowType {
                 case .register:
                     vm.selectedImage.send(
@@ -53,8 +52,7 @@ final class ProfileSettingViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.nicknameChangeEvent
-            .withUnretained(self)
-            .sink { vm, nickname in
+            .sink(with: self) { vm, nickname in
                 do {
                     try nickname.validate(validator: NicknameValidator())
                     let message = Literal.Nickname.validationSuccess
@@ -90,15 +88,13 @@ final class ProfileSettingViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.doneButtonTapEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 vm.createUser(input: input, output: output)
             }
             .store(in: &cancelBag)
         
         input.removeAlertTapEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 @UserDefaultsWrapper(key: .user, defaultValue: nil)
                 var user: User?
                 _user.removeValue()

@@ -60,15 +60,13 @@ final class ProfileImageViewController: BaseViewController, View {
         )
         
         output.selectedImage
-            .withUnretained(self)
-            .sink { vc, image in
+            .sink(with: self) { vc, image in
                 vc.profileButton.setImage(image, for: .normal)
             }
             .store(in: &cancelBag)
         
         output.profileImages
-            .withUnretained(self)
-            .sink { vc, items in
+            .sink(with: self) { vc, items in
                 vc.collectionView.applyItem(items: items)
             }
             .store(in: &cancelBag)

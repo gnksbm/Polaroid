@@ -20,8 +20,7 @@ final class MBTIElementSelectionView
                 .perform { button in
                     button.tapEvent
                         .map { button }
-                        .withUnretained(self)
-                        .sink { view, button in
+                        .sink(with: self) { view, button in
                             view.bindButton(sender: button, element: element)
                         }
                         .store(in: &cancelBag)

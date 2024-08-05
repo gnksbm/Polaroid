@@ -59,8 +59,7 @@ final class DetailViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.likeButtonTapEvent
-            .withUnretained(self)
-            .sink { vm, data in
+            .sink(with: self) { vm, data in
                 guard var detailImage = output.detailImage.value
                 else { return }
                 if let currentImage = output.changedImage.value {

@@ -17,6 +17,17 @@ extension Publisher {
         }
     }
     
+    func sink<Object: AnyObject>(
+        with object: Object,
+        receiveValue: @escaping (Object, Output) -> Void
+    ) -> AnyCancellable where Failure == Never {
+        compactMap { [weak object] output in
+            guard let object else { return nil }
+            return (object, output)
+        }
+        .sink(receiveValue: receiveValue)
+    }
+    
     func asCurrentValueSubject(
         default value: Output
     ) -> CurrentValueSubject<Output, Failure> {

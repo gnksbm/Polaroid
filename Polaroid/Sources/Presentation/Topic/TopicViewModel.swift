@@ -22,8 +22,7 @@ final class TopicViewModel: ViewModel {
         )
         
         input.viewDidLoadEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 var itemDic = [TopicSection: [TopicImage]]()
                 let group = DispatchGroup()
                 TopicSection.allCases.forEach { section in

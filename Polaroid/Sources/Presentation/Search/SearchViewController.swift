@@ -75,8 +75,7 @@ final class SearchViewController: BaseViewController, View {
         collectionView.backgroundView = collectionViewBGView
         
         output.searchState
-            .withUnretained(self)
-            .sink { vc, state in
+            .sink(with: self) { vc, state in
                 switch state {
                 case .emptyQuery:
                     vc.collectionView.applyItem(items: [])
@@ -103,16 +102,14 @@ final class SearchViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.changedImage
-            .withUnretained(self)
-            .sink { vc, item in
+            .sink(with: self) { vc, item in
                 vc.collectionView.updateItems([item])
                 vc.showToast(message: item.isLiked ? "❤️" : "💔")
             }
             .store(in: &cancelBag)
         
         output.startDetailFlow
-            .withUnretained(self)
-            .sink { vc, image in
+            .sink(with: self) { vc, image in
                 vc.navigationController?.pushViewController(
                     DetailViewController(data: image),
                     animated: true

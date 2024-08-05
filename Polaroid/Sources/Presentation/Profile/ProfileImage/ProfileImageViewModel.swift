@@ -26,8 +26,7 @@ final class ProfileImageViewModel: ViewModel {
         )
         
         input.viewDidLoadEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 vm.setNewOutput(
                     output: output,
                     selectedImage: vm.selectedImage
@@ -36,8 +35,7 @@ final class ProfileImageViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.itemSelectEvent
-            .withUnretained(self)
-            .sink { vm, item in
+            .sink(with: self) { vm, item in
                 vm.selectedImage = item.image
                 vm.setNewOutput(
                     output: output,
@@ -47,8 +45,7 @@ final class ProfileImageViewModel: ViewModel {
             .store(in: &cancelBag)
         
         input.viewWillDisappearEvent
-            .withUnretained(self)
-            .sink { vm, _ in
+            .sink(with: self) { vm, _ in
                 vm.delegate?.finishedFlow(with: vm.selectedImage)
             }
             .store(in: &cancelBag)

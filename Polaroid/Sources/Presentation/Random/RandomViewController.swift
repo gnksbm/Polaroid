@@ -50,24 +50,21 @@ final class RandomViewController: BaseViewController, View {
         )
         
         output.randomImages
-            .withUnretained(self)
-            .sink { vc, items in
+            .sink(with: self) { vc, items in
                 vc.collectionView.applyItem(items: items)
                 vc.hideProgressView()
             }
             .store(in: &cancelBag)
         
         output.onError
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 vc.showToast(message: "오류가 발생했습니다")
                 vc.hideProgressView()
             }
             .store(in: &cancelBag)
         
         output.startDetailFlow
-            .withUnretained(self)
-            .sink { vc, image in
+            .sink(with: self) { vc, image in
                 vc.navigationController?.pushViewController(
                     DetailViewController(data: image),
                     animated: true
@@ -76,8 +73,7 @@ final class RandomViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.changedImage
-            .withUnretained(self)
-            .sink { vc, randomImage in
+            .sink(with: self) { vc, randomImage in
                 vc.collectionView.updateItems([randomImage])
                 vc.showToast(message: randomImage.isLiked ? "❤️" : "💔")
             }

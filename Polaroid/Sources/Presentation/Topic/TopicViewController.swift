@@ -58,8 +58,7 @@ final class TopicViewController: BaseViewController, View {
         )
         
         output.currentUser
-            .withUnretained(self)
-            .sink { vc, user in
+            .sink(with: self) { vc, user in
                 vc.profileButton.setImage(
                     UIImage(data: user.profileImageData),
                     for: .normal
@@ -68,8 +67,7 @@ final class TopicViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.imageDic
-            .withUnretained(self)
-            .sink { vc, itemDic in
+            .sink(with: self) { vc, itemDic in
                 vc.collectionView.applyItem { section in
                     itemDic[section, default: []]
                 }
@@ -78,16 +76,14 @@ final class TopicViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.onError
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 vc.showToast(message: "오류가 발생했습니다")
                 vc.hideProgressView()
             }
             .store(in: &cancelBag)
         
         output.startProfileFlow
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 vc.navigationController?.pushViewController(
                     ProfileSettingViewController(flowType: .edit),
                     animated: true
@@ -96,8 +92,7 @@ final class TopicViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.startDetailFlow
-            .withUnretained(self)
-            .sink { vc, image in
+            .sink(with: self) { vc, image in
                 vc.navigationController?.pushViewController(
                     DetailViewController(data: image),
                     animated: true

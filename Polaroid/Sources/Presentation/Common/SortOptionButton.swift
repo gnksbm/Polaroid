@@ -52,8 +52,7 @@ final class SortOptionButton<Option: SortOption>: BaseButton {
     
     private func bindButton() {
         tapEvent
-            .withUnretained(self)
-            .sink { button, _ in
+            .sink(with: self) { button, _ in
                 let options = Option.allCases
                 if let index = options.firstIndex(
                     of: button.sortSelectEvent.value
@@ -66,8 +65,7 @@ final class SortOptionButton<Option: SortOption>: BaseButton {
             .store(in: &cancelBag)
         
         sortSelectEvent
-            .withUnretained(self)
-            .sink { button, option in
+            .sink(with: self) { button, option in
                 button.configuration?.attributedTitle = AttributedString(
                     option.title,
                     attributes: AttributeContainer([

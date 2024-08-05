@@ -67,8 +67,7 @@ final class RandomCollectionView:
             text: "\(min(1, items.count)) / \(items.count)"
         )
         pageChangeEvent
-            .withUnretained(self)
-            .sink { view, cellIndex in
+            .sink(with: self) { view, cellIndex in
                 let itemCount =
                 view.diffableDataSource.snapshot(for: .main).items.count
                 view.capsuleView.updateLabel(

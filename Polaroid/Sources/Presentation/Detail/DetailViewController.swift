@@ -67,15 +67,13 @@ final class DetailViewController: BaseViewController, View {
         )
         
         output.detailImage
-            .withUnretained(self)
-            .sink { vc, detailImage in
+            .sink(with: self) { vc, detailImage in
                 vc.updateView(detailImage: detailImage)
             }
             .store(in: &cancelBag)
         
         output.changedImage
-            .withUnretained(self)
-            .sink { vc, detailImage in
+            .sink(with: self) { vc, detailImage in
                 guard let detailImage else { return }
                 vc.updateView(detailImage: detailImage)
                 vc.showToast(message: detailImage.isLiked ? "❤️" : "💔")
@@ -83,8 +81,7 @@ final class DetailViewController: BaseViewController, View {
             .store(in: &cancelBag)
         
         output.onError
-            .withUnretained(self)
-            .sink { vc, _ in
+            .sink(with: self) { vc, _ in
                 vc.showToast(message: "오류가 발생했습니다")
                 vc.hideProgressView()
             }
