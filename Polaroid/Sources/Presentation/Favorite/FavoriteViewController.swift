@@ -42,11 +42,7 @@ final class FavoriteViewController: BaseViewController, View {
                 sortOptionSelectEvent: sortButton.sortSelectEvent,
                 colorOptionSelectEvent: colorButtonView.colorSelectEvent,
                 likeButtonTapEvent: collectionView.likeButtonTapEvent, 
-                itemSelectEvent: collectionView.didSelectItemEvent
-                    .map(with: self) { vc, indexPath in
-                        vc.collectionView.getItem(for: indexPath)
-                    }
-                    .eraseToAnyPublisher()
+                itemSelectEvent: collectionView.getItemSelectedEvent()
             ),
             cancelBag: &cancelBag
         )

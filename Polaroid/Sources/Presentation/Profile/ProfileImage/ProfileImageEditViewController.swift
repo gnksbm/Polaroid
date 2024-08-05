@@ -49,11 +49,7 @@ final class ProfileImageViewController: BaseViewController, View {
         let output = viewModel.transform(
             input: ProfileImageViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent,
-                itemSelectEvent: collectionView.didSelectItemEvent
-                    .map(with: self) { vc, indexPath in
-                        vc.collectionView.getItem(for: indexPath)
-                    }
-                    .eraseToAnyPublisher(),
+                itemSelectEvent: collectionView.getItemSelectedEvent(),
                 viewWillDisappearEvent: viewWillDisappearEvent
             ),
             cancelBag: &cancelBag

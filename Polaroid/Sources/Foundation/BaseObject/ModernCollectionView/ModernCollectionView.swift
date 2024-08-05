@@ -141,6 +141,15 @@ class ModernCollectionView
         return diffableDataSource.snapshot(for: .main).items[indexPath.row]
     }
     
+    func getItemSelectedEvent(
+    ) -> AnyPublisher<Item, Never> where Section == SingleSection {
+        didSelectItemEvent
+            .map(with: self) { view, indexPath in
+                view.getItem(for: indexPath)
+            }
+            .eraseToAnyPublisher()
+    }
+    
     func applyItem(
         items: [Item],
         withAnimating: Bool = true
