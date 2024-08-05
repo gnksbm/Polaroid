@@ -5,29 +5,30 @@
 //  Created by gnksbm on 7/24/24.
 //
 
+import Combine
 import Foundation
 
 final class TopicViewModel: ViewModel {
     private let topicRepository = TopicRepository.shared
-    private var observableBag = ObservableBag()
+    private var cancelBag = CancelBag()
     
     func transform(input: Input) -> Output {
         let output = Output(
-            currentUser: Observable<User?>(nil),
-            imageDic: Observable([:]),
-            onError: Observable<Void>(()),
-            startProfileFlow: Observable<Void>(()),
-            startDetailFlow: Observable<TopicImage?>(nil)
+            currentUser: PassthroughSubject(),
+            imageDic: PassthroughSubject(),
+            onError: PassthroughSubject(),
+            startProfileFlow: PassthroughSubject(),
+            startDetailFlow: PassthroughSubject()
         )
         
         input.viewDidLoadEvent
-            .bind { [weak self] _ in
-                guard let self else { return }
+            .withUnretained(self)
+            .sink { vm, _ in
                 var itemDic = [TopicSection: [TopicImage]]()
                 let group = DispatchGroup()
                 TopicSection.allCases.forEach { section in
                     group.enter()
-                    self.topicRepository.fetchTopic(
+                    vm.topicRepository.fetchTopic(
                         request: TopicRequest(topicID: section.requestQuery)
                     ) { result in
                         switch result {
@@ -35,32 +36,34 @@ final class TopicViewModel: ViewModel {
                             itemDic[section] = images
                         case .failure(let error):
                             Logger.error(error)
-                            output.onError.onNext(())
+                            output.onError.send(())
                         }
                         group.leave()
                     }
                 }
                 group.notify(queue: .main) {
-                    output.imageDic.onNext(itemDic)
+                    output.imageDic.send(itemDic)
                 }
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.viewWillAppearEvent
-            .bind { _ in
+            .sink { _ in
                 @UserDefaultsWrapper(key: .user, defaultValue: nil)
                 var user: User?
-                output.currentUser.onNext(user)
+                if let user {
+                    output.currentUser.send(user)
+                }
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         input.profileTapEvent
-            .bind(to: output.startProfileFlow)
-            .store(in: &observableBag)
+            .subscribe(output.startProfileFlow)
+            .store(in: &cancelBag)
         
         input.itemSelectEvent
-            .bind(to: output.startDetailFlow)
-            .store(in: &observableBag)
+            .subscribe(output.startDetailFlow)
+            .store(in: &cancelBag)
         
         return output
     }
@@ -68,17 +71,17 @@ final class TopicViewModel: ViewModel {
 
 extension TopicViewModel {
     struct Input {
-        let viewDidLoadEvent: Observable<Void>
-        let viewWillAppearEvent: Observable<Void>
-        let profileTapEvent: Observable<Void>
-        let itemSelectEvent: Observable<TopicImage?>
+        let viewDidLoadEvent: PassthroughSubject<Void, Never>
+        let viewWillAppearEvent: PassthroughSubject<Void, Never>
+        let profileTapEvent: AnyPublisher<Void, Never>
+        let itemSelectEvent: AnyPublisher<TopicImage, Never>
     }
     
     struct Output {
-        let currentUser: Observable<User?>
-        let imageDic: Observable<[TopicSection: [TopicImage]]>
-        let onError: Observable<Void>
-        let startProfileFlow: Observable<Void>
-        let startDetailFlow: Observable<TopicImage?>
+        let currentUser: PassthroughSubject<User, Never>
+        let imageDic: PassthroughSubject<[TopicSection: [TopicImage]], Never>
+        let onError: PassthroughSubject<Void, Never>
+        let startProfileFlow: PassthroughSubject<Void, Never>
+        let startDetailFlow: PassthroughSubject<TopicImage, Never>
     }
 }

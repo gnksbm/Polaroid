@@ -5,6 +5,7 @@
 //  Created by gnksbm on 7/22/24.
 //
 
+import Combine
 import UIKit
 
 protocol ModernCollectionViewType:
@@ -39,6 +40,15 @@ class ModernCollectionView
     ) -> Item where Section: CaseIterable, Section.AllCases.Index == Int {
         let section = Section.allCases[indexPath.section]
         return diffableDataSource.snapshot(for: section).items[indexPath.row]
+    }
+    
+    func getItemSelectedEvent(
+    ) -> AnyPublisher<Item, Never>
+    where Section: CaseIterable, Section.AllCases.Index == Int {
+        didSelectItemEvent.withUnretained(self).map { view, indexPath in
+            view.getItem(for: indexPath)
+        }
+        .eraseToAnyPublisher()
     }
     
     func configureDataSource() {

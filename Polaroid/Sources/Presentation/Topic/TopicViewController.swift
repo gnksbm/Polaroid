@@ -5,14 +5,15 @@
 //  Created by gnksbm on 7/23/24.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 
 final class TopicViewController: BaseViewController, View {
-    private let viewDidLoadEvent = Observable<Void>(())
-    private let viewWillAppearEvent = Observable<Void>(())
-    private var observableBag = ObservableBag()
+    private let viewDidLoadEvent = PassthroughSubject<Void, Never>()
+    private let viewWillAppearEvent = PassthroughSubject<Void, Never>()
+    private var cancelBag = CancelBag()
     
     private let profileButton = ProfileImageButton(
         type: .static,
@@ -31,14 +32,14 @@ final class TopicViewController: BaseViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewDidLoadEvent.onNext(())
+        viewDidLoadEvent.send(())
         showProgressView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        viewWillAppearEvent.onNext(())
+        viewWillAppearEvent.send(())
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -51,64 +52,58 @@ final class TopicViewController: BaseViewController, View {
             input: TopicViewModel.Input(
                 viewDidLoadEvent: viewDidLoadEvent, 
                 viewWillAppearEvent: viewWillAppearEvent,
-                profileTapEvent: profileButton.tapEvent.asObservable()
-                    .map { _ in },
-                itemSelectEvent: collectionView.obDidSelectItemEvent
-                    .map { [weak self] indexPath in
-                        guard let self,
-                              let indexPath else { return nil }
-                        return collectionView.getItem(for: indexPath)
-                    }
+                profileTapEvent: profileButton.tapEvent,
+                itemSelectEvent: collectionView.getItemSelectedEvent()
             )
         )
         
         output.currentUser
-            .bind { [weak self] user in
-                guard let user else { return }
-                self?.profileButton.setImage(
+            .withUnretained(self)
+            .sink { vc, user in
+                vc.profileButton.setImage(
                     UIImage(data: user.profileImageData),
                     for: .normal
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.imageDic
-            .bind { [weak self] itemDic in
-                guard let self else { return }
-                collectionView.applyItem { section in
+            .withUnretained(self)
+            .sink { vc, itemDic in
+                vc.collectionView.applyItem { section in
                     itemDic[section, default: []]
                 }
-                hideProgressView()
+                vc.hideProgressView()
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.onError
-            .bind { [weak self] _ in
-                guard let self else { return }
-                showToast(message: "오류가 발생했습니다")
-                hideProgressView()
+            .withUnretained(self)
+            .sink { vc, _ in
+                vc.showToast(message: "오류가 발생했습니다")
+                vc.hideProgressView()
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.startProfileFlow
-            .bind { [weak self] _ in
-                self?.navigationController?.pushViewController(
+            .withUnretained(self)
+            .sink { vc, _ in
+                vc.navigationController?.pushViewController(
                     ProfileSettingViewController(flowType: .edit),
                     animated: true
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
         
         output.startDetailFlow
-            .bind { [weak self] image in
-                guard let self,
-                      let image else { return }
-                navigationController?.pushViewController(
+            .withUnretained(self)
+            .sink { vc, image in
+                vc.navigationController?.pushViewController(
                     DetailViewController(data: image),
                     animated: true
                 )
             }
-            .store(in: &observableBag)
+            .store(in: &cancelBag)
     }
     
     override func configureLayout() {
