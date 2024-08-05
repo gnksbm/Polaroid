@@ -38,5 +38,6 @@ final class NetworkMonitor {
     
     func stopMonitoring() {
         monitor.cancel()
+        latestStatus = NWPath.Status.requiresConnection
     }
 }
