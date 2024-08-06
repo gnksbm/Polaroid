@@ -12,7 +12,7 @@ final class ProfileImageCVCell: BaseCollectionViewCell, RegistrableCellType {
     static func makeRegistration() -> Registration<ProfileImageItem> {
         Registration { cell, indexPath, item in
             cell.imageView.image = item.image
-            cell.selectedState.send(item.isSelected)
+            cell.updateView(isSelected: item.isSelected)
         }
     }
     
@@ -46,7 +46,6 @@ final class ProfileImageCVCell: BaseCollectionViewCell, RegistrableCellType {
     }
     
     override func configureUI() {
-        bindColor()
         clipsToBounds = true
     }
 }

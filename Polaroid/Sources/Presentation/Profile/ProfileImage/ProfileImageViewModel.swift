@@ -34,7 +34,6 @@ final class ProfileImageViewModel: ViewModel {
             
             input.itemSelectEvent
                 .sink(with: self) { vm, item in
-                    vm.selectedImage = item.image
                     vm.setNewOutput(
                         output: output,
                         selectedImage: item.image
