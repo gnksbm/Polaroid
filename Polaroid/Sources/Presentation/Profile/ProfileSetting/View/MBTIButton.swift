@@ -14,10 +14,10 @@ final class MBTIButton: CircleButton, ToggleView {
     
     var foregroundColor: UIColor? {
         get {
-            tintColor
+            configuration?.baseForegroundColor
         }
         set {
-            setTitleColor(newValue, for: .normal)
+            configuration?.baseForegroundColor = newValue
         }
     }
     
@@ -32,10 +32,5 @@ final class MBTIButton: CircleButton, ToggleView {
     override init(dimension: CircleButton.Dimension, padding: CGFloat = 15) {
         super.init(dimension: dimension, padding: padding)
         bindColor()
-        
-        tapEvent
-            .map(with: self) { button, _ in button.selectedState.value }
-            .subscribe(selectedState)
-            .store(in: &cancelBag)
     }
 }
