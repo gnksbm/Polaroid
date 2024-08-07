@@ -158,6 +158,7 @@
 		BE5F22FD2C52732A00CC7DD6 /* LikableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22FC2C52732A00CC7DD6 /* LikableCollectionView.swift */; };
 		BE5F22FF2C52745C00CC7DD6 /* LikableImageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F22FE2C52745C00CC7DD6 /* LikableImageCVCell.swift */; };
 		BE5F23012C5768CD00CC7DD6 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F23002C5768CD00CC7DD6 /* UIWindow+.swift */; };
+		BE98C0462C621CD50058D3FA /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE98C0452C621CD50058D3FA /* ChartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -334,6 +335,7 @@
 		BE5F22FC2C52732A00CC7DD6 /* LikableCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikableCollectionView.swift; sourceTree = "<group>"; };
 		BE5F22FE2C52745C00CC7DD6 /* LikableImageCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikableImageCVCell.swift; sourceTree = "<group>"; };
 		BE5F23002C5768CD00CC7DD6 /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
+		BE98C0452C621CD50058D3FA /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -455,6 +457,7 @@
 			children = (
 				8EB3FEAC2C5627FC0012D1A3 /* DetailViewController.swift */,
 				8EB3FEAE2C56309B0012D1A3 /* DetailViewModel.swift */,
+				BE98C0442C621CD00058D3FA /* Chart */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -898,6 +901,14 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		BE98C0442C621CD00058D3FA /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				BE98C0452C621CD50058D3FA /* ChartView.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1067,6 +1078,7 @@
 				8E768E4C2C501AD10062431F /* HTTPMethod.swift in Sources */,
 				8E768E8D2C5147E90062431F /* ToastView.swift in Sources */,
 				BE5F22432C4FAA0B00CC7DD6 /* TopicCVCell.swift in Sources */,
+				BE98C0462C621CD50058D3FA /* ChartView.swift in Sources */,
 				BE5F22692C50F6E000CC7DD6 /* ProfileImageCVCell.swift in Sources */,
 				BE2AFBBB2C4E7D8000C6718C /* BaseStackView.swift in Sources */,
 				BE5F22472C4FAAF200CC7DD6 /* TopicViewController.swift in Sources */,
