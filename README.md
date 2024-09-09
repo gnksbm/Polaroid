@@ -5,7 +5,7 @@
 ### 지원 버전
 > iOS 15.0
 
-| 시장 요약 | 주식 상세 | 캔들 차트 | 검색 |
+| 토픽 | 쇼츠 | 검색 | 즐겨찾기 |
 | --- | --- | --- | --- |
 |![Simulator Screenshot - iPhone 15 Pro Max - 2024-09-09 at 13 54 03](https://github.com/user-attachments/assets/5100ec16-0f90-46ec-8b9a-f94c978578c2)|![Simulator Screenshot - iPhone 15 Pro Max - 2024-09-09 at 13 54 10](https://github.com/user-attachments/assets/57575a9b-8733-40bd-ab79-55848e19aa7f)|![Simulator Screenshot - iPhone 15 Pro Max - 2024-09-09 at 13 54 33](https://github.com/user-attachments/assets/8699915d-47bf-4888-a5b2-291bd02c13c7)|![Simulator Screenshot - iPhone 15 Pro Max - 2024-09-09 at 13 55 44](https://github.com/user-attachments/assets/0dc14fd4-99c7-4bf6-bb1e-6c1a47dc1a84)|
 
